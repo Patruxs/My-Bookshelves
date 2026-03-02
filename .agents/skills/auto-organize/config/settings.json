@@ -1,0 +1,9 @@
+{
+    "inbox_dir": "Inbox_Book",
+    "book_extensions": [".pdf", ".epub"],
+    "log_file": "auto_organize.log",
+    "classification": {
+        "auto_create_new_topics": true,
+        "always_confirm": true
+    }
+}

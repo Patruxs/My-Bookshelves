@@ -1,0 +1,29 @@
+# My Bookshelves - Git Ignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+*.egg-info/
+
+# Logs
+auto_organize.log
+
+# Generated / Temp
+repomix-output.xml
+_site/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
