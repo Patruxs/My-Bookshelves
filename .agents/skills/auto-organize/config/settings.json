@@ -1,9 +1,20 @@
 {
-    "inbox_dir": "Inbox_Book",
+    "inbox_dir": "Inbox",
+    "books_dir": "Books",
     "book_extensions": [".pdf", ".epub"],
     "log_file": "auto_organize.log",
     "classification": {
         "auto_create_new_topics": true,
         "always_confirm": true
+    },
+    "cover_optimization": {
+        "max_width": 250,
+        "format": "webp",
+        "quality": 60,
+        "note": "generate_data.py outputs WebP directly, optimize_covers.py is for legacy re-optimization"
+    },
+    "github_releases": {
+        "upload_script": "scripts/upload_releases.py",
+        "note": "Books stored on GitHub Releases to save repo space"
     }
 }
