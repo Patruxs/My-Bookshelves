@@ -7,7 +7,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Data_Structures_and_Algorithms/Leetcode Pattern Recognition Guide.pdf",
     "cover": "assets/covers/Leetcode_Pattern_Recognition_Guide.webp",
     "format": "pdf",
-    "description": "Identify recurring patterns in Leetcode problems — sliding window, two pointers, BFS/DFS, dynamic programming, and more."
+    "description": "Identify recurring patterns in Leetcode problems — sliding window, two pointers, BFS/DFS, dynamic programming, and more.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Leetcode.Pattern.Recognition.Guide.pdf"
   },
   {
     "id": "77f72d9c4a9d",
@@ -17,7 +18,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Data_Structures_and_Algorithms/Prefix Trees and Tries.pdf",
     "cover": "assets/covers/Prefix_Trees_and_Tries.webp",
     "format": "pdf",
-    "description": "Deep dive into trie data structures — implementation, operations (insert, search, delete), and real-world applications like autocomplete and spell checking."
+    "description": "Deep dive into trie data structures — implementation, operations (insert, search, delete), and real-world applications like autocomplete and spell checking.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Prefix.Trees.and.Tries.pdf"
   },
   {
     "id": "c8721601b8c7",
@@ -27,7 +29,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Crafting Interpreters.pdf",
     "cover": "assets/covers/Crafting_Interpreters.webp",
     "format": "pdf",
-    "description": "Build two complete interpreters from scratch — a tree-walk interpreter in Java and a bytecode VM in C. By Robert Nystrom."
+    "description": "Build two complete interpreters from scratch — a tree-walk interpreter in Java and a bytecode VM in C. By Robert Nystrom.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Crafting.Interpreters.pdf"
   },
   {
     "id": "00607e528f77",
@@ -37,7 +40,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Structure and Interpretation of Computer Programs.pdf",
     "cover": "assets/covers/Structure_and_Interpretation_of_Computer_Programs.webp",
     "format": "pdf",
-    "description": "The legendary MIT textbook (SICP) — abstraction, recursion, higher-order functions, interpreters, and metalinguistic abstraction. By Abelson & Sussman."
+    "description": "The legendary MIT textbook (SICP) — abstraction, recursion, higher-order functions, interpreters, and metalinguistic abstraction. By Abelson & Sussman.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Structure.and.Interpretation.of.Computer.Programs.pdf"
   },
   {
     "id": "de6fab6bbcdc",
@@ -47,7 +51,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Guide_To_Clear_Java_Developer_Interview_-_Contains_250_Java_Spring-Boot_Microservice_Interview_Questions.pdf",
     "cover": "assets/covers/Guide_To_Clear_Java_Developer_Interview_-_Contains_250_Java_Spring-Boot_Microservice_Interview_Quest.webp",
     "format": "pdf",
-    "description": "250 interview questions covering Java core, Spring Boot, microservices, REST APIs, and system design."
+    "description": "250 interview questions covering Java core, Spring Boot, microservices, REST APIs, and system design.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Guide_To_Clear_Java_Developer_Interview_-_Contains_250_Java_Spring-Boot_Microservice_Interview_Questions.pdf"
   },
   {
     "id": "df0228f044ba",
@@ -57,7 +62,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Head First Java 2nd Edition.pdf",
     "cover": "assets/covers/Head_First_Java_2nd_Edition.webp",
     "format": "pdf",
-    "description": "Beginner-friendly Java guide using visual learning — OOP, threading, networking, GUI with Swing, and collections."
+    "description": "Beginner-friendly Java guide using visual learning — OOP, threading, networking, GUI with Swing, and collections.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Head.First.Java.2nd.Edition.pdf"
   },
   {
     "id": "54f62490d4f4",
@@ -67,7 +73,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Introduction to Programming Using Java.pdf",
     "cover": "assets/covers/Introduction_to_Programming_Using_Java.webp",
     "format": "pdf",
-    "description": "Free CS1-level textbook — variables, control flow, arrays, OOP, recursion, linked lists, and GUI programming."
+    "description": "Free CS1-level textbook — variables, control flow, arrays, OOP, recursion, linked lists, and GUI programming.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Introduction.to.Programming.Using.Java.pdf"
   },
   {
     "id": "3b94f0b88ecd",
@@ -77,7 +84,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java How to Program, 9th edition.pdf",
     "cover": "assets/covers/Java_How_to_Program_9th_edition.webp",
     "format": "pdf",
-    "description": "Comprehensive Java textbook by Deitel & Deitel — OOP, generics, collections, JDBC, multithreading, networking."
+    "description": "Comprehensive Java textbook by Deitel & Deitel — OOP, generics, collections, JDBC, multithreading, networking.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Java.How.to.Program,.9th.edition.pdf"
   },
   {
     "id": "6148009eadca",
@@ -87,7 +95,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCP Oracle Certified Professional Java SE 21 Developer Study Guide.pdf",
     "cover": "assets/covers/OCP_Oracle_Certified_Professional_Java_SE_21_Developer_Study_Guide.webp",
     "format": "pdf",
-    "description": "Official study guide for Java SE 21 certification (1Z0-830) — records, sealed classes, pattern matching, virtual threads."
+    "description": "Official study guide for Java SE 21 certification (1Z0-830) — records, sealed classes, pattern matching, virtual threads.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/OCP.Oracle.Certified.Professional.Java.SE.21.Developer.Study.Guide.pdf"
   },
   {
     "id": "00accf0238cc",
@@ -97,7 +106,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Spring Start Here.pdf",
     "cover": "assets/covers/Spring_Start_Here.webp",
     "format": "pdf",
-    "description": "Gentle introduction to the Spring ecosystem — IoC, DI, Spring Boot, REST APIs, data persistence, and security."
+    "description": "Gentle introduction to the Spring ecosystem — IoC, DI, Spring Boot, REST APIs, data persistence, and security.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Spring.Start.Here.pdf"
   },
   {
     "id": "501642016f5f",
@@ -107,7 +117,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Teach Yourself Java in 21 days.pdf",
     "cover": "assets/covers/Teach_Yourself_Java_in_21_days.webp",
     "format": "pdf",
-    "description": "Day-by-day structured Java learning path — from Hello World to applets, networking, and multithreading."
+    "description": "Day-by-day structured Java learning path — from Hello World to applets, networking, and multithreading.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Teach.Yourself.Java.in.21.days.pdf"
   },
   {
     "id": "57632ee630cf",
@@ -117,7 +128,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/TroubleShooting Java, 2th edition.pdf",
     "cover": "assets/covers/TroubleShooting_Java_2th_edition.webp",
     "format": "pdf",
-    "description": "Practical guide for debugging Java apps — thread dumps, heap analysis, memory leaks, slow queries, and production issues."
+    "description": "Practical guide for debugging Java apps — thread dumps, heap analysis, memory leaks, slow queries, and production issues.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/TroubleShooting.Java,.2th.edition.pdf"
   },
   {
     "id": "1b28544f8e67",
@@ -127,7 +139,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/JavaScript/Eloquent JavaScript.pdf",
     "cover": "assets/covers/Eloquent_JavaScript.webp",
     "format": "pdf",
-    "description": "Modern JavaScript from the ground up — values, functions, closures, OOP, async/await, DOM, Node.js. By Marijn Haverbeke."
+    "description": "Modern JavaScript from the ground up — values, functions, closures, OOP, async/await, DOM, Node.js. By Marijn Haverbeke.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Eloquent.JavaScript.pdf"
   },
   {
     "id": "a6dfea49175d",
@@ -137,7 +150,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/20 Years of Linux Experience in 20Minutes.pdf",
     "cover": "assets/covers/20_Years_of_Linux_Experience_in_20Minutes.webp",
     "format": "pdf",
-    "description": "Quick-reference cheat sheet — essential Linux commands, file system, permissions, networking, processes, and shell scripting."
+    "description": "Quick-reference cheat sheet — essential Linux commands, file system, permissions, networking, processes, and shell scripting.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/20.Years.of.Linux.Experience.in.20Minutes.pdf"
   },
   {
     "id": "c8b3532fe551",
@@ -147,7 +161,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/A Latency Handbook for SWE - Quang Hoang.pdf",
     "cover": "assets/covers/A_Latency_Handbook_for_SWE_-_Quang_Hoang.webp",
     "format": "pdf",
-    "description": "Practical latency numbers every engineer should know — L1/L2 cache, RAM, SSD, network hops, and database queries."
+    "description": "Practical latency numbers every engineer should know — L1/L2 cache, RAM, SSD, network hops, and database queries.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/A.Latency.Handbook.for.SWE.-.Quang.Hoang.pdf"
   },
   {
     "id": "0f86c236faf9",
@@ -157,7 +172,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/Computer Systems A Programmer's Perspective 3rd Edition.pdf",
     "cover": "assets/covers/Computer_Systems_A_Programmers_Perspective_3rd_Edition.webp",
     "format": "pdf",
-    "description": "The definitive CS:APP textbook — data representation, assembly, memory hierarchy, caching, virtual memory, concurrency. By Bryant & O'Hallaron."
+    "description": "The definitive CS:APP textbook — data representation, assembly, memory hierarchy, caching, virtual memory, concurrency. By Bryant & O'Hallaron.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Computer.Systems.A.Programmer's.Perspective.3rd.Edition.pdf"
   },
   {
     "id": "514c2d481086",
@@ -167,7 +183,8 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/Operating Systems - Three Easy Pieces.pdf",
     "cover": "assets/covers/Operating_Systems_-_Three_Easy_Pieces.webp",
     "format": "pdf",
-    "description": "OSTEP — virtualization (CPU, memory), concurrency (threads, locks), and persistence (file systems, I/O). Free and widely used."
+    "description": "OSTEP — virtualization (CPU, memory), concurrency (threads, locks), and persistence (file systems, I/O). Free and widely used.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Operating.Systems.-.Three.Easy.Pieces.pdf"
   },
   {
     "id": "3e37d8473cc1",
@@ -177,7 +194,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Database/Database Internals.pdf",
     "cover": "assets/covers/Database_Internals.webp",
     "format": "pdf",
-    "description": "How databases work under the hood — B-Trees, LSM-Trees, storage engines, replication, consensus algorithms. By Alex Petrov."
+    "description": "How databases work under the hood — B-Trees, LSM-Trees, storage engines, replication, consensus algorithms. By Alex Petrov.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Database.Internals.pdf"
   },
   {
     "id": "12f19bc00082",
@@ -187,7 +205,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Database/SQL Performance Explained.pdf",
     "cover": "assets/covers/SQL_Performance_Explained.webp",
     "format": "pdf",
-    "description": "Master SQL indexing and query optimization — how indexes work, EXPLAIN plans, join strategies, pagination. By Markus Winand."
+    "description": "Master SQL indexing and query optimization — how indexes work, EXPLAIN plans, join strategies, pagination. By Markus Winand.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/SQL.Performance.Explained.pdf"
   },
   {
     "id": "4f678be9cfc3",
@@ -197,7 +216,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/DevOps/AWS Certified Cloud Practitioner Slides v42.pdf",
     "cover": "assets/covers/AWS_Certified_Cloud_Practitioner_Slides_v42.webp",
     "format": "pdf",
-    "description": "AWS Cloud Practitioner exam prep — core AWS services (EC2, S3, RDS, Lambda), billing, shared responsibility model."
+    "description": "AWS Cloud Practitioner exam prep — core AWS services (EC2, S3, RDS, Lambda), billing, shared responsibility model.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/AWS.Certified.Cloud.Practitioner.Slides.v42.pdf"
   },
   {
     "id": "a1a698923825",
@@ -207,7 +227,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/DevOps/DevOps Roadmap Ebook 2025.pdf",
     "cover": "assets/covers/DevOps_Roadmap_Ebook_2025.webp",
     "format": "pdf",
-    "description": "2025 DevOps learning roadmap — Linux, Git, CI/CD, Docker, Kubernetes, Terraform, monitoring, cloud platforms."
+    "description": "2025 DevOps learning roadmap — Linux, Git, CI/CD, Docker, Kubernetes, Terraform, monitoring, cloud platforms.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/DevOps.Roadmap.Ebook.2025.pdf"
   },
   {
     "id": "661d67200ae1",
@@ -217,7 +238,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Game_Development/Game Programming Patterns.pdf",
     "cover": "assets/covers/Game_Programming_Patterns.webp",
     "format": "pdf",
-    "description": "Design patterns applied to game development — game loop, update method, component, observer, command, flyweight. By Robert Nystrom."
+    "description": "Design patterns applied to game development — game loop, update method, component, observer, command, flyweight. By Robert Nystrom.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Game.Programming.Patterns.pdf"
   },
   {
     "id": "8085c161815e",
@@ -227,7 +249,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/A Philosophy of Software Design.pdf",
     "cover": "assets/covers/A_Philosophy_of_Software_Design.webp",
     "format": "pdf",
-    "description": "Fight complexity with deep modules, information hiding, and strategic programming. By John Ousterhout (Stanford)."
+    "description": "Fight complexity with deep modules, information hiding, and strategic programming. By John Ousterhout (Stanford).",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/A.Philosophy.of.Software.Design.pdf"
   },
   {
     "id": "3b6518be4e49",
@@ -237,7 +260,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Designing Data-Intensive Applications.pdf",
     "cover": "assets/covers/Designing_Data-Intensive_Applications.webp",
     "format": "pdf",
-    "description": "The DDIA bible — data models, storage engines, replication, partitioning, transactions, batch/stream processing. By Martin Kleppmann."
+    "description": "The DDIA bible — data models, storage engines, replication, partitioning, transactions, batch/stream processing. By Martin Kleppmann.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Designing.Data-Intensive.Applications.pdf"
   },
   {
     "id": "a22ba34cd675",
@@ -247,7 +271,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Kiến trúc ứng dụng web.epub",
     "cover": "assets/covers/Kiến_trúc_ứng_dụng_web.webp",
     "format": "epub",
-    "description": "Tài liệu tiếng Việt về kiến trúc ứng dụng web — MVC, microservices, API gateway, load balancing, caching."
+    "description": "Tài liệu tiếng Việt về kiến trúc ứng dụng web — MVC, microservices, API gateway, load balancing, caching.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Kiến.trúc.ứng.dụng.web.epub"
   },
   {
     "id": "ff1b9386cc0f",
@@ -257,7 +282,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Kiến trúc ứng dụng web.pdf",
     "cover": "assets/covers/Kiến_trúc_ứng_dụng_web.webp",
     "format": "pdf",
-    "description": "Tài liệu tiếng Việt về kiến trúc ứng dụng web — MVC, microservices, API gateway, load balancing, caching."
+    "description": "Tài liệu tiếng Việt về kiến trúc ứng dụng web — MVC, microservices, API gateway, load balancing, caching.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Kiến.trúc.ứng.dụng.web.pdf"
   },
   {
     "id": "b674c6f39ba3",
@@ -267,7 +293,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/System Design.pdf",
     "cover": "assets/covers/System_Design.webp",
     "format": "pdf",
-    "description": "Core system design concepts — scalability, load balancers, CDN, databases, caching, message queues, and real system designs."
+    "description": "Core system design concepts — scalability, load balancers, CDN, databases, caching, message queues, and real system designs.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/System.Design.pdf"
   },
   {
     "id": "563b493d4597",
@@ -277,7 +304,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/The Ultimate System Design Playbook.pdf",
     "cover": "assets/covers/The_Ultimate_System_Design_Playbook.webp",
     "format": "pdf",
-    "description": "Interview-focused system design guide — framework for design questions, common patterns, and 10+ detailed case studies."
+    "description": "Interview-focused system design guide — framework for design questions, common patterns, and 10+ detailed case studies.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/The.Ultimate.System.Design.Playbook.pdf"
   },
   {
     "id": "c625274c1fd3",
@@ -287,7 +315,8 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/go-with-domain.pdf",
     "cover": "assets/covers/go-with-domain.webp",
     "format": "pdf",
-    "description": "Domain-Driven Design in Go — clean architecture, CQRS, event sourcing, and practical DDD patterns. By Three Dots Labs."
+    "description": "Domain-Driven Design in Go — clean architecture, CQRS, event sourcing, and practical DDD patterns. By Three Dots Labs.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/go-with-domain.pdf"
   },
   {
     "id": "aadc828881fb",
@@ -297,7 +326,8 @@
     "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Cracking the Coding Interview.pdf",
     "cover": "assets/covers/Cracking_the_Coding_Interview.webp",
     "format": "pdf",
-    "description": "The #1 coding interview book — 189 problems with solutions, Big-O, data structures, algorithms, system design. By Gayle McDowell."
+    "description": "The #1 coding interview book — 189 problems with solutions, Big-O, data structures, algorithms, system design. By Gayle McDowell.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Cracking.the.Coding.Interview.pdf"
   },
   {
     "id": "97b60729d802",
@@ -307,7 +337,8 @@
     "file_path": "Books/3_Career_and_Professional_Development/Job_Search_and_Career_Growth/10 Essential Coding Projects to Master Your Fundamentals and Land a $100,000+ Job ASAP.pdf",
     "cover": "assets/covers/10_Essential_Coding_Projects_to_Master_Your_Fundamentals_and_Land_a_100000_Job_ASAP.webp",
     "format": "pdf",
-    "description": "10 portfolio-worthy projects to build your skills — full-stack apps, CLI tools, APIs, and more."
+    "description": "10 portfolio-worthy projects to build your skills — full-stack apps, CLI tools, APIs, and more.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/10.Essential.Coding.Projects.to.Master.Your.Fundamentals.and.Land.a.$100,000+.Job.ASAP.pdf"
   },
   {
     "id": "ab8fa24bf3fd",
@@ -317,7 +348,8 @@
     "file_path": "Books/3_Career_and_Professional_Development/Job_Search_and_Career_Growth/Learn How to Code Online and Land a 100k Job ASAP.pdf",
     "cover": "assets/covers/Learn_How_to_Code_Online_and_Land_a_100k_Job_ASAP.webp",
     "format": "pdf",
-    "description": "Roadmap for self-taught developers — best resources, learning strategies, portfolio building, resume tips."
+    "description": "Roadmap for self-taught developers — best resources, learning strategies, portfolio building, resume tips.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Learn.How.to.Code.Online.and.Land.a.100k.Job.ASAP.pdf"
   },
   {
     "id": "00ccca8e4bcb",
@@ -327,7 +359,8 @@
     "file_path": "Books/4_Miscellaneous/AI_and_Prompts/notebooklm-creative-agency-prompt-pack.pdf",
     "cover": "assets/covers/notebooklm-creative-agency-prompt-pack.webp",
     "format": "pdf",
-    "description": "Prompt pack for Google NotebookLM — creative agency templates, brainstorming prompts, AI-assisted content workflows."
+    "description": "Prompt pack for Google NotebookLM — creative agency templates, brainstorming prompts, AI-assisted content workflows.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/notebooklm-creative-agency-prompt-pack.pdf"
   },
   {
     "id": "da9bb699bae2",
@@ -337,7 +370,8 @@
     "file_path": "Books/4_Miscellaneous/English_Learning/AK Method Step By Step My English Learning Journey From Beginner To Advanced.pdf",
     "cover": "assets/covers/AK_Method_Step_By_Step_My_English_Learning_Journey_From_Beginner_To_Advanced.webp",
     "format": "pdf",
-    "description": "Personal journey from zero to advanced English — listening-first approach, shadowing techniques, input-based learning."
+    "description": "Personal journey from zero to advanced English — listening-first approach, shadowing techniques, input-based learning.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/AK.Method.Step.By.Step.My.English.Learning.Journey.From.Beginner.To.Advanced.pdf"
   },
   {
     "id": "e507464a45da",
@@ -347,7 +381,8 @@
     "file_path": "Books/4_Miscellaneous/English_Learning/THE 4-STEP ENGLISH MASTERY SYSTEM.pdf",
     "cover": "assets/covers/THE_4-STEP_ENGLISH_MASTERY_SYSTEM.webp",
     "format": "pdf",
-    "description": "A 4-step framework for English fluency — immersion, active listening, speaking practice, and feedback loops."
+    "description": "A 4-step framework for English fluency — immersion, active listening, speaking practice, and feedback loops.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/THE.4-STEP.ENGLISH.MASTERY.SYSTEM.pdf"
   },
   {
     "id": "c9bcc7f5557f",
@@ -357,7 +392,8 @@
     "file_path": "Books/4_Miscellaneous/English_Learning/The_Truth_About_Learning_English_v2.pdf",
     "cover": "assets/covers/The_Truth_About_Learning_English_v2.webp",
     "format": "pdf",
-    "description": "Debunks common myths about English learning — why grammar-first approaches fail, evidence-based methods that work."
+    "description": "Debunks common myths about English learning — why grammar-first approaches fail, evidence-based methods that work.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/The_Truth_About_Learning_English_v2.pdf"
   },
   {
     "id": "4ece58177e89",
@@ -367,7 +403,8 @@
     "file_path": "Books/5_University_Courses/Database_Administration/Quản trị cơ sở dữ liệu.pdf",
     "cover": "assets/covers/Quản_trị_cơ_sở_dữ_liệu.webp",
     "format": "pdf",
-    "description": "Giáo trình quản trị CSDL — cài đặt, cấu hình, backup/restore, quản lý user/permission, bảo mật."
+    "description": "Giáo trình quản trị CSDL — cài đặt, cấu hình, backup/restore, quản lý user/permission, bảo mật.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Quản.trị.cơ.sở.dữ.liệu.pdf"
   },
   {
     "id": "514345cf01d4",
@@ -377,7 +414,8 @@
     "file_path": "Books/5_University_Courses/E_Commerce/Thương mại điện tử.pdf",
     "cover": "assets/covers/Thương_mại_điện_tử.webp",
     "format": "pdf",
-    "description": "Giáo trình TMDT — mô hình kinh doanh online (B2B, B2C, C2C), hệ thống thanh toán, marketing số."
+    "description": "Giáo trình TMDT — mô hình kinh doanh online (B2B, B2C, C2C), hệ thống thanh toán, marketing số.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Thương.mại.điện.tử.pdf"
   },
   {
     "id": "ae370be16c7f",
@@ -387,7 +425,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch01_Gioi thieu ve PTTKHT.pdf",
     "cover": "assets/covers/Ch01_Gioi_thieu_ve_PTTKHT.webp",
     "format": "pdf",
-    "description": "Chương 1: Giới thiệu về PTTKHT — khái niệm hệ thống thông tin, vai trò phân tích viên, SDLC."
+    "description": "Chương 1: Giới thiệu về PTTKHT — khái niệm hệ thống thông tin, vai trò phân tích viên, SDLC.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch01_Gioi.thieu.ve.PTTKHT.pdf"
   },
   {
     "id": "5707b87d3f0b",
@@ -397,7 +436,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch02_Lap ke hoach va quan tri du an.pdf",
     "cover": "assets/covers/Ch02_Lap_ke_hoach_va_quan_tri_du_an.webp",
     "format": "pdf",
-    "description": "Chương 2: Lập kế hoạch và quản trị dự án — ước lượng chi phí, lập lịch, biểu đồ Gantt."
+    "description": "Chương 2: Lập kế hoạch và quản trị dự án — ước lượng chi phí, lập lịch, biểu đồ Gantt.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch02_Lap.ke.hoach.va.quan.tri.du.an.pdf"
   },
   {
     "id": "39fff3e363e6",
@@ -407,7 +447,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch03_Mô hình phat trien phan mem.pdf",
     "cover": "assets/covers/Ch03_Mô_hình_phat_trien_phan_mem.webp",
     "format": "pdf",
-    "description": "Chương 3: Mô hình phát triển phần mềm — Waterfall, Spiral, Agile, Scrum, V-Model."
+    "description": "Chương 3: Mô hình phát triển phần mềm — Waterfall, Spiral, Agile, Scrum, V-Model.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch03_Mô.hình.phat.trien.phan.mem.pdf"
   },
   {
     "id": "7f79d81eef48",
@@ -417,7 +458,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch04_Thu thap thong tin.pdf",
     "cover": "assets/covers/Ch04_Thu_thap_thong_tin.webp",
     "format": "pdf",
-    "description": "Chương 4: Thu thập thông tin — phỏng vấn, bảng câu hỏi, quan sát, nghiên cứu tài liệu."
+    "description": "Chương 4: Thu thập thông tin — phỏng vấn, bảng câu hỏi, quan sát, nghiên cứu tài liệu.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch04_Thu.thap.thong.tin.pdf"
   },
   {
     "id": "e8f186f845ef",
@@ -427,7 +469,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch05a_Mo hinh hoa quy trinh va du lieu.pdf",
     "cover": "assets/covers/Ch05a_Mo_hinh_hoa_quy_trinh_va_du_lieu.webp",
     "format": "pdf",
-    "description": "Chương 5a: Mô hình hóa quy trình và dữ liệu — biểu đồ DFD, mô hình ER, phân rã chức năng."
+    "description": "Chương 5a: Mô hình hóa quy trình và dữ liệu — biểu đồ DFD, mô hình ER, phân rã chức năng.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch05a_Mo.hinh.hoa.quy.trinh.va.du.lieu.pdf"
   },
   {
     "id": "be821c375d45",
@@ -437,7 +480,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch05b_Tu dien du lieu.pdf",
     "cover": "assets/covers/Ch05b_Tu_dien_du_lieu.webp",
     "format": "pdf",
-    "description": "Chương 5b: Từ điển dữ liệu — định nghĩa thực thể, thuộc tính, luồng dữ liệu, quy tắc ràng buộc."
+    "description": "Chương 5b: Từ điển dữ liệu — định nghĩa thực thể, thuộc tính, luồng dữ liệu, quy tắc ràng buộc.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch05b_Tu.dien.du.lieu.pdf"
   },
   {
     "id": "faa385b8f15b",
@@ -447,7 +491,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch06_Chuyen tiep sang giai doan thiet ke.pdf",
     "cover": "assets/covers/Ch06_Chuyen_tiep_sang_giai_doan_thiet_ke.webp",
     "format": "pdf",
-    "description": "Chương 6: Chuyển tiếp sang thiết kế — từ phân tích sang thiết kế, đặc tả yêu cầu."
+    "description": "Chương 6: Chuyển tiếp sang thiết kế — từ phân tích sang thiết kế, đặc tả yêu cầu.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch06_Chuyen.tiep.sang.giai.doan.thiet.ke.pdf"
   },
   {
     "id": "6e4303134d77",
@@ -457,7 +502,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch07_Thiet ke co so du lieu.pdf",
     "cover": "assets/covers/Ch07_Thiet_ke_co_so_du_lieu.webp",
     "format": "pdf",
-    "description": "Chương 7: Thiết kế CSDL — chuyển ER sang lược đồ quan hệ, chuẩn hóa (1NF-BCNF)."
+    "description": "Chương 7: Thiết kế CSDL — chuyển ER sang lược đồ quan hệ, chuẩn hóa (1NF-BCNF).",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch07_Thiet.ke.co.so.du.lieu.pdf"
   },
   {
     "id": "a2a939868255",
@@ -467,7 +513,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch08_Thiet ke giao dien nguoi dung.pdf",
     "cover": "assets/covers/Ch08_Thiet_ke_giao_dien_nguoi_dung.webp",
     "format": "pdf",
-    "description": "Chương 8: Thiết kế giao diện — nguyên tắc UI/UX, thiết kế form, menu, prototype."
+    "description": "Chương 8: Thiết kế giao diện — nguyên tắc UI/UX, thiết kế form, menu, prototype.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch08_Thiet.ke.giao.dien.nguoi.dung.pdf"
   },
   {
     "id": "6f7af92123a1",
@@ -477,7 +524,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch09_Thiet ke kien truc ung dung.pdf",
     "cover": "assets/covers/Ch09_Thiet_ke_kien_truc_ung_dung.webp",
     "format": "pdf",
-    "description": "Chương 9: Thiết kế kiến trúc ứng dụng — client-server, 3-tier, n-tier, phân chia module."
+    "description": "Chương 9: Thiết kế kiến trúc ứng dụng — client-server, 3-tier, n-tier, phân chia module.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch09_Thiet.ke.kien.truc.ung.dung.pdf"
   },
   {
     "id": "9e0e177bc758",
@@ -487,7 +535,8 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch10_Phat trien ung dung_cai dat_van hanh.pdf",
     "cover": "assets/covers/Ch10_Phat_trien_ung_dung_cai_dat_van_hanh.webp",
     "format": "pdf",
-    "description": "Chương 10: Phát triển, cài đặt, vận hành — coding standards, testing, deployment, bảo trì."
+    "description": "Chương 10: Phát triển, cài đặt, vận hành — coding standards, testing, deployment, bảo trì.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch10_Phat.trien.ung.dung_cai.dat_van.hanh.pdf"
   },
   {
     "id": "d3381679750d",
@@ -497,6 +546,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch11_Mo hinh hoa huong doi tuong.pdf",
     "cover": "assets/covers/Ch11_Mo_hinh_hoa_huong_doi_tuong.webp",
     "format": "pdf",
-    "description": "Chương 11: Mô hình hóa hướng đối tượng — biểu đồ UML (use case, class, sequence), OOAD."
+    "description": "Chương 11: Mô hình hóa hướng đối tượng — biểu đồ UML (use case, class, sequence), OOAD.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Ch11_Mo.hinh.hoa.huong.doi.tuong.pdf"
   }
 ]
