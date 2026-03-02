@@ -235,16 +235,17 @@ function renderBooks() {
         const globalIdx = start + i;
         const n = getCatNum(book.category);
         const delay = Math.min(i * 30, 300);
-        const cover = book.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(book.title));
-        return `<div class="card fade-in" style="animation-delay:${delay}ms" onclick="openModal(${globalIdx})" tabindex="0" role="button" aria-label="${esc(book.title)}">
+        const title = cleanTitle(book.title);
+        const cover = book.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
+        return `<div class="card fade-in" style="animation-delay:${delay}ms" onclick="openModal(${globalIdx})" tabindex="0" role="button" aria-label="${esc(title)}">
             <div class="card-cover">
-                <img src="${esc(cover)}" alt="${esc(book.title)}" loading="lazy" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(book.title))}'">
+                <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(title))}'">
                 <div class="card-overlay">
                     <span class="card-view"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>View</span>
                 </div>
             </div>
             <div class="card-info">
-                <div class="card-title">${esc(book.title)}</div>
+                <div class="card-title">${esc(title)}</div>
                 <span class="card-badge badge-${n}">${esc(book.topic)}</span>
             </div>
         </div>`;
@@ -323,7 +324,7 @@ function openModal(i) {
     const n = getCatNum(b.category);
 
     $("#m-cover").src = cover;
-    $("#m-title").textContent = b.title;
+    $("#m-title").textContent = cleanTitle(b.title);
     $("#m-cat").textContent = b.category;
     $("#m-cat").className = `modal-tag badge-${n}`;
     $("#m-topic").textContent = b.topic;
@@ -393,3 +394,4 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
 function escXml(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; } return h; }
+function cleanTitle(t) { return t.replace(/_/g, " ").replace(/\s+/g, " ").trim(); }
