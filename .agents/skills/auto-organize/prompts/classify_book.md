@@ -6,6 +6,8 @@ Given a book filename, determine the best **Category** and **Topic** folder wher
 
 ## CURRENT LIBRARY STRUCTURE
 
+All books are stored under the `Books/` directory:
+
 {library_structure}
 
 ## CLASSIFICATION RULES
@@ -19,6 +21,8 @@ Given a book filename, determine the best **Category** and **Topic** folder wher
 7. **System Design / Architecture**: Place in "Software_Architecture_and_Design".
 8. **Interview / Career books**: Place in "3_Career_and_Professional_Development".
 9. **English / Language learning**: Place in "4_Miscellaneous/English_Learning".
+10. **DevOps / Cloud / AWS**: Place in "2_Software_Engineering_Disciplines/DevOps".
+11. **Database books**: Place in "2_Software_Engineering_Disciplines/Database".
 
 ## RESPONSE FORMAT
 
@@ -59,6 +63,7 @@ If you recommend a NEW topic folder:
 
 ## IMPORTANT
 
+- The destination path will be: `Books/{category_folder}/{topic_folder}/`
 - If confidence < 0.5, the system will ask the user for manual confirmation
 - Always use Snake_Case for new folder suggestions
 - Preserve the numbered prefix convention (1*, 2*, 3\_, etc.)

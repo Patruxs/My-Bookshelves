@@ -48,8 +48,10 @@ BOOK_EXTENSIONS = {'.pdf', '.epub'}
 COVER_DIR = 'site/assets/covers'       # Filesystem path (relative to base_dir)
 COVER_WEB_PATH = 'assets/covers'       # Web URL path (relative to site/ root)
 OUTPUT_FILE = 'site/data.json'
-COVER_WIDTH = 600       # Max width for cover thumbnails
-COVER_QUALITY = 85      # JPEG quality
+BOOKS_DIR = 'Books'                    # Folder containing category subfolders
+COVER_WIDTH = 250       # Max width for cover thumbnails (optimized for web)
+COVER_QUALITY = 60      # WebP quality (target: <30KB per image)
+COVER_FORMAT = 'webp'   # Output format (webp for maximum compression)
 
 # Category folders expected at root level
 CATEGORY_PATTERN = re.compile(r'^(\d+)_(.+)$')
@@ -76,7 +78,7 @@ def parse_topic_name(folder_name: str) -> str:
 
 
 def extract_pdf_cover(pdf_path: str, output_path: str) -> bool:
-    """Extract first page of PDF as cover image."""
+    """Extract first page of PDF as cover image (WebP, optimized)."""
     if not HAS_PYMUPDF:
         return False
     try:
@@ -86,20 +88,19 @@ def extract_pdf_cover(pdf_path: str, output_path: str) -> bool:
             return False
 
         page = doc[0]
-        # Render at 2x for quality
+        # Render at 2x for quality before downscale
         zoom = 2.0
         mat = fitz.Matrix(zoom, zoom)
         pix = page.get_pixmap(matrix=mat, alpha=False)
 
-        # Save as JPEG
         if HAS_PILLOW:
             img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-            # Resize if too large
+            # Resize to max COVER_WIDTH
             if img.width > COVER_WIDTH:
                 ratio = COVER_WIDTH / img.width
                 new_height = int(img.height * ratio)
                 img = img.resize((COVER_WIDTH, new_height), Image.LANCZOS)
-            img.save(output_path, 'JPEG', quality=COVER_QUALITY, optimize=True)
+            img.save(output_path, 'WEBP', quality=COVER_QUALITY, method=6)
         else:
             pix.save(output_path)
 
@@ -111,7 +112,7 @@ def extract_pdf_cover(pdf_path: str, output_path: str) -> bool:
 
 
 def extract_epub_cover(epub_path: str, output_path: str) -> bool:
-    """Extract cover image from EPUB file."""
+    """Extract cover image from EPUB file (WebP, optimized)."""
     if not HAS_EBOOKLIB:
         return False
     try:
@@ -142,13 +143,13 @@ def extract_epub_cover(epub_path: str, output_path: str) -> bool:
             if HAS_PILLOW:
                 from io import BytesIO
                 img = Image.open(BytesIO(cover_image))
-                if img.mode != 'RGB':
+                if img.mode in ('RGBA', 'P'):
                     img = img.convert('RGB')
                 if img.width > COVER_WIDTH:
                     ratio = COVER_WIDTH / img.width
                     new_height = int(img.height * ratio)
                     img = img.resize((COVER_WIDTH, new_height), Image.LANCZOS)
-                img.save(output_path, 'JPEG', quality=COVER_QUALITY, optimize=True)
+                img.save(output_path, 'WEBP', quality=COVER_QUALITY, method=6)
             else:
                 with open(output_path, 'wb') as f:
                     f.write(cover_image)
@@ -189,8 +190,14 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
     print(f"\n📂 Scanning: {base}")
     print(f"📁 Covers directory: {covers_dir}\n")
 
+    # Books are inside the Books/ subdirectory
+    books_root = base / BOOKS_DIR
+    if not books_root.exists():
+        print(f"⚠️  Books directory not found: {books_root}")
+        return books
+
     # Iterate category folders
-    for cat_folder in sorted(base.iterdir()):
+    for cat_folder in sorted(books_root.iterdir()):
         if not cat_folder.is_dir():
             continue
         if not CATEGORY_PATTERN.match(cat_folder.name):
@@ -226,10 +233,15 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
                 # Relative path for frontend
                 rel_path = file_path.relative_to(base).as_posix()
 
-                # Cover filename
-                cover_filename = sanitize_filename(title) + '.jpg'
+                # Cover filename (.webp for optimization)
+                cover_filename = sanitize_filename(title) + '.webp'
                 cover_path = covers_dir / cover_filename
                 cover_rel = f"{COVER_WEB_PATH}/{cover_filename}"
+
+                # Also check for old .jpg covers
+                old_jpg = covers_dir / (sanitize_filename(title) + '.jpg')
+                if old_jpg.exists() and not cover_path.exists():
+                    old_jpg.unlink()  # Remove stale JPG
 
                 # Extract cover (skip if exists and not forced)
                 has_cover = False
@@ -284,8 +296,30 @@ def main():
 
     books = scan_books(args.base_dir, force_covers=args.force)
 
-    # Write data.json
+    # Load existing data.json to preserve descriptions
     output_path = Path(args.base_dir) / args.output
+    existing_descriptions = {}
+    existing_by_title = {}
+    if output_path.exists():
+        try:
+            with open(output_path, 'r', encoding='utf-8') as f:
+                existing = json.load(f)
+                for entry in existing:
+                    desc = entry.get('description', '')
+                    if desc:
+                        if entry.get('file_path'):
+                            existing_descriptions[entry['file_path']] = desc
+                        if entry.get('title'):
+                            existing_by_title[entry['title']] = desc
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    # Merge: keep existing descriptions (match by file_path first, then title)
+    for book in books:
+        if book['file_path'] in existing_descriptions:
+            book['description'] = existing_descriptions[book['file_path']]
+        elif book['title'] in existing_by_title:
+            book['description'] = existing_by_title[book['title']]
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(books, f, ensure_ascii=False, indent=2)
 

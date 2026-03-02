@@ -4,638 +4,1647 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 My Bookshelves — Personal Digital Library</title>
-    <meta name="description"
-        content="A curated personal library of technical books, university course materials, and self-development resources.">
-
-    <!-- TailwindCSS v3 CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e' },
-                        accent: { 50: '#fdf4ff', 100: '#fae8ff', 200: '#f5d0fe', 300: '#f0abfc', 400: '#e879f9', 500: '#d946ef', 600: '#c026d3', 700: '#a21caf', 800: '#86198f', 900: '#701a75' },
-                        surface: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 700: '#1e293b', 800: '#0f172a', 900: '#020617' },
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        display: ['Outfit', 'system-ui', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
+    <title>My Bookshelves</title>
+    <meta name="description" content="A curated personal library of technical books and resources.">
     <style>
-        /* === Base & Scrollbar === */
-        * {
+        /* ═══════════════════════════════════════════════════
+   APPLE-STYLE DESIGN SYSTEM — Zero Dependencies
+   System fonts · Inline SVG · Pure CSS
+   ═══════════════════════════════════════════════════ */
+
+        /* === Reset & Base === */
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #000000;
+            --bg-elevated: #1c1c1e;
+            --bg-secondary: #2c2c2e;
+            --bg-tertiary: #3a3a3c;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --text-tertiary: #6e6e73;
+            --accent: #2997ff;
+            --accent-hover: #0077ed;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.16);
+            --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.6);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --glass: rgba(28, 28, 30, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --transition: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            --sidebar-w: 300px;
+            --nav-h: 48px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* === Light Theme === */
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-elevated: #f5f5f7;
+            --bg-secondary: #e8e8ed;
+            --bg-tertiary: #d2d2d7;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-tertiary: #86868b;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --border: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(0, 0, 0, 0.15);
+            --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --glass: rgba(255, 255, 255, 0.72);
+            --glass-border: rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="light"] .shimmer {
+            background: linear-gradient(90deg, #f5f5f7 0%, #e8e8ed 50%, #f5f5f7 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
         }
 
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth
         }
 
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: #020617;
-            color: #e2e8f0;
-            min-height: 100vh;
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.47059;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden
         }
 
+        /* === Scrollbar (minimal) === */
         ::-webkit-scrollbar {
-            width: 5px;
+            width: 4px
         }
 
         ::-webkit-scrollbar-track {
-            background: transparent;
+            background: transparent
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 3px;
+            background: var(--bg-tertiary);
+            border-radius: 2px
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+        /* ═══════════════════════════════
+   NAVBAR — Apple Frosted Glass
+   ═══════════════════════════════ */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            height: var(--nav-h);
+            background: var(--glass);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--glass-border)
         }
 
-        /* === Animated Background === */
-        .bg-mesh {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background:
-                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(217, 70, 239, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 60% at 50% 80%, rgba(14, 165, 233, 0.04) 0%, transparent 50%),
-                #020617;
+        .nav-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            gap: 16px
         }
 
-        /* === Glass Card === */
-        .glass {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(148, 163, 184, 0.08);
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            flex-shrink: 0
+        }
+
+        .nav-logo svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.9
+        }
+
+        .nav-stats {
+            display: flex;
+            gap: 18px;
+            margin-left: auto
+        }
+
+        .nav-stat {
+            text-align: center;
+            line-height: 1.2
+        }
+
+        .nav-stat-num {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary)
+        }
+
+        .nav-stat-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-tertiary)
+        }
+
+        .nav-gh {
+            color: var(--text-tertiary);
+            transition: color var(--transition);
+            display: flex
+        }
+
+        .nav-gh:hover {
+            color: var(--text-primary)
+        }
+
+        .nav-gh svg {
+            width: 18px;
+            height: 18px
+        }
+
+        .nav-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px
+        }
+
+        .nav-menu-btn svg {
+            width: 20px;
+            height: 20px
+        }
+
+        /* ═══════════════════════════════
+   LAYOUT — Sidebar + Main
+   ═══════════════════════════════ */
+        .layout {
+            display: flex;
+            max-width: 1440px;
+            margin: 0 auto
         }
 
         /* === Sidebar === */
         .sidebar {
-            width: 280px;
-            min-width: 280px;
-            height: calc(100vh - 64px);
+            width: var(--sidebar-w);
+            min-width: var(--sidebar-w);
+            height: calc(100vh - var(--nav-h));
             position: sticky;
-            top: 64px;
+            top: var(--nav-h);
             overflow-y: auto;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            padding: 16px 12px;
+            border-right: 1px solid var(--border);
+            transition: transform var(--transition), opacity var(--transition)
         }
 
-        .sidebar-category {
+        .sidebar-heading {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-tertiary);
+            padding: 0 10px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .sidebar-heading button {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            font-family: var(--font)
         }
 
-        .sidebar-category:hover {
-            background: rgba(148, 163, 184, 0.06);
+        .sidebar-heading button:hover {
+            color: var(--text-secondary)
         }
 
-        .sidebar-category.active {
-            background: rgba(14, 165, 233, 0.08);
-            border-color: rgba(14, 165, 233, 0.2);
-        }
-
-        .sidebar-topic {
+        /* Sidebar: All Books button */
+        .sb-all {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
             cursor: pointer;
-            transition: all 0.15s ease;
-            position: relative;
+            font-family: var(--font);
+            margin-bottom: 4px;
+            transition: background var(--transition), color var(--transition)
         }
 
-        .sidebar-topic:hover {
-            color: #e2e8f0;
-            background: rgba(148, 163, 184, 0.04);
+        .sb-all:hover {
+            background: var(--bg-elevated);
+            color: var(--text-primary)
         }
 
-        .sidebar-topic.active {
-            color: #38bdf8;
-            background: rgba(14, 165, 233, 0.06);
+        .sb-all.active {
+            background: var(--bg-elevated);
+            color: var(--text-primary)
         }
 
-        .sidebar-topic.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 4px;
-            bottom: 4px;
-            width: 2px;
-            background: #38bdf8;
-            border-radius: 1px;
+        .sb-all svg {
+            width: 14px;
+            height: 14px;
+            opacity: 0.5
         }
 
-        .category-chevron {
+        .sb-all-count {
+            margin-left: auto;
+            font-size: 11px;
+            color: var(--text-tertiary)
+        }
+
+        /* Sidebar: Category */
+        .sb-cat {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: background var(--transition), color var(--transition)
+        }
+
+        .sb-cat:hover {
+            background: var(--bg-elevated);
+            color: var(--text-primary)
+        }
+
+        .sb-cat.active {
+            color: var(--text-primary)
+        }
+
+        .sb-cat-icon {
+            font-size: 14px;
+            flex-shrink: 0
+        }
+
+        .sb-cat-name {
+            flex: 1;
+            text-align: left;
+            line-height: 1.3
+        }
+
+        .sb-cat-count {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            flex-shrink: 0
+        }
+
+        .sb-chevron {
+            width: 10px;
+            height: 10px;
+            color: var(--text-tertiary);
             transition: transform 0.2s ease;
+            flex-shrink: 0
         }
 
-        .category-chevron.open {
-            transform: rotate(90deg);
+        .sb-chevron.open {
+            transform: rotate(90deg)
         }
 
-        .topic-list {
+        /* Sidebar: Topics */
+        .sb-topics {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
+            padding-left: 12px
         }
 
-        .topic-list.open {
-            max-height: 500px;
+        .sb-topics.open {
+            max-height: 600px
         }
 
-        /* Sidebar toggle for mobile */
-        .sidebar-overlay {
+        .sb-topic {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.2s ease;
+            position: relative
+        }
+
+        .sb-topic:hover {
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03)
+        }
+
+        .sb-topic.active {
+            color: var(--accent)
+        }
+
+        .sb-topic-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            opacity: 0.5
+        }
+
+        .sb-topic-name {
+            flex: 1;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .sb-topic-count {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            flex-shrink: 0
+        }
+
+        /* Category dot colors */
+        .dot-1 {
+            background: #2997ff
+        }
+
+        .dot-2 {
+            background: #30d158
+        }
+
+        .dot-3 {
+            background: #ff9f0a
+        }
+
+        .dot-4 {
+            background: #ff375f
+        }
+
+        .dot-5 {
+            background: #bf5af2
+        }
+
+        /* Sidebar overlay (mobile) */
+        .sb-overlay {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 30;
             background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px)
         }
 
-        .sidebar-overlay.active {
-            display: block;
+        .sb-overlay.active {
+            display: block
         }
 
-        @media (max-width: 1023px) {
+        @media(max-width:1199px) {
             .sidebar {
                 position: fixed;
                 left: 0;
                 top: 0;
+                width: 320px;
+                min-width: 320px;
                 height: 100vh;
                 z-index: 40;
+                background: var(--glass);
+                backdrop-filter: saturate(180%) blur(20px);
+                -webkit-backdrop-filter: saturate(180%) blur(20px);
+                border-right: 1px solid var(--glass-border);
+                box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
                 transform: translateX(-100%);
                 opacity: 0;
+                padding: 20px 16px;
+                padding-top: 60px;
             }
 
             .sidebar.open {
                 transform: translateX(0);
-                opacity: 1;
+                opacity: 1
+            }
+
+            .nav-menu-btn {
+                display: flex
+            }
+
+            /* Larger text in sidebar for touch */
+            .sidebar-heading {
+                padding: 0 12px 10px;
+                font-size: 12px;
+            }
+
+            .sb-all {
+                padding: 10px 12px;
+                font-size: 14px;
+                gap: 10px;
+                border-radius: 10px;
+            }
+
+            .sb-cat {
+                padding: 9px 12px;
+                font-size: 14px;
+                gap: 8px;
+                border-radius: 10px;
+            }
+
+            .sb-cat-name {
+                white-space: normal;
+            }
+
+            .sb-topic {
+                padding: 7px 12px;
+                font-size: 13px;
             }
         }
 
-        /* === Book Card === */
-        .book-card {
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-            cursor: pointer;
+        /* ═══════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════ */
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding: 20px 24px 60px
         }
 
-        .book-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 60px -15px rgba(14, 165, 233, 0.2), 0 0 0 1px rgba(14, 165, 233, 0.1);
-        }
-
-        .book-card:hover .book-cover-overlay {
-            opacity: 1;
-        }
-
-        .book-card:hover .book-cover img {
-            transform: scale(1.05);
-        }
-
-        .book-cover {
+        /* === Search Bar — Apple-style === */
+        .search {
             position: relative;
-            overflow: hidden;
-            aspect-ratio: 3/4;
+            margin-bottom: 16px
         }
 
-        .book-cover img {
+        .search-input {
+            width: 100%;
+            height: 40px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 16px 0 38px;
+            font-size: 14px;
+            color: var(--text-primary);
+            font-family: var(--font);
+            outline: none;
+            transition: border-color var(--transition), box-shadow var(--transition)
+        }
+
+        .search-input::placeholder {
+            color: var(--text-tertiary)
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.15)
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: var(--text-tertiary);
+            pointer-events: none
+        }
+
+        .search-kbd {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            background: var(--bg-secondary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border)
+        }
+
+        /* === Toolbar === */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px
+        }
+
+        .toolbar-select {
+            height: 34px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0 30px 0 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-family: var(--font);
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%236e6e73' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            transition: border-color var(--transition)
+        }
+
+        .toolbar-select:hover {
+            border-color: var(--border-hover)
+        }
+
+        .toolbar-spacer {
+            flex: 1
+        }
+
+        .sort-group {
+            display: flex;
+            gap: 2px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 2px
+        }
+
+        .sort-btn {
+            height: 28px;
+            padding: 0 10px;
+            border: none;
+            background: none;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            font-weight: 500;
+            font-family: var(--font);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease
+        }
+
+        .sort-btn:hover {
+            color: var(--text-secondary)
+        }
+
+        .sort-btn.active {
+            background: var(--bg-tertiary);
+            color: var(--text-primary)
+        }
+
+        .book-count {
+            font-size: 12px;
+            color: var(--text-tertiary)
+        }
+
+        /* ═══════════════════════════════
+   BOOK GRID — Apple Card Style
+   ═══════════════════════════════ */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px
+        }
+
+        @media(max-width:640px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px
+            }
+        }
+
+        .card {
+            background: var(--bg-elevated);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition);
+            border: 1px solid var(--border)
+        }
+
+        .card:hover {
+            transform: scale(1.03) translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-hover)
+        }
+
+        .card-cover {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: var(--bg-secondary)
+        }
+
+        .card-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)
         }
 
-        .book-cover-overlay {
+        .card:hover .card-cover img {
+            transform: scale(1.06)
+        }
+
+        .card-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(2, 6, 23, 0.9) 0%, rgba(2, 6, 23, 0.3) 40%, transparent 100%);
+            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.7) 100%);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity var(--transition);
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            padding-bottom: 1rem;
+            padding-bottom: 12px
         }
 
-        /* === Category Badge Colors === */
-        .badge-cs {
-            background: rgba(14, 165, 233, 0.15);
-            color: #38bdf8;
-            border: 1px solid rgba(14, 165, 233, 0.2);
+        .card:hover .card-overlay {
+            opacity: 1
         }
 
-        .badge-se {
-            background: rgba(52, 211, 153, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(52, 211, 153, 0.2);
+        .card-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15)
         }
 
-        .badge-career {
-            background: rgba(251, 191, 36, 0.15);
-            color: #fbbf24;
-            border: 1px solid rgba(251, 191, 36, 0.2);
+        .card-view svg {
+            width: 13px;
+            height: 13px
         }
 
-        .badge-misc {
-            background: rgba(244, 114, 182, 0.15);
-            color: #f472b6;
-            border: 1px solid rgba(244, 114, 182, 0.2);
+        .card-info {
+            padding: 12px 14px 14px
         }
 
-        .badge-uni {
-            background: rgba(167, 139, 250, 0.15);
-            color: #a78bfa;
-            border: 1px solid rgba(167, 139, 250, 0.2);
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.35;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em
         }
 
-        /* Sidebar badge colors */
-        .dot-cs {
-            background: #38bdf8;
+        .card-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.01em
         }
 
-        .dot-se {
-            background: #34d399;
+        .badge-1 {
+            background: rgba(41, 151, 255, 0.12);
+            color: #2997ff
         }
 
-        .dot-career {
-            background: #fbbf24;
+        .badge-2 {
+            background: rgba(48, 209, 88, 0.12);
+            color: #30d158
         }
 
-        .dot-misc {
-            background: #f472b6;
+        .badge-3 {
+            background: rgba(255, 159, 10, 0.12);
+            color: #ff9f0a
         }
 
-        .dot-uni {
-            background: #a78bfa;
+        .badge-4 {
+            background: rgba(255, 55, 95, 0.12);
+            color: #ff375f
         }
 
-        /* === Modal === */
-        .modal-backdrop {
+        .badge-5 {
+            background: rgba(191, 90, 242, 0.12);
+            color: #bf5af2
+        }
+
+        /* === Loading Skeleton === */
+        .skeleton {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border)
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, var(--bg-elevated) 0%, var(--bg-secondary) 50%, var(--bg-elevated) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0
+            }
+
+            100% {
+                background-position: -200% 0
+            }
+        }
+
+        /* === No Results === */
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 80px 20px
+        }
+
+        .no-results.visible {
+            display: block
+        }
+
+        .no-results-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            color: var(--text-tertiary);
+            opacity: 0.4
+        }
+
+        .no-results h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 4px
+        }
+
+        .no-results p {
+            font-size: 13px;
+            color: var(--text-tertiary)
+        }
+
+        /* === Fade In === */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .fade-in {
+            animation: fadeUp 0.4s ease forwards;
+            opacity: 0
+        }
+
+        /* ═══════════════════════════════
+   MODAL — Apple Sheet Style
+   ═══════════════════════════════ */
+        .modal-bg {
             position: fixed;
             inset: 0;
-            z-index: 50;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
+            z-index: 60;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease
         }
 
-        .modal-backdrop.active {
+        .modal-bg.active {
             opacity: 1;
-            visibility: visible;
+            visibility: visible
         }
 
-        .modal-backdrop.active .modal-content {
+        .modal-bg.active .modal {
             transform: scale(1) translateY(0);
-            opacity: 1;
+            opacity: 1
         }
 
-        .modal-content {
-            transform: scale(0.95) translateY(20px);
+        .modal {
+            background: var(--bg-elevated);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            max-width: 600px;
+            width: calc(100% - 32px);
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.96) translateY(16px);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6)
         }
 
-        /* === Search Glow === */
-        .search-glow:focus-within {
-            box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.3), 0 0 30px -5px rgba(14, 165, 233, 0.15);
-            border-color: rgba(14, 165, 233, 0.4);
+        .modal-inner {
+            padding: 28px
         }
 
-        /* === Select Styling === */
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            padding-right: 2.5rem;
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            transition: all 0.2s ease
         }
 
-        /* === Shimmer Loading === */
-        .shimmer {
-            background: linear-gradient(90deg, rgba(30, 41, 59, 1) 0%, rgba(51, 65, 85, 0.5) 50%, rgba(30, 41, 59, 1) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
+        .modal-close:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary)
         }
 
-        @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
+        .modal-close svg {
+            width: 12px;
+            height: 12px
+        }
+
+        .modal-body {
+            display: flex;
+            gap: 24px
+        }
+
+        .modal-cover {
+            width: 160px;
+            flex-shrink: 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-card)
+        }
+
+        .modal-cover img {
+            width: 100%;
+            display: block
+        }
+
+        .modal-detail {
+            flex: 1;
+            min-width: 0
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: var(--text-primary)
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px
+        }
+
+        .modal-tag {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500
+        }
+
+        .tag-cat {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border)
+        }
+
+        .tag-topic {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border)
+        }
+
+        .tag-format {
+            background: var(--bg-secondary);
+            color: var(--text-tertiary);
+            border: 1px solid var(--border);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.04em
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-bottom: 20px
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        /* Apple-style buttons */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 40px;
+            padding: 0 20px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font);
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--transition);
+            letter-spacing: -0.01em
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px)
+        }
+
+        .btn-primary svg {
+            width: 15px;
+            height: 15px
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 40px;
+            padding: 0 20px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition);
+            letter-spacing: -0.01em
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-1px)
+        }
+
+        .btn-secondary svg {
+            width: 15px;
+            height: 15px
+        }
+
+        @media(max-width:640px) {
+            .modal-body {
+                flex-direction: column
             }
 
-            100% {
-                background-position: -200% 0;
+            .modal-cover {
+                width: 120px
             }
         }
 
-        /* === Fade In Animation === */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* === Pagination === */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 24px 0;
+            flex-wrap: wrap;
         }
 
-        .animate-fade-in {
-            animation: fadeInUp 0.5s ease forwards;
-            opacity: 0;
-        }
-
-        /* === Counter Animation === */
-        .stat-number {
-            font-family: 'Outfit', system-ui, sans-serif;
-            font-weight: 800;
-            background: linear-gradient(135deg, #38bdf8, #d946ef);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* === Pill Toggle Active === */
-        .sort-btn.active {
-            background: rgba(14, 165, 233, 0.2);
-            color: #38bdf8;
-            border-color: rgba(14, 165, 233, 0.3);
-        }
-
-        /* === No results === */
-        .no-results {
+        .pagination:empty {
             display: none;
-            text-align: center;
-            padding: 4rem 2rem;
         }
 
-        .no-results.visible {
-            display: block;
+        .page-btn {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border: none;
+            border-radius: 50%;
+            background: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            font-family: var(--font);
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn:hover {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+        }
+
+        .page-btn.active {
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .page-btn.active:hover {
+            background: var(--accent-hover);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .page-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .page-arrow {
+            border-radius: var(--radius-sm);
+        }
+
+        .page-ellipsis {
+            min-width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+
+        .page-info {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin: 0 8px;
+        }
+
+        /* === Toast === */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: var(--radius-xl);
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 100;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-hover)
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1
+        }
+
+        .toast svg {
+            width: 15px;
+            height: 15px;
+            color: #30d158;
+            flex-shrink: 0
+        }
+
+        /* === Footer === */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-tertiary)
+        }
+
+        /* === Theme Toggle Button === */
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all var(--transition);
+            flex-shrink: 0
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+            background: var(--bg-elevated)
+        }
+
+        .theme-toggle svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(30deg)
+        }
+
+        .theme-toggle .icon-sun {
+            display: none
+        }
+
+        .theme-toggle .icon-moon {
+            display: block
+        }
+
+        [data-theme="light"] .theme-toggle .icon-sun {
+            display: block
+        }
+
+        [data-theme="light"] .theme-toggle .icon-moon {
+            display: none
+        }
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE — Tablet (≤1199px)
+           ═══════════════════════════════════════ */
+        @media (max-width: 1199px) {
+            .nav-stats {
+                display: none;
+            }
+
+            .main {
+                padding: 16px 16px 40px;
+            }
+        }
+
+        /* Tablet grid: 3-4 columns */
+        @media (min-width: 641px) and (max-width: 899px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+        }
+
+        @media (min-width: 900px) and (max-width: 1199px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
+            }
+
+            .modal {
+                max-width: 560px;
+            }
+        }
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE — Mobile (≤640px)
+           ═══════════════════════════════════════ */
+        @media (max-width: 640px) {
+
+            /* Navbar: compact */
+            .nav {
+                height: 44px;
+            }
+
+            .nav-inner {
+                padding: 0 12px;
+                gap: 10px;
+            }
+
+            .nav-logo {
+                font-size: 14px;
+                gap: 6px;
+            }
+
+            .nav-logo svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .nav-gh svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .theme-toggle {
+                width: 28px;
+                height: 28px;
+            }
+
+            .theme-toggle svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .search-kbd {
+                display: none;
+            }
+
+            /* Sidebar: full-screen drawer */
+            .sidebar {
+                width: 280px;
+                min-width: 280px;
+                top: 0;
+                padding-top: 56px;
+            }
+
+            /* Main content: tighter */
+            .main {
+                padding: 12px 12px 40px;
+            }
+
+            .search {
+                margin-bottom: 10px;
+            }
+
+            .search-input {
+                height: 36px;
+                font-size: 13px;
+                padding-left: 34px;
+            }
+
+            .search-icon {
+                width: 14px;
+                height: 14px;
+                left: 10px;
+            }
+
+            /* Toolbar: wrap */
+            .toolbar {
+                gap: 6px;
+                margin-bottom: 14px;
+            }
+
+            .toolbar-select {
+                height: 30px;
+                font-size: 12px;
+                padding: 0 26px 0 10px;
+            }
+
+            .sort-btn {
+                height: 26px;
+                padding: 0 8px;
+                font-size: 11px;
+            }
+
+            .book-count {
+                font-size: 11px;
+            }
+
+            /* Grid: 2 columns on mobile */
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            /* Cards: smaller */
+            .card-info {
+                padding: 8px 10px 10px;
+            }
+
+            .card-title {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            .card-badge {
+                padding: 2px 6px;
+                font-size: 9px;
+            }
+
+            /* Modal: stack vertically */
+            .modal {
+                max-width: calc(100% - 24px);
+                border-radius: var(--radius-lg);
+            }
+
+            .modal-inner {
+                padding: 20px;
+            }
+
+            .modal-body {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .modal-cover {
+                width: 100%;
+                max-width: 180px;
+                margin: 0 auto;
+            }
+
+            .modal-close {
+                top: 12px;
+                right: 12px;
+                width: 26px;
+                height: 26px;
+            }
+
+            .modal-close svg {
+                width: 10px;
+                height: 10px;
+            }
+
+            .modal-title {
+                font-size: 18px;
+            }
+
+            .modal-tags {
+                gap: 4px;
+            }
+
+            .modal-tag {
+                padding: 3px 8px;
+                font-size: 10px;
+            }
+
+            .modal-desc {
+                font-size: 13px;
+                margin-bottom: 16px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                height: 44px;
+                font-size: 15px;
+                border-radius: var(--radius-md);
+            }
+
+            /* Toast: smaller */
+            .toast {
+                padding: 8px 16px;
+                font-size: 12px;
+                border-radius: 20px;
+            }
+
+            /* Footer */
+            .footer {
+                padding: 16px;
+                font-size: 10px;
+            }
+        }
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE — Small phones (≤380px)
+           ═══════════════════════════════════════ */
+        @media (max-width: 380px) {
+            .nav-logo span {
+                display: none;
+            }
+
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .card-title {
+                font-size: 11px;
+            }
+
+            .modal-cover {
+                max-width: 140px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-mesh"></div>
-
-    <!-- ===== HEADER ===== -->
-    <header class="sticky top-0 z-40 glass border-b border-white/5">
-        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Mobile Sidebar Toggle -->
-                <button id="sidebar-toggle"
-                    class="lg:hidden w-9 h-9 rounded-lg border border-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all mr-3">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group" onclick="clearAllFilters(); return false;">
-                    <div
-                        class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:shadow-primary-500/40 transition-shadow">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                    </div>
-                    <span class="font-display font-bold text-lg text-white hidden sm:block">My Bookshelves</span>
-                </a>
-
-                <!-- Stats -->
-                <div class="hidden md:flex items-center gap-6 ml-auto">
-                    <div class="text-center">
-                        <div class="stat-number text-xl" id="stat-total">0</div>
-                        <div class="text-[10px] uppercase tracking-widest text-slate-500">Books</div>
-                    </div>
-                    <div class="w-px h-8 bg-slate-700/50"></div>
-                    <div class="text-center">
-                        <div class="stat-number text-xl" id="stat-categories">0</div>
-                        <div class="text-[10px] uppercase tracking-widest text-slate-500">Categories</div>
-                    </div>
-                    <div class="w-px h-8 bg-slate-700/50"></div>
-                    <div class="text-center">
-                        <div class="stat-number text-xl" id="stat-topics">0</div>
-                        <div class="text-[10px] uppercase tracking-widest text-slate-500">Topics</div>
-                    </div>
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <button class="nav-menu-btn" id="menu-btn" onclick="toggleSidebar()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                        d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <a href="#" class="nav-logo" onclick="clearAllFilters();return false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                My Bookshelves
+            </a>
+            <div class="nav-stats">
+                <div class="nav-stat">
+                    <div class="nav-stat-num" id="stat-total">0</div>
+                    <div class="nav-stat-label">Books</div>
                 </div>
-
-                <!-- GitHub Link -->
-                <a href="https://github.com/Sora0977/My-Bookshelves" target="_blank"
-                    class="w-9 h-9 rounded-lg border border-slate-700/50 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all ml-4">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                    </svg>
-                </a>
+                <div class="nav-stat">
+                    <div class="nav-stat-num" id="stat-cats">0</div>
+                    <div class="nav-stat-label">Categories</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-num" id="stat-topics">0</div>
+                    <div class="nav-stat-label">Topics</div>
+                </div>
             </div>
+            <a href="https://github.com/Patruxs/My-Bookshelves" target="_blank" class="nav-gh" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+            </a>
+            <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                <svg class="icon-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg class="icon-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
         </div>
-    </header>
+    </nav>
 
-    <!-- ===== LAYOUT: SIDEBAR + MAIN ===== -->
-    <div class="max-w-[1440px] mx-auto flex">
+    <!-- ═══ LAYOUT: SIDEBAR + MAIN ═══ -->
+    <div class="layout">
+        <div id="sb-overlay" class="sb-overlay" onclick="closeSidebar()"></div>
 
-        <!-- Sidebar Overlay (mobile) -->
-        <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
-
-        <!-- ===== SIDEBAR ===== -->
-        <aside id="sidebar" class="sidebar glass border-r border-slate-700/20 p-4">
-            <!-- Sidebar Header -->
-            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-700/20">
-                <h2 class="text-xs font-semibold uppercase tracking-widest text-slate-500">Categories</h2>
-                <button id="sidebar-collapse-all"
-                    class="text-[10px] text-slate-500 hover:text-slate-300 transition-colors"
-                    onclick="collapseAllCategories()">
-                    Collapse all
-                </button>
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-heading">
+                <span>Categories</span>
+                <button onclick="collapseAllCategories()">Collapse</button>
             </div>
-
-            <!-- All Books button -->
-            <button id="sidebar-all" onclick="sidebarSelectAll()"
-                class="sidebar-category active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-200 mb-2">
-                <svg class="w-4 h-4 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button id="sb-all" class="sb-all active" onclick="sidebarSelectAll()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
                 All Books
-                <span id="sidebar-all-count" class="ml-auto text-xs text-slate-500">0</span>
+                <span id="sb-all-count" class="sb-all-count">0</span>
             </button>
-
-            <!-- Category Tree (rendered by JS) -->
-            <div id="sidebar-tree" class="space-y-0.5">
-                <!-- Categories & topics rendered here -->
-            </div>
+            <div id="sb-tree"></div>
         </aside>
 
-        <!-- ===== MAIN CONTENT ===== -->
-        <div class="flex-1 min-w-0">
-            <!-- Search & Filter Bar -->
-            <section class="px-4 sm:px-6 lg:px-8 pt-6 pb-4">
-                <!-- Search -->
-                <div
-                    class="search-glow glass rounded-2xl border border-slate-700/30 p-1 mb-4 transition-all duration-300">
-                    <div class="flex items-center gap-3 px-4">
-                        <svg class="w-5 h-5 text-slate-500 flex-shrink-0" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        <input id="search-input" type="text" placeholder="Search books by title..."
-                            class="w-full bg-transparent py-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none">
-                        <kbd
-                            class="hidden sm:inline-flex items-center gap-1 px-2 py-1 text-[10px] font-medium text-slate-500 bg-slate-800/50 rounded-md border border-slate-700/50">
-                            Ctrl+K
-                        </kbd>
-                    </div>
+        <!-- MAIN -->
+        <div class="main">
+            <!-- Search -->
+            <div class="search">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input id="search" class="search-input" type="text" placeholder="Search books...">
+                <kbd class="search-kbd">⌘K</kbd>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <select id="filter-format" class="toolbar-select" style="display:none">
+                    <option value="">Format</option>
+                </select>
+                <select id="filter-fmt" class="toolbar-select">
+                    <option value="">All Formats</option>
+                    <option value="pdf">PDF</option>
+                    <option value="epub">EPUB</option>
+                </select>
+                <div class="toolbar-spacer"></div>
+                <div class="sort-group">
+                    <button id="sort-az" class="sort-btn" title="A → Z">A→Z</button>
+                    <button id="sort-za" class="sort-btn" title="Z → A">Z→A</button>
                 </div>
+                <span class="book-count"><span id="shown-count">0</span> books</span>
+            </div>
 
-                <!-- Filters Row -->
-                <div class="flex flex-wrap items-center gap-3">
-                    <!-- Hidden filter selects (kept for JS compatibility, driven by sidebar) -->
-                    <select id="filter-category" class="hidden">
-                        <option value="">All Categories</option>
-                    </select>
-                    <select id="filter-topic" class="hidden">
-                        <option value="">All Topics</option>
-                    </select>
+            <!-- Book Grid -->
+            <div id="skeleton" class="grid"></div>
+            <div id="grid" class="grid" style="display:none"></div>
 
-                    <!-- Format Filter -->
-                    <div class="relative">
-                        <select id="filter-format"
-                            class="glass text-sm text-slate-300 rounded-xl border border-slate-700/30 px-4 py-2.5 focus:outline-none focus:border-primary-500/40 transition-colors cursor-pointer hover:border-slate-600">
-                            <option value="">All Formats</option>
-                            <option value="pdf">PDF</option>
-                            <option value="epub">EPUB</option>
-                        </select>
-                    </div>
+            <!-- Pagination -->
+            <div id="pagination" class="pagination"></div>
 
-                    <div class="flex-1"></div>
-
-                    <!-- Sort Buttons -->
-                    <div class="flex items-center gap-1 glass rounded-xl border border-slate-700/30 p-1">
-                        <button id="sort-az"
-                            class="sort-btn text-xs font-medium px-3 py-1.5 rounded-lg text-slate-400 border border-transparent hover:text-slate-200 transition-all"
-                            title="Sort A → Z">
-                            A→Z
-                        </button>
-                        <button id="sort-za"
-                            class="sort-btn text-xs font-medium px-3 py-1.5 rounded-lg text-slate-400 border border-transparent hover:text-slate-200 transition-all"
-                            title="Sort Z → A">
-                            Z→A
-                        </button>
-                    </div>
-
-                    <!-- Book Count -->
-                    <div class="text-xs text-slate-500">
-                        <span id="shown-count">0</span> books
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== BOOK GALLERY ===== -->
-            <main class="px-4 sm:px-6 lg:px-8 py-4">
-                <div id="loading-skeleton"
-                    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
-                </div>
-                <div id="book-grid"
-                    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5"
-                    style="display:none;"></div>
-
-                <!-- No Results -->
-                <div id="no-results" class="no-results">
-                    <div
-                        class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-slate-800/50 border border-slate-700/30 mb-4">
-                        <svg class="w-10 h-10 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-slate-300 mb-1">No books found</h3>
-                    <p class="text-sm text-slate-500">Try adjusting your search or filters</p>
-                </div>
-            </main>
+            <!-- No Results -->
+            <div id="no-results" class="no-results">
+                <svg class="no-results-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3>No books found</h3>
+                <p>Try adjusting your search or filters</p>
+            </div>
 
             <!-- Footer -->
-            <footer class="border-t border-slate-800/50 mt-8">
-                <div class="px-4 sm:px-6 lg:px-8 py-8">
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <p class="text-xs text-slate-600">Built with ❤️ by My Bookshelves</p>
-                        <p class="text-xs text-slate-600">Last updated: March 2026</p>
-                    </div>
-                </div>
-            </footer>
+            <div class="footer">Built with ❤ by My Bookshelves</div>
         </div>
     </div>
 
-    <!-- ===== BOOK DETAIL MODAL ===== -->
-    <div id="book-modal" class="modal-backdrop" onclick="if(event.target===this)closeModal()">
-        <div
-            class="modal-content glass rounded-3xl border border-slate-700/30 shadow-2xl shadow-black/50 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
-            <div class="p-6 sm:p-8">
-                <div class="flex justify-end mb-4">
-                    <button onclick="closeModal()"
-                        class="w-8 h-8 rounded-lg bg-slate-800/50 border border-slate-700/30 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-6">
-                    <div class="flex-shrink-0 w-full sm:w-48">
-                        <div class="book-cover rounded-xl overflow-hidden shadow-2xl shadow-black/40">
-                            <img id="modal-cover" src="" alt="Book Cover" class="w-full">
+    <!-- ═══ MODAL ═══ -->
+    <div id="modal" class="modal-bg" onclick="if(event.target===this)closeModal()">
+        <div class="modal" style="position:relative">
+            <button class="modal-close" onclick="closeModal()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="modal-inner">
+                <div class="modal-body">
+                    <div class="modal-cover"><img id="m-cover" src="" alt=""></div>
+                    <div class="modal-detail">
+                        <h2 id="m-title" class="modal-title"></h2>
+                        <div class="modal-tags">
+                            <span id="m-cat" class="modal-tag tag-cat"></span>
+                            <span id="m-topic" class="modal-tag tag-topic"></span>
+                            <span id="m-fmt" class="modal-tag tag-format"></span>
                         </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <h2 id="modal-title"
-                            class="font-display font-bold text-xl sm:text-2xl text-white mb-3 leading-tight"></h2>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span id="modal-category"
-                                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"></span>
-                            <span id="modal-topic"
-                                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/30"></span>
-                            <span id="modal-format"
-                                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/30 uppercase"></span>
+                        <p id="m-desc" class="modal-desc"></p>
+                        <div class="modal-actions">
+                            <a id="m-dl" href="#" target="_blank" class="btn-primary" download>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Download
+                            </a>
+                            <button id="m-share" class="btn-secondary" onclick="shareBook()">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                                </svg>
+                                Share
+                            </button>
                         </div>
-                        <p id="modal-description" class="text-sm text-slate-400 leading-relaxed mb-6"></p>
-                        <a id="modal-download" href="#" target="_blank"
-                            class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white text-sm font-semibold rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 transition-all duration-300 hover:-translate-y-0.5">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Download
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- ═══ TOAST ═══ -->
+    <div id="toast" class="toast">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        <span id="toast-msg">Link copied!</span>
     </div>
 
     <script src="app.js"></script>

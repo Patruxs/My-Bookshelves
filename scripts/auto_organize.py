@@ -32,12 +32,13 @@ SKILL_DIR = PROJECT_ROOT / '.agents' / 'skills' / 'auto-organize'
 CONFIG_FILE = SKILL_DIR / 'config' / 'settings.json'
 
 DEFAULT_CONFIG = {
-    "inbox_dir": "Inbox_Book",
+    "inbox_dir": "Inbox",
     "book_extensions": [".pdf", ".epub"],
     "log_file": "auto_organize.log",
 }
 
 CATEGORY_PATTERN = re.compile(r'^(\d+)_(.+)$')
+BOOKS_DIR = 'Books'
 
 
 def load_config() -> dict:
@@ -70,7 +71,7 @@ def log_action(message: str, base_dir: str, config: dict):
 def cmd_list(base_dir: str, config: dict):
     """List all book files in Inbox."""
     base = Path(base_dir).resolve()
-    inbox_name = config.get('inbox_dir', 'Inbox_Book')
+    inbox_name = config.get('inbox_dir', 'Inbox')
     inbox = base / inbox_name
     extensions = set(config.get('book_extensions', ['.pdf', '.epub']))
 
@@ -96,9 +97,13 @@ def cmd_list(base_dir: str, config: dict):
 def cmd_structure(base_dir: str):
     """Display current library folder structure."""
     base = Path(base_dir).resolve()
+    books_root = base / BOOKS_DIR
 
     print("📚 Library Structure:\n")
-    for cat_folder in sorted(base.iterdir()):
+    if not books_root.exists():
+        print(f"⚠️  Books directory not found: {books_root}")
+        return
+    for cat_folder in sorted(books_root.iterdir()):
         if not cat_folder.is_dir():
             continue
         match = CATEGORY_PATTERN.match(cat_folder.name)
@@ -128,7 +133,7 @@ def cmd_structure(base_dir: str):
 def cmd_move(base_dir: str, filename: str, target: str, config: dict):
     """Move a specific file from Inbox to target folder."""
     base = Path(base_dir).resolve()
-    inbox_name = config.get('inbox_dir', 'Inbox_Book')
+    inbox_name = config.get('inbox_dir', 'Inbox')
     inbox = base / inbox_name
 
     source = inbox / filename
@@ -136,7 +141,7 @@ def cmd_move(base_dir: str, filename: str, target: str, config: dict):
         print(f"❌ File not found: {source}")
         sys.exit(1)
 
-    target_dir = base / target
+    target_dir = base / BOOKS_DIR / target
     target_dir.mkdir(parents=True, exist_ok=True)
 
     target_path = target_dir / filename
@@ -161,9 +166,12 @@ def cmd_move(base_dir: str, filename: str, target: str, config: dict):
 def cmd_structure_json(base_dir: str):
     """Output library structure as JSON (for Agent consumption)."""
     base = Path(base_dir).resolve()
+    books_root = base / BOOKS_DIR
     structure = {}
 
-    for cat_folder in sorted(base.iterdir()):
+    if not books_root.exists():
+        return structure
+    for cat_folder in sorted(books_root.iterdir()):
         if not cat_folder.is_dir():
             continue
         match = CATEGORY_PATTERN.match(cat_folder.name)
@@ -194,7 +202,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Commands:
-  --list               List files in Inbox_Book/
+  --list               List files in Inbox/
   --structure          Show library folder structure
   --structure-json     Output structure as JSON
   --move FILE --to DIR Move a file from Inbox to target folder
