@@ -2,11 +2,10 @@
 
 A personal digital library — static web, zero dependencies, AI-powered organization.
 
-**[🌐 Live Demo](https://patruxs.github.io/My-Bookshelves/)**
+**[🌐 Live website](https://patruxs.github.io/My-Bookshelves/)**
 
 ## ✨ Features
 
-- 🎨 **Apple-style UI** — Glassmorphism, smooth transitions, dark/light mode
 - 📖 **SPA Detail View** — Click to view cover, description, related books, download
 - 🔍 **Search & Filter** — By title, category, topic, format
 - 📁 **Sidebar Navigation** — Dynamic category tree with topic counts
@@ -100,4 +99,3 @@ scripts/                        # Python automation
 - **Frontend**: Vanilla HTML + CSS + JS — zero frameworks, zero CDN
 - **Backend**: Python scripts (PyMuPDF + Pillow)
 - **Hosting**: GitHub Pages (static) + GitHub Releases (book storage)
-- **AI**: Antigravity Agent with skill/workflow system
