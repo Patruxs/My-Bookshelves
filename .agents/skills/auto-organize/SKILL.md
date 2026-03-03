@@ -19,7 +19,7 @@ My-Bookshelves/
 │   ├── 1_Computer_Science_Fundamentals/
 │   ├── 2_Software_Engineering_Disciplines/
 │   ├── 3_Career_and_Professional_Development/
-│   ├── 4_Miscellaneous/
+│   ├── 4_Personal_Development_and_Skills/
 │   └── 5_University_Courses/
 ├── site/                                # Website tĩnh (HTML/CSS/JS)
 │   ├── index.html

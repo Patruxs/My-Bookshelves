@@ -20,7 +20,7 @@ All books are stored under the `Books/` directory:
 6. **Programming books**: Match to the specific language subfolder if one exists (Java/, JavaScript/, etc.). If the language has no subfolder, place in Programming_Languages/ directly.
 7. **System Design / Architecture**: Place in "Software_Architecture_and_Design".
 8. **Interview / Career books**: Place in "3_Career_and_Professional_Development".
-9. **English / Language learning**: Place in "4_Miscellaneous/English_Learning".
+9. **English / Language learning**: Place in "4_Personal_Development_and_Skills/English_Learning".
 10. **DevOps / Cloud / AWS**: Place in "2_Software_Engineering_Disciplines/DevOps".
 11. **Database books**: Place in "2_Software_Engineering_Disciplines/Database".
 
