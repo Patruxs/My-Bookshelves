@@ -49,8 +49,8 @@ COVER_DIR = 'site/assets/covers'       # Filesystem path (relative to base_dir)
 COVER_WEB_PATH = 'assets/covers'       # Web URL path (relative to site/ root)
 OUTPUT_FILE = 'site/data.json'
 BOOKS_DIR = 'Books'                    # Folder containing category subfolders
-COVER_WIDTH = 400       # Max width for cover thumbnails (optimized for web)
-COVER_QUALITY = 80      # WebP quality (target: <60KB per image)
+COVER_WIDTH = 600       # Max width for cover thumbnails (sharp on High-DPI/Retina)
+COVER_QUALITY = 85      # WebP quality (target: <80KB per image)
 COVER_FORMAT = 'webp'   # Output format (webp for maximum compression)
 
 # Category folders expected at root level
@@ -88,8 +88,8 @@ def extract_pdf_cover(pdf_path: str, output_path: str) -> bool:
             return False
 
         page = doc[0]
-        # Render at 2x for quality before downscale
-        zoom = 2.0
+        # Render at 3x for quality before downscale (sharp on Retina)
+        zoom = 3.0
         mat = fitz.Matrix(zoom, zoom)
         pix = page.get_pixmap(matrix=mat, alpha=False)
 

@@ -109,13 +109,13 @@ Nếu thiếu Pillow → cài `python -m pip install Pillow`
 
 ⚠️ **LUÔN dùng `python -m pip install`** — hệ thống có thể có nhiều Python versions. **TUYỆT ĐỐI KHÔNG** chạy `generate_data.py` khi thiếu PyMuPDF hoặc Pillow.
 
-// turbo 11. Tạo bìa sách (WebP 400px) và cập nhật data.json — **CHỈ CHẠY 1 LẦN DUY NHẤT**:
+// turbo 11. Tạo bìa sách (WebP 600px, quality 85) và cập nhật data.json — **CHỈ CHẠY 1 LẦN DUY NHẤT**:
 
 ```bash
 python scripts/generate_data.py --base-dir .
 ```
 
-> Script xuất trực tiếp WebP (400px, quality 80), không cần chạy optimize riêng.
+> Script xuất trực tiếp WebP (600px, quality 85), không cần chạy optimize riêng.
 > ⚠️ KHÔNG chạy lại lần 2 nếu đã chạy thành công!
 
 // turbo 12. **VERIFY** `download_url` preservation — ĐÂY LÀ BƯỚC BẮT BUỘC:

@@ -291,7 +291,7 @@
     "category": "Software Engineering Disciplines",
     "topic": "Software Architecture and Design",
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Kien_truc_ung_dung_web.epub",
-    "cover": "assets/covers/Kien_truc_ung_dung_web.webp",
+    "cover": "",
     "format": "epub",
     "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại, kèm theo các kỹ thuật tối ưu hiệu suất.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices: ưu nhược điểm và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kien_truc_ung_dung_web.epub"
