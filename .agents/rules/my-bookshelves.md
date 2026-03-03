@@ -29,6 +29,15 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 - 100% Vanilla HTML + CSS + JavaScript (ES6+).
 - CSS viết inline trong `<style>` tag của `index.html` (single-file architecture).
 
+### SPA Architecture (View Switching)
+
+- KHÔNG dùng modal/popup. Dùng SPA view switching: `#home-view` và `#detail-view`.
+- Click sách → `showDetailView(bookId)` → ẩn home-view, hiển detail-view.
+- Nút "← Library" hoặc click logo → `showHomeView()` → về trang chủ.
+- URL dùng `history.pushState` → `?book=id`. Lắng nghe `popstate` cho nút Back trình duyệt.
+- Detail view có: bìa sách lớn (360px, sticky), tags, description (pre-wrap), download/share, và Related Books (max 5).
+- Related Books: cùng topic trước → cùng category nếu thiếu → tối đa 5 cuốn.
+
 ## 2. QUY TẮC QUẢN LÝ THƯ MỤC VÀ GỌI TÊN
 
 ### Thư mục sách
@@ -53,8 +62,10 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 
 ```
 Books/{1-5}_{Category}/{Topic}/book.pdf
-site/assets/covers/Book_Title.webp
-site/data.json
+site/index.html          # Single-file HTML+CSS, SPA views (home + detail)
+site/app.js              # All JS logic: routing, rendering, detail view, related books
+site/data.json           # Mảng JSON chứa metadata của tất cả sách
+site/assets/covers/      # Ảnh bìa WebP (250px, q60)
 scripts/*.py
 .agents/skills/auto-organize/
 .agents/workflows/

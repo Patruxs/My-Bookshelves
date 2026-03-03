@@ -156,8 +156,9 @@ Báo cáo kết quả cho user:
    📖 "Clean Code.pdf"
    📂 Đã chuyển: Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/
    🖼️ Bìa: site/assets/covers/Clean_Code.webp (tối ưu WebP)
-   📝 Mô tả: đã cập nhật
+   📝 Mô tả: đã cập nhật (3 phần: Context + Overview + Key Takeaways)
    🌐 Website: đã cập nhật data.json
+   🔗 Detail: https://patruxs.github.io/My-Bookshelves/?book={id}
 ```
 
 ---
