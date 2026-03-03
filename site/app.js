@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", init);
 async function init() {
     showSkeleton();
     try {
-        const r = await fetch("data.json");
+        const r = await fetch("data.json?v=" + new Date().getTime(), { cache: "no-store" });
         if (!r.ok) throw new Error(r.status);
         allBooks = mergeBooks(await r.json());
     } catch (e) { console.warn("data.json:", e); allBooks = []; }
