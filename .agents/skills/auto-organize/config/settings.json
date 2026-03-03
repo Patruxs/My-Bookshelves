@@ -8,9 +8,9 @@
         "always_confirm": true
     },
     "cover_optimization": {
-        "max_width": 250,
+        "max_width": 400,
         "format": "webp",
-        "quality": 60,
+        "quality": 80,
         "note": "generate_data.py outputs WebP directly, optimize_covers.py is for legacy re-optimization"
     },
     "github_releases": {
