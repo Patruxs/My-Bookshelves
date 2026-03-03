@@ -291,7 +291,7 @@
     "category": "Software Engineering Disciplines",
     "topic": "Software Architecture and Design",
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Kien_truc_ung_dung_web.epub",
-    "cover": "",
+    "cover": "assets/covers/Kien_truc_ung_dung_web.webp",
     "format": "epub",
     "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại, kèm theo các kỹ thuật tối ưu hiệu suất.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices: ưu nhược điểm và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kien_truc_ung_dung_web.epub"
@@ -374,6 +374,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learn_How_to_Code_Online_and_Land_a_100k_Job_ASAP.pdf"
   },
   {
+    "id": "5644a13012dd",
+    "title": "How_Anthropic_teams_use_Claude_Code_v2",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/How_Anthropic_teams_use_Claude_Code_v2.pdf",
+    "cover": "assets/covers/How_Anthropic_teams_use_Claude_Code_v2.webp",
+    "format": "pdf",
+    "description": "AI-powered coding assistants are transforming software development, but most teams struggle to move beyond basic autocomplete. The real productivity gains come from deeply integrating AI into engineering workflows — code review, debugging, architecture exploration, and documentation.\n\nThis official guide from Anthropic reveals how their own engineering, research, and product teams use Claude Code (v2) in daily work. It covers real workflows, prompt strategies, and best practices distilled from thousands of hours of internal usage across diverse technical projects.\n\n• Learn Anthropic's internal workflows for using Claude Code in real engineering tasks\n• Discover prompt strategies that maximize code quality and reduce iteration cycles\n• Understand how to integrate AI coding assistants into code review and debugging workflows\n• Explore advanced use cases: architecture exploration, test generation, and documentation\n• Apply lessons learned from one of the world's leading AI research organizations",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_Anthropic_teams_use_Claude_Code_v2.pdf"
+  },
+  {
     "id": "3226037dd6bd",
     "title": "Huong_dan_su_dung_claude_hieu_qua",
     "category": "Personal Development and Skills",
@@ -385,6 +396,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Huong_dan_su_dung_claude_hieu_qua.pdf"
   },
   {
+    "id": "9d71d562c612",
+    "title": "Maverick_s_Viral_Prompt_Library",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Maverick_s_Viral_Prompt_Library.pdf",
+    "cover": "assets/covers/Maverick_s_Viral_Prompt_Library.webp",
+    "format": "pdf",
+    "description": "Prompt engineering has become a critical skill in the AI era, yet most users rely on generic, surface-level prompts that produce mediocre results. The difference between an average and an exceptional AI output often comes down to how the prompt is structured.\n\nMaverick's Viral Prompt Library is a curated collection of high-impact prompts that went viral across AI communities. Each prompt is battle-tested, refined through thousands of iterations, and designed to unlock capabilities that most users never discover.\n\n• Access a curated library of viral prompts covering writing, analysis, coding, and creative tasks\n• Learn prompt engineering patterns: chain-of-thought, role-playing, few-shot, and constraint-based prompting\n• Discover advanced techniques for getting consistent, high-quality outputs from AI models\n• Adapt and customize prompts for your specific use cases and workflows\n• Understand why certain prompts go viral and how to engineer your own high-impact prompts",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Maverick_s_Viral_Prompt_Library.pdf"
+  },
+  {
     "id": "04f0d91f2567",
     "title": "NotebookLM_Creative_Agency_Prompt_Pack",
     "category": "Personal Development and Skills",
@@ -394,6 +416,17 @@
     "format": "pdf",
     "description": "AI-powered tools like NotebookLM are transforming how agencies research, brainstorm, and produce content — but most users barely scratch the surface of what these tools can do with the right prompts.\n\nThis prompt pack provides ready-to-use templates specifically designed for creative agency workflows: market research, content strategy, copywriting, brainstorming, and client presentations. Each prompt is engineered for maximum output quality.\n\n• Generate comprehensive market research reports and competitive analysis in minutes\n• Create content strategies, editorial calendars, and audience personas with AI assistance\n• Use frameworks for brainstorming: SCAMPER, mind mapping, and creative constraint prompts\n• Produce client-ready presentations, proposals, and pitch decks with structured prompts\n• Build reusable prompt templates that scale across multiple projects and clients",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/NotebookLM_Creative_Agency_Prompt_Pack.pdf"
+  },
+  {
+    "id": "80dfe508fc4b",
+    "title": "Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.pdf",
+    "cover": "assets/covers/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.webp",
+    "format": "pdf",
+    "description": "AI Agents đang mở ra kỷ nguyên mới trong phát triển phần mềm — nơi AI không chỉ trả lời câu hỏi mà còn tự động thực thi các tác vụ phức tạp. Tuy nhiên, việc thiết kế và xây dựng Agent hiệu quả đòi hỏi kiến thức hệ thống và phương pháp tiếp cận có cấu trúc.\n\nSyllabus này trình bày quy hoạch và xây dựng AI Agents với Claude Cowork — từ kiến trúc agent, thiết kế workflow, đến triển khai hệ thống multi-agent. Đây là tài liệu hướng dẫn có cấu trúc dành cho người muốn nắm vững cách tạo AI Agent chuyên nghiệp.\n\n• Hiểu kiến trúc AI Agent: perception, reasoning, action và memory\n• Thiết kế workflow cho agent: task decomposition, tool use và error handling\n• Xây dựng hệ thống multi-agent với Claude Cowork\n• Áp dụng best practices trong prompt engineering cho agent instructions\n• Triển khai và đánh giá hiệu quả agent trong các use case thực tế",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.pdf"
   },
   {
     "id": "7d5b6d5c0548",
