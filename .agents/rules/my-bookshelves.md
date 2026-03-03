@@ -124,11 +124,12 @@ __pycache__/  *.py[cod]  venv/
 .vscode/  .idea/
 ```
 
-### GitHub Releases Strategy
+### GitHub Releases Strategy (Smart Incremental Sync)
 
 - Sách (PDF/EPUB) upload lên GitHub Releases bằng `scripts/upload_releases.py`.
-- Release tag format: `books-YYYYMMDD`.
-- Sau khi upload, script tự cập nhật `download_url` trong `data.json`.
+- Release tag cố định: `storage-v1` (tích lũy, không tạo mới mỗi ngày).
+- Script tự diff local vs data.json → chỉ upload file MỚI, bỏ qua file đã có `download_url`.
+- Sau khi upload, script tự append metadata + cập nhật `download_url` trong `data.json`.
 - Download URL priority trong app.js: `download_url` → `"../" + file_path` → `raw.githubusercontent.com`.
 
 ### KHÔNG BAO GIỜ commit

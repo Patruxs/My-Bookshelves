@@ -27,9 +27,10 @@ My-Bookshelves/
 │   ├── data.json                        # Dữ liệu sách (auto-generated)
 │   └── assets/covers/                   # Ảnh bìa sách (.webp)
 ├── scripts/
-│   ├── generate_data.py                 # Quét sách → tạo data.json + cover
+│   ├── generate_data.py                 # Quét sách → tạo data.json + cover WebP
+│   ├── upload_releases.py              # Smart Incremental Sync → GitHub Releases
 │   ├── auto_organize.py                 # Helper: quét cấu trúc thư viện
-│   └── optimize_covers.py              # Resize + convert covers → WebP
+│   └── optimize_covers.py              # Legacy: re-optimize covers → WebP
 └── .agents/skills/auto-organize/
     ├── SKILL.md                         # File này
     ├── prompts/classify_book.md         # Quy tắc phân loại
@@ -112,15 +113,21 @@ Script sẽ tự động:
 - Lưu vào `site/assets/covers/` dạng `.webp`
 - Cập nhật `site/data.json` với entry mới
 
-### Bước 8: Upload sách lên GitHub Releases (tùy chọn)
+### Bước 8: Upload sách lên GitHub Releases (Smart Incremental Sync)
 
-Nếu muốn host sách qua GitHub Releases:
+Chạy script upload — CHỈ file mới sẽ được upload (không re-upload tất cả):
 
 ```bash
 python scripts/upload_releases.py
 ```
 
-Script sẽ upload PDF/EPUB lên GitHub Release và cập nhật `download_url` trong `data.json`.
+Script sẽ tự động:
+
+- Diff local vs data.json → tìm file MỚI
+- Upload CHỈ file mới lên Release cố định (`storage-v1`)
+- Cập nhật `download_url` trong `data.json`
+
+Xem trước (không upload): `python scripts/upload_releases.py --dry-run`
 
 ### Bước 9: Cập nhật mô tả sách
 
@@ -163,7 +170,7 @@ Báo cáo kết quả cho user:
 4. **Ưu tiên folder có sẵn** — chỉ đề xuất tạo mới khi thực sự cần
 5. **Di chuyển từng file một** — không batch move
 6. **Đường dẫn sách trong `Books/`** — tất cả sách nằm trong folder `Books/`
-7. **LUÔN chạy generate_data.py** sau khi di chuyển file để tạo bìa + cập nhật data.json
-8. **LUÔN chạy optimize_covers.py** sau generate_data.py để tối ưu ảnh bìa sang WebP
+7. **LUÔN chạy generate_data.py** sau khi di chuyển file để tạo bìa WebP + cập nhật data.json
+8. **LUÔN chạy upload_releases.py** sau generate_data.py để sync sách mới lên GitHub Releases
 9. **LUÔN viết description** cho sách mới — không để trống
 10. **Ảnh bìa PHẢI là WebP** — không commit ảnh JPG/PNG vào repo

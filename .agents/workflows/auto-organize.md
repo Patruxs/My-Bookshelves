@@ -50,11 +50,13 @@ python scripts/generate_data.py --base-dir .
 
 8. Mở `site/data.json`, tìm entry mới (description sẽ trống ""), và cập nhật description đã viết ở bước 5.
 
-9. (Tùy chọn) Upload sách lên GitHub Releases:
+9. Upload sách mới lên GitHub Releases (Smart Incremental Sync):
 
 ```bash
 python scripts/upload_releases.py
 ```
+
+> Script tự diff local vs data.json, chỉ upload file MỚI. Xem trước: `--dry-run`.
 
 10. Báo cáo kết quả cho user:
     - File đã chuyển đến đâu (trong `Books/`)
