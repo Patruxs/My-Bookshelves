@@ -94,8 +94,3 @@ scripts/                        # Python automation
 2. Run `/auto-organize` — AI classifies, moves, generates covers, writes descriptions, uploads
 3. Push to `main` → GitHub Pages auto-deploys
 
-## 🎨 Tech Stack
-
-- **Frontend**: Vanilla HTML + CSS + JS — zero frameworks, zero CDN
-- **Backend**: Python scripts (PyMuPDF + Pillow)
-- **Hosting**: GitHub Pages (static) + GitHub Releases (book storage)
