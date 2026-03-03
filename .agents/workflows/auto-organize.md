@@ -61,5 +61,6 @@ python scripts/upload_releases.py
 10. Báo cáo kết quả cho user:
     - File đã chuyển đến đâu (trong `Books/`)
     - Bìa đã tạo (WebP) chưa
-    - Description đã cập nhật chưa
+    - Description đã cập nhật chưa (format 3 phần)
     - data.json đã cập nhật chưa
+    - Link detail view: `?book={id}`
