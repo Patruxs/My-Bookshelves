@@ -131,7 +131,7 @@ Mọi description trong data.json PHẢI tuân thủ 3 phần:
 3. **Key Takeaways:** 4-5 bullet points bằng ký tự `•` (không dùng `-`)
 
 Các đoạn ngăn cách bằng `\n\n` trong JSON string. Sách tiếng Việt viết bằng tiếng Việt.
-CSS `.modal-desc` đã có `white-space: pre-wrap` để render đúng format.
+CSS `.dv-desc` đã có `white-space: pre-wrap` để render đúng format.
 
 Ví dụ:
 
