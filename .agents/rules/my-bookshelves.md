@@ -40,22 +40,18 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 
 ## 2. QUY TẮC QUẢN LÝ THƯ MỤC VÀ GỌI TÊN
 
-### Thư mục sách
+### Dynamic Categories
+
+Hệ thống hỗ trợ **Dynamic Categories** — không giới hạn số lượng danh mục.
 
 - Category folders: `{số}_Snake_Case` → VD: `1_Computer_Science_Fundamentals`
 - Topic folders: `Snake_Case` → VD: `Data_Structures_and_Algorithms`
 - Sub-topic (nếu cần): `Snake_Case` → VD: `Programming_Languages/Java`
 - Đường dẫn đầy đủ: `Books/{category}/{topic}/filename.pdf`
-
-### Danh sách Category hiện tại
-
-```
-1_Computer_Science_Fundamentals
-2_Software_Engineering_Disciplines
-3_Career_and_Professional_Development
-4_Personal_Development_and_Skills
-5_University_Courses
-```
+- AI được phép **tự tạo Category mới** nếu sách không phù hợp Category có sẵn.
+- Category mới phải dùng số tiếp theo: nếu đã có 1-5, category mới là `6_Ten_Danh_Muc`.
+- Frontend (`app.js`) tự động gán icon và màu badge cho category mới qua hash — không cần cập nhật code.
+- Luôn ưu tiên folder **có sẵn** trước khi tạo mới.
 
 ### Files
 

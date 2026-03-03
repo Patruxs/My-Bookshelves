@@ -19,16 +19,14 @@ const searchInput = $("#search"), filterFmt = $("#filter-fmt");
 const paginationEl = $("#pagination");
 const homeView = $("#home-view"), detailView = $("#detail-view");
 
-// ═══ CATEGORY CONFIG ═══
-const catMeta = {
-    "Computer Science Fundamentals":       { icon: "💻", n: 1 },
-    "Software Engineering Disciplines":    { icon: "⚙️", n: 2 },
-    "Career and Professional Development": { icon: "🚀", n: 3 },
-    "Personal Development and Skills":     { icon: "📚", n: 4 },
-    "University Courses":                  { icon: "🎓", n: 5 },
-};
-function getCatNum(cat) { for (const [k, v] of Object.entries(catMeta)) if (cat.includes(k)) return v.n; return 1; }
-function getCatIcon(cat) { for (const [k, v] of Object.entries(catMeta)) if (cat.includes(k)) return v.icon; return "📂"; }
+// ═══ DYNAMIC CATEGORY CONFIG ═══
+const CAT_ICONS = ["💻", "⚙️", "🚀", "📚", "🎓", "🧠", "💡", "🛠️", "📊", "🌐"];
+const CAT_ICON_HINTS = { "Computer Science": "💻", "Software Engineering": "⚙️", "Career": "🚀", "Personal Development": "📚", "University": "🎓" };
+function getCatNum(cat) { return (Math.abs(hash(cat)) % 5) + 1; }
+function getCatIcon(cat) {
+    for (const [key, icon] of Object.entries(CAT_ICON_HINTS)) if (cat.includes(key)) return icon;
+    return CAT_ICONS[Math.abs(hash(cat)) % CAT_ICONS.length];
+}
 
 // ═══ THEME ═══
 function initTheme() {
