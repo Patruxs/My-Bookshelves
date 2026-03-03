@@ -1,6 +1,6 @@
 /**
- * My Bookshelves — App Logic
- * Zero dependencies · Pure JavaScript
+ * My Bookshelves — App Logic (SPA Detail View)
+ * Zero dependencies · Pure JavaScript · Apple-style UI
  */
 
 // ═══ CONFIG ═══
@@ -16,7 +16,8 @@ const BOOKS_PER_PAGE = 15;
 const $ = s => document.querySelector(s);
 const grid = $("#grid"), skeleton = $("#skeleton"), noResults = $("#no-results");
 const searchInput = $("#search"), filterFmt = $("#filter-fmt");
-const modal = $("#modal"), paginationEl = $("#pagination");
+const paginationEl = $("#pagination");
+const homeView = $("#home-view"), detailView = $("#detail-view");
 
 // ═══ CATEGORY CONFIG ═══
 const catMeta = {
@@ -41,7 +42,7 @@ function toggleTheme() {
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
 }
-initTheme(); // Run immediately to prevent flash
+initTheme();
 
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded", init);
@@ -66,9 +67,13 @@ async function init() {
 
     document.addEventListener("keydown", e => {
         if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); searchInput.focus(); }
-        if (e.key === "Escape") closeModal();
+        if (e.key === "Escape" && detailView.style.display !== "none") showHomeView();
     });
 
+    // Handle browser back/forward
+    window.addEventListener("popstate", handlePopState);
+
+    // Check URL on load
     checkUrlBookParam();
 }
 
@@ -232,12 +237,11 @@ function renderBooks() {
     const pageBooks = filteredBooks.slice(start, end);
 
     grid.innerHTML = pageBooks.map((book, i) => {
-        const globalIdx = start + i;
-        const n = getCatNum(book.category);
         const delay = Math.min(i * 30, 300);
         const title = cleanTitle(book.title);
+        const n = getCatNum(book.category);
         const cover = book.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
-        return `<div class="card fade-in" style="animation-delay:${delay}ms" onclick="openModal(${globalIdx})" tabindex="0" role="button" aria-label="${esc(title)}">
+        return `<div class="card fade-in" style="animation-delay:${delay}ms" onclick="showDetailView('${book.id}')" tabindex="0" role="button" aria-label="${esc(title)}">
             <div class="card-cover">
                 <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(title))}'">
                 <div class="card-overlay">
@@ -259,12 +263,10 @@ function renderPagination() {
     if (totalPages <= 1) { paginationEl.innerHTML = ""; return; }
 
     let html = '';
-    // Prev arrow
     html += `<button class="page-btn page-arrow" ${currentPage===1?'disabled':''} onclick="goToPage(${currentPage-1})" title="Previous">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
     </button>`;
 
-    // Page numbers with ellipsis
     const pages = getPageNumbers(currentPage, totalPages);
     pages.forEach(p => {
         if (p === '...') {
@@ -274,12 +276,10 @@ function renderPagination() {
         }
     });
 
-    // Next arrow
     html += `<button class="page-btn page-arrow" ${currentPage===totalPages?'disabled':''} onclick="goToPage(${currentPage+1})" title="Next">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
     </button>`;
 
-    // Page info
     const startItem = (currentPage - 1) * BOOKS_PER_PAGE + 1;
     const endItem = Math.min(currentPage * BOOKS_PER_PAGE, total);
     html += `<span class="page-info">${startItem}–${endItem} of ${total}</span>`;
@@ -304,7 +304,6 @@ function goToPage(page) {
     currentPage = page;
     renderBooks();
     renderPagination();
-    // Scroll to top of grid area
     grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -316,41 +315,116 @@ function placeholderSVG(title) {
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><rect width="300" height="400" fill="#1c1c1e"/><rect x="16" y="16" width="268" height="368" rx="12" fill="#2c2c2e" stroke="#${c}" stroke-width="1.5" stroke-opacity="0.2"/><text x="150" y="200" text-anchor="middle" fill="#${c}" font-size="56" font-family="system-ui" font-weight="700">${ini}</text><text x="150" y="300" text-anchor="middle" fill="#a1a1a6" font-size="13" font-family="system-ui">${escXml(title.substring(0, 28))}</text></svg>`;
 }
 
-// ═══ MODAL ═══
-function openModal(i) {
-    const b = filteredBooks[i];
+// ═══ DETAIL VIEW (SPA) ═══
+function showDetailView(bookId, pushHistory = true) {
+    const b = allBooks.find(x => x.id === bookId);
     if (!b) return;
-    const cover = b.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(b.title));
+    currentBookId = bookId;
+
+    const title = cleanTitle(b.title);
     const n = getCatNum(b.category);
+    const cover = b.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
+    const desc = b.description || `A book in "${b.topic}" of "${b.category}".`;
+    const dlUrl = getDownloadUrl(b.file_path, b.download_url);
 
-    $("#m-cover").src = cover;
-    $("#m-title").textContent = cleanTitle(b.title);
-    $("#m-cat").textContent = b.category;
-    $("#m-cat").className = `modal-tag badge-${n}`;
-    $("#m-topic").textContent = b.topic;
-    $("#m-fmt").textContent = b.format.toUpperCase();
-    $("#m-desc").textContent = b.description || `A book in "${b.topic}" of "${b.category}".`;
-    $("#m-dl").href = getDownloadUrl(b.file_path, b.download_url);
-    currentBookId = b.id;
+    // Related books
+    const related = getRelatedBooks(b);
 
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
+    const dv = $("#dv-content");
+    dv.innerHTML = `
+        <div class="dv-hero">
+            <div class="dv-cover-wrap">
+                <img class="dv-cover" src="${esc(cover)}" alt="${esc(title)}" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(title))}'">
+            </div>
+            <div class="dv-info">
+                <h1 class="dv-title">${esc(title)}</h1>
+                <div class="dv-tags">
+                    <span class="dv-tag badge-${n}">${getCatIcon(b.category)} ${esc(b.category)}</span>
+                    <span class="dv-tag dv-tag-topic">${esc(b.topic)}</span>
+                    <span class="dv-tag dv-tag-fmt">${b.format.toUpperCase()}</span>
+                </div>
+                <p class="dv-desc">${esc(desc)}</p>
+                <div class="dv-actions">
+                    <a href="${esc(dlUrl)}" target="_blank" class="btn-primary" download>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        Download
+                    </a>
+                    <button class="btn-secondary" onclick="shareBook()">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+        ${related.length ? `
+        <div class="dv-related">
+            <h2 class="dv-related-title">Related Books</h2>
+            <div class="dv-related-grid">
+                ${related.map(rb => {
+                    const rTitle = cleanTitle(rb.title);
+                    const rN = getCatNum(rb.category);
+                    const rCover = rb.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(rTitle));
+                    return `<div class="card fade-in" onclick="showDetailView('${rb.id}')" tabindex="0" role="button" aria-label="${esc(rTitle)}">
+                        <div class="card-cover">
+                            <img src="${esc(rCover)}" alt="${esc(rTitle)}" loading="lazy" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(rTitle))}'">
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">${esc(rTitle)}</div>
+                            <span class="card-badge badge-${rN}">${esc(rb.topic)}</span>
+                        </div>
+                    </div>`;
+                }).join("")}
+            </div>
+        </div>` : ""}
+    `;
+
+    // Switch views
+    homeView.style.display = "none";
+    detailView.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // Update URL
+    if (pushHistory) {
+        const u = new URL(location);
+        u.searchParams.set("book", bookId);
+        history.pushState({ bookId }, "", u);
+    }
+
+    // Update page title
+    document.title = `${title} — My Bookshelves`;
 }
 
-function openModalById(id) {
-    const b = allBooks.find(x => x.id === id);
-    if (!b) return;
-    if (!filteredBooks.includes(b)) clearAllFilters();
-    const i = filteredBooks.indexOf(b);
-    if (i !== -1) openModal(i);
-}
-
-function closeModal() {
-    modal.classList.remove("active");
-    document.body.style.overflow = "";
+function showHomeView(pushHistory = true) {
+    detailView.style.display = "none";
+    homeView.style.display = "";
     currentBookId = null;
-    const u = new URL(location);
-    if (u.searchParams.has("book")) { u.searchParams.delete("book"); history.replaceState(null, "", u); }
+    document.title = "My Bookshelves";
+
+    if (pushHistory) {
+        const u = new URL(location);
+        u.searchParams.delete("book");
+        history.pushState(null, "", u);
+    }
+}
+
+function handlePopState(e) {
+    if (e.state && e.state.bookId) {
+        showDetailView(e.state.bookId, false);
+    } else {
+        showHomeView(false);
+    }
+}
+
+// ═══ RELATED BOOKS ═══
+function getRelatedBooks(book) {
+    // Same topic first (exclude self)
+    let related = allBooks.filter(b => b.id !== book.id && b.topic === book.topic);
+    // Fill with same category if needed
+    if (related.length < 5) {
+        const catBooks = allBooks.filter(b => b.id !== book.id && b.category === book.category && b.topic !== book.topic);
+        related = related.concat(catBooks);
+    }
+    return related.slice(0, 5);
 }
 
 // ═══ SHARE ═══
@@ -369,7 +443,7 @@ function shareBook() {
 
 function checkUrlBookParam() {
     const id = new URLSearchParams(location.search).get("book");
-    if (id) requestAnimationFrame(() => openModalById(id));
+    if (id) requestAnimationFrame(() => showDetailView(id, false));
 }
 
 function showToast(msg) {
@@ -380,12 +454,9 @@ function showToast(msg) {
 
 // ═══ DOWNLOAD URL ═══
 function getDownloadUrl(fp, downloadUrl) {
-    // Priority 1: GitHub Releases URL (from upload_releases.py)
     if (downloadUrl) return downloadUrl;
-    // Priority 2: Local development
     const local = location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:";
     if (local) return "../" + encodeURI(fp);
-    // Priority 3: Raw GitHub (fallback)
     return `https://raw.githubusercontent.com/${CONFIG.githubRepo}/${CONFIG.branch}/${encodeURI(fp)}`;
 }
 
