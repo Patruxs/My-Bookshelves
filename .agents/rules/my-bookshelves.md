@@ -104,6 +104,20 @@ scripts/*.py
 - Events: ưu tiên `addEventListener()`. Inline `onclick` chỉ dùng cho dynamic HTML (cards, pagination) và HTML elements cố định (menu-btn, theme-toggle, sidebar overlay).
 - Fetch API cho HTTP requests, không XMLHttpRequest.
 
+### Cache Busting
+
+- `data.json` PHẢI fetch với cache busting: `fetch("data.json?v=" + new Date().getTime(), { cache: "no-store" })`
+- `index.html` PHẢI có meta tags chống cache:
+  ```html
+  <meta
+    http-equiv="Cache-Control"
+    content="no-cache, no-store, must-revalidate"
+  />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  ```
+- Đảm bảo người dùng luôn thấy dữ liệu mới nhất khi truy cập web mà không cần Ctrl+Shift+R.
+
 ## 4. QUY TẮC PYTHON (AUTOMATION SCRIPTS)
 
 ### Code Standards
@@ -123,16 +137,32 @@ scripts/*.py
 - Render PDF page 1 ở zoom 2x rồi downscale → sắc nét khi thu nhỏ.
 - RGBA/P mode → convert sang RGB trước khi save WebP.
 
+### Python Dependencies — ⚠️ CRITICAL
+
+`generate_data.py` yêu cầu cả **PyMuPDF** và **Pillow** cài trong **cùng một Python interpreter**:
+
+- **PyMuPDF** (`fitz`): Render PDF page 1 thành pixmap
+- **Pillow** (`PIL`): Resize + export WebP (method=6, quality 60)
+- Nếu thiếu Pillow → PyMuPDF fallback `pix.save()` **KHÔNG hỗ trợ WebP** → cover fail
+- ⚠️ Hệ thống có thể có **nhiều Python versions** (VD: `python` = 3.11, `pip` = 3.14). Luôn dùng `python -m pip install` để cài đúng interpreter.
+
+**Kiểm tra dependencies (BẮT BUỘC trước generate):**
+
+```bash
+python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING PyMuPDF"
+python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING Pillow"
+```
+
 ### Data Pipeline — ⚠️ CRITICAL RULES
 
 - `generate_data.py` PHẢI preserve description VÀ download_url khi regenerate data.json.
 - Book ID = `hashlib.md5(file_path).hexdigest()[:12]`.
 - Output cover: `site/assets/covers/{sanitize_filename(title)}.webp`.
-- Graceful fallback: script vẫn chạy nếu thiếu PyMuPDF hoặc ebooklib.
+- Graceful fallback: script vẫn chạy nếu thiếu PyMuPDF hoặc ebooklib (nhưng sẽ không tạo được cover).
 
 **Quy tắc chống mất dữ liệu:**
 
-- **PHẢI kiểm tra PyMuPDF đã cài** trước khi chạy `generate_data.py` (chạy thiếu PyMuPDF = risk mất data).
+- **PHẢI kiểm tra PyMuPDF VÀ Pillow đã cài** trước khi chạy `generate_data.py`.
 - **Chạy `generate_data.py` CHỈ 1 LẦN** — không chạy lặp lại. Nếu fail → fix root cause trước.
 - **PHẢI verify `download_url`** ngay sau generate: đếm số sách thiếu URL phải = đúng N sách mới.
 - **PHẢI chạy `upload_releases.py --dry-run`** trước upload thật: nếu dry-run hiện >N file → DỪNG.
@@ -208,10 +238,11 @@ Khi viết code cho dự án này, AI PHẢI:
 10. Khi tạo cover mới: chạy `python scripts/generate_data.py --base-dir .` (xuất WebP trực tiếp).
 11. Khi viết description: PHẢI theo format 3 phần (Context → Overview → Key Takeaways).
 12. Khi đặt tên file sách: PHẢI dùng ASCII Snake_Case không dấu, KHÔNG dùng khoảng trắng, `-`, `+`, `.`.
-13. **PHẢI kiểm tra PyMuPDF** trước khi chạy `generate_data.py` — KHÔNG chạy nếu thiếu.
+13. **PHẢI kiểm tra PyMuPDF VÀ Pillow** trước khi chạy `generate_data.py` — KHÔNG chạy nếu thiếu.
 14. **Chạy `generate_data.py` CHỈ 1 LẦN** — không chạy lại nếu đã thành công.
 15. **PHẢI verify `download_url` preservation** sau khi `generate_data.py` chạy xong.
 16. **PHẢI chạy `upload_releases.py --dry-run`** trước upload thật — nếu count > N sách mới → DỪNG.
+17. **Dùng `python -m pip install`** khi cài package — tránh cài nhầm Python version.
 
 SCRIPTS REFERENCE:
 

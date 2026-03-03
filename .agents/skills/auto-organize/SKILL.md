@@ -148,11 +148,14 @@ mv "Inbox/filename.pdf" "Books/category/topic/filename.pdf"
 ### Bước 8: ⚠️ Kiểm tra dependencies (BẮT BUỘC trước generate)
 
 ```bash
-python -c "import fitz; print('PyMuPDF OK')"
+python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING PyMuPDF"
+python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING Pillow"
 ```
 
-- Nếu thiếu → cài `pip install PyMuPDF` TRƯỚC khi tiếp tục.
-- **TUYỆT ĐỐI KHÔNG** chạy `generate_data.py` khi thiếu PyMuPDF — sẽ tạo data.json thiếu cover và có thể mất `download_url`.
+- Nếu thiếu PyMuPDF → cài `python -m pip install PyMuPDF`
+- Nếu thiếu Pillow → cài `python -m pip install Pillow`
+- ⚠️ **LUÔN dùng `python -m pip install`** (không dùng `pip install`) — hệ thống có thể có nhiều Python versions, `pip` có thể trỏ vào Python khác với `python`.
+- **TUYỆT ĐỐI KHÔNG** chạy `generate_data.py` khi thiếu PyMuPDF hoặc Pillow — sẽ tạo data.json thiếu cover.
 
 ### Bước 9: Tạo bìa sách + cập nhật data.json (CHỈ 1 LẦN)
 
@@ -259,10 +262,11 @@ Báo cáo kết quả cho user:
 5. **Di chuyển từng file một** — không batch move
 6. **Chuẩn hóa tên file** bằng `rename_books.py` trước khi generate/upload
 7. **Đường dẫn sách trong `Books/`** — tất cả sách nằm trong folder `Books/`
-8. **Kiểm tra PyMuPDF** trước khi chạy `generate_data.py` — bắt buộc
+8. **Kiểm tra PyMuPDF VÀ Pillow** trước khi chạy `generate_data.py` — bắt buộc cả hai
 9. **Chạy `generate_data.py` CHỈ 1 LẦN** — không chạy lại nếu đã thành công
 10. **VERIFY `download_url`** sau khi generate — đếm số thiếu phải = đúng N sách mới
 11. **DRY-RUN bắt buộc** trước upload — đếm file phải = đúng N sách mới
 12. **LUÔN viết description** cho sách mới — không để trống
 13. **Ảnh bìa PHẢI là WebP** — không commit ảnh JPG/PNG vào repo
 14. **Dynamic Categories** — AI tự do tạo category mới khi cần (format `{N}_Snake_Case`)
+15. **Dùng `python -m pip install`** — tránh cài nhầm Python version khi hệ thống có nhiều Python

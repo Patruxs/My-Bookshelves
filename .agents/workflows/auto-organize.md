@@ -73,9 +73,13 @@ mv "Inbox/[filename]" "Books/[category]/[topic]/[filename]"
 
 ```bash
 python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING: cần cài PyMuPDF"
+python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING: cần cài Pillow"
 ```
 
-Nếu thiếu PyMuPDF → cài `pip install PyMuPDF` TRƯỚC khi tiếp tục. **TUYỆT ĐỐI KHÔNG** chạy `generate_data.py` khi thiếu PyMuPDF.
+Nếu thiếu PyMuPDF → cài `python -m pip install PyMuPDF`
+Nếu thiếu Pillow → cài `python -m pip install Pillow`
+
+⚠️ **LUÔN dùng `python -m pip install`** (không dùng `pip install` trực tiếp) — hệ thống có thể có nhiều Python versions, `pip` có thể trỏ vào Python khác với `python`. **TUYỆT ĐỐI KHÔNG** chạy `generate_data.py` khi thiếu PyMuPDF hoặc Pillow.
 
 // turbo 9. Tạo bìa sách (WebP 250px) và cập nhật data.json — **CHỈ CHẠY 1 LẦN DUY NHẤT**:
 
