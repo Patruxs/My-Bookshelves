@@ -24,7 +24,7 @@ const catMeta = {
     "Computer Science Fundamentals":       { icon: "💻", n: 1 },
     "Software Engineering Disciplines":    { icon: "⚙️", n: 2 },
     "Career and Professional Development": { icon: "🚀", n: 3 },
-    "Miscellaneous":                       { icon: "📦", n: 4 },
+    "Personal Development and Skills":     { icon: "📚", n: 4 },
     "University Courses":                  { icon: "🎓", n: 5 },
 };
 function getCatNum(cat) { for (const [k, v] of Object.entries(catMeta)) if (cat.includes(k)) return v.n; return 1; }
@@ -52,7 +52,7 @@ async function init() {
     try {
         const r = await fetch("data.json");
         if (!r.ok) throw new Error(r.status);
-        allBooks = await r.json();
+        allBooks = mergeBooks(await r.json());
     } catch (e) { console.warn("data.json:", e); allBooks = []; }
 
     renderSidebar();
@@ -202,7 +202,7 @@ function applyFilters() {
         (!q || b.title.toLowerCase().includes(q)) &&
         (!cat || b.category === cat) &&
         (!topic || b.topic === topic) &&
-        (!fmt || b.format === fmt)
+        (!fmt || b.formats.includes(fmt))
     );
 
     if (currentSort === "az") filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
@@ -341,14 +341,17 @@ function showDetailView(bookId, pushHistory = true) {
                 <div class="dv-tags">
                     <span class="dv-tag badge-${n}">${getCatIcon(b.category)} ${esc(b.category)}</span>
                     <span class="dv-tag dv-tag-topic">${esc(b.topic)}</span>
-                    <span class="dv-tag dv-tag-fmt">${b.format.toUpperCase()}</span>
+                    ${b.formats.map(f => `<span class="dv-tag dv-tag-fmt">${f.toUpperCase()}</span>`).join('')}
                 </div>
                 <p class="dv-desc">${esc(desc)}</p>
                 <div class="dv-actions">
-                    <a href="${esc(dlUrl)}" target="_blank" class="btn-primary" download>
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        Download
-                    </a>
+                    ${b.formats.map(f => {
+                        const fUrl = getDownloadUrl(b.files[f], b.downloads[f]);
+                        return `<a href="${esc(fUrl)}" target="_blank" class="btn-primary" download>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            Download ${f.toUpperCase()}
+                        </a>`;
+                    }).join('')}
                     <button class="btn-secondary" onclick="shareBook()">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                         Share
@@ -466,9 +469,31 @@ function esc(s) { const d = document.createElement("div"); d.textContent = s; re
 function escXml(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; } return h; }
 function cleanTitle(t) {
+    const lowerWords = ["a","an","the","and","or","but","in","on","of","to","for","with","by","at","from","as","is"];
     return t.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim()
-        .replace(/\w\S*/g, (w, i) => {
-            const lower = ["a","an","the","and","or","but","in","on","of","to","for","with","by","at","from","as","is"];
-            return (i > 0 && lower.includes(w.toLowerCase())) ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1);
-        });
+        .split(" ")
+        .map((w, i) => {
+            const lower = w.toLowerCase();
+            return (i > 0 && lowerWords.includes(lower))
+                ? lower
+                : lower.charAt(0).toUpperCase() + lower.slice(1);
+        })
+        .join(" ");
+}
+function mergeBooks(books) {
+    const groups = {};
+    books.forEach(b => {
+        const key = cleanTitle(b.title);
+        if (!groups[key]) {
+            groups[key] = { ...b, formats: [b.format], downloads: { [b.format]: b.download_url || '' }, files: { [b.format]: b.file_path } };
+        } else {
+            groups[key].formats.push(b.format);
+            groups[key].downloads[b.format] = b.download_url || '';
+            groups[key].files[b.format] = b.file_path;
+            if (!groups[key].description && b.description) groups[key].description = b.description;
+            if (!groups[key].cover && b.cover) groups[key].cover = b.cover;
+            if (!groups[key].download_url && b.download_url) groups[key].download_url = b.download_url;
+        }
+    });
+    return Object.values(groups);
 }
