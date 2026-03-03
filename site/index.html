@@ -837,158 +837,135 @@
         }
 
         /* ═══════════════════════════════
-   MODAL — Apple Sheet Style
+   DETAIL VIEW — Apple Product Page Style
    ═══════════════════════════════ */
-        .modal-bg {
-            position: fixed;
-            inset: 0;
-            z-index: 60;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            display: flex;
+        .detail-view {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 24px 28px 60px
+        }
+
+        .dv-back {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease
-        }
-
-        .modal-bg.active {
-            opacity: 1;
-            visibility: visible
-        }
-
-        .modal-bg.active .modal {
-            transform: scale(1) translateY(0);
-            opacity: 1
-        }
-
-        .modal {
-            background: var(--bg-elevated);
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--border);
-            max-width: 600px;
-            width: calc(100% - 32px);
-            max-height: 90vh;
-            overflow-y: auto;
-            transform: scale(0.96) translateY(16px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6)
-        }
-
-        .modal-inner {
-            padding: 28px
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 6px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 500;
+            font-family: var(--font);
+            background: none;
+            border: none;
             cursor: pointer;
-            color: var(--text-tertiary);
-            transition: all 0.2s ease
+            padding: 8px 0;
+            margin-bottom: 24px;
+            transition: opacity var(--transition)
         }
 
-        .modal-close:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary)
+        .dv-back:hover {
+            opacity: 0.7
         }
 
-        .modal-close svg {
-            width: 12px;
-            height: 12px
+        .dv-back svg {
+            width: 16px;
+            height: 16px
         }
 
-        .modal-body {
+        .dv-hero {
             display: flex;
-            gap: 24px
+            gap: 40px;
+            align-items: flex-start
         }
 
-        .modal-cover {
-            width: 160px;
+        .dv-cover-wrap {
+            width: 240px;
             flex-shrink: 0;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: var(--shadow-card)
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transition)
         }
 
-        .modal-cover img {
+        .dv-cover-wrap:hover {
+            transform: scale(1.02)
+        }
+
+        .dv-cover {
             width: 100%;
             display: block
         }
 
-        .modal-detail {
+        .dv-info {
             flex: 1;
             min-width: 0
         }
 
-        .modal-title {
-            font-size: 22px;
+        .dv-title {
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
             line-height: 1.2;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
             color: var(--text-primary);
             word-break: break-word
         }
 
-        .modal-tags {
+        .dv-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px
+            gap: 8px;
+            margin-bottom: 20px
         }
 
-        .modal-tag {
-            padding: 4px 10px;
+        .dv-tag {
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 11px;
-            font-weight: 500
-        }
-
-        .tag-cat {
+            font-size: 12px;
+            font-weight: 500;
             background: var(--bg-secondary);
             color: var(--text-secondary);
             border: 1px solid var(--border)
         }
 
-        .tag-topic {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border)
-        }
-
-        .tag-format {
-            background: var(--bg-secondary);
-            color: var(--text-tertiary);
-            border: 1px solid var(--border);
+        .dv-tag-fmt {
             text-transform: uppercase;
             font-size: 10px;
-            letter-spacing: 0.04em
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary)
         }
 
-        .modal-desc {
-            font-size: 14px;
-            line-height: 1.6;
+        .dv-desc {
+            font-size: 15px;
+            line-height: 1.7;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 28px;
             white-space: pre-wrap
         }
 
-        .modal-actions {
+        .dv-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap
+        }
+
+        /* Related Books */
+        .dv-related {
+            margin-top: 56px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border)
+        }
+
+        .dv-related-title {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: var(--text-primary)
+        }
+
+        .dv-related-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px
         }
 
         /* Apple-style buttons */
@@ -1377,61 +1354,39 @@
                 font-size: 9px;
             }
 
-            /* Modal: stack vertically */
-            .modal {
-                max-width: calc(100% - 24px);
-                border-radius: var(--radius-lg);
-            }
+            /* Detail view: stack vertically */
 
-            .modal-inner {
-                padding: 20px;
-            }
-
-            .modal-body {
+            .dv-hero {
                 flex-direction: column;
-                gap: 16px;
+                gap: 24px
             }
 
-            .modal-cover {
-                width: 100%;
-                max-width: 180px;
-                margin: 0 auto;
+            .dv-cover-wrap {
+                width: 180px;
+                margin: 0 auto
             }
 
-            .modal-close {
-                top: 12px;
-                right: 12px;
-                width: 26px;
-                height: 26px;
+            .dv-title {
+                font-size: 22px;
+                text-align: center
             }
 
-            .modal-close svg {
-                width: 10px;
-                height: 10px;
+            .dv-tags {
+                justify-content: center
             }
 
-            .modal-title {
-                font-size: 18px;
-            }
-
-            .modal-tags {
-                gap: 4px;
-            }
-
-            .modal-tag {
-                padding: 3px 8px;
-                font-size: 10px;
-            }
-
-            .modal-desc {
+            .dv-desc {
                 font-size: 13px;
-                line-height: 1.6;
-                margin-bottom: 16px;
+                line-height: 1.6
             }
 
-            .modal-actions {
-                flex-direction: column;
-                gap: 8px;
+            .dv-actions {
+                justify-content: center
+            }
+
+            .dv-related-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px
             }
 
             .btn-primary,
@@ -1531,117 +1486,93 @@
         </div>
     </nav>
 
-    <!-- ═══ LAYOUT: SIDEBAR + MAIN ═══ -->
-    <div class="layout">
-        <div id="sb-overlay" class="sb-overlay" onclick="closeSidebar()"></div>
+    <!-- ═══ HOME VIEW ═══ -->
+    <div id="home-view">
+        <!-- ═══ LAYOUT: SIDEBAR + MAIN ═══ -->
+        <div class="layout">
+            <div id="sb-overlay" class="sb-overlay" onclick="closeSidebar()"></div>
 
-        <!-- SIDEBAR -->
-        <aside id="sidebar" class="sidebar">
-            <div class="sidebar-heading">
-                <span>Categories</span>
-                <button onclick="collapseAllCategories()">Collapse</button>
-            </div>
-            <button id="sb-all" class="sb-all active" onclick="sidebarSelectAll()">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-                All Books
-                <span id="sb-all-count" class="sb-all-count">0</span>
-            </button>
-            <div id="sb-tree"></div>
-        </aside>
-
-        <!-- MAIN -->
-        <div class="main">
-            <!-- Search -->
-            <div class="search">
-                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input id="search" class="search-input" type="text" placeholder="Search books...">
-                <kbd class="search-kbd">⌘K</kbd>
-            </div>
-
-            <!-- Toolbar -->
-            <div class="toolbar">
-                <select id="filter-format" class="toolbar-select" style="display:none">
-                    <option value="">Format</option>
-                </select>
-                <select id="filter-fmt" class="toolbar-select">
-                    <option value="">All Formats</option>
-                    <option value="pdf">PDF</option>
-                    <option value="epub">EPUB</option>
-                </select>
-                <div class="toolbar-spacer"></div>
-                <div class="sort-group">
-                    <button id="sort-az" class="sort-btn" title="A → Z">A→Z</button>
-                    <button id="sort-za" class="sort-btn" title="Z → A">Z→A</button>
+            <!-- SIDEBAR -->
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-heading">
+                    <span>Categories</span>
+                    <button onclick="collapseAllCategories()">Collapse</button>
                 </div>
-                <span class="book-count"><span id="shown-count">0</span> books</span>
-            </div>
+                <button id="sb-all" class="sb-all active" onclick="sidebarSelectAll()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    All Books
+                    <span id="sb-all-count" class="sb-all-count">0</span>
+                </button>
+                <div id="sb-tree"></div>
+            </aside>
 
-            <!-- Book Grid -->
-            <div id="skeleton" class="grid"></div>
-            <div id="grid" class="grid" style="display:none"></div>
+            <!-- MAIN -->
+            <div class="main">
+                <!-- Search -->
+                <div class="search">
+                    <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input id="search" class="search-input" type="text" placeholder="Search books...">
+                    <kbd class="search-kbd">⌘K</kbd>
+                </div>
 
-            <!-- Pagination -->
-            <div id="pagination" class="pagination"></div>
-
-            <!-- No Results -->
-            <div id="no-results" class="no-results">
-                <svg class="no-results-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <h3>No books found</h3>
-                <p>Try adjusting your search or filters</p>
-            </div>
-
-            <!-- Footer -->
-            <div class="footer">Built with ❤ by My Bookshelves</div>
-        </div>
-    </div>
-
-    <!-- ═══ MODAL ═══ -->
-    <div id="modal" class="modal-bg" onclick="if(event.target===this)closeModal()">
-        <div class="modal" style="position:relative">
-            <button class="modal-close" onclick="closeModal()">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <div class="modal-inner">
-                <div class="modal-body">
-                    <div class="modal-cover"><img id="m-cover" src="" alt=""></div>
-                    <div class="modal-detail">
-                        <h2 id="m-title" class="modal-title"></h2>
-                        <div class="modal-tags">
-                            <span id="m-cat" class="modal-tag tag-cat"></span>
-                            <span id="m-topic" class="modal-tag tag-topic"></span>
-                            <span id="m-fmt" class="modal-tag tag-format"></span>
-                        </div>
-                        <p id="m-desc" class="modal-desc"></p>
-                        <div class="modal-actions">
-                            <a id="m-dl" href="#" target="_blank" class="btn-primary" download>
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                                Download
-                            </a>
-                            <button id="m-share" class="btn-secondary" onclick="shareBook()">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                                </svg>
-                                Share
-                            </button>
-                        </div>
+                <!-- Toolbar -->
+                <div class="toolbar">
+                    <select id="filter-format" class="toolbar-select" style="display:none">
+                        <option value="">Format</option>
+                    </select>
+                    <select id="filter-fmt" class="toolbar-select">
+                        <option value="">All Formats</option>
+                        <option value="pdf">PDF</option>
+                        <option value="epub">EPUB</option>
+                    </select>
+                    <div class="toolbar-spacer"></div>
+                    <div class="sort-group">
+                        <button id="sort-az" class="sort-btn" title="A → Z">A→Z</button>
+                        <button id="sort-za" class="sort-btn" title="Z → A">Z→A</button>
                     </div>
+                    <span class="book-count"><span id="shown-count">0</span> books</span>
                 </div>
+
+                <!-- Book Grid -->
+                <div id="skeleton" class="grid"></div>
+                <div id="grid" class="grid" style="display:none"></div>
+
+                <!-- Pagination -->
+                <div id="pagination" class="pagination"></div>
+
+                <!-- No Results -->
+                <div id="no-results" class="no-results">
+                    <svg class="no-results-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3>No books found</h3>
+                    <p>Try adjusting your search or filters</p>
+                </div>
+
+                <!-- Footer -->
+                <div class="footer">Built with ❤ by My Bookshelves</div>
             </div>
+        </div>
+
+    </div><!-- /home-view -->
+
+    <!-- ═══ DETAIL VIEW ═══ -->
+    <div id="detail-view" style="display:none">
+        <div class="detail-view">
+            <button class="dv-back" onclick="showHomeView()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Library
+            </button>
+            <div id="dv-content"></div>
         </div>
     </div>
 
