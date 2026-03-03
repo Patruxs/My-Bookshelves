@@ -296,30 +296,42 @@ def main():
 
     books = scan_books(args.base_dir, force_covers=args.force)
 
-    # Load existing data.json to preserve descriptions
+    # Load existing data.json to preserve descriptions and download_url
     output_path = Path(args.base_dir) / args.output
     existing_descriptions = {}
+    existing_download_urls = {}
     existing_by_title = {}
+    existing_urls_by_title = {}
     if output_path.exists():
         try:
             with open(output_path, 'r', encoding='utf-8') as f:
                 existing = json.load(f)
                 for entry in existing:
                     desc = entry.get('description', '')
-                    if desc:
-                        if entry.get('file_path'):
+                    url = entry.get('download_url', '')
+                    if entry.get('file_path'):
+                        if desc:
                             existing_descriptions[entry['file_path']] = desc
-                        if entry.get('title'):
+                        if url:
+                            existing_download_urls[entry['file_path']] = url
+                    if entry.get('title'):
+                        if desc:
                             existing_by_title[entry['title']] = desc
+                        if url:
+                            existing_urls_by_title[entry['title']] = url
         except (json.JSONDecodeError, KeyError):
             pass
 
-    # Merge: keep existing descriptions (match by file_path first, then title)
+    # Merge: keep existing descriptions and download_urls (match by file_path first, then title)
     for book in books:
         if book['file_path'] in existing_descriptions:
             book['description'] = existing_descriptions[book['file_path']]
         elif book['title'] in existing_by_title:
             book['description'] = existing_by_title[book['title']]
+        if book['file_path'] in existing_download_urls:
+            book['download_url'] = existing_download_urls[book['file_path']]
+        elif book['title'] in existing_urls_by_title:
+            book['download_url'] = existing_urls_by_title[book['title']]
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(books, f, ensure_ascii=False, indent=2)
 

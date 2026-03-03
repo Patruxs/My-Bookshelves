@@ -43,6 +43,10 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 - HTML/JS/CSS: lowercase, không dấu → `index.html`, `app.js`
 - Python scripts: lowercase + underscore → `generate_data.py`, `auto_organize.py`
 - Ảnh bìa: `Sanitize_Title.webp` (thay space/ký tự đặc biệt bằng `_`, max 100 chars)
+- Tên file sách: **Title Case** với dấu cách → `Go With Domain.pdf`, `Head First Java 2nd Edition.pdf`
+  - KHÔNG dùng dấu gạch ngang (`-`) hoặc gạch dưới (`_`) trong tên file sách
+  - Ví dụ SAI: `go-with-domain.pdf`, `Head_First_Java.pdf`
+  - Ví dụ ĐÚNG: `Go With Domain.pdf`, `Head First Java.pdf`
 - Data: `data.json` (mảng JSON, UTF-8, indent 2)
 
 ### Cấu trúc thư mục chuẩn
@@ -102,10 +106,27 @@ scripts/*.py
 
 ### Data Pipeline
 
-- `generate_data.py` PHẢI preserve description khi regenerate data.json.
+- `generate_data.py` PHẢI preserve description VÀ download_url khi regenerate data.json.
 - Book ID = `hashlib.md5(file_path).hexdigest()[:12]`.
 - Output cover: `site/assets/covers/{sanitize_filename(title)}.webp`.
 - Graceful fallback: script vẫn chạy nếu thiếu PyMuPDF hoặc ebooklib.
+
+### Description Format (3-Part Professional)
+
+Mọi description trong data.json PHẢI tuân thủ 3 phần:
+
+1. **Context & Problem:** Bối cảnh, tầm quan trọng, thách thức (1 đoạn)
+2. **Book Overview:** Giới thiệu sách, tác giả, giải pháp (1 đoạn)
+3. **Key Takeaways:** 4-5 bullet points bằng ký tự `•` (không dùng `-`)
+
+Các đoạn ngăn cách bằng `\n\n` trong JSON string. Sách tiếng Việt viết bằng tiếng Việt.
+CSS `.modal-desc` đã có `white-space: pre-wrap` để render đúng format.
+
+Ví dụ:
+
+```json
+"description": "Context paragraph...\n\nOverview paragraph...\n\n• Takeaway 1\n• Takeaway 2\n• Takeaway 3\n• Takeaway 4"
+```
 
 ### AI Skill Prompts
 
@@ -145,13 +166,15 @@ Khi viết code cho dự án này, AI PHẢI:
 1. KHÔNG viết code placeholder/TODO — mọi function phải hoạt động hoàn chỉnh.
 2. KHÔNG đề xuất cài thư viện JS/CSS ngoài — luôn viết Vanilla.
 3. KHÔNG tạo file ảnh JPG/PNG — luôn xuất WebP.
-4. KHÔNG chỉnh sửa data.json mà xóa mất description đã có.
+4. KHÔNG chỉnh sửa data.json mà xóa mất description hoặc download_url đã có.
 5. LUÔN kiểm tra `.agents/skills/auto-organize/SKILL.md` trước khi thực hiện phân loại sách.
 6. LUÔN hỏi user xác nhận trước khi di chuyển (move/rename) bất kỳ file nào.
 7. LUÔN giữ tổng dung lượng repo dưới 5MB khi đề xuất thêm tài nguyên.
 8. Khi sửa CSS: dùng CSS Variables, không hardcode màu.
 9. Khi sửa JS: giữ zero-dependency, dùng ES6+.
 10. Khi tạo cover mới: chạy `python scripts/generate_data.py --base-dir .` (xuất WebP trực tiếp).
+11. Khi viết description: PHẢI theo format 3 phần (Context → Overview → Key Takeaways).
+12. Khi đặt tên file sách: PHẢI dùng Title Case với dấu cách, KHÔNG dùng `-` hoặc `_`.
 
 SCRIPTS REFERENCE:
 
