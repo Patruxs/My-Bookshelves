@@ -7,7 +7,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Data_Structures_and_Algorithms/Leetcode Pattern Recognition Guide.pdf",
     "cover": "assets/covers/Leetcode_Pattern_Recognition_Guide.webp",
     "format": "pdf",
-    "description": "Identify recurring patterns in Leetcode problems — sliding window, two pointers, BFS/DFS, dynamic programming, and more."
+    "description": "Competitive programming and coding interviews demand more than brute-force problem solving. The real challenge lies in recognizing which algorithmic pattern applies to a given problem, transforming an unfamiliar question into a familiar template.\n\nThis guide distills hundreds of Leetcode problems into a set of recurring patterns, helping you build the muscle memory needed to identify the right approach within seconds. Instead of memorizing individual solutions, you learn to see the underlying structure.\n\n• Master core patterns: sliding window, two pointers, fast & slow pointers, merge intervals\n• Apply BFS/DFS templates to tree, graph, and matrix traversal problems\n• Recognize dynamic programming subproblems and state transitions\n• Use binary search beyond sorted arrays — on answer spaces and monotonic functions\n• Build a systematic framework for tackling any unseen problem in interviews"
   },
   {
     "id": "77f72d9c4a9d",
@@ -17,7 +17,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Data_Structures_and_Algorithms/Prefix Trees and Tries.pdf",
     "cover": "assets/covers/Prefix_Trees_and_Tries.webp",
     "format": "pdf",
-    "description": "Deep dive into trie data structures — implementation, operations (insert, search, delete), and real-world applications like autocomplete and spell checking."
+    "description": "String-heavy problems in coding interviews and real-world applications — autocomplete, spell checking, IP routing — all share a common need for efficient prefix-based searching that hash maps cannot elegantly solve.\n\nThis focused guide covers the trie (prefix tree) data structure from the ground up, including implementation details, time/space complexity analysis, and practical applications that bridge theory and interview-ready code.\n\n• Implement trie insertion, search, prefix matching, and deletion from scratch\n• Understand space optimization techniques: compressed tries and ternary search trees\n• Solve classic problems: word search, longest common prefix, and wildcard matching\n• Apply tries to real systems: autocomplete engines, DNS resolution, and T9 predictive text\n• Analyze time complexity advantages over hash-based alternatives for prefix queries"
   },
   {
     "id": "c8721601b8c7",
@@ -27,7 +27,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Crafting Interpreters.pdf",
     "cover": "assets/covers/Crafting_Interpreters.webp",
     "format": "pdf",
-    "description": "Build two complete interpreters from scratch — a tree-walk interpreter in Java and a bytecode VM in C. By Robert Nystrom."
+    "description": "Programming languages are the tools every developer uses daily, yet few understand how they actually work under the hood. The gap between using a language and building one represents some of the deepest knowledge in computer science.\n\nIn this masterfully crafted book, Robert Nystrom guides you through building two complete interpreters for a language called Lox: first a tree-walk interpreter in Java, then a high-performance bytecode virtual machine in C. Every line of code is explained with wit and clarity.\n\n• Build a complete scanner, parser, and AST from scratch — no parser generators needed\n• Implement variables, control flow, functions, closures, classes, and inheritance\n• Design a bytecode instruction set and build a stack-based virtual machine in C\n• Add garbage collection with a mark-and-sweep collector\n• Understand the real engineering trade-offs behind language design decisions"
   },
   {
     "id": "00607e528f77",
@@ -37,7 +37,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Structure and Interpretation of Computer Programs.pdf",
     "cover": "assets/covers/Structure_and_Interpretation_of_Computer_Programs.webp",
     "format": "pdf",
-    "description": "The legendary MIT textbook (SICP) — abstraction, recursion, higher-order functions, interpreters, and metalinguistic abstraction. By Abelson & Sussman."
+    "description": "Computer science is not about computers — it is about ideas. Yet most programming courses focus on syntax and tools rather than the fundamental principles of computation, abstraction, and the nature of programs themselves.\n\nSICP, the legendary MIT textbook by Harold Abelson and Gerald Jay Sussman, transforms how you think about programming. Using Scheme as its vehicle, it explores procedural abstraction, data abstraction, modularity, state management, streams, and the construction of interpreters.\n\n• Master computational thinking through higher-order functions, recursion, and abstraction\n• Build interpreters and understand metalinguistic abstraction — programs that process programs\n• Explore lazy evaluation, streams, and the distinction between declarative and imperative knowledge\n• Understand the environment model of evaluation and how closures really work\n• Develop the mindset that separates great engineers from average programmers"
   },
   {
     "id": "a3d53ba42866",
@@ -47,7 +47,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Guide To Clear Java Developer Interview.pdf",
     "cover": "assets/covers/Guide_To_Clear_Java_Developer_Interview_-_Contains_250_Java_Spring-Boot_Microservice_Interview_Quest.webp",
     "format": "pdf",
-    "description": "250 interview questions covering Java core, Spring Boot, microservices, REST APIs, and system design.",
+    "description": "Java remains the dominant language for enterprise backend development, and interviews for Java developer roles have become increasingly demanding — covering not just language fundamentals but also frameworks, architectural patterns, and distributed systems.\n\nThis comprehensive interview guide contains 250 carefully curated questions spanning Java core, Spring Boot, microservices, and system design. Each question includes detailed answers with code examples, making it an ideal last-mile preparation resource.\n\n• Review Java fundamentals: OOP, collections, generics, streams, concurrency, and JVM internals\n• Master Spring Boot topics: dependency injection, auto-configuration, REST controllers, and security\n• Understand microservice patterns: service discovery, circuit breakers, API gateways, and saga pattern\n• Practice REST API design: HTTP methods, status codes, versioning, HATEOAS, and pagination\n• Prepare for system design rounds with scalability, caching, and database sharding questions",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Guide.To.Clear.Java.Developer.Interview.pdf"
   },
   {
@@ -58,7 +58,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Head First Java 2nd Edition.pdf",
     "cover": "assets/covers/Head_First_Java_2nd_Edition.webp",
     "format": "pdf",
-    "description": "Beginner-friendly Java guide using visual learning — OOP, threading, networking, GUI with Swing, and collections."
+    "description": "Learning your first programming language can feel overwhelming — dense textbooks filled with abstract concepts and walls of code often discourage beginners before they even write their first class.\n\nHead First Java by Kathy Sierra and Bert Bates takes a radically different approach, using cognitive science and visual learning to make Java stick. Through puzzles, illustrations, and hands-on exercises, you go from zero to confident Java programmer.\n\n• Learn Java fundamentals through visual metaphors: objects, classes, inheritance, and polymorphism\n• Build real GUIs with Swing — event handling, layouts, and custom drawing\n• Understand multithreading: creating threads, synchronization, and avoiding race conditions\n• Master collections framework: ArrayList, HashMap, TreeSet, and generics\n• Explore networking and I/O: sockets, serialization, and file handling"
   },
   {
     "id": "54f62490d4f4",
@@ -68,7 +68,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Introduction to Programming Using Java.pdf",
     "cover": "assets/covers/Introduction_to_Programming_Using_Java.webp",
     "format": "pdf",
-    "description": "Free CS1-level textbook — variables, control flow, arrays, OOP, recursion, linked lists, and GUI programming."
+    "description": "Many aspiring programmers lack access to quality CS education, and paid textbooks can be prohibitively expensive. A free, comprehensive introduction to programming can be the difference between starting a career and giving up.\n\nThis free, open-source textbook by David J. Eck covers the full CS1 curriculum using Java. It progresses methodically from basic concepts to advanced topics, with clear explanations and numerous exercises at every step.\n\n• Build a solid foundation: variables, data types, control flow, arrays, and subroutines\n• Understand object-oriented programming: classes, inheritance, polymorphism, and interfaces\n• Explore data structures: linked lists, stacks, queues, binary trees, and hash tables\n• Learn recursion through visual examples and practical problem-solving\n• Create graphical applications and understand event-driven programming"
   },
   {
     "id": "3b94f0b88ecd",
@@ -78,7 +78,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java How to Program, 9th edition.pdf",
     "cover": "assets/covers/Java_How_to_Program_9th_edition.webp",
     "format": "pdf",
-    "description": "Comprehensive Java textbook by Deitel & Deitel — OOP, generics, collections, JDBC, multithreading, networking."
+    "description": "Java's ecosystem is vast, and mastering it requires a resource that covers both the language fundamentals and the rich standard library — from desktop applications to database connectivity and network programming.\n\nJava How to Program by Paul and Harvey Deitel is the industry-standard textbook used in universities worldwide. The 9th edition covers Java SE with a live-code approach: every concept is demonstrated through complete, working programs.\n\n• Master core Java: classes, objects, inheritance, polymorphism, interfaces, and exception handling\n• Work with generics, collections framework, and the Java Streams API\n• Build database applications with JDBC and understand SQL integration\n• Implement multithreaded applications with concurrency utilities\n• Develop networked applications using sockets and understand client-server architecture"
   },
   {
     "id": "6148009eadca",
@@ -88,7 +88,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCP Oracle Certified Professional Java SE 21 Developer Study Guide.pdf",
     "cover": "assets/covers/OCP_Oracle_Certified_Professional_Java_SE_21_Developer_Study_Guide.webp",
     "format": "pdf",
-    "description": "Official study guide for Java SE 21 certification (1Z0-830) — records, sealed classes, pattern matching, virtual threads."
+    "description": "The OCP Java SE 21 certification (1Z0-830) validates deep expertise in modern Java — but the exam covers cutting-edge features like virtual threads, pattern matching, and sealed classes that many experienced developers have not yet used in production.\n\nThis official study guide by Boyarsky & Selikoff provides exhaustive coverage of every exam objective, with detailed explanations, hundreds of practice questions, and real-world code examples.\n\n• Master Java 21 features: records, sealed classes, pattern matching for switch, and text blocks\n• Understand virtual threads (Project Loom) and structured concurrency for scalable applications\n• Deep dive into modules, streams, lambdas, generics, and the collections framework\n• Practice with hundreds of exam-format questions including tricky edge cases\n• Review concurrency, I/O (NIO.2), JDBC, and localization for complete exam readiness"
   },
   {
     "id": "00accf0238cc",
@@ -98,7 +98,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Spring Start Here.pdf",
     "cover": "assets/covers/Spring_Start_Here.webp",
     "format": "pdf",
-    "description": "Gentle introduction to the Spring ecosystem — IoC, DI, Spring Boot, REST APIs, data persistence, and security."
+    "description": "The Spring framework powers the majority of enterprise Java applications, but its vast ecosystem — Spring Boot, Spring MVC, Spring Data, Spring Security — can overwhelm developers trying to learn it for the first time.\n\nSpring Start Here by Laurentiu Spilca takes a gentle, example-driven approach to building your first Spring applications. Rather than drowning you in theory, it focuses on practical skills you can immediately apply.\n\n• Understand Inversion of Control (IoC) and Dependency Injection through intuitive examples\n• Build REST APIs with Spring Boot: controllers, request mapping, validation, and error handling\n• Implement data persistence with Spring Data JPA and understand repository patterns\n• Add authentication and authorization with Spring Security\n• Learn to test Spring applications and deploy them to production"
   },
   {
     "id": "501642016f5f",
@@ -108,7 +108,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Teach Yourself Java in 21 days.pdf",
     "cover": "assets/covers/Teach_Yourself_Java_in_21_days.webp",
     "format": "pdf",
-    "description": "Day-by-day structured Java learning path — from Hello World to applets, networking, and multithreading."
+    "description": "Self-teaching a programming language without structure often leads to gaps in knowledge and frustration. A day-by-day learning plan provides the discipline and progression that transforms scattered tutorials into real competence.\n\nTeach Yourself Java in 21 Days provides a structured curriculum that takes you from your first Hello World program to building networked, multithreaded applications. Each day builds on the previous one with clear objectives.\n\n• Follow a structured 3-week plan: basics (week 1), OOP and libraries (week 2), advanced topics (week 3)\n• Learn core Java: variables, operators, control flow, classes, inheritance, and packages\n• Build graphical user interfaces with AWT and understand event-driven programming\n• Implement networking: sockets, client-server communication, and URL handling\n• Explore multithreading and understand how to write concurrent Java programs"
   },
   {
     "id": "57632ee630cf",
@@ -118,7 +118,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/TroubleShooting Java, 2th edition.pdf",
     "cover": "assets/covers/TroubleShooting_Java_2th_edition.webp",
     "format": "pdf",
-    "description": "Practical guide for debugging Java apps — thread dumps, heap analysis, memory leaks, slow queries, and production issues."
+    "description": "Even well-written Java applications break in production — memory leaks, thread deadlocks, slow database queries, and mysterious performance degradation. Yet most developers lack systematic debugging skills because they are rarely taught.\n\nTroubleShooting Java by Laurentiu Spilca teaches you the investigative techniques and tools that senior engineers use to diagnose and fix real-world production issues. Every chapter is built around realistic scenarios.\n\n• Analyze thread dumps to identify deadlocks, livelocks, and thread starvation\n• Use heap dumps and profilers to track down memory leaks and optimize GC behavior\n• Debug slow database queries with connection pool analysis and query execution plans\n• Instrument applications with logging, metrics, and distributed tracing\n• Master essential tools: VisualVM, JConsole, jstack, jmap, and async-profiler"
   },
   {
     "id": "1b28544f8e67",
@@ -128,7 +128,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/JavaScript/Eloquent JavaScript.pdf",
     "cover": "assets/covers/Eloquent_JavaScript.webp",
     "format": "pdf",
-    "description": "Modern JavaScript from the ground up — values, functions, closures, OOP, async/await, DOM, Node.js. By Marijn Haverbeke."
+    "description": "JavaScript is everywhere — browsers, servers, mobile apps, IoT devices — yet its quirky design and rapid evolution make it one of the most misunderstood languages. Many developers use it daily without truly understanding closures, prototypes, or the event loop.\n\nEloquent JavaScript by Marijn Haverbeke is a modern, freely available masterpiece that teaches JavaScript as a real programming language. It covers everything from basic values to building complete web applications and server-side programs with Node.js.\n\n• Master JavaScript fundamentals: values, types, operators, functions, closures, and higher-order functions\n• Understand object-oriented and functional programming paradigms in JavaScript\n• Build interactive web applications: DOM manipulation, event handling, and HTTP requests\n• Explore Node.js: modules, file system, streams, and building HTTP servers\n• Work through challenging exercises and projects that solidify deep understanding"
   },
   {
     "id": "a6dfea49175d",
@@ -138,7 +138,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/20 Years of Linux Experience in 20Minutes.pdf",
     "cover": "assets/covers/20_Years_of_Linux_Experience_in_20Minutes.webp",
     "format": "pdf",
-    "description": "Quick-reference cheat sheet — essential Linux commands, file system, permissions, networking, processes, and shell scripting."
+    "description": "Linux powers over 90% of the world's servers, cloud infrastructure, and containerized environments. Yet many developers spend years working on Linux without learning the commands and concepts that would make them dramatically more productive.\n\nThis concise guide distills 20 years of hands-on Linux experience into a rapid-fire reference that covers everything from basic file operations to advanced system administration. Designed to be read in 20 minutes and referenced for years.\n\n• Master essential commands: file navigation, text processing (grep, sed, awk), and piping\n• Understand the file system hierarchy, permissions model, and user/group management\n• Monitor and manage processes: ps, top, htop, kill, systemd, and cron scheduling\n• Configure networking: SSH tunneling, iptables, DNS resolution, and port management\n• Write shell scripts for automation: variables, loops, conditionals, and error handling"
   },
   {
     "id": "c8b3532fe551",
@@ -148,7 +148,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/A Latency Handbook for SWE - Quang Hoang.pdf",
     "cover": "assets/covers/A_Latency_Handbook_for_SWE_-_Quang_Hoang.webp",
     "format": "pdf",
-    "description": "Practical latency numbers every engineer should know — L1/L2 cache, RAM, SSD, network hops, and database queries."
+    "description": "Performance-critical decisions in system design require an intuitive understanding of latency at every level of the stack — from CPU cache hits measured in nanoseconds to cross-continent network calls measured in hundreds of milliseconds.\n\nThis handbook by Quang Hoang provides a practical reference for the latency numbers that every software engineer should internalize, along with the reasoning and context behind each measurement.\n\n• Memorize critical latency numbers: L1 cache (1ns), RAM (100ns), SSD (100μs), network round-trip (150ms)\n• Understand the memory hierarchy and why cache locality determines real-world performance\n• Apply latency knowledge to system design: when to cache, replicate, or denormalize\n• Calculate back-of-the-envelope estimates for throughput, storage, and bandwidth\n• Make informed trade-offs between consistency, availability, and latency in distributed systems"
   },
   {
     "id": "0f86c236faf9",
@@ -158,7 +158,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/Computer Systems A Programmer's Perspective 3rd Edition.pdf",
     "cover": "assets/covers/Computer_Systems_A_Programmers_Perspective_3rd_Edition.webp",
     "format": "pdf",
-    "description": "The definitive CS:APP textbook — data representation, assembly, memory hierarchy, caching, virtual memory, concurrency. By Bryant & O'Hallaron."
+    "description": "Most programmers treat the computer as a black box — writing high-level code without understanding how it maps to machine instructions, memory, and hardware. This knowledge gap leads to subtle bugs, poor performance, and inability to debug low-level issues.\n\nCS:APP by Randal Bryant and David O'Hallaron is the definitive textbook that bridges the gap between software and hardware. Used at Carnegie Mellon and top universities worldwide, it teaches you how computer systems actually execute your programs.\n\n• Understand data representation: integers, floating-point, bit manipulation, and overflow behavior\n• Read x86-64 assembly and understand how compilers translate C to machine code\n• Master the memory hierarchy: caches, locality, virtual memory, and dynamic memory allocation\n• Explore system-level I/O, processes, signals, and the Unix process model\n• Learn concurrent programming: threads, synchronization, and shared memory pitfalls"
   },
   {
     "id": "514c2d481086",
@@ -168,7 +168,7 @@
     "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/Operating Systems - Three Easy Pieces.pdf",
     "cover": "assets/covers/Operating_Systems_-_Three_Easy_Pieces.webp",
     "format": "pdf",
-    "description": "OSTEP — virtualization (CPU, memory), concurrency (threads, locks), and persistence (file systems, I/O). Free and widely used."
+    "description": "Operating systems are the invisible foundation of all computing, yet their inner workings — process scheduling, memory management, file systems — remain a mystery to most developers. Understanding these mechanisms is essential for writing performant software.\n\nOSTEP by Remzi and Andrea Arpaci-Dusseau is a freely available, beautifully written textbook that demystifies OS internals through three conceptual pillars: virtualization, concurrency, and persistence.\n\n• Understand CPU virtualization: process abstraction, scheduling algorithms (MLFQ, CFS), and context switching\n• Master memory management: address spaces, paging, TLBs, swapping, and allocation strategies\n• Learn concurrency primitives: threads, locks, condition variables, semaphores, and common bugs\n• Explore persistence: file systems (FFS, LFS, journaling), RAID, and I/O device interaction\n• Study real-world case studies from Linux, xv6, and other production operating systems"
   },
   {
     "id": "3e37d8473cc1",
@@ -178,7 +178,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Database/Database Internals.pdf",
     "cover": "assets/covers/Database_Internals.webp",
     "format": "pdf",
-    "description": "How databases work under the hood — B-Trees, LSM-Trees, storage engines, replication, consensus algorithms. By Alex Petrov."
+    "description": "Developers interact with databases daily through ORMs and SQL, but few understand the sophisticated engineering hidden beneath the query interface — storage engines, indexing structures, replication protocols, and consensus algorithms.\n\nDatabase Internals by Alex Petrov is a deep technical exploration of how modern databases actually work, covering both single-node storage engines and distributed database architectures. It is essential reading for anyone building or operating data-intensive systems.\n\n• Understand B-Tree and LSM-Tree storage engines and their performance trade-offs\n• Explore on-disk data structures: page layouts, buffer pools, write-ahead logs, and compaction\n• Master replication strategies: leader-based, multi-leader, and leaderless replication\n• Study distributed consensus: Paxos, Raft, and failure detection mechanisms\n• Analyze real implementations: how PostgreSQL, Cassandra, and CockroachDB work internally"
   },
   {
     "id": "12f19bc00082",
@@ -188,7 +188,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Database/SQL Performance Explained.pdf",
     "cover": "assets/covers/SQL_Performance_Explained.webp",
     "format": "pdf",
-    "description": "Master SQL indexing and query optimization — how indexes work, EXPLAIN plans, join strategies, pagination. By Markus Winand."
+    "description": "Slow SQL queries are the most common performance bottleneck in web applications, yet most developers treat indexing as a black box — adding indexes randomly and hoping something works without understanding why.\n\nSQL Performance Explained by Markus Winand demystifies SQL indexing and query optimization in a vendor-neutral way. It teaches you to think like the database optimizer, making the right indexing decisions from the start.\n\n• Understand how B-Tree indexes work and why they make queries fast (or slow)\n• Read EXPLAIN plans and identify full table scans, index-only scans, and bitmap scans\n• Optimize JOIN strategies: nested loops, hash joins, and merge joins\n• Design efficient pagination, sorting, and filtering with proper index coverage\n• Avoid common anti-patterns: over-indexing, functions on indexed columns, and implicit type casts"
   },
   {
     "id": "4f678be9cfc3",
@@ -198,7 +198,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/DevOps/AWS Certified Cloud Practitioner Slides v42.pdf",
     "cover": "assets/covers/AWS_Certified_Cloud_Practitioner_Slides_v42.webp",
     "format": "pdf",
-    "description": "AWS Cloud Practitioner exam prep — core AWS services (EC2, S3, RDS, Lambda), billing, shared responsibility model."
+    "description": "Cloud computing has become the default infrastructure for modern applications, and the AWS Cloud Practitioner certification (CLF-C02) is the entry point for professionals looking to validate their cloud knowledge and advance their careers.\n\nThis comprehensive slide deck (v42) covers every exam domain with visual diagrams, concise explanations, and exam tips. It is the most popular free study resource used by tens of thousands of candidates worldwide.\n\n• Understand core AWS services: EC2, S3, RDS, Lambda, VPC, IAM, and CloudFormation\n• Learn cloud concepts: shared responsibility model, Well-Architected Framework, and pricing models\n• Explore security and compliance: encryption, MFA, CloudTrail, GuardDuty, and AWS Shield\n• Master billing and cost management: Free Tier, Reserved Instances, and Cost Explorer\n• Review exam strategies and practice questions for confident certification success"
   },
   {
     "id": "a1a698923825",
@@ -208,7 +208,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/DevOps/DevOps Roadmap Ebook 2025.pdf",
     "cover": "assets/covers/DevOps_Roadmap_Ebook_2025.webp",
     "format": "pdf",
-    "description": "2025 DevOps learning roadmap — Linux, Git, CI/CD, Docker, Kubernetes, Terraform, monitoring, cloud platforms."
+    "description": "The DevOps landscape in 2025 is vast and constantly evolving — containers, orchestration, infrastructure-as-code, observability, and GitOps are just the beginning. Without a clear roadmap, engineers waste months learning tools in the wrong order.\n\nThis DevOps Roadmap Ebook provides a structured learning path that takes you from foundational skills (Linux, networking, Git) through intermediate topics (Docker, CI/CD) to advanced practices (Kubernetes, Terraform, service mesh).\n\n• Build foundations: Linux administration, networking fundamentals, and Git version control\n• Master containerization: Docker images, multi-stage builds, Docker Compose, and registries\n• Implement CI/CD pipelines: GitHub Actions, Jenkins, GitLab CI, and deployment strategies\n• Orchestrate at scale: Kubernetes architecture, Helm charts, and cluster management\n• Automate infrastructure: Terraform, Ansible, and cloud-native monitoring with Prometheus & Grafana"
   },
   {
     "id": "661d67200ae1",
@@ -218,7 +218,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Game_Development/Game Programming Patterns.pdf",
     "cover": "assets/covers/Game_Programming_Patterns.webp",
     "format": "pdf",
-    "description": "Design patterns applied to game development — game loop, update method, component, observer, command, flyweight. By Robert Nystrom."
+    "description": "Game developers face unique software engineering challenges: real-time performance constraints, complex state management, and rendering loops that must execute thousands of updates per second without stuttering.\n\nGame Programming Patterns by Robert Nystrom presents classic design patterns reimagined for game development. Written with humor and crystal-clear examples, it bridges the gap between academic software engineering and the practical realities of shipping games.\n\n• Implement the game loop pattern for consistent frame-rate-independent updates\n• Use the command pattern for input handling, undo systems, and replay functionality\n• Apply the component pattern to build flexible entity systems without deep inheritance\n• Optimize with object pools, flyweight patterns, and spatial partitioning for collision detection\n• Understand observer, state machine, and bytecode patterns in game-specific contexts"
   },
   {
     "id": "8085c161815e",
@@ -228,7 +228,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/A Philosophy of Software Design.pdf",
     "cover": "assets/covers/A_Philosophy_of_Software_Design.webp",
     "format": "pdf",
-    "description": "Fight complexity with deep modules, information hiding, and strategic programming. By John Ousterhout (Stanford)."
+    "description": "Software complexity is the root cause of most project failures, yet the industry focuses on agile processes and tools rather than the fundamental design principles that actually control complexity.\n\nA Philosophy of Software Design by John Ousterhout (Stanford) offers a refreshingly practical perspective on software design, arguing that the primary goal of design is to reduce complexity. Each chapter presents a specific principle illustrated with real code examples.\n\n• Understand why complexity is the #1 enemy and how it manifests: obscurity, dependencies, and change amplification\n• Design deep modules with simple interfaces that hide implementation details\n• Apply information hiding and abstraction to create systems that are easy to modify\n• Write code that is obvious: good naming, consistent style, and strategic comments\n• Adopt a strategic programming mindset over tactical hacking for long-term code health"
   },
   {
     "id": "3b6518be4e49",
@@ -238,7 +238,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Designing Data-Intensive Applications.pdf",
     "cover": "assets/covers/Designing_Data-Intensive_Applications.webp",
     "format": "pdf",
-    "description": "The DDIA bible — data models, storage engines, replication, partitioning, transactions, batch/stream processing. By Martin Kleppmann."
+    "description": "Data is at the center of many challenges in system design today. Difficult issues need to be figured out, such as scalability, consistency, reliability, efficiency, and maintainability. In addition, we have an overwhelming variety of tools, including relational databases, NoSQL datastores, stream or batch processors, and message brokers.\n\nIn this practical and comprehensive guide, author Martin Kleppmann helps you navigate this diverse landscape by examining the pros and cons of various technologies for processing and storing data. Software keeps changing, but the fundamental principles remain the same.\n\n• Peer under the hood of the systems you already use, and learn how to use and operate them more effectively\n• Make informed decisions by identifying the strengths and weaknesses of different tools\n• Navigate the trade-offs around consistency, scalability, fault tolerance, and complexity\n• Understand the distributed systems research upon which modern databases are built\n• Peek behind the scenes of major online services, and learn from their architectures"
   },
   {
     "id": "9795c21d4a85",
@@ -248,7 +248,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Go With Domain.pdf",
     "cover": "assets/covers/go-with-domain.webp",
     "format": "pdf",
-    "description": "Domain-Driven Design in Go — practical patterns for building maintainable applications with DDD, CQRS, and event sourcing.",
+    "description": "Building production Go applications with clean architecture is challenging — the language's simplicity can lead to either elegant designs or tangled codebases depending on the patterns you adopt.\n\nGo with the Domain (Three Dots Labs) is a comprehensive, hands-on guide to applying Domain-Driven Design in Go. It walks you through building a complete, production-grade application using DDD, CQRS, and event-driven architecture patterns.\n\n• Apply Domain-Driven Design in Go: entities, value objects, aggregates, and bounded contexts\n• Implement CQRS to separate read and write concerns for scalability\n• Build event-driven systems with event sourcing and message-based communication\n• Structure Go projects with clean architecture: ports, adapters, and dependency inversion\n• Write testable, maintainable code with clear separation between domain logic and infrastructure",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/Go.With.Domain.pdf"
   },
   {
@@ -259,7 +259,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Kiến trúc ứng dụng web.epub",
     "cover": "assets/covers/Kiến_trúc_ứng_dụng_web.webp",
     "format": "epub",
-    "description": "Tài liệu tiếng Việt về kiến trúc ứng dụng web — MVC, microservices, API gateway, load balancing, caching."
+    "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại, kèm theo các kỹ thuật tối ưu hiệu suất.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices: ưu nhược điểm và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao"
   },
   {
     "id": "ff1b9386cc0f",
@@ -269,7 +269,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Kiến trúc ứng dụng web.pdf",
     "cover": "assets/covers/Kiến_trúc_ứng_dụng_web.webp",
     "format": "pdf",
-    "description": "Tài liệu tiếng Việt về kiến trúc ứng dụng web — MVC, microservices, API gateway, load balancing, caching."
+    "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này (phiên bản PDF) trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao"
   },
   {
     "id": "b674c6f39ba3",
@@ -279,7 +279,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/System Design.pdf",
     "cover": "assets/covers/System_Design.webp",
     "format": "pdf",
-    "description": "Core system design concepts — scalability, load balancers, CDN, databases, caching, message queues, and real system designs."
+    "description": "System design is the most feared interview topic at top tech companies, yet it is also the skill most directly correlated with senior engineering performance. The challenge is that system design has no single correct answer — it requires trade-off analysis.\n\nThis concise System Design guide covers the foundational building blocks that appear in every design question: load balancers, caches, databases, message queues, and CDNs, along with strategies for combining them into robust architectures.\n\n• Master building blocks: load balancers, CDNs, caches, databases, and message queues\n• Design for scalability: horizontal scaling, sharding, replication, and partitioning strategies\n• Choose the right database: SQL vs NoSQL, consistency models, and CAP theorem trade-offs\n• Design real systems: URL shortener, chat app, news feed, rate limiter, and notification service\n• Develop a structured framework for approaching any system design question confidently"
   },
   {
     "id": "563b493d4597",
@@ -289,7 +289,7 @@
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/The Ultimate System Design Playbook.pdf",
     "cover": "assets/covers/The_Ultimate_System_Design_Playbook.webp",
     "format": "pdf",
-    "description": "Interview-focused system design guide — framework for design questions, common patterns, and 10+ detailed case studies."
+    "description": "System design interviews at FAANG and top tech companies have become the make-or-break round for senior candidates. Unlike coding interviews with clear right answers, design rounds test your ability to navigate ambiguity and make principled trade-offs.\n\nThe Ultimate System Design Playbook provides a battle-tested framework for answering any design question, combined with 10+ detailed case studies that model the exact approach interviewers expect to see.\n\n• Follow a repeatable 4-step framework: requirements, estimation, high-level design, and deep dive\n• Study 10+ detailed case studies: Instagram, Twitter, WhatsApp, YouTube, Uber, and more\n• Understand common patterns: fan-out, event sourcing, CQRS, consistent hashing, and bloom filters\n• Navigate non-functional requirements: availability, latency, throughput, and cost optimization\n• Practice back-of-the-envelope calculations for storage, bandwidth, and QPS estimation"
   },
   {
     "id": "aadc828881fb",
@@ -299,7 +299,7 @@
     "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Cracking the Coding Interview.pdf",
     "cover": "assets/covers/Cracking_the_Coding_Interview.webp",
     "format": "pdf",
-    "description": "The #1 coding interview book — 189 problems with solutions, Big-O, data structures, algorithms, system design. By Gayle McDowell."
+    "description": "The tech interview process at top companies is notoriously difficult, with candidates often failing not because they lack knowledge, but because they have not practiced the specific problem-solving techniques these interviews demand.\n\nCracking the Coding Interview by Gayle Laakmann McDowell is the definitive preparation guide, containing 189 programming questions with detailed solutions, plus extensive coverage of the interview process itself — from resume writing to behavioral questions to negotiation.\n\n• Solve 189 problems across arrays, strings, trees, graphs, dynamic programming, and system design\n• Master Big-O analysis and learn to optimize solutions from brute force to optimal\n• Understand the FAANG interview process: what interviewers look for and how decisions are made\n• Prepare for behavioral questions using the S.A.R. (Situation, Action, Result) framework\n• Review data structures and algorithms: hash tables, heaps, tries, BFS/DFS, and bit manipulation"
   },
   {
     "id": "97b60729d802",
@@ -309,7 +309,7 @@
     "file_path": "Books/3_Career_and_Professional_Development/Job_Search_and_Career_Growth/10 Essential Coding Projects to Master Your Fundamentals and Land a $100,000+ Job ASAP.pdf",
     "cover": "assets/covers/10_Essential_Coding_Projects_to_Master_Your_Fundamentals_and_Land_a_100000_Job_ASAP.webp",
     "format": "pdf",
-    "description": "10 portfolio-worthy projects to build your skills — full-stack apps, CLI tools, APIs, and more."
+    "description": "Breaking into tech without a CS degree requires more than just learning to code — you need portfolio projects that demonstrate real-world skills to hiring managers and pass the automated resume screening systems.\n\nThis guide presents 10 carefully chosen projects that cover the exact skills employers look for: full-stack development, API design, database management, and deployment. Each project is designed to be resume-worthy and interview-ready.\n\n• Build portfolio projects that demonstrate full-stack competence to hiring managers\n• Cover essential skills: REST APIs, database design, authentication, and deployment\n• Learn by building: each project introduces new concepts in a practical context\n• Understand what recruiters and engineers actually look for in project portfolios\n• Create talking points for technical interviews by explaining your design decisions"
   },
   {
     "id": "ab8fa24bf3fd",
@@ -319,7 +319,7 @@
     "file_path": "Books/3_Career_and_Professional_Development/Job_Search_and_Career_Growth/Learn How to Code Online and Land a 100k Job ASAP.pdf",
     "cover": "assets/covers/Learn_How_to_Code_Online_and_Land_a_100k_Job_ASAP.webp",
     "format": "pdf",
-    "description": "Roadmap for self-taught developers — best resources, learning strategies, portfolio building, resume tips."
+    "description": "The path from zero coding experience to a six-figure developer job is well-documented but poorly organized — free resources are scattered, bootcamp marketing is misleading, and self-taught developers often lack a clear progression.\n\nThis guide provides a realistic, step-by-step roadmap for learning to code online and landing your first developer job. It covers which technologies to learn, which resources are worth your time, and how to build a portfolio that gets interviews.\n\n• Choose the right learning path: free resources vs bootcamps vs university programs\n• Build a portfolio that showcases progressive complexity and real-world skills\n• Optimize your resume and LinkedIn profile for developer job applications\n• Prepare for technical interviews: coding challenges, take-home projects, and system design\n• Navigate salary negotiation and understand compensation structures in tech"
   },
   {
     "id": "e79fde711685",
@@ -329,7 +329,7 @@
     "file_path": "Books/4_Miscellaneous/AI_and_Prompts/NotebookLM Creative Agency Prompt Pack.pdf",
     "cover": "assets/covers/notebooklm-creative-agency-prompt-pack.webp",
     "format": "pdf",
-    "description": "Curated prompt templates for NotebookLM — creative agency workflows, brainstorming, content generation, and research.",
+    "description": "AI-powered tools like NotebookLM are transforming how agencies research, brainstorm, and produce content — but most users barely scratch the surface of what these tools can do with the right prompts.\n\nThis prompt pack provides ready-to-use templates specifically designed for creative agency workflows: market research, content strategy, copywriting, brainstorming, and client presentations. Each prompt is engineered for maximum output quality.\n\n• Generate comprehensive market research reports and competitive analysis in minutes\n• Create content strategies, editorial calendars, and audience personas with AI assistance\n• Use frameworks for brainstorming: SCAMPER, mind mapping, and creative constraint prompts\n• Produce client-ready presentations, proposals, and pitch decks with structured prompts\n• Build reusable prompt templates that scale across multiple projects and clients",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/NotebookLM.Creative.Agency.Prompt.Pack.pdf"
   },
   {
@@ -340,7 +340,7 @@
     "file_path": "Books/4_Miscellaneous/English_Learning/AK Method Step By Step My English Learning Journey From Beginner To Advanced.pdf",
     "cover": "assets/covers/AK_Method_Step_By_Step_My_English_Learning_Journey_From_Beginner_To_Advanced.webp",
     "format": "pdf",
-    "description": "Personal journey from zero to advanced English — listening-first approach, shadowing techniques, input-based learning."
+    "description": "Millions of English learners spend years studying grammar rules and memorizing vocabulary, yet still cannot hold a natural conversation. Traditional classroom methods fail because they ignore how language acquisition actually works in the brain.\n\nThe AK Method documents one learner's complete journey from beginner to advanced English proficiency, providing a step-by-step blueprint based on input-based learning principles. It prioritizes listening and immersion over textbook grammar.\n\n• Follow a proven step-by-step path from zero to advanced English proficiency\n• Apply the listening-first approach: build comprehension before forcing output\n• Use shadowing techniques to develop natural pronunciation and speaking rhythm\n• Build an immersion environment: content selection, daily routines, and habit stacking\n• Overcome common plateaus with targeted strategies for intermediate and advanced learners"
   },
   {
     "id": "e507464a45da",
@@ -350,7 +350,7 @@
     "file_path": "Books/4_Miscellaneous/English_Learning/THE 4-STEP ENGLISH MASTERY SYSTEM.pdf",
     "cover": "assets/covers/THE_4-STEP_ENGLISH_MASTERY_SYSTEM.webp",
     "format": "pdf",
-    "description": "A 4-step framework for English fluency — immersion, active listening, speaking practice, and feedback loops."
+    "description": "Most English learners hit a frustrating plateau where they understand grammar rules but cannot speak fluently. The missing piece is not more study — it is a systematic practice framework that builds real communication skills.\n\nThe 4-Step English Mastery System provides a structured framework for achieving English fluency through four interconnected phases: immersion, active listening, deliberate speaking practice, and feedback refinement.\n\n• Build a daily immersion habit: curated content, podcasts, and English-only environments\n• Develop active listening skills: dictation, gap-fill exercises, and speed comprehension\n• Practice deliberate speaking: monologues, conversation partners, and self-recording\n• Create feedback loops: self-correction, language exchange, and progress tracking\n• Overcome the intermediate plateau with targeted strategies for fluency acceleration"
   },
   {
     "id": "baa19b65bfbf",
@@ -360,7 +360,7 @@
     "file_path": "Books/4_Miscellaneous/English_Learning/The Truth About Learning English v2.pdf",
     "cover": "assets/covers/The_Truth_About_Learning_English_v2.webp",
     "format": "pdf",
-    "description": "Practical tips and mindset shifts for learning English effectively — common mistakes, daily habits, and immersion strategies.",
+    "description": "The internet is flooded with English learning advice — apps, courses, methods, and hacks — most of which are based on marketing rather than evidence. Learners waste years following ineffective methods without understanding why they are not progressing.\n\nThe Truth About Learning English v2 strips away the myths and provides an honest, evidence-based perspective on what actually works for language acquisition. It covers common mistakes, effective daily habits, and the mindset shifts needed for real progress.\n\n• Debunk common myths: grammar-first learning, translation habits, and perfectionism traps\n• Build effective daily habits: input flooding, spaced repetition, and active recall\n• Choose the right content: comprehensible input, graded readers, and authentic materials\n• Develop a growth mindset: embracing mistakes, measuring progress, and staying motivated\n• Create a personalized learning plan based on your current level and goals",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/books-20260302/The.Truth.About.Learning.English.v2.pdf"
   },
   {
@@ -371,7 +371,7 @@
     "file_path": "Books/5_University_Courses/Database_Administration/Quản trị cơ sở dữ liệu.pdf",
     "cover": "assets/covers/Quản_trị_cơ_sở_dữ_liệu.webp",
     "format": "pdf",
-    "description": "Giáo trình quản trị CSDL — cài đặt, cấu hình, backup/restore, quản lý user/permission, bảo mật."
+    "description": "Quản trị cơ sở dữ liệu là kỹ năng then chốt mà mọi kỹ sư phần mềm và quản trị viên hệ thống cần nắm vững. Từ việc cài đặt, cấu hình đến sao lưu và bảo mật — một sai sót nhỏ có thể gây mất dữ liệu toàn bộ hệ thống.\n\nGiáo trình này cung cấp kiến thức nền tảng về quản trị CSDL, bao gồm cài đặt, cấu hình hệ quản trị CSDL, quản lý user và phân quyền, sao lưu phục hồi và tối ưu hiệu suất.\n\n• Cài đặt và cấu hình hệ quản trị CSDL: các tham số quan trọng và môi trường vận hành\n• Quản lý user, role và phân quyền truy cập dữ liệu\n• Thực hiện backup/restore: full backup, incremental backup và point-in-time recovery\n• Tối ưu hiệu suất: indexing, query tuning và giám sát tài nguyên\n• Bảo mật CSDL: mã hóa, audit log và phòng chống SQL injection"
   },
   {
     "id": "514345cf01d4",
@@ -381,7 +381,7 @@
     "file_path": "Books/5_University_Courses/E_Commerce/Thương mại điện tử.pdf",
     "cover": "assets/covers/Thương_mại_điện_tử.webp",
     "format": "pdf",
-    "description": "Giáo trình TMDT — mô hình kinh doanh online (B2B, B2C, C2C), hệ thống thanh toán, marketing số."
+    "description": "Thương mại điện tử đã trở thành xương sống của nền kinh tế số, thay đổi hoàn toàn cách doanh nghiệp vận hành và khách hàng mua sắm. Hiểu biết về TMDT không chỉ dành cho dân kinh doanh mà cả kỹ sư xây dựng nền tảng.\n\nGiáo trình này bao quát toàn bộ hệ sinh thái TMDT: từ mô hình kinh doanh, hệ thống thanh toán trực tuyến đến marketing số và bảo mật giao dịch.\n\n• Hiểu các mô hình kinh doanh: B2B, B2C, C2C, O2O và marketplace\n• Thiết kế hệ thống thanh toán trực tuyến: cổng thanh toán, ví điện tử và bảo mật\n• Áp dụng marketing số: SEO, SEM, email marketing và social media\n• Xây dựng chiến lược logistics và quản lý chuỗi cung ứng\n• Đảm bảo pháp lý: luật TMDT, bảo vệ người tiêu dùng và thuế điện tử"
   },
   {
     "id": "ae370be16c7f",
@@ -391,7 +391,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch01_Gioi thieu ve PTTKHT.pdf",
     "cover": "assets/covers/Ch01_Gioi_thieu_ve_PTTKHT.webp",
     "format": "pdf",
-    "description": "Chương 1: Giới thiệu về PTTKHT — khái niệm hệ thống thông tin, vai trò phân tích viên, SDLC."
+    "description": "Phân tích và thiết kế hệ thống thông tin (PTTKHT) là giai đoạn quan trọng nhất trong vòng đời phát triển phần mềm. Sai sót ở giai đoạn này sẽ nhân bản và tốn kém gấp nhiều lần khi sửa ở giai đoạn sau.\n\nChương 1 giới thiệu tổng quan về PTTKHT: khái niệm hệ thống thông tin, vai trò của phân tích viên, và các giai đoạn trong SDLC (Software Development Life Cycle).\n\n• Hiểu khái niệm hệ thống thông tin và tầm quan trọng trong tổ chức\n• Nắm vai trò, kỹ năng và trách nhiệm của phân tích viên hệ thống\n• Tổng quan SDLC: khảo sát, phân tích, thiết kế, xây dựng và vận hành\n• Phân biệt các phương pháp tiếp cận: structured, object-oriented và agile"
   },
   {
     "id": "5707b87d3f0b",
@@ -401,7 +401,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch02_Lap ke hoach va quan tri du an.pdf",
     "cover": "assets/covers/Ch02_Lap_ke_hoach_va_quan_tri_du_an.webp",
     "format": "pdf",
-    "description": "Chương 2: Lập kế hoạch và quản trị dự án — ước lượng chi phí, lập lịch, biểu đồ Gantt."
+    "description": "Quản trị dự án là yếu tố quyết định thành công của mọi dự án phần mềm. Không có kế hoạch rõ ràng, dự án sẽ trễ tiến độ, vượt ngân sách và không đáp ứng yêu cầu.\n\nChương 2 hướng dẫn lập kế hoạch dự án: từ ước lượng chi phí, phân bổ nguồn lực đến lập lịch và kiểm soát tiến độ.\n\n• Lập kế hoạch dự án: xác định phạm vi, mục tiêu và các mốc quan trọng\n• Ước lượng chi phí và thời gian: COCOMO, Function Point và phương pháp chuyên gia\n• Lập lịch dự án: biểu đồ Gantt, PERT và đường găng (Critical Path)\n• Quản lý rủi ro và thay đổi trong suốt vòng đời dự án"
   },
   {
     "id": "39fff3e363e6",
@@ -411,7 +411,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch03_Mô hình phat trien phan mem.pdf",
     "cover": "assets/covers/Ch03_Mô_hình_phat_trien_phan_mem.webp",
     "format": "pdf",
-    "description": "Chương 3: Mô hình phát triển phần mềm — Waterfall, Spiral, Agile, Scrum, V-Model."
+    "description": "Lựa chọn đúng mô hình phát triển phần mềm quyết định cách thức tổ chức làm việc, giao tiếp với khách hàng và quản lý rủi ro trong suốt dự án.\n\nChương 3 so sánh các mô hình phát triển phần mềm phổ biến, giúp bạn chọn đúng mô hình cho từng loại dự án.\n\n• So sánh Waterfall, V-Model, Spiral và các mô hình tuần tự\n• Hiểu Agile, Scrum, Kanban và phương pháp phát triển lặp (iterative)\n• Phân tích ưu nhược điểm của từng mô hình theo loại dự án\n• Áp dụng prototyping và RAD (Rapid Application Development) khi phù hợp"
   },
   {
     "id": "7f79d81eef48",
@@ -421,7 +421,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch04_Thu thap thong tin.pdf",
     "cover": "assets/covers/Ch04_Thu_thap_thong_tin.webp",
     "format": "pdf",
-    "description": "Chương 4: Thu thập thông tin — phỏng vấn, bảng câu hỏi, quan sát, nghiên cứu tài liệu."
+    "description": "Thu thập thông tin là bước đầu tiên và quan trọng nhất trong phân tích hệ thống. Yêu cầu thu thập không đầy đủ hoặc sai lệch sẽ dẫn đến thiết kế sai và sản phẩm không phù hợp.\n\nChương 4 trình bày các kỹ thuật thu thập thông tin chuyên nghiệp: phỏng vấn, bảng câu hỏi, quan sát và nghiên cứu tài liệu.\n\n• Thiết kế và thực hiện phỏng vấn hiệu quả với các bên liên quan\n• Xây dựng bảng câu hỏi khảo sát: câu hỏi mở, đóng và thang đo Likert\n• Áp dụng kỹ thuật quan sát và phân tích quy trình làm việc hiện tại\n• Tổng hợp và xác nhận yêu cầu với stakeholders"
   },
   {
     "id": "e8f186f845ef",
@@ -431,7 +431,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch05a_Mo hinh hoa quy trinh va du lieu.pdf",
     "cover": "assets/covers/Ch05a_Mo_hinh_hoa_quy_trinh_va_du_lieu.webp",
     "format": "pdf",
-    "description": "Chương 5a: Mô hình hóa quy trình và dữ liệu — biểu đồ DFD, mô hình ER, phân rã chức năng."
+    "description": "Mô hình hóa là cách diễn đạt rõ ràng và trực quan các yêu cầu phức tạp. Không có mô hình, việc giao tiếp giữa phân tích viên và khách hàng sẽ thiếu chính xác.\n\nChương 5a hướng dẫn vẽ biểu đồ luồng dữ liệu (DFD) và mô hình thực thể liên kết (ER) để mô hình hóa quy trình và dữ liệu.\n\n• Vẽ biểu đồ DFD: context diagram, level 0, level 1 và phân rã chức năng\n• Xây dựng mô hình ER: thực thể, thuộc tính và mối quan hệ\n• Áp dụng quy tắc cân bằng (balancing) giữa các cấp độ DFD\n• Phân biệt luồng dữ liệu và luồng điều khiển trong hệ thống"
   },
   {
     "id": "be821c375d45",
@@ -441,7 +441,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch05b_Tu dien du lieu.pdf",
     "cover": "assets/covers/Ch05b_Tu_dien_du_lieu.webp",
     "format": "pdf",
-    "description": "Chương 5b: Từ điển dữ liệu — định nghĩa thực thể, thuộc tính, luồng dữ liệu, quy tắc ràng buộc."
+    "description": "Từ điển dữ liệu là tài liệu bổ sung không thể thiếu cho biểu đồ DFD. Nó định nghĩa chính xác từng thành phần dữ liệu được sử dụng trong hệ thống.\n\nChương 5b hướng dẫn xây dựng từ điển dữ liệu hoàn chỉnh: định nghĩa luồng dữ liệu, kho dữ liệu và quy tắc ràng buộc.\n\n• Định nghĩa thực thể, thuộc tính và kiểu dữ liệu cho từng phần tử\n• Mô tả luồng dữ liệu: cấu trúc, giá trị hợp lệ và ràng buộc\n• Xây dựng quy tắc nghiệp vụ (business rules) và ràng buộc toàn vẹn\n• Sử dụng ký hiệu chuẩn để mô tả cấu trúc dữ liệu phức tạp"
   },
   {
     "id": "faa385b8f15b",
@@ -451,7 +451,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch06_Chuyen tiep sang giai doan thiet ke.pdf",
     "cover": "assets/covers/Ch06_Chuyen_tiep_sang_giai_doan_thiet_ke.webp",
     "format": "pdf",
-    "description": "Chương 6: Chuyển tiếp sang thiết kế — từ phân tích sang thiết kế, đặc tả yêu cầu."
+    "description": "Chuyển tiếp từ phân tích sang thiết kế là giai đoạn nhạy cảm — nơi các yêu cầu nghiệp vụ được chuyển thành đặc tả kỹ thuật. Sai sót ở bước này sẽ ảnh hưởng trực tiếp đến chất lượng sản phẩm.\n\nChương 6 hướng dẫn cách chuyển đổi từ kết quả phân tích sang tài liệu thiết kế: đặc tả yêu cầu, thiết kế logic và thiết kế vật lý.\n\n• Viết đặc tả yêu cầu phần mềm (SRS) chuẩn IEEE\n• Chuyển DFD thành thiết kế chương trình: module, giao diện và dữ liệu\n• Phân biệt thiết kế logic và thiết kế vật lý\n• Đảm bảo traceability giữa yêu cầu và thiết kế"
   },
   {
     "id": "6e4303134d77",
@@ -461,7 +461,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch07_Thiet ke co so du lieu.pdf",
     "cover": "assets/covers/Ch07_Thiet_ke_co_so_du_lieu.webp",
     "format": "pdf",
-    "description": "Chương 7: Thiết kế CSDL — chuyển ER sang lược đồ quan hệ, chuẩn hóa (1NF-BCNF)."
+    "description": "Thiết kế CSDL tốt là nền tảng của mọi ứng dụng. Một schema tồi được thiết kế đúng sẽ giúp hệ thống nhanh, dễ bảo trì và không mất dữ liệu.\n\nChương 7 hướng dẫn chuyển đổi mô hình ER sang lược đồ quan hệ và áp dụng chuẩn hóa để loại bỏ dư thừa dữ liệu.\n\n• Chuyển mô hình ER sang lược đồ quan hệ (relational schema)\n• Áp dụng chuẩn hóa: 1NF, 2NF, 3NF và BCNF\n• Xác định khóa chính, khóa ngoại và ràng buộc toàn vẹn tham chiếu\n• Thiết kế chỉ mục (indexing) và tối ưu hiệu suất truy vấn"
   },
   {
     "id": "a2a939868255",
@@ -471,7 +471,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch08_Thiet ke giao dien nguoi dung.pdf",
     "cover": "assets/covers/Ch08_Thiet_ke_giao_dien_nguoi_dung.webp",
     "format": "pdf",
-    "description": "Chương 8: Thiết kế giao diện — nguyên tắc UI/UX, thiết kế form, menu, prototype."
+    "description": "Giao diện người dùng là điểm tiếp xúc duy nhất giữa hệ thống và người sử dụng. Một giao diện tồi sẽ khiến người dùng mắc lỗi và giảm năng suất.\n\nChương 8 trình bày nguyên tắc thiết kế giao diện người dùng: boố cục, điều hướng, phản hồi và khả năng sử dụng (usability).\n\n• Áp dụng 8 nguyên tắc vàng của thiết kế giao diện (Shneiderman)\n• Thiết kế form nhập liệu: layout, validation và xử lý lỗi\n• Xây dựng hệ thống menu và điều hướng hiệu quả\n• Tạo prototype và thực hiện usability testing"
   },
   {
     "id": "6f7af92123a1",
@@ -481,7 +481,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch09_Thiet ke kien truc ung dung.pdf",
     "cover": "assets/covers/Ch09_Thiet_ke_kien_truc_ung_dung.webp",
     "format": "pdf",
-    "description": "Chương 9: Thiết kế kiến trúc ứng dụng — client-server, 3-tier, n-tier, phân chia module."
+    "description": "Kiến trúc ứng dụng quyết định cách các module tương tác với nhau, khả năng mở rộng và bảo trì lâu dài của hệ thống.\n\nChương 9 trình bày các mô hình kiến trúc ứng dụng phổ biến và cách lựa chọn phù hợp cho từng loại dự án.\n\n• Hiểu kiến trúc client-server và mô hình 2-tier, 3-tier, n-tier\n• Thiết kế phân chia module: coupling (liên kết) và cohesion (đoàn kết)\n• Áp dụng design patterns: MVC, Repository và Service Layer\n• Vẽ sơ đồ kiến trúc và đặc tả các thành phần hệ thống"
   },
   {
     "id": "9e0e177bc758",
@@ -491,7 +491,7 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch10_Phat trien ung dung_cai dat_van hanh.pdf",
     "cover": "assets/covers/Ch10_Phat_trien_ung_dung_cai_dat_van_hanh.webp",
     "format": "pdf",
-    "description": "Chương 10: Phát triển, cài đặt, vận hành — coding standards, testing, deployment, bảo trì."
+    "description": "Giai đoạn phát triển, cài đặt và vận hành là nơi thiết kế trở thành sản phẩm thực tế. Chất lượng của giai đoạn này quyết định sự hài lòng của người dùng cuối.\n\nChương 10 bao gồm: chuẩn lập trình, kiểm thử phần mềm, triển khai hệ thống và quy trình bảo trì sau khi đưa vào sử dụng.\n\n• Tuân thủ coding standards và best practices trong lập trình\n• Thực hiện kiểm thử: unit test, integration test, system test và UAT\n• Lựa chọn chiến lược triển khai: direct, parallel, phased và pilot\n• Lập kế hoạch bảo trì: corrective, adaptive, perfective và preventive"
   },
   {
     "id": "d3381679750d",
@@ -501,6 +501,6 @@
     "file_path": "Books/5_University_Courses/PTTKHT_Systems_Analysis_and_Design/Ch11_Mo hinh hoa huong doi tuong.pdf",
     "cover": "assets/covers/Ch11_Mo_hinh_hoa_huong_doi_tuong.webp",
     "format": "pdf",
-    "description": "Chương 11: Mô hình hóa hướng đối tượng — biểu đồ UML (use case, class, sequence), OOAD."
+    "description": "Phương pháp hướng đối tượng (OO) đã trở thành chuẩn công nghiệp cho phân tích và thiết kế phần mềm hiện đại. Nắm vững UML và OOAD là kỹ năng bắt buộc cho mọi kỹ sư phần mềm.\n\nChương 11 hướng dẫn mô hình hóa hướng đối tượng bằng UML: biểu đồ use case, class, sequence và các kỹ thuật OOAD.\n\n• Vẽ biểu đồ Use Case: actor, use case, include, extend và generalization\n• Thiết kế biểu đồ Class: thuộc tính, phương thức, association, aggregation và inheritance\n• Mô hình hóa hành vi với biểu đồ Sequence và Activity\n• Áp dụng nguyên tắc SOLID và design patterns trong thiết kế hướng đối tượng"
   }
 ]
