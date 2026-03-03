@@ -36,6 +36,12 @@ from pathlib import Path
 from datetime import datetime
 from typing import Optional
 
+# Fix Windows console encoding
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+if sys.stderr.encoding != 'utf-8':
+    sys.stderr.reconfigure(encoding='utf-8')
+
 
 # ══════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -255,31 +261,12 @@ def upload_asset(tag: str, file_path: str) -> bool:
 
 
 def get_asset_url(tag: str, filename: str, owner: str, repo: str) -> str:
-    """Get actual download URL from GitHub API after upload.
-    
-    GitHub may rename/sanitize filenames (strip Unicode, etc.),
-    so we query the API to get the real browser_download_url.
-    Falls back to constructed URL if API query fails.
+    """Construct GitHub Releases download URL.
+
+    Filenames MUST be ASCII-safe with underscores only (no spaces, no Unicode).
+    Run `rename_books.py --execute` before uploading to ensure this.
     """
-    try:
-        result = subprocess.run(
-            ["gh", "release", "view", tag, "--json", "assets",
-             "-q", f'.assets[] | select(.name | test("{re.escape(Path(filename).stem[:10])}")) | .browserDownloadUrl'],
-            capture_output=True, text=True
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            # May return multiple lines if partial match; find best match
-            urls = result.stdout.strip().splitlines()
-            ext = Path(filename).suffix.lower()
-            for url in urls:
-                if url.lower().endswith(ext):
-                    return url
-            return urls[0]  # fallback to first match
-    except Exception:
-        pass
-    # Fallback: construct URL (may not work for Unicode filenames)
-    safe_name = filename.replace(" ", ".")
-    return f"https://github.com/{owner}/{repo}/releases/download/{tag}/{safe_name}"
+    return f"https://github.com/{owner}/{repo}/releases/download/{tag}/{filename}"
 
 
 # ══════════════════════════════════════════════════════════
@@ -414,11 +401,55 @@ def main():
     parser.add_argument("--tag", default=DEFAULT_TAG, help=f"Release tag (default: {DEFAULT_TAG})")
     parser.add_argument("--dry-run", action="store_true", help="Preview changes without uploading")
     parser.add_argument("--force", action="store_true", help="Re-upload ALL books (ignore existing)")
+    parser.add_argument("--hard-reset", action="store_true",
+                        help="DELETE existing release entirely, recreate, and re-upload ALL files")
     args = parser.parse_args()
 
     base_dir = Path(args.base_dir).resolve()
     os.chdir(base_dir)
     tag = args.tag
+
+    # ── Hard Reset Mode ──
+    if args.hard_reset:
+        print("\n" + "⚠️" * 20)
+        print("  HARD RESET MODE: This will DELETE the entire release")
+        print("  and re-upload ALL books from scratch.")
+        print("⚠️" * 20 + "\n")
+
+        if not args.dry_run:
+            if not check_gh_cli():
+                print("❌ GitHub CLI (gh) not installed or not authenticated.")
+                sys.exit(1)
+
+            # Step 1: Delete existing release
+            print(f"🗑️  Deleting release '{tag}'...")
+            result = subprocess.run(
+                ["gh", "release", "delete", tag, "--yes", "--cleanup-tag"],
+                capture_output=True, text=True
+            )
+            if result.returncode == 0:
+                print("   ✅ Release deleted")
+            else:
+                print(f"   ⚠️  Delete result: {result.stderr.strip() or 'release may not exist'}")
+
+            # Step 2: Clear all download_urls in data.json
+            print("📝 Clearing all download_urls in data.json...")
+            data = load_data_json(base_dir)
+            for entry in data:
+                entry["download_url"] = ""
+            save_data_json(base_dir, data)
+            print(f"   ✅ Cleared {len(data)} entries")
+
+            # Step 3: Recreate release
+            print(f"🚀 Recreating release '{tag}'...")
+            if ensure_release(tag):
+                print("   ✅ Release created")
+            else:
+                print("   ❌ Failed to create release")
+                sys.exit(1)
+
+        # Force-upload everything
+        args.force = True
 
     # ── Header ──
     print("=" * 60)
