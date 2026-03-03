@@ -255,7 +255,29 @@ def upload_asset(tag: str, file_path: str) -> bool:
 
 
 def get_asset_url(tag: str, filename: str, owner: str, repo: str) -> str:
-    """Construct GitHub Releases download URL."""
+    """Get actual download URL from GitHub API after upload.
+    
+    GitHub may rename/sanitize filenames (strip Unicode, etc.),
+    so we query the API to get the real browser_download_url.
+    Falls back to constructed URL if API query fails.
+    """
+    try:
+        result = subprocess.run(
+            ["gh", "release", "view", tag, "--json", "assets",
+             "-q", f'.assets[] | select(.name | test("{re.escape(Path(filename).stem[:10])}")) | .browserDownloadUrl'],
+            capture_output=True, text=True
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            # May return multiple lines if partial match; find best match
+            urls = result.stdout.strip().splitlines()
+            ext = Path(filename).suffix.lower()
+            for url in urls:
+                if url.lower().endswith(ext):
+                    return url
+            return urls[0]  # fallback to first match
+    except Exception:
+        pass
+    # Fallback: construct URL (may not work for Unicode filenames)
     safe_name = filename.replace(" ", ".")
     return f"https://github.com/{owner}/{repo}/releases/download/{tag}/{safe_name}"
 
