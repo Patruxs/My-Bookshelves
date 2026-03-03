@@ -33,7 +33,7 @@ function getCatIcon(cat) { for (const [k, v] of Object.entries(catMeta)) if (cat
 // ═══ THEME ═══
 function initTheme() {
     const saved = localStorage.getItem("theme");
-    const prefer = saved || (matchMedia("(prefers-color-scheme:light)").matches ? "light" : "dark");
+    const prefer = saved || "light";
     document.documentElement.setAttribute("data-theme", prefer);
 }
 function toggleTheme() {

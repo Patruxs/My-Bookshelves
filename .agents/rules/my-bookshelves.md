@@ -13,7 +13,7 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 - Tối giản (Minimalism): Mỗi element phải có lý do tồn tại. Loại bỏ mọi thứ thừa.
 - Glassmorphism: Navbar và sidebar dùng `backdrop-filter: blur(20px)` với nền bán trong suốt.
 - Khoảng trắng rộng rãi: Padding/margin lớn, không chen chúc.
-- Dark mode mặc định, Light mode là tùy chọn phụ.
+- Light mode mặc định, Dark mode là tùy chọn phụ.
 - Bo góc lớn (`border-radius: 12px-16px`), shadow nhẹ, transition mượt trên mọi tương tác.
 
 ### Extreme Storage Optimization
