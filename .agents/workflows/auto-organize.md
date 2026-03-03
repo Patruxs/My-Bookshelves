@@ -4,15 +4,23 @@ description: Phân loại sách mới từ Inbox bằng AI Agent
 
 # /auto-organize — Phân loại sách tự động
 
-Agent phân loại sách → di chuyển → tạo bìa (WebP) → viết mô tả → cập nhật website.
+Agent phân loại sách → chuẩn hóa tên → di chuyển → tạo bìa (WebP) → viết mô tả → upload → cập nhật website.
 
 ## ⚠️ CRITICAL: Quy tắc chống upload lại toàn bộ
 
-- `generate_data.py` chỉ được chạy **ĐÚng 1 LẦN** sau khi di chuyển file.
+- **Chuẩn hóa tên file** bằng `rename_books.py` TRƯỚC khi generate (tránh lỗi Unicode URL).
+- `generate_data.py` chỉ được chạy **ĐÚNG 1 LẦN** sau khi di chuyển file.
 - **PHẢI kiểm tra PyMuPDF đã cài** trước khi chạy `generate_data.py`.
 - **PHẢI verify** `download_url` không bị mất sau khi `generate_data.py` chạy.
 - **PHẢI chạy `--dry-run`** trước upload thật và đếm số file — nếu nhiều hơn số sách mới → DỪNG LẠI.
 - **CHỈ upload sách MỚI** — nếu `--dry-run` hiện >N file (N = số sách mới) → có lỗi, KHÔNG upload.
+
+## Dynamic Categories
+
+- Hệ thống hỗ trợ **KHÔNG GIỚI HẠN** số lượng danh mục.
+- AI được phép **tự tạo Category mới** nếu sách không phù hợp Category có sẵn.
+- Category mới dùng format `{N}_Snake_Case` (số tiếp theo).
+- Frontend tự động gán icon + màu badge qua hash — không cần sửa code.
 
 ## Các bước thực hiện
 
@@ -28,19 +36,32 @@ ls "Inbox/"
 
 Nếu không có file nào, thông báo cho user và dừng.
 
-// turbo 4. Quét cấu trúc thư viện hiện tại:
+// turbo 4. Chuẩn hóa tên file trong Inbox (ASCII Snake_Case):
+
+```bash
+python scripts/rename_books.py --base-dir .
+```
+
+Nếu dry-run hiện file cần đổi tên → chạy `--execute`:
+
+```bash
+python scripts/rename_books.py --base-dir . --execute
+```
+
+// turbo 5. Quét cấu trúc thư viện hiện tại:
 
 ```bash
 python scripts/auto_organize.py --structure --base-dir .
 ```
 
-5. Với **từng file** trong Inbox:
+6. Với **từng file** trong Inbox:
    - Phân tích tên file để xác định category và topic
+   - Có thể dùng **category có sẵn HOẶC tạo mới** (Dynamic Categories)
    - Viết sẵn description theo **format 3 phần** (Context + Overview + Key Takeaways)
    - Hiển thị kết quả cho user xem trước
    - Đợi user xác nhận
 
-6. Sau khi user xác nhận, di chuyển file:
+7. Sau khi user xác nhận, di chuyển file:
 
 ```bash
 mv "Inbox/[filename]" "Books/[category]/[topic]/[filename]"
@@ -48,7 +69,7 @@ mv "Inbox/[filename]" "Books/[category]/[topic]/[filename]"
 
 > **LƯU Ý**: Đường dẫn đích luôn bắt đầu bằng `Books/`.
 
-// turbo 7. **KIỂM TRA DEPENDENCIES** trước khi tạo bìa:
+// turbo 8. **KIỂM TRA DEPENDENCIES** trước khi tạo bìa:
 
 ```bash
 python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING: cần cài PyMuPDF"
@@ -56,7 +77,7 @@ python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING: cần cài P
 
 Nếu thiếu PyMuPDF → cài `pip install PyMuPDF` TRƯỚC khi tiếp tục. **TUYỆT ĐỐI KHÔNG** chạy `generate_data.py` khi thiếu PyMuPDF.
 
-// turbo 8. Tạo bìa sách (WebP 250px) và cập nhật data.json — **CHỈ CHẠY 1 LẦN DUY NHẤT**:
+// turbo 9. Tạo bìa sách (WebP 250px) và cập nhật data.json — **CHỈ CHẠY 1 LẦN DUY NHẤT**:
 
 ```bash
 python scripts/generate_data.py --base-dir .
@@ -65,7 +86,7 @@ python scripts/generate_data.py --base-dir .
 > Script xuất trực tiếp WebP (250px, quality 60), không cần chạy optimize riêng.
 > ⚠️ KHÔNG chạy lại lần 2 nếu đã chạy thành công!
 
-// turbo 9. **VERIFY** `download_url` preservation — ĐÂY LÀ BƯỚC BẮT BUỘC:
+// turbo 10. **VERIFY** `download_url` preservation — ĐÂY LÀ BƯỚC BẮT BUỘC:
 
 ```bash
 python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8')); missing=[b['title'] for b in data if not b.get('download_url')]; print(f'Sách thiếu download_url: {len(missing)}'); [print(f'  - {t}') for t in missing]"
@@ -74,9 +95,9 @@ python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8
 - Kết quả PHẢI chỉ hiện đúng **N cuốn sách mới** (N = số sách vừa di chuyển).
 - Nếu hiện **nhiều hơn N** → `generate_data.py` đã xóa mất `download_url` cũ → **DỪNG LẠI**, báo lỗi cho user, KHÔNG upload.
 
-10. Mở `site/data.json`, tìm entry mới (description sẽ trống ""), và cập nhật description 3 phần đã viết ở bước 5. Dùng `\n\n` ngăn cách đoạn, `•` cho bullet points.
+11. Mở `site/data.json`, tìm entry mới (description sẽ trống ""), và cập nhật description 3 phần đã viết ở bước 6. Dùng `\n\n` ngăn cách đoạn, `•` cho bullet points.
 
-11. **DRY-RUN upload** — BẮT BUỘC kiểm tra trước:
+12. **DRY-RUN upload** — BẮT BUỘC kiểm tra trước:
 
 ```bash
 python scripts/upload_releases.py --dry-run
@@ -86,7 +107,7 @@ python scripts/upload_releases.py --dry-run
 - Nếu **đúng N file** (N = số sách mới) → OK, tiếp tục.
 - Nếu **nhiều hơn N** → có lỗi preserve `download_url` → **DỪNG LẠI**, báo lỗi.
 
-12. Upload sách mới lên GitHub Releases (chỉ khi dry-run OK):
+13. Upload sách mới lên GitHub Releases (chỉ khi dry-run OK):
 
 ```bash
 python scripts/upload_releases.py
@@ -94,7 +115,13 @@ python scripts/upload_releases.py
 
 > Script tự diff local vs data.json, chỉ upload file MỚI.
 
-13. Báo cáo kết quả cho user:
+14. Commit và push:
+
+```bash
+git add -A && git commit -m "add: [tên sách] to [category/topic]" && git push
+```
+
+15. Báo cáo kết quả cho user:
     - File đã chuyển đến đâu (trong `Books/`)
     - Bìa đã tạo (WebP) chưa
     - Description đã cập nhật chưa (format 3 phần)
