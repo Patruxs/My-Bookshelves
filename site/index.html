@@ -877,12 +877,14 @@
         }
 
         .dv-cover-wrap {
-            width: 240px;
-            flex-shrink: 0;
+            flex: 0 0 360px;
             border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-            transition: transform var(--transition)
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+            transition: transform var(--transition);
+            align-self: flex-start;
+            position: sticky;
+            top: calc(var(--nav-h) + 24px)
         }
 
         .dv-cover-wrap:hover {
@@ -891,7 +893,9 @@
 
         .dv-cover {
             width: 100%;
-            display: block
+            height: auto;
+            display: block;
+            object-fit: contain
         }
 
         .dv-info {
@@ -1362,8 +1366,10 @@
             }
 
             .dv-cover-wrap {
-                width: 180px;
-                margin: 0 auto
+                flex: none;
+                width: 220px;
+                margin: 0 auto;
+                position: static
             }
 
             .dv-title {
