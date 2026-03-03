@@ -155,7 +155,9 @@ Khi viết code cho dự án này, AI PHẢI:
 SCRIPTS REFERENCE:
 
 - `python scripts/generate_data.py --base-dir .` → tạo cover WebP + data.json
-- `python scripts/upload_releases.py` → upload sách lên GitHub Releases
+- `python scripts/upload_releases.py` → Smart Incremental Sync (chỉ upload sách MỚI)
+- `python scripts/upload_releases.py --dry-run` → xem trước file cần upload
+- `python scripts/upload_releases.py --force` → re-upload tất cả
 - `python scripts/auto_organize.py --structure` → xem cấu trúc thư viện
 - `python scripts/optimize_covers.py` → re-optimize ảnh bìa cũ sang WebP
 
