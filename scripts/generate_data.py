@@ -49,8 +49,8 @@ COVER_DIR = 'site/assets/covers'       # Filesystem path (relative to base_dir)
 COVER_WEB_PATH = 'assets/covers'       # Web URL path (relative to site/ root)
 OUTPUT_FILE = 'site/data.json'
 BOOKS_DIR = 'Books'                    # Folder containing category subfolders
-COVER_WIDTH = 250       # Max width for cover thumbnails (optimized for web)
-COVER_QUALITY = 60      # WebP quality (target: <30KB per image)
+COVER_WIDTH = 400       # Max width for cover thumbnails (optimized for web)
+COVER_QUALITY = 80      # WebP quality (target: <60KB per image)
 COVER_FORMAT = 'webp'   # Output format (webp for maximum compression)
 
 # Category folders expected at root level
