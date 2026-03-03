@@ -47,6 +47,16 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 - Sub-topic (nếu cần): `Snake_Case` → VD: `Programming_Languages/Java`
 - Đường dẫn đầy đủ: `Books/{category}/{topic}/filename.pdf`
 
+### Danh sách Category hiện tại
+
+```
+1_Computer_Science_Fundamentals
+2_Software_Engineering_Disciplines
+3_Career_and_Professional_Development
+4_Personal_Development_and_Skills
+5_University_Courses
+```
+
 ### Files
 
 - HTML/JS/CSS: lowercase, không dấu → `index.html`, `app.js`
@@ -115,12 +125,20 @@ scripts/*.py
 - Render PDF page 1 ở zoom 2x rồi downscale → sắc nét khi thu nhỏ.
 - RGBA/P mode → convert sang RGB trước khi save WebP.
 
-### Data Pipeline
+### Data Pipeline — ⚠️ CRITICAL RULES
 
 - `generate_data.py` PHẢI preserve description VÀ download_url khi regenerate data.json.
 - Book ID = `hashlib.md5(file_path).hexdigest()[:12]`.
 - Output cover: `site/assets/covers/{sanitize_filename(title)}.webp`.
 - Graceful fallback: script vẫn chạy nếu thiếu PyMuPDF hoặc ebooklib.
+
+**Quy tắc chống mất dữ liệu:**
+
+- **PHẢI kiểm tra PyMuPDF đã cài** trước khi chạy `generate_data.py` (chạy thiếu PyMuPDF = risk mất data).
+- **Chạy `generate_data.py` CHỈ 1 LẦN** — không chạy lặp lại. Nếu fail → fix root cause trước.
+- **PHẢI verify `download_url`** ngay sau generate: đếm số sách thiếu URL phải = đúng N sách mới.
+- **PHẢI chạy `upload_releases.py --dry-run`** trước upload thật: nếu dry-run hiện >N file → DỪNG.
+- Nếu phát hiện mất `download_url` → `git checkout site/data.json` để khôi phục, rồi fix lại.
 
 ### Description Format (3-Part Professional)
 
@@ -164,6 +182,12 @@ __pycache__/  *.py[cod]  venv/
 - Sau khi upload, script tự append metadata + cập nhật `download_url` trong `data.json`.
 - Download URL priority trong app.js: `download_url` → `"../" + file_path` → `raw.githubusercontent.com`.
 
+**⚠️ UPLOAD SAFEGUARDS:**
+
+- BẮT BUỘC chạy `--dry-run` trước upload thật.
+- Đếm số file trong dry-run. Nếu > số sách mới → CÓ LỖI, KHÔNG upload.
+- Chỉ upload khi dry-run count == đúng N sách mới từ Inbox.
+
 ### KHÔNG BAO GIỜ commit
 
 - File PDF/EPUB (dù nhỏ).
@@ -186,13 +210,17 @@ Khi viết code cho dự án này, AI PHẢI:
 10. Khi tạo cover mới: chạy `python scripts/generate_data.py --base-dir .` (xuất WebP trực tiếp).
 11. Khi viết description: PHẢI theo format 3 phần (Context → Overview → Key Takeaways).
 12. Khi đặt tên file sách: PHẢI dùng Title Case với dấu cách, KHÔNG dùng `-` hoặc `_`.
+13. **PHẢI kiểm tra PyMuPDF** trước khi chạy `generate_data.py` — KHÔNG chạy nếu thiếu.
+14. **Chạy `generate_data.py` CHỈ 1 LẦN** — không chạy lại nếu đã thành công.
+15. **PHẢI verify `download_url` preservation** sau khi `generate_data.py` chạy xong.
+16. **PHẢI chạy `upload_releases.py --dry-run`** trước upload thật — nếu count > N sách mới → DỪNG.
 
 SCRIPTS REFERENCE:
 
-- `python scripts/generate_data.py --base-dir .` → tạo cover WebP + data.json
+- `python scripts/generate_data.py --base-dir .` → tạo cover WebP + data.json (CHỈ CHẠY 1 LẦN)
+- `python scripts/upload_releases.py --dry-run` → xem trước file cần upload (BẮT BUỘC TRƯỚC UPLOAD)
 - `python scripts/upload_releases.py` → Smart Incremental Sync (chỉ upload sách MỚI)
-- `python scripts/upload_releases.py --dry-run` → xem trước file cần upload
-- `python scripts/upload_releases.py --force` → re-upload tất cả
+- `python scripts/upload_releases.py --force` → re-upload tất cả (CHỈ KHI CẦN)
 - `python scripts/auto_organize.py --structure` → xem cấu trúc thư viện
 - `python scripts/optimize_covers.py` → re-optimize ảnh bìa cũ sang WebP
 
