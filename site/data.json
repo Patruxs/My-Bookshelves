@@ -379,7 +379,7 @@
     "category": "Personal Development and Skills",
     "topic": "AI and Prompts",
     "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Huong_dan_su_dung_claude_hieu_qua.pdf",
-    "cover": "",
+    "cover": "assets/covers/Huong_dan_su_dung_claude_hieu_qua.webp",
     "format": "pdf",
     "description": "Trí tuệ nhân tạo (AI) đang thay đổi cách chúng ta làm việc, học tập và sáng tạo. Claude, một trong những mô hình ngôn ngữ lớn hàng đầu do Anthropic phát triển, mang đến khả năng hỗ trợ mạnh mẽ — nhưng để khai thác tối đa tiềm năng của nó, người dùng cần hiểu cách giao tiếp và ra lệnh hiệu quả.\n\nCuốn sách \"Hướng dẫn sử dụng Claude hiệu quả\" cung cấp kiến thức toàn diện từ cơ bản đến nâng cao về cách tương tác với Claude AI. Nội dung bao gồm các kỹ thuật prompt, chiến lược đặt câu hỏi, và phương pháp tối ưu hóa kết quả đầu ra cho nhiều mục đích khác nhau.\n\n• Nắm vững các nguyên tắc cơ bản khi giao tiếp với Claude AI\n• Học kỹ thuật viết prompt rõ ràng, chính xác để nhận kết quả tốt hơn\n• Ứng dụng Claude vào công việc hàng ngày: viết lách, phân tích, lập trình\n• Tránh các sai lầm phổ biến khiến AI trả lời không đúng ý\n• Khai thác tính năng nâng cao để xử lý các tác vụ phức tạp",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Huong_dan_su_dung_claude_hieu_qua.pdf"
@@ -401,7 +401,7 @@
     "category": "Personal Development and Skills",
     "topic": "AI and Prompts",
     "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/The_Complete_Guide_to_Building_Skill_for_Claude.pdf",
-    "cover": "",
+    "cover": "assets/covers/The_Complete_Guide_to_Building_Skill_for_Claude.webp",
     "format": "pdf",
     "description": "As AI assistants become integral to modern workflows, the ability to customize and extend their capabilities through purpose-built skills has become a critical differentiator. Claude, developed by Anthropic, supports a powerful skill-building framework that enables developers and power users to create specialized, reusable instructions for complex tasks.\n\n\"The Complete Guide to Building Skill for Claude\" provides a comprehensive walkthrough of designing, implementing, and deploying custom skills for Claude AI. From understanding the skill architecture to crafting effective prompts and workflows, this guide equips readers with the knowledge to transform Claude from a general-purpose assistant into a domain-specific expert.\n\n• Understand Claude's skill architecture and how skills extend AI capabilities\n• Learn to design effective skill prompts with clear instructions and constraints\n• Master workflow automation by chaining multiple skills together\n• Implement best practices for testing, iterating, and refining custom skills\n• Deploy production-ready skills for real-world use cases across teams",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Complete_Guide_to_Building_Skill_for_Claude.pdf"
