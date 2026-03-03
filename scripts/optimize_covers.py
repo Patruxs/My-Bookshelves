@@ -1,5 +1,5 @@
 """
-Optimize book covers: resize to max 400px width + convert to WebP (quality 75).
+Optimize book covers: resize to max 600px width + convert to WebP (quality 85).
 Updates data.json cover paths to .webp.
 """
 
@@ -10,8 +10,8 @@ from pathlib import Path
 from PIL import Image
 
 # Config
-MAX_WIDTH = 400
-WEBP_QUALITY = 75
+MAX_WIDTH = 600
+WEBP_QUALITY = 85
 SITE_DIR = Path(__file__).resolve().parent.parent / "site"
 COVERS_DIR = SITE_DIR / "assets" / "covers"
 DATA_JSON = SITE_DIR / "data.json"

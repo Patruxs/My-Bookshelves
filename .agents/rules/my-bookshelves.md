@@ -20,7 +20,7 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 
 - Git repo PHẢI dưới 5MB. Hiện tại ~700KB.
 - File binary lớn (PDF/EPUB) KHÔNG BAO GIỜ nằm trong git history — lưu trên GitHub Releases.
-- Ảnh bìa phải nén tối đa: WebP, 400px width, quality 80, target <60KB/ảnh.
+- Ảnh bìa phải nén tối đa: WebP, 600px width, quality 85, target <80KB/ảnh.
 - Không tải external resources (fonts, icons, CDN) — giảm network requests về 0.
 
 ### Zero-Dependency Frontend
@@ -73,7 +73,7 @@ Books/{1-5}_{Category}/{Topic}/book.pdf
 site/index.html          # Single-file HTML+CSS, SPA views (home + detail)
 site/app.js              # All JS logic: routing, rendering, detail view, related books
 site/data.json           # Mảng JSON chứa metadata của tất cả sách
-site/assets/covers/      # Ảnh bìa WebP (400px, q80)
+site/assets/covers/      # Ảnh bìa WebP (600px, q85)
 scripts/*.py
 .agents/skills/auto-organize/
 .agents/workflows/
@@ -131,10 +131,10 @@ scripts/*.py
 
 ### Xử lý ảnh bìa
 
-- Width tối đa: 400px (resize bằng `Image.LANCZOS`).
+- Width tối đa: 600px (resize bằng `Image.LANCZOS`).
 - Format: WebP (method=6 cho max compression).
-- Quality: 80 (target <60KB/ảnh).
-- Render PDF page 1 ở zoom 2x rồi downscale → sắc nét khi thu nhỏ.
+- Quality: 85 (target <80KB/ảnh).
+- Render PDF page 1 ở zoom 3x rồi downscale → sắc nét tuyệt đối trên High-DPI/Retina.
 - RGBA/P mode → convert sang RGB trước khi save WebP.
 
 ### Python Dependencies — ⚠️ CRITICAL
@@ -142,7 +142,7 @@ scripts/*.py
 `generate_data.py` yêu cầu cả **PyMuPDF** và **Pillow** cài trong **cùng một Python interpreter**:
 
 - **PyMuPDF** (`fitz`): Render PDF page 1 thành pixmap
-- **Pillow** (`PIL`): Resize + export WebP (method=6, quality 80)
+- **Pillow** (`PIL`): Resize + export WebP (method=6, quality 85)
 - Nếu thiếu Pillow → PyMuPDF fallback `pix.save()` **KHÔNG hỗ trợ WebP** → cover fail
 - ⚠️ Hệ thống có thể có **nhiều Python versions** (VD: `python` = 3.11, `pip` = 3.14). Luôn dùng `python -m pip install` để cài đúng interpreter.
 

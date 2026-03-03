@@ -34,7 +34,7 @@ My-Bookshelves/
 │   ├── index.html
 │   ├── app.js                           # Dynamic category icons/colors via hash
 │   ├── data.json                        # Dữ liệu sách (auto-generated)
-│   └── assets/covers/                   # Ảnh bìa sách (.webp, 400px, q80)
+│   └── assets/covers/                   # Ảnh bìa sách (.webp, 600px, q85)
 ├── scripts/
 │   ├── rename_books.py                  # Chuẩn hóa tên file → ASCII Snake_Case
 │   ├── generate_data.py                 # Quét sách → tạo data.json + cover WebP
@@ -206,7 +206,7 @@ python scripts/generate_data.py --base-dir .
 Script sẽ tự động:
 
 - Trích xuất trang đầu của PDF làm ảnh bìa
-- Resize xuống **400px** width + convert sang **WebP** quality 80 (<60KB/ảnh)
+- Resize xuống **600px** width + convert sang **WebP** quality 85 (<80KB/ảnh)
 - Lưu vào `site/assets/covers/` dạng `.webp`
 - Cập nhật `site/data.json` với entry mới (preserve description + download_url cũ)
 
