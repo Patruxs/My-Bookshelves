@@ -294,7 +294,7 @@
     "cover": "assets/covers/Kiến_trúc_ứng_dụng_web.webp",
     "format": "epub",
     "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại, kèm theo các kỹ thuật tối ưu hiệu suất.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices: ưu nhược điểm và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kiến.trúc.ứng.dụng.web.epub"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Ki.n.truc.ng.d.ng.web.epub"
   },
   {
     "id": "ff1b9386cc0f",
@@ -305,7 +305,7 @@
     "cover": "assets/covers/Kiến_trúc_ứng_dụng_web.webp",
     "format": "pdf",
     "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này (phiên bản PDF) trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kiến.trúc.ứng.dụng.web.pdf"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Ki.n.truc.ng.d.ng.web.pdf"
   },
   {
     "id": "b674c6f39ba3",
@@ -470,7 +470,7 @@
     "cover": "assets/covers/Quản_trị_cơ_sở_dữ_liệu.webp",
     "format": "pdf",
     "description": "Quản trị cơ sở dữ liệu là kỹ năng then chốt mà mọi kỹ sư phần mềm và quản trị viên hệ thống cần nắm vững. Từ việc cài đặt, cấu hình đến sao lưu và bảo mật — một sai sót nhỏ có thể gây mất dữ liệu toàn bộ hệ thống.\n\nGiáo trình này cung cấp kiến thức nền tảng về quản trị CSDL, bao gồm cài đặt, cấu hình hệ quản trị CSDL, quản lý user và phân quyền, sao lưu phục hồi và tối ưu hiệu suất.\n\n• Cài đặt và cấu hình hệ quản trị CSDL: các tham số quan trọng và môi trường vận hành\n• Quản lý user, role và phân quyền truy cập dữ liệu\n• Thực hiện backup/restore: full backup, incremental backup và point-in-time recovery\n• Tối ưu hiệu suất: indexing, query tuning và giám sát tài nguyên\n• Bảo mật CSDL: mã hóa, audit log và phòng chống SQL injection",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Quản.trị.cơ.sở.dữ.liệu.pdf"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Qu.n.tr.c.s.d.li.u.pdf"
   },
   {
     "id": "514345cf01d4",
@@ -481,7 +481,7 @@
     "cover": "assets/covers/Thương_mại_điện_tử.webp",
     "format": "pdf",
     "description": "Thương mại điện tử đã trở thành xương sống của nền kinh tế số, thay đổi hoàn toàn cách doanh nghiệp vận hành và khách hàng mua sắm. Hiểu biết về TMDT không chỉ dành cho dân kinh doanh mà cả kỹ sư xây dựng nền tảng.\n\nGiáo trình này bao quát toàn bộ hệ sinh thái TMDT: từ mô hình kinh doanh, hệ thống thanh toán trực tuyến đến marketing số và bảo mật giao dịch.\n\n• Hiểu các mô hình kinh doanh: B2B, B2C, C2C, O2O và marketplace\n• Thiết kế hệ thống thanh toán trực tuyến: cổng thanh toán, ví điện tử và bảo mật\n• Áp dụng marketing số: SEO, SEM, email marketing và social media\n• Xây dựng chiến lược logistics và quản lý chuỗi cung ứng\n• Đảm bảo pháp lý: luật TMDT, bảo vệ người tiêu dùng và thuế điện tử",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Thương.mại.điện.tử.pdf"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Th.ng.m.i.di.n.t.pdf"
   },
   {
     "id": "ae370be16c7f",
@@ -514,7 +514,7 @@
     "cover": "assets/covers/Ch03_Mô_hình_phat_trien_phan_mem.webp",
     "format": "pdf",
     "description": "Lựa chọn đúng mô hình phát triển phần mềm quyết định cách thức tổ chức làm việc, giao tiếp với khách hàng và quản lý rủi ro trong suốt dự án.\n\nChương 3 so sánh các mô hình phát triển phần mềm phổ biến, giúp bạn chọn đúng mô hình cho từng loại dự án.\n\n• So sánh Waterfall, V-Model, Spiral và các mô hình tuần tự\n• Hiểu Agile, Scrum, Kanban và phương pháp phát triển lặp (iterative)\n• Phân tích ưu nhược điểm của từng mô hình theo loại dự án\n• Áp dụng prototyping và RAD (Rapid Application Development) khi phù hợp",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Ch03_Mô.hình.phat.trien.phan.mem.pdf"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Ch03_Mo.hinh.phat.trien.phan.mem.pdf"
   },
   {
     "id": "7f79d81eef48",
