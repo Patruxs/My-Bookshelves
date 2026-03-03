@@ -18,5 +18,10 @@
         "default_tag": "storage-v1",
         "sync_mode": "incremental",
         "note": "Smart Incremental Sync: only uploads NEW books, uses data.json as single source of truth"
+    },
+    "dependencies": {
+        "required": ["PyMuPDF (fitz)", "Pillow (PIL)"],
+        "install_cmd": "python -m pip install PyMuPDF Pillow",
+        "note": "MUST use 'python -m pip install' (not 'pip install') to ensure packages are installed for the correct Python interpreter. System may have multiple Python versions."
     }
 }
