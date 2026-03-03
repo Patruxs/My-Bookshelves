@@ -394,4 +394,10 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
 function escXml(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; } return h; }
-function cleanTitle(t) { return t.replace(/_/g, " ").replace(/\s+/g, " ").trim(); }
+function cleanTitle(t) {
+    return t.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim()
+        .replace(/\w\S*/g, (w, i) => {
+            const lower = ["a","an","the","and","or","but","in","on","of","to","for","with","by","at","from","as","is"];
+            return (i > 0 && lower.includes(w.toLowerCase())) ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1);
+        });
+}
