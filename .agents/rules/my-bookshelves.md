@@ -158,7 +158,7 @@ Ví dụ:
 ### AI Skill Prompts
 
 - Prompts phân loại sách nằm tại `.agents/skills/auto-organize/prompts/classify_book.md`.
-- Output format: JSON với fields `category_folder`, `topic_folder`, `confidence`, `reasoning`.
+- Output format: JSON với fields `category_folder`, `topic_folder`, `confidence`, `reasoning`, `is_new_category`.
 - Ưu tiên folder có sẵn, chỉ đề xuất tạo mới khi confidence < 0.5.
 
 ## 5. QUY TẮC GIT & LƯU TRỮ
