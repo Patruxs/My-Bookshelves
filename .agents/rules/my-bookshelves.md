@@ -62,11 +62,13 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 - HTML/JS/CSS: lowercase, không dấu → `index.html`, `app.js`
 - Python scripts: lowercase + underscore → `generate_data.py`, `auto_organize.py`
 - Ảnh bìa: `Sanitize_Title.webp` (thay space/ký tự đặc biệt bằng `_`, max 100 chars)
-- Tên file sách: **Title Case** với dấu cách → `Go With Domain.pdf`, `Head First Java 2nd Edition.pdf`
-  - KHÔNG dùng dấu gạch ngang (`-`) hoặc gạch dưới (`_`) trong tên file sách
-  - Ví dụ SAI: `go-with-domain.pdf`, `Head_First_Java.pdf`
-  - Ví dụ ĐÚNG: `Go With Domain.pdf`, `Head First Java.pdf`
-- Data: `data.json` (mảng JSON, UTF-8, indent 2)
+- Tên file sách: **ASCII Snake_Case** không dấu → `Go_With_Domain.pdf`, `Kien_truc_ung_dung_web.epub`
+  - BẮT BUỘC tiếng Việt KHÔNG DẤU (loại bỏ diacritics: ă→a, ứ→u, đ→d, v.v.)
+  - CHỈ sử dụng dấu gạch dưới `_` để phân cách từ
+  - KHÔNG dùng khoảng trắng ` `, dấu gạch ngang `-`, dấu cộng `+`, hay dấu chấm `.`
+  - Chạy `python scripts/rename_books.py --base-dir . --execute` để chuẩn hóa tên file
+  - Ví dụ ĐÚNG: `Go_With_Domain.pdf`, `Head_First_Java_2nd_Edition.pdf`, `Kien_truc_ung_dung_web.epub`
+  - Ví dụ SAI: `Go With Domain.pdf`, `go-with-domain.pdf`, `Kiến trúc ứng dụng web.pdf`
 
 ### Cấu trúc thư mục chuẩn
 
@@ -209,7 +211,7 @@ Khi viết code cho dự án này, AI PHẢI:
 9. Khi sửa JS: giữ zero-dependency, dùng ES6+.
 10. Khi tạo cover mới: chạy `python scripts/generate_data.py --base-dir .` (xuất WebP trực tiếp).
 11. Khi viết description: PHẢI theo format 3 phần (Context → Overview → Key Takeaways).
-12. Khi đặt tên file sách: PHẢI dùng Title Case với dấu cách, KHÔNG dùng `-` hoặc `_`.
+12. Khi đặt tên file sách: PHẢI dùng ASCII Snake_Case không dấu, KHÔNG dùng khoảng trắng, `-`, `+`, `.`.
 13. **PHẢI kiểm tra PyMuPDF** trước khi chạy `generate_data.py` — KHÔNG chạy nếu thiếu.
 14. **Chạy `generate_data.py` CHỈ 1 LẦN** — không chạy lại nếu đã thành công.
 15. **PHẢI verify `download_url` preservation** sau khi `generate_data.py` chạy xong.
@@ -217,10 +219,13 @@ Khi viết code cho dự án này, AI PHẢI:
 
 SCRIPTS REFERENCE:
 
+- `python scripts/rename_books.py --base-dir .` → xem trước file cần đổi tên (DRY-RUN)
+- `python scripts/rename_books.py --base-dir . --execute` → chuẩn hóa tên file ASCII Snake_Case
 - `python scripts/generate_data.py --base-dir .` → tạo cover WebP + data.json (CHỈ CHẠY 1 LẦN)
 - `python scripts/upload_releases.py --dry-run` → xem trước file cần upload (BẮT BUỘC TRƯỚC UPLOAD)
 - `python scripts/upload_releases.py` → Smart Incremental Sync (chỉ upload sách MỚI)
 - `python scripts/upload_releases.py --force` → re-upload tất cả (CHỈ KHI CẦN)
+- `python scripts/upload_releases.py --hard-reset` → XÓA release cũ, tạo mới, upload lại TẤT CẢ
 - `python scripts/auto_organize.py --structure` → xem cấu trúc thư viện
 - `python scripts/optimize_covers.py` → re-optimize ảnh bìa cũ sang WebP
 
