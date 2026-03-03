@@ -129,22 +129,22 @@ Script sẽ tự động:
 
 Xem trước (không upload): `python scripts/upload_releases.py --dry-run`
 
-### Bước 9: Cập nhật mô tả sách
+### Bước 9: Cập nhật mô tả sách (3-Part Professional Format)
 
 Sau khi `generate_data.py` chạy xong, **mô tả sách sẽ trống** (description: "").
 
-Agent PHẢI mở `site/data.json`, tìm entry của cuốn sách vừa thêm, và viết mô tả:
+Agent PHẢI mở `site/data.json`, tìm entry của cuốn sách vừa thêm, và viết mô tả theo **format 3 phần**:
 
-- **1-2 câu** ngắn gọn nhưng đầy đủ thông tin
-- Liệt kê **key topics** bằng dấu gạch ngang (—)
-- Ghi **tên tác giả** nếu biết
-- Sách tiếng Việt → viết mô tả bằng tiếng Việt
-- Sách tiếng Anh → viết mô tả bằng tiếng Anh
+1. **Context & Problem** (đoạn 1): Bối cảnh, tầm quan trọng, thách thức
+2. **Book Overview** (đoạn 2): Giới thiệu sách, tác giả, giải pháp
+3. **Key Takeaways** (4-5 bullet points): Dùng ký tự `•`, ngăn cách bằng `\n`
+
+Các đoạn ngăn cách bằng `\n\n` trong JSON string. Sách tiếng Việt → viết tiếng Việt.
 
 Ví dụ:
 
 ```json
-"description": "The DDIA bible — data models, storage engines, replication, partitioning, transactions, consistency, and batch/stream processing. By Martin Kleppmann."
+"description": "Context paragraph about the problem domain...\n\nBook overview and author introduction...\n\n• Key takeaway 1\n• Key takeaway 2\n• Key takeaway 3\n• Key takeaway 4\n• Key takeaway 5"
 ```
 
 ### Bước 10: Xác nhận hoàn tất

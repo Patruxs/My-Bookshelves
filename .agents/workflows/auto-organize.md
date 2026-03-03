@@ -28,7 +28,7 @@ python scripts/auto_organize.py --structure --base-dir .
 
 5. Với **từng file** trong Inbox:
    - Phân tích tên file để xác định category và topic
-   - Viết sẵn description ngắn gọn (1-2 câu)
+   - Viết sẵn description theo **format 3 phần** (Context + Overview + Key Takeaways)
    - Hiển thị kết quả cho user xem trước
    - Đợi user xác nhận
 
@@ -48,7 +48,7 @@ python scripts/generate_data.py --base-dir .
 
 > Script xuất trực tiếp WebP (250px, quality 60), không cần chạy optimize riêng.
 
-8. Mở `site/data.json`, tìm entry mới (description sẽ trống ""), và cập nhật description đã viết ở bước 5.
+8. Mở `site/data.json`, tìm entry mới (description sẽ trống ""), và cập nhật description 3 phần đã viết ở bước 5. Dùng `\n\n` ngăn cách đoạn, `•` cho bullet points.
 
 9. Upload sách mới lên GitHub Releases (Smart Incremental Sync):
 
