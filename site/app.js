@@ -10,7 +10,7 @@ const CONFIG = { githubRepo: "Patruxs/My-Bookshelves", branch: "main" };
 let allBooks = [], filteredBooks = [], currentSort = null, currentBookId = null;
 let sidebarSelection = { category: "", topic: "" };
 let currentPage = 1;
-const BOOKS_PER_PAGE = 15;
+const BOOKS_PER_PAGE = 16;
 
 // ═══ DOM ═══
 const $ = s => document.querySelector(s);
