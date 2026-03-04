@@ -291,7 +291,7 @@
     "category": "Software Engineering Disciplines",
     "topic": "Software Architecture and Design",
     "file_path": "Books/2_Software_Engineering_Disciplines/Software_Architecture_and_Design/Kien_truc_ung_dung_web.epub",
-    "cover": "",
+    "cover": "assets/covers/Kien_truc_ung_dung_web.webp",
     "format": "epub",
     "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại, kèm theo các kỹ thuật tối ưu hiệu suất.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices: ưu nhược điểm và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kien_truc_ung_dung_web.epub"
@@ -515,6 +515,17 @@
     "format": "pdf",
     "description": "Scoring high on the TOEIC Listening & Reading test requires more than English proficiency — it demands familiarity with the exam format, time management strategies, and the ability to quickly identify correct answers among carefully designed distractors.\n\nThis tip guide focuses on practical test-taking strategies for both the Listening and Reading sections of the TOEIC exam. It breaks down each question type and provides proven techniques to maximize your score with targeted preparation.\n\n• Master Listening section strategies: photograph descriptions, question-response, conversations, and talks\n• Apply Reading section techniques: incomplete sentences, text completion, and reading comprehension\n• Identify common TOEIC traps: paraphrased answers, distractor keywords, and time-wasting questions\n• Manage time effectively: allocate minutes per section and know when to skip and return\n• Practice with targeted drills for each question type to build speed and accuracy",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Toeic_Listening_And_Reading_Tip.pdf"
+  },
+  {
+    "id": "54b7a8a1fe10",
+    "title": "AI_co_ban_va_ung_dung",
+    "category": "University Courses",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/5_University_Courses/Artificial_Intelligence/AI_co_ban_va_ung_dung.pdf",
+    "cover": "assets/covers/AI_co_ban_va_ung_dung.webp",
+    "format": "pdf",
+    "description": "Trí tuệ nhân tạo (AI) đang trở thành một trong những lĩnh vực quan trọng nhất của khoa học máy tính, với ứng dụng rộng rãi từ nhận dạng hình ảnh, xử lý ngôn ngữ tự nhiên đến hệ thống tự động hóa. Tuy nhiên, việc tiếp cận AI đòi hỏi nền tảng vững chắc về toán học, thuật toán và tư duy logic.\n\nGiáo trình \"AI cơ bản và ứng dụng\" cung cấp kiến thức nền tảng về trí tuệ nhân tạo dành cho sinh viên đại học, từ các khái niệm cơ bản đến các kỹ thuật ứng dụng thực tế. Nội dung được trình bày có hệ thống, phù hợp cho người mới bắt đầu tìm hiểu lĩnh vực AI.\n\n• Nắm vững các khái niệm cơ bản về trí tuệ nhân tạo và lịch sử phát triển\n• Hiểu các thuật toán tìm kiếm: tìm kiếm mù, tìm kiếm heuristic và tối ưu hóa\n• Tìm hiểu biểu diễn tri thức và suy luận logic trong hệ thống AI\n• Khám phá học máy (Machine Learning) cơ bản và các mô hình phân loại\n• Ứng dụng AI trong thực tế: xử lý ngôn ngữ, thị giác máy tính và hệ chuyên gia",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AI_co_ban_va_ung_dung.pdf"
   },
   {
     "id": "713015bed99f",
