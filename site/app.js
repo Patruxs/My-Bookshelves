@@ -13,6 +13,7 @@ let currentPage = 1;
 let booksPerPage = 16;
 
 // ═══ DYNAMIC PAGINATION ═══
+const MIN_BOOKS = 30;
 function calculateBooksPerPage() {
     const vw = window.innerWidth / 100;
     // Mirror CSS grid: clamp(150px, 12vw, 240px)
@@ -27,9 +28,8 @@ function calculateBooksPerPage() {
     const gridW = Math.min(window.innerWidth, 2560) - sidebarW - padX;
     // Calculate columns
     const cols = Math.max(1, Math.floor((gridW + gap) / (minColW + gap)));
-    // Ideal rows: scale with viewport height (card ≈ 280px tall), clamp 2-5
-    const rows = Math.max(2, Math.min(Math.round(window.innerHeight / 300), 5));
-    return Math.max(cols, cols * rows);
+    // Smallest multiple of cols ≥ MIN_BOOKS
+    return Math.ceil(MIN_BOOKS / cols) * cols;
 }
 
 // ═══ DOM ═══
@@ -335,7 +335,11 @@ function goToPage(page) {
     currentPage = page;
     renderBooks();
     renderPagination();
-    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Smooth scroll to top of grid area (toolbar position - small offset)
+    const toolbar = document.querySelector('.toolbar');
+    const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 48;
+    const target = toolbar ? toolbar.offsetTop - navH - 8 : 0;
+    window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
 }
 
 // ═══ PLACEHOLDER SVG ═══
