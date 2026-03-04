@@ -11,6 +11,7 @@ let allBooks = [], filteredBooks = [], currentSort = null, currentBookId = null;
 let sidebarSelection = { category: "", topic: "" };
 let currentPage = 1;
 let booksPerPage = 16;
+let savedScrollPos = 0;
 
 // ═══ DYNAMIC PAGINATION ═══
 const MIN_BOOKS = 30;
@@ -417,6 +418,9 @@ function showDetailView(bookId, pushHistory = true) {
     `;
 
     // Switch views
+    if (homeView.style.display !== "none") {
+        savedScrollPos = window.scrollY || document.documentElement.scrollTop;
+    }
     homeView.style.display = "none";
     detailView.style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -435,6 +439,7 @@ function showDetailView(bookId, pushHistory = true) {
 function showHomeView(pushHistory = true) {
     detailView.style.display = "none";
     homeView.style.display = "";
+    window.scrollTo(0, savedScrollPos);
     currentBookId = null;
     document.title = "My Bookshelves";
 
