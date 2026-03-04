@@ -67,6 +67,9 @@ initTheme();
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
     showSkeleton();
     booksPerPage = calculateBooksPerPage();
     try {
@@ -423,7 +426,9 @@ function showDetailView(bookId, pushHistory = true) {
     }
     homeView.style.display = "none";
     detailView.style.display = "block";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 10);
 
     // Update URL
     if (pushHistory) {
@@ -439,7 +444,9 @@ function showDetailView(bookId, pushHistory = true) {
 function showHomeView(pushHistory = true) {
     detailView.style.display = "none";
     homeView.style.display = "";
-    window.scrollTo(0, savedScrollPos);
+    setTimeout(() => {
+        window.scrollTo({ top: savedScrollPos, behavior: 'instant' });
+    }, 10);
     currentBookId = null;
     document.title = "My Bookshelves";
 
