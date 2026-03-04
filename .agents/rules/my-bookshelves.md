@@ -35,8 +35,17 @@ Dự án My-Bookshelves là thư viện sách cá nhân static web host trên Gi
 - Click sách → `showDetailView(bookId)` → ẩn home-view, hiển detail-view.
 - Nút "← Library" hoặc click logo → `showHomeView()` → về trang chủ.
 - URL dùng `history.pushState` → `?book=id`. Lắng nghe `popstate` cho nút Back trình duyệt.
-- Detail view có: bìa sách lớn (360px, sticky), tags, description (pre-wrap), download/share, và Related Books (max 5).
+- Detail view dùng `flex-wrap` — tự động stack trên mobile, side-by-side trên desktop.
+  - `.dv-cover-wrap`: `flex: 1 1 250px; max-width: 360px`
+  - `.dv-info`: `flex: 2 1 300px` (rớt xuống dưới khi viewport < ~600px)
 - Related Books: cùng topic trước → cùng category nếu thiếu → tối đa 5 cuốn.
+
+### Dynamic Pagination
+
+- Số sách mỗi trang KHÔNG fix cứng — tính động qua `calculateBooksPerPage()`.
+- Hàm mirror công thức CSS grid để tính số cột, nhân với số hàng lý tưởng (2-5 hàng).
+- Kết quả luôn là bội số của số cột → grid luôn đầy, không có hàng cuối bị thiếu.
+- Tự động recalculate khi resize cửa sổ (debounced 300ms), giữ vị trí scroll.
 
 ## 2. QUY TẮC QUẢN LÝ THƯ MỤC VÀ GỌI TÊN
 
@@ -82,12 +91,16 @@ scripts/*.py
 
 ## 3. QUY TẮC FRONTEND (HTML / CSS / VANILLA JS)
 
-### CSS
+### CSS — Intrinsic Responsive Design
 
 - KHÔNG Tailwind, KHÔNG Bootstrap, KHÔNG CSS framework.
 - Dùng CSS Variables cho theming: `--bg`, `--text-primary`, `--accent`, `--glass`, `--radius-sm`.
 - System fonts ONLY: `font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`
-- Responsive: 3 breakpoints — mobile (≤640px), tablet (641–1199px), desktop (≥1200px).
+- **Intrinsic Responsive** — ưu tiên `clamp()`, `auto-fill`, `flex-wrap` thay vì `@media` queries cứng.
+- Grid sách dùng `repeat(auto-fill, minmax(clamp(150px, 12vw, 240px), 1fr))` — tự động chia cột.
+- Fluid typography: `font-size: clamp(min, preferred, max)` cho `.dv-title`, `.dv-desc`, v.v.
+- Chỉ giữ `@media` cho: sidebar drawer (≤1199px), navbar compact (≤640px), hide logo (≤380px).
+- Layout hỗ trợ ultrawide/4K: `max-width: 2560px`, sidebar `--sidebar-w: clamp(260px, 18vw, 340px)`.
 - Animation: chỉ CSS `transition` và `@keyframes`, KHÔNG JS animation libraries.
 
 ### Icons

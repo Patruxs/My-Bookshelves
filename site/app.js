@@ -10,7 +10,27 @@ const CONFIG = { githubRepo: "Patruxs/My-Bookshelves", branch: "main" };
 let allBooks = [], filteredBooks = [], currentSort = null, currentBookId = null;
 let sidebarSelection = { category: "", topic: "" };
 let currentPage = 1;
-const BOOKS_PER_PAGE = 16;
+let booksPerPage = 16;
+
+// ═══ DYNAMIC PAGINATION ═══
+function calculateBooksPerPage() {
+    const vw = window.innerWidth / 100;
+    // Mirror CSS grid: clamp(150px, 12vw, 240px)
+    const minColW = Math.max(150, Math.min(12 * vw, 240));
+    // Mirror CSS gap: clamp(12px, 2vw, 24px)
+    const gap = Math.max(12, Math.min(2 * vw, 24));
+    // Sidebar visible on desktop (≥1200px): clamp(260px, 18vw, 340px)
+    const sidebarW = window.innerWidth >= 1200 ? Math.max(260, Math.min(18 * vw, 340)) : 0;
+    // Main horizontal padding: 16px×2 on ≤1199, clamp(12px,3vw,24px)×2 on desktop
+    const padX = window.innerWidth <= 1199 ? 32 : 2 * Math.max(12, Math.min(3 * vw, 24));
+    // Available grid width (respecting max-width: 2560px)
+    const gridW = Math.min(window.innerWidth, 2560) - sidebarW - padX;
+    // Calculate columns
+    const cols = Math.max(1, Math.floor((gridW + gap) / (minColW + gap)));
+    // Ideal rows: scale with viewport height (card ≈ 280px tall), clamp 2-5
+    const rows = Math.max(2, Math.min(Math.round(window.innerHeight / 300), 5));
+    return Math.max(cols, cols * rows);
+}
 
 // ═══ DOM ═══
 const $ = s => document.querySelector(s);
@@ -47,6 +67,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
     showSkeleton();
+    booksPerPage = calculateBooksPerPage();
     try {
         const r = await fetch("data.json?v=" + new Date().getTime(), { cache: "no-store" });
         if (!r.ok) throw new Error(r.status);
@@ -70,6 +91,18 @@ async function init() {
 
     // Handle browser back/forward
     window.addEventListener("popstate", handlePopState);
+
+    // Recalculate pagination on resize
+    window.addEventListener("resize", debounce(() => {
+        const newBpp = calculateBooksPerPage();
+        if (newBpp !== booksPerPage) {
+            const firstBookIndex = (currentPage - 1) * booksPerPage;
+            booksPerPage = newBpp;
+            currentPage = Math.max(1, Math.floor(firstBookIndex / booksPerPage) + 1);
+            renderBooks();
+            renderPagination();
+        }
+    }, 300));
 
     // Check URL on load
     checkUrlBookParam();
@@ -230,8 +263,8 @@ function renderBooks() {
     noResults.classList.remove("visible");
     $("#shown-count").textContent = filteredBooks.length;
 
-    const start = (currentPage - 1) * BOOKS_PER_PAGE;
-    const end = start + BOOKS_PER_PAGE;
+    const start = (currentPage - 1) * booksPerPage;
+    const end = start + booksPerPage;
     const pageBooks = filteredBooks.slice(start, end);
 
     grid.innerHTML = pageBooks.map((book, i) => {
@@ -257,7 +290,7 @@ function renderBooks() {
 // ═══ PAGINATION ═══
 function renderPagination() {
     const total = filteredBooks.length;
-    const totalPages = Math.ceil(total / BOOKS_PER_PAGE);
+    const totalPages = Math.ceil(total / booksPerPage);
     if (totalPages <= 1) { paginationEl.innerHTML = ""; return; }
 
     let html = '';
@@ -278,8 +311,8 @@ function renderPagination() {
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
     </button>`;
 
-    const startItem = (currentPage - 1) * BOOKS_PER_PAGE + 1;
-    const endItem = Math.min(currentPage * BOOKS_PER_PAGE, total);
+    const startItem = (currentPage - 1) * booksPerPage + 1;
+    const endItem = Math.min(currentPage * booksPerPage, total);
     html += `<span class="page-info">${startItem}–${endItem} of ${total}</span>`;
 
     paginationEl.innerHTML = html;
@@ -297,7 +330,7 @@ function getPageNumbers(current, total) {
 }
 
 function goToPage(page) {
-    const totalPages = Math.ceil(filteredBooks.length / BOOKS_PER_PAGE);
+    const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
     if (page < 1 || page > totalPages) return;
     currentPage = page;
     renderBooks();
