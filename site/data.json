@@ -396,6 +396,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_Anthropic_teams_use_Claude_Code_v2.pdf"
   },
   {
+    "id": "7e1d86b78d0b",
+    "title": "How_Modern_PMs_Work_With_AI_Agents_Van_Tran",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.pdf",
+    "cover": "assets/covers/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.webp",
+    "format": "pdf",
+    "description": "The role of Product Management is rapidly evolving as AI agents become integral to modern software products. PMs now face the challenge of understanding, directing, and collaborating with AI systems — not just building features around them. This shift demands new frameworks for thinking about product strategy, user experience, and team workflows in an AI-native world.\n\nHow Modern PMs Work With AI Agents by Van Tran provides a hands-on guide for Product Managers navigating this transformation. The book bridges the gap between traditional PM skills and the emerging discipline of AI-augmented product development, offering actionable strategies for working alongside AI agents effectively.\n\n• Frameworks for integrating AI agents into the product development lifecycle\n• Strategies for defining requirements and success metrics for AI-powered features\n• Best practices for PM-AI collaboration and prompt engineering in product contexts\n• Real-world case studies of PMs successfully leveraging AI agents\n• Guidelines for building AI-native product roadmaps and prioritization",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.pdf"
+  },
+  {
     "id": "3226037dd6bd",
     "title": "Huong_dan_su_dung_claude_hieu_qua",
     "category": "Personal Development and Skills",
