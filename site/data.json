@@ -198,6 +198,83 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Operating_Systems_Three_Easy_Pieces.pdf"
   },
   {
+    "id": "57207eefc1ea",
+    "title": "Distributed_Tracing_in_Practice",
+    "category": "Software Engineering Disciplines",
+    "topic": "Cloud Native and Observability",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Cloud_Native_and_Observability/Distributed_Tracing_in_Practice.pdf",
+    "cover": "assets/covers/Distributed_Tracing_in_Practice.webp",
+    "format": "pdf",
+    "description": "Trong kỷ nguyên microservices, khi một request đi qua hàng chục service khác nhau, việc debug và tìm bottleneck trở nên cực kỳ phức tạp. Traditional logging không đủ — bạn cần nhìn thấy toàn bộ hành trình của request xuyên suốt hệ thống phân tán.\n\nDistributed Tracing in Practice (Austin Parker et al., O'Reilly) là hướng dẫn thực chiến về triển khai distributed tracing với OpenTracing và Jaeger. Sách dẫn dắt từ lý thuyết cơ bản về spans/traces đến triển khai thực tế trong production microservices.\n\n• Hiểu kiến trúc distributed tracing: spans, traces, context propagation\n• Tích hợp OpenTracing API vào ứng dụng Java, Go, Python\n• Triển khai và vận hành Jaeger trong môi trường Kubernetes\n• Phân tích trace data để tìm latency bottleneck và lỗi\n• Best practices: sampling strategy, trace storage, performance impact",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Distributed_Tracing_in_Practice.pdf"
+  },
+  {
+    "id": "8c3788944577",
+    "title": "EB_Confluent_Designing_Event_Driven_Systems",
+    "category": "Software Engineering Disciplines",
+    "topic": "Cloud Native and Observability",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Cloud_Native_and_Observability/EB_Confluent_Designing_Event_Driven_Systems.pdf",
+    "cover": "assets/covers/EB_Confluent_Designing_Event_Driven_Systems.webp",
+    "format": "pdf",
+    "description": "Event-driven architecture (EDA) đang trở thành nền tảng của các hệ thống hiện đại — từ e-commerce đến fintech. Tuy nhiên, thiết kế đúng EDA đòi hỏi tư duy hoàn toàn khác so với REST/RPC truyền thống, với các thách thức về consistency, ordering và schema evolution.\n\nDesigning Event-Driven Systems (Ben Stopford, Confluent) là cuốn ebook về kiến trúc event-driven với Apache Kafka làm backbone. Tác giả — kỹ sư cốt lõi tại Confluent — hướng dẫn cách xây dựng các hệ thống loosely-coupled, scalable và resilient.\n\n• Nắm vững Event Sourcing và CQRS pattern trong thực tế\n• Thiết kế Kafka topics: partitioning, retention, compaction\n• Tích hợp Kafka Connect để streaming data từ databases\n• Xây dựng stateful streaming applications với Kafka Streams\n• Patterns: saga, inbox/outbox, event collaboration",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/EB_Confluent_Designing_Event_Driven_Systems.pdf"
+  },
+  {
+    "id": "02bd1c07eae8",
+    "title": "EB_Confluent_Kafka_Definitive_Guide_Complete",
+    "category": "Software Engineering Disciplines",
+    "topic": "Cloud Native and Observability",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Cloud_Native_and_Observability/EB_Confluent_Kafka_Definitive_Guide_Complete.pdf",
+    "cover": "assets/covers/EB_Confluent_Kafka_Definitive_Guide_Complete.webp",
+    "format": "pdf",
+    "description": "Apache Kafka đã trở thành xương sống của hầu hết kiến trúc data platform hiện đại — xử lý hàng triệu message mỗi giây, đảm bảo durability và fault tolerance. Nhưng để khai thác Kafka đúng cách đòi hỏi hiểu sâu về internals và production operations.\n\nKafka: The Definitive Guide (Neha Narkhede, Gwen Shapira, Todd Palino) là cuốn sách toàn diện nhất về Kafka — từ các kỹ sư đã xây dựng Kafka tại LinkedIn. Đây là tài liệu tham khảo chuẩn cho mọi kỹ sư làm việc với Kafka.\n\n• Kafka architecture: brokers, zookeeper, partitions, replicas\n• Producers: serialization, partitioning strategy, delivery semantics\n• Consumers: consumer groups, rebalancing, offset management\n• Kafka Streams và ksqlDB cho real-time stream processing\n• Operations: monitoring, tuning, security, disaster recovery",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/EB_Confluent_Kafka_Definitive_Guide_Complete.pdf"
+  },
+  {
+    "id": "33a65a6ae78e",
+    "title": "EB_I_Heart_Logs",
+    "category": "Software Engineering Disciplines",
+    "topic": "Cloud Native and Observability",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Cloud_Native_and_Observability/EB_I_Heart_Logs.pdf",
+    "cover": "assets/covers/EB_I_Heart_Logs.webp",
+    "format": "pdf",
+    "description": "Logs là nền tảng không thể thiếu của mọi hệ thống phân tán — nhưng thường bị xem là 'chỉ để debug'. Jay Kreps, đồng sáng lập Apache Kafka và CEO Confluent, lập luận rằng logs là cơ chế thống nhất đứng sau mọi thứ: databases, distributed systems, real-time processing.\n\nI Heart Logs (Jay Kreps, O'Reilly) là cuốn ebook ngắn nhưng sâu sắc, trình bày unified log theory — cách log-based architecture giải quyết các vấn đề phức tạp nhất của distributed systems: consistency, replication, data integration.\n\n• Log là append-only data structure — nền tảng của mọi database\n• Cách Kafka implement distributed log để đạt fault tolerance\n• Log-based data integration thay thế ETL truyền thống\n• Stateful stream processing dựa trên event log\n• Tư duy 'log-centric' khi thiết kế hệ thống phân tán",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/EB_I_Heart_Logs.pdf"
+  },
+  {
+    "id": "83a211706399",
+    "title": "EB_Making_Sense_of_Stream_Processing_Confluent",
+    "category": "Software Engineering Disciplines",
+    "topic": "Cloud Native and Observability",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Cloud_Native_and_Observability/EB_Making_Sense_of_Stream_Processing_Confluent.pdf",
+    "cover": "assets/covers/EB_Making_Sense_of_Stream_Processing_Confluent.webp",
+    "format": "pdf",
+    "description": "Stream processing đang thay đổi cách chúng ta xử lý data — từ batch jobs chạy theo giờ/ngày sang real-time pipelines phản hồi ngay lập tức. Tuy nhiên, mental model đúng cho stream processing rất khác biệt và gây confusion cho nhiều developer.\n\nMaking Sense of Stream Processing (Martin Kleppmann, O'Reilly/Confluent) giúp bạn xây dựng mental model đúng về stream processing. Tác giả của 'Designing Data-Intensive Applications' giải thích các concept cốt lõi một cách clear và concise.\n\n• Phân biệt stream processing vs batch processing vs microbatch\n• Event time vs processing time và cách handle late events\n• Kafka Streams: KStream, KTable, joins, windowing\n• Event sourcing như một pattern lưu trữ state\n• Tích hợp Apache Samza và Flink với Kafka ecosystem",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/EB_Making_Sense_of_Stream_Processing_Confluent.pdf"
+  },
+  {
+    "id": "2802b49f88b5",
+    "title": "Istio_in_Action",
+    "category": "Software Engineering Disciplines",
+    "topic": "Cloud Native and Observability",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Cloud_Native_and_Observability/Istio_in_Action.pdf",
+    "cover": "assets/covers/Istio_in_Action.webp",
+    "format": "pdf",
+    "description": "Microservices đã giải quyết vấn đề scalability nhưng tạo ra challenge mới: làm sao quản lý network traffic, security và observability khi có hàng trăm service? Viết logic đó trong mỗi service là không scalable — cần một tầng infrastructure riêng.\n\nIstio in Action (Christian Posta, Rinor Maloku, Manning) là hướng dẫn thực chiến về Istio service mesh. Sách dạy cách deploy và vận hành Istio trong Kubernetes để giải quyết cross-cutting concerns mà không cần sửa application code.\n\n• Istio architecture: control plane (istiod), data plane (Envoy proxies)\n• Traffic management: load balancing, circuit breaking, retries, timeouts\n• Security: mTLS, authorization policies, RBAC giữa services\n• Observability: distributed tracing, metrics, access logs tích hợp sẵn\n• Canary deployments và traffic shifting với VirtualService/DestinationRule",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Istio_in_Action.pdf"
+  },
+  {
+    "id": "e7775c5e3ff4",
+    "title": "Observability_Engineering",
+    "category": "Software Engineering Disciplines",
+    "topic": "Cloud Native and Observability",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Cloud_Native_and_Observability/Observability_Engineering.pdf",
+    "cover": "assets/covers/Observability_Engineering.webp",
+    "format": "pdf",
+    "description": "Khi hệ thống phát sinh sự cố lúc 3 giờ sáng, khả năng debug nhanh chóng phụ thuộc vào chất lượng observability. Monitoring truyền thống với metrics và logs không đủ để hiểu behavior của distributed systems — cần pillar thứ ba: traces.\n\nObservability Engineering (Charity Majors, Liz Fong-Jones, George Miranda, O'Reilly) là book kinh điển về observability do những người đã xây dựng Honeycomb.io. Sách thay đổi cách bạn tiếp cận việc vận hành production systems.\n\n• Ba pillars of observability: metrics, logs, traces và sự kết hợp\n• OpenTelemetry: instrumentation chuẩn cho metrics, logs, traces\n• Structured events vs log lines — tại sao cardinality quan trọng\n• SLOs, SLIs, error budgets thay vì threshold-based alerting\n• Xây dựng culture observability-first trong engineering team",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Observability_Engineering.pdf"
+  },
+  {
     "id": "5bbd1479b7f9",
     "title": "Database_Internals",
     "category": "Software Engineering Disciplines",
@@ -231,6 +308,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AWS_Certified_Cloud_Practitioner_Slides_v42.pdf"
   },
   {
+    "id": "208b49a9ab5b",
+    "title": "Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li",
+    "category": "Software Engineering Disciplines",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering_Disciplines/DevOps/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.pdf",
+    "cover": "assets/covers/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.webp",
+    "format": "pdf",
+    "description": "Amazon Web Services là cloud platform thống trị thị trường với hàng trăm dịch vụ. Nhưng chỉ biết từng service riêng lẻ là chưa đủ — cần hiểu cách kết hợp chúng để xây dựng kiến trúc an toàn, scalable và cost-effective trong thực tế.\n\nAmazon Web Services in Action (Andreas Wittig, Michael Wittig, Manning) là hướng dẫn thực chiến đầy đủ nhất về AWS. Hai tác giả chia sẻ kinh nghiệm thực tế giúp bạn tránh những sai lầm phổ biến khi thiết kế cloud architecture.\n\n• Core services: EC2, S3, RDS, VPC, IAM — cách dùng đúng trong production\n• Auto Scaling và load balancing cho high availability\n• Lambda và serverless architecture với API Gateway\n• Infrastructure as Code với CloudFormation\n• Security best practices: least privilege, encryption, audit logging",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.pdf"
+  },
+  {
     "id": "f33b1dfbdc69",
     "title": "DevOps_Roadmap_Ebook_2025",
     "category": "Software Engineering Disciplines",
@@ -242,6 +330,61 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/DevOps_Roadmap_Ebook_2025.pdf"
   },
   {
+    "id": "d35f89c983c5",
+    "title": "GitOps_and_Kubernetes",
+    "category": "Software Engineering Disciplines",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering_Disciplines/DevOps/GitOps_and_Kubernetes.pdf",
+    "cover": "assets/covers/GitOps_and_Kubernetes.webp",
+    "format": "pdf",
+    "description": "GitOps là paradigm mới đang thay đổi cách teams deploy và quản lý Kubernetes clusters. Thay vì chạy kubectl thủ công hay scripts phức tạp, GitOps dùng Git repository làm single source of truth — mọi thay đổi đều qua Pull Request.\n\nGitOps and Kubernetes (Billy Yuen et al., Manning) giải thích GitOps methodology và cách triển khai với các tools phổ biến như ArgoCD và Flux. Sách phù hợp cho platform engineers và DevOps teams muốn chuẩn hóa deployment workflow.\n\n• GitOps principles: declarative, versioned, automated, continuously reconciled\n• ArgoCD: cài đặt, application sync, RBAC, notifications\n• Flux v2: GitRepository, Kustomization, HelmRelease controllers\n• Multi-environment management: dev/staging/prod workflows\n• Secrets management trong GitOps với Sealed Secrets và SOPS",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/GitOps_and_Kubernetes.pdf"
+  },
+  {
+    "id": "b2df0de6eeb7",
+    "title": "Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li",
+    "category": "Software Engineering Disciplines",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering_Disciplines/DevOps/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.pdf",
+    "cover": "assets/covers/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.webp",
+    "format": "pdf",
+    "description": "Infrastructure provisioning thủ công không scale — mỗi environment có thể có config drift, tạo bugs khó reproduce. Infrastructure as Code (IaC) giải quyết vấn đề này, và Terraform đã trở thành tool IaC de facto cho multi-cloud environments.\n\nTerraform in Action (Scott Winkler, Manning) là hướng dẫn thực chiến từ cơ bản đến nâng cao về Terraform. Sách dạy không chỉ syntax mà còn cách tổ chức Terraform code cho production environments phức tạp.\n\n• Terraform fundamentals: providers, resources, state, plan/apply cycle\n• Modules: tổ chức code tái sử dụng và versioning\n• Remote state: Terraform Cloud, S3 backend với state locking\n• Testing Terraform với Terratest\n• Advanced patterns: workspaces, dynamic blocks, meta-arguments",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.pdf"
+  },
+  {
+    "id": "fdcdeda92cab",
+    "title": "Securing_Devops",
+    "category": "Software Engineering Disciplines",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering_Disciplines/DevOps/Securing_Devops.pdf",
+    "cover": "assets/covers/Securing_Devops.webp",
+    "format": "pdf",
+    "description": "Security thường bị xem là công việc của một team riêng biệt, thêm vào cuối sprint. Trong kỷ nguyên cloud-native, tư duy đó cực kỳ nguy hiểm — cần shift-left security, tích hợp bảo mật vào từng bước của CI/CD pipeline.\n\nSecuring DevOps (Julien Vehent, Manning) là hướng dẫn thực chiến về DevSecOps — cách xây dựng secure deployment pipeline và bảo vệ infrastructure trong môi trường cloud. Tác giả là security engineer kỳ cựu tại Mozilla.\n\n• Security testing trong CI/CD: SAST, DAST, dependency scanning\n• Container security: image scanning, runtime protection, least privilege\n• Secrets management: Vault, AWS Secrets Manager, rotation\n• Monitoring và incident response: log analysis, anomaly detection\n• Compliance as Code: tự động hóa audit và compliance checks",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Securing_Devops.pdf"
+  },
+  {
+    "id": "669cf582d823",
+    "title": "Docker_Cheatsheet",
+    "category": "Software Engineering Disciplines",
+    "topic": "Docker",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Docker/Docker_Cheatsheet.pdf",
+    "cover": "assets/covers/Docker_Cheatsheet.webp",
+    "format": "pdf",
+    "description": "Docker đã cách mạng hóa cách developer build và ship ứng dụng. Container isolation giải quyết vấn đề 'works on my machine' và tạo nền tảng cho Kubernetes. Nhưng để dùng Docker hiệu quả cần nắm vững các lệnh và workflows cốt lõi.\n\nDocker Cheatsheet là tài liệu tham khảo nhanh tổng hợp các Docker commands quan trọng nhất — từ images, containers, volumes đến networking và Docker Compose. Phù hợp để lookup khi làm việc hàng ngày.\n\n• Docker CLI essentials: build, run, ps, exec, logs, inspect\n• Image management: pull, push, tag, prune, multi-stage builds\n• Volume và bind mounts cho persistent data\n• Network drivers: bridge, host, overlay cho container communication\n• Docker Compose: services, depends_on, health checks",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_Cheatsheet.pdf"
+  },
+  {
+    "id": "232a3c05d923",
+    "title": "Docker_in_Action",
+    "category": "Software Engineering Disciplines",
+    "topic": "Docker",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Docker/Docker_in_Action.pdf",
+    "cover": "assets/covers/Docker_in_Action.webp",
+    "format": "pdf",
+    "description": "Containers đã thay đổi cơ bản cách chúng ta build, ship và run software. Docker là technology cốt lõi đứng sau container revolution — nhưng để dùng đúng, cần hiểu sâu về cách containers hoạt động, không chỉ copy-paste Dockerfile.\n\nDocker in Action (Jeff Nickoloff, Stephen Kuenzli, Manning) là hướng dẫn toàn diện về Docker từ fundamentals đến production patterns. Sách giải thích cơ chế hoạt động bên trong giúp bạn debug và optimize hiệu quả hơn.\n\n• Container internals: namespaces, cgroups, union filesystems\n• Dockerfile best practices: layer caching, multi-stage builds, security\n• Volumes: named volumes, bind mounts, tmpfs — khi nào dùng gì\n• Docker networking: published ports, user-defined networks, DNS\n• Docker Compose cho local development và integration testing",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Action.pdf"
+  },
+  {
     "id": "706ba43cdf32",
     "title": "Game_Programming_Patterns",
     "category": "Software Engineering Disciplines",
@@ -251,6 +394,50 @@
     "format": "pdf",
     "description": "Game developers face unique software engineering challenges: real-time performance constraints, complex state management, and rendering loops that must execute thousands of updates per second without stuttering.\n\nGame Programming Patterns by Robert Nystrom presents classic design patterns reimagined for game development. Written with humor and crystal-clear examples, it bridges the gap between academic software engineering and the practical realities of shipping games.\n\n• Implement the game loop pattern for consistent frame-rate-independent updates\n• Use the command pattern for input handling, undo systems, and replay functionality\n• Apply the component pattern to build flexible entity systems without deep inheritance\n• Optimize with object pools, flyweight patterns, and spatial partitioning for collision detection\n• Understand observer, state machine, and bytecode patterns in game-specific contexts",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Game_Programming_Patterns.pdf"
+  },
+  {
+    "id": "330a39f3f12c",
+    "title": "Benjamin_Muschko_Certified_Kubernetes_Application_Developer_CKAD_Study_Guide_In_Depth_Guidance_and_Practice_O_Reilly_Media_2021",
+    "category": "Software Engineering Disciplines",
+    "topic": "Kubernetes",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Kubernetes/Benjamin_Muschko_Certified_Kubernetes_Application_Developer_CKAD_Study_Guide_In_Depth_Guidance_and_Practice_O_Reilly_Media_2021.pdf",
+    "cover": "assets/covers/Benjamin_Muschko_Certified_Kubernetes_Application_Developer_CKAD_Study_Guide_In_Depth_Guidance_and_P.webp",
+    "format": "pdf",
+    "description": "Chứng chỉ CKAD (Certified Kubernetes Application Developer) kiểm tra khả năng deploy và manage applications trên Kubernetes trong môi trường thực tế. Kỳ thi hoàn toàn hands-on — không có multiple choice, chỉ có practical tasks trong live cluster.\n\nCKAD Study Guide In-Depth (Benjamin Muschko, O'Reilly) là tài liệu ôn thi CKAD chi tiết nhất, bao gồm toàn bộ exam domains với exercises thực hành. Tác giả cũng là certified Kubernetes trainer.\n\n• Application Design: multi-container pods, init containers, sidecar pattern\n• Configuration: ConfigMaps, Secrets, resource limits, service accounts\n• Pod Design: labels, selectors, deployments, rolling updates\n• Services và Networking: ClusterIP, NodePort, Ingress, NetworkPolicy\n• Observability: liveness/readiness probes, logging, debugging techniques",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Benjamin_Muschko_Certified_Kubernetes_Application_Developer_CKAD_Study_Guide_In_Depth_Guidance_and_Practice_O_Reilly_Media_2021.pdf"
+  },
+  {
+    "id": "eed17ca62b87",
+    "title": "Certified_Kubernetes_Administrator_CKA_Study_Guide",
+    "category": "Software Engineering Disciplines",
+    "topic": "Kubernetes",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Kubernetes/Certified_Kubernetes_Administrator_CKA_Study_Guide.pdf",
+    "cover": "assets/covers/Certified_Kubernetes_Administrator_CKA_Study_Guide.webp",
+    "format": "pdf",
+    "description": "Chứng chỉ CKA (Certified Kubernetes Administrator) là credential quan trọng nhất cho platform engineers và DevOps làm việc với Kubernetes. Kỳ thi hands-on kiểm tra toàn diện khả năng quản trị cluster — từ installation đến troubleshooting production incidents.\n\nCKA Study Guide (Benjamin Muschko, O'Reilly) bao gồm đầy đủ 6 domains của CKA exam với exercises thực hành cho từng topic. Cuốn sách là roadmap học tập có cấu trúc rõ ràng, tiết kiệm thời gian self-study.\n\n• Cluster Architecture: kubeadm bootstrapping, etcd backup/restore\n• Workloads: Deployments, DaemonSets, StatefulSets, Jobs/CronJobs\n• Services và Networking: CoreDNS, CNI plugins, kube-proxy\n• Storage: PersistentVolume, PVC, StorageClass, dynamic provisioning\n• Troubleshooting: node issues, pod failures, network debugging với kubectl",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Certified_Kubernetes_Administrator_CKA_Study_Guide.pdf"
+  },
+  {
+    "id": "ff7bd484c958",
+    "title": "Core_Kubernetes",
+    "category": "Software Engineering Disciplines",
+    "topic": "Kubernetes",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Kubernetes/Core_Kubernetes.pdf",
+    "cover": "assets/covers/Core_Kubernetes.webp",
+    "format": "pdf",
+    "description": "Để dùng Kubernetes thực sự hiệu quả, bạn cần hiểu những gì xảy ra bên trong — không chỉ biết các kubectl commands. Khi cluster behave unexpectedly, chỉ hiểu surface level sẽ không đủ để diagnose và fix vấn đề.\n\nCore Kubernetes (Jay Vyas, Chris Love, Manning) đào sâu vào internals của Kubernetes — cách các components tương tác với nhau, cách scheduler đưa ra quyết định, cách network được thiết lập. Sách dành cho những ai muốn thực sự master Kubernetes.\n\n• Control plane components: API server, etcd, scheduler, controller manager\n• Pod lifecycle: admission controllers, schedulers, kubelet workflow\n• Kubernetes networking model: kube-proxy, iptables/ipvs, CNI deep dive\n• Storage internals: CSI, dynamic provisioning, volume lifecycle\n• Extending Kubernetes: CRDs, operators, admission webhooks",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Core_Kubernetes.pdf"
+  },
+  {
+    "id": "a107582693f2",
+    "title": "K8S_CHEAT_SHEET",
+    "category": "Software Engineering Disciplines",
+    "topic": "Kubernetes",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Kubernetes/K8S_CHEAT_SHEET.pdf",
+    "cover": "assets/covers/K8S_CHEAT_SHEET.webp",
+    "format": "pdf",
+    "description": "Kubernetes có hàng trăm resources và hàng nghìn kubectl flags — nhớ hết gần như bất khả thi. Trong kỳ thi CKA/CKAD hay lúc xử lý incidents production, tốc độ lookup quyết định hiệu quả công việc.\n\nK8S Cheat Sheet là tài liệu tham khảo nhanh tổng hợp các Kubernetes commands và resource definitions quan trọng nhất. Được tổ chức theo nhóm chức năng để lookup nhanh trong lúc làm việc.\n\n• kubectl commands: get, describe, apply, delete, exec, logs, port-forward\n• Resource management: Deployment, Service, ConfigMap, Secret, Ingress\n• Namespace, RBAC: ServiceAccount, Role, RoleBinding, ClusterRole\n• Debugging: kubectl top, events, node conditions, pod status\n• Imperative commands cho exam: create deployment, expose, run",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/K8S_CHEAT_SHEET.pdf"
   },
   {
     "id": "fd68cb66bbd2",
@@ -374,6 +561,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learn_How_to_Code_Online_and_Land_a_100k_Job_ASAP.pdf"
   },
   {
+    "id": "477729fdbacb",
+    "title": "Think_Like_a_CTO",
+    "category": "Career and Professional Development",
+    "topic": "Job Search and Career Growth",
+    "file_path": "Books/3_Career_and_Professional_Development/Job_Search_and_Career_Growth/Think_Like_a_CTO.pdf",
+    "cover": "assets/covers/Think_Like_a_CTO.webp",
+    "format": "pdf",
+    "description": "Hầu hết software engineers giỏi về kỹ thuật nhưng không được đào tạo về leadership và business strategy. Khi leo lên vị trí CTO hay Engineering Manager, sự thiếu hụt về tư duy lãnh đạo là nguyên nhân phổ biến nhất dẫn đến thất bại.\n\nThink Like a CTO (Alan Williamson) chia sẻ framework tư duy của một CTO hiện đại — từ cách đưa ra quyết định công nghệ đến cách xây dựng team, manage stakeholders và drive business value thông qua technology.\n\n• Technology strategy: align tech roadmap với business goals\n• Engineering team building: hiring, culture, retention, performance\n• Technical debt management: khi nào refactor, khi nào ship fast\n• Communication với C-suite: translate technical work thành business impact\n• CTO mindset: từ individual contributor đến organizational leader",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Think_Like_a_CTO.pdf"
+  },
+  {
     "id": "172fbe02d2fe",
     "title": "Claude_AI_cho_CEO_Thuc_hanh_SP",
     "category": "Personal Development and Skills",
@@ -416,6 +614,17 @@
     "format": "pdf",
     "description": "Trí tuệ nhân tạo (AI) đang thay đổi cách chúng ta làm việc, học tập và sáng tạo. Claude, một trong những mô hình ngôn ngữ lớn hàng đầu do Anthropic phát triển, mang đến khả năng hỗ trợ mạnh mẽ — nhưng để khai thác tối đa tiềm năng của nó, người dùng cần hiểu cách giao tiếp và ra lệnh hiệu quả.\n\nCuốn sách \"Hướng dẫn sử dụng Claude hiệu quả\" cung cấp kiến thức toàn diện từ cơ bản đến nâng cao về cách tương tác với Claude AI. Nội dung bao gồm các kỹ thuật prompt, chiến lược đặt câu hỏi, và phương pháp tối ưu hóa kết quả đầu ra cho nhiều mục đích khác nhau.\n\n• Nắm vững các nguyên tắc cơ bản khi giao tiếp với Claude AI\n• Học kỹ thuật viết prompt rõ ràng, chính xác để nhận kết quả tốt hơn\n• Ứng dụng Claude vào công việc hàng ngày: viết lách, phân tích, lập trình\n• Tránh các sai lầm phổ biến khiến AI trả lời không đúng ý\n• Khai thác tính năng nâng cao để xử lý các tác vụ phức tạp",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Huong_dan_su_dung_claude_hieu_qua.pdf"
+  },
+  {
+    "id": "01502b0e4896",
+    "title": "Mastering_Claude_AI_2026",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Mastering_Claude_AI_2026.pdf",
+    "cover": "assets/covers/Mastering_Claude_AI_2026.webp",
+    "format": "pdf",
+    "description": "Claude AI của Anthropic đang định hình lại cách developer, researcher và knowledge worker làm việc. Tuy nhiên, phần lớn người dùng chỉ khai thác một phần nhỏ khả năng của Claude — thiếu kiến thức về prompt engineering, context management và agentic workflows.\n\nMastering Claude AI (2026) là hướng dẫn đầy đủ về cách làm chủ Claude AI — từ prompting cơ bản đến các kỹ thuật nâng cao dành cho power users. Sách cập nhật các tính năng mới nhất của Claude 3.5 và Claude 4 ecosystem.\n\n• Prompt engineering nâng cao: chain-of-thought, few-shot, role prompting\n• Context window management: cách tổ chức long conversations hiệu quả\n• Agentic workflows: Claude làm agent tự động hóa multi-step tasks\n• Claude API và integrations: MCP, artifacts, computer use\n• Use cases thực tế: coding, writing, analysis, research automation",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Claude_AI_2026.pdf"
   },
   {
     "id": "9d71d562c612",
