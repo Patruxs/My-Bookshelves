@@ -149,6 +149,17 @@ Agent PHẢI xử lý **TẤT CẢ N cuốn sách cùng lúc** trong một lần
 
 Các đoạn ngăn cách bằng `\n\n` trong JSON string.
 
+**🌐 Quy tắc ngôn ngữ description (BẮT BUỘC):**
+
+| Tên file sách | Ngôn ngữ description |
+|---|---|
+| Tiếng Anh (ASCII, không dấu tiếng Việt) | ✅ Viết bằng **tiếng Anh** |
+| Tiếng Việt (có dấu: ă, ơ, ư, đ, v.v. HOẶC từ khóa tiếng Việt rõ ràng) | ✅ Viết bằng **tiếng Việt** |
+
+Cách nhận biết:
+- File tiếng Việt: tên file chứa ký tự có dấu (`Gia_tri`, `Ky_su`, `Kien_truc`...) hoặc các từ tiếng Việt không dấu rõ ràng như `Giao_trinh`, `Bai_giang`, `Vi_du`, `Ch01_`, `PTTKHT`, v.v.
+- File tiếng Anh: tên file toàn ASCII, không có pattern tiếng Việt.
+
 > ⚠️ **KHÔNG hỏi user xác nhận từng cuốn.** Agent lưu TẤT CẢ kết quả trong bộ nhớ rồi mới hiển thị.
 
 ### Bước 6: 📋 IN BẢNG TỔNG HỢP DUY NHẤT
@@ -304,6 +315,7 @@ Hiển thị bảng tổng kết cho user:
 11. **Chèn descriptions HÀNG LOẠT** — dùng `multi_replace_file_content` 1 lần
 12. **DRY-RUN bắt buộc** trước upload — đếm file phải = đúng N sách mới
 13. **LUÔN viết description** cho sách mới — không để trống
-14. **Ảnh bìa PHẢI là WebP** (400px, quality 80) — không commit ảnh JPG/PNG vào repo
-15. **Dynamic Categories** — AI tự do tạo category mới khi cần (format `{N}_Snake_Case`)
-16. **Dùng `python -m pip install`** — tránh cài nhầm Python version khi hệ thống có nhiều Python
+14. **Ngôn ngữ description theo tên file**: tên file tiếng Anh → description tiếng Anh; tên file tiếng Việt → description tiếng Việt
+15. **Ảnh bìa PHẢI là WebP** (400px, quality 80) — không commit ảnh JPG/PNG vào repo
+16. **Dynamic Categories** — AI tự do tạo category mới khi cần (format `{N}_Snake_Case`)
+17. **Dùng `python -m pip install`** — tránh cài nhầm Python version khi hệ thống có nhiều Python
