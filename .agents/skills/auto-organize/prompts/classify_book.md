@@ -23,6 +23,23 @@ All books are stored under the `Books/` directory:
 9. **DevOps / Cloud / AWS**: Place in a Software Engineering / DevOps category.
 10. **Database books**: Place in a Software Engineering / Database category.
 
+## DESCRIPTION LANGUAGE RULE (MANDATORY)
+
+Detect the book's language from its filename and write the description accordingly:
+
+| Filename pattern | Description language |
+|---|---|
+| Pure ASCII, no Vietnamese diacritics or keywords | ✅ Write in **English** |
+| Contains Vietnamese diacritics (ă, ơ, ư, đ, etc.) OR clear Vietnamese keywords | ✅ Write in **Vietnamese** |
+
+**How to detect Vietnamese filenames:**
+- **Diacritics present** (after un-escaping): `Gia_tri`, `Ky_su`, `Kien_truc_ung_dung` → Vietnamese
+- **Common Vietnamese prefixes/patterns** (even without diacritics): `Ch01_`, `Ch02_`, `Giao_trinh_`, `Bai_giang_`, `PTTKHT`, `Thuong_mai_dien_tu`, `Quan_tri_`, `AI_co_ban` → Vietnamese
+- **Everything else** (English author names, English title words, technical acronyms) → English
+
+> ⚠️ Never mix languages within a single description. Determine language once from the filename, then write the entire description in that language.
+
+
 ### 🆕 DYNAMIC CATEGORIES — YOU ARE NOT LIMITED TO EXISTING ONES
 
 If the book belongs to a **completely new field** that doesn't fit ANY existing category:
