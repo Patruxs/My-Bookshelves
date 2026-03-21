@@ -1,5 +1,5 @@
 ---
-description: Phân loại sách mới từ Inbox bằng AI Agent (Batch Processing)
+description: Phân loại sách mới từ Inbox bằng AI Agent (Batch Processing workflow)
 ---
 
 # /auto-organize — Phân loại sách tự động (Batch Mode)
