@@ -22,6 +22,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Prefix_Trees_and_Tries.pdf"
   },
   {
+    "id": "9269763f0cb8",
+    "title": "MLCoBanVuHuuTiep",
+    "category": "Computer Science Fundamentals",
+    "topic": "Machine Learning",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/MLCoBanVuHuuTiep.pdf",
+    "cover": "assets/covers/MLCoBanVuHuuTiep.webp",
+    "format": "pdf",
+    "description": "Trí tuệ nhân tạo và học máy đang trở thành công nghệ cốt lõi trong nhiều lĩnh vực, nhưng việc nắm bắt vững nền tảng toán học và thuật toán cốt lõi thường là rào cản lớn đối với nhiều người mới bắt đầu.\n\nCuốn sách \"Machine Learning Cơ Bản\" của tác giả Vũ Hữu Tiệp là tài liệu kinh điển bằng tiếng Việt. Sách giúp người đọc xây dựng nền tảng tư duy vững chắc về học máy thông qua cách diễn đạt trực quan, dễ hiểu đi kèm với cơ sở toán học và mã nguồn Python thực hành.\n\n• Trình bày các khái niệm từ cơ bản đến nâng cao của Machine Learning.\n• Giải thích chi tiết các thuật toán phổ biến: Linear Regression, Logistic Regression, SVM, K-Means Clustering...\n• Cung cấp nền tảng toán học cần thiết gồm Đại số tuyến tính, Giải tích và Xác suất thống kê.\n• Minh họa trực quan qua code thực hành bằng Python.\n• Giúp xây dựng tư duy toán học thay vì chỉ biết cách sử dụng thư viện có sẵn.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/MLCoBanVuHuuTiep.pdf"
+  },
+  {
     "id": "dafe48506436",
     "title": "Crafting_Interpreters",
     "category": "Computer Science Fundamentals",
