@@ -977,5 +977,38 @@
     "format": "pdf",
     "description": "Phương pháp hướng đối tượng (OO) đã trở thành chuẩn công nghiệp cho phân tích và thiết kế phần mềm hiện đại. Nắm vững UML và OOAD là kỹ năng bắt buộc cho mọi kỹ sư phần mềm.\n\nChương 11 hướng dẫn mô hình hóa hướng đối tượng bằng UML: biểu đồ use case, class, sequence và các kỹ thuật OOAD.\n\n• Vẽ biểu đồ Use Case: actor, use case, include, extend và generalization\n• Thiết kế biểu đồ Class: thuộc tính, phương thức, association, aggregation và inheritance\n• Mô hình hóa hành vi với biểu đồ Sequence và Activity\n• Áp dụng nguyên tắc SOLID và design patterns trong thiết kế hướng đối tượng",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Ch11_Mo_hinh_hoa_huong_doi_tuong.pdf"
+  },
+  {
+    "id": "e02ea8cd7b5f",
+    "title": "OCP_17_Programmer_s_guide",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCP_17_Programmer_s_guide.pdf",
+    "cover": "assets/covers/OCP_17_Programmer_s_guide.webp",
+    "format": "pdf",
+    "description": "The Oracle Certified Professional (OCP) Java SE 17 certification is a rigorous exam that validates a developer's deep understanding of the Java language. Passing this exam requires more than just everyday programming experience; it demands comprehensive knowledge of edge cases, new language features, and core API intricacies.\n\nThis Programmer's Guide is a complete study resource tailored specifically for the Java SE 17 Developer exam. It walks through all the essential exam objectives, providing clear explanations, code examples, and practice questions to ensure thorough preparation for the actual certification test.\n\n• Master new Java 17 features including records, sealed classes, pattern matching, and text blocks\n• Deep dive into object-oriented concepts, generics, and the Java Collections Framework\n• Understand advanced concurrency mechanisms and the java.util.concurrent package\n• Learn the nuances of Java I/O (NIO.2) and serialization\n• Practice with exam-style questions to identify weak areas and solidify core knowledge",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OCP_17_Programmer_s_guide.pdf"
+  },
+  {
+    "id": "4df3d728fadb",
+    "title": "Database_Indexing_Nhung_Dieu_Developer_Can_Biet",
+    "category": "Software Engineering Disciplines",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Database/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.epub",
+    "cover": "assets/covers/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.webp",
+    "format": "epub",
+    "description": "Hiệu năng cơ sở dữ liệu là yếu tố then chốt quyết định tốc độ và độ ổn định của ứng dụng web. Một trong những nguyên nhân phổ biến nhất gây ra tình trạng chậm chạp của hệ thống là do thiếu kiến thức về cách lập chỉ mục (indexing) khi truy vấn dữ liệu.\n\nCuốn sách \"Database Indexing & Những Điều Developer Cần Biết\" cung cấp những kiến thức thực tiễn và chuyên sâu về cách thức hoạt động của Index trong cơ sở dữ liệu. Từ đó giúp lập trình viên hiểu rõ bản chất và cách áp dụng index hiệu quả để tối ưu hóa hiệu suất truy vấn.\n\n• Hiểu cơ chế hoạt động của B-Tree index và Hash index trong các hệ quản trị cơ sở dữ liệu\n• Cách phân tích Execution Plan để phát hiện các truy vấn thiếu tối ưu\n• Kỹ thuật tạo composite index và các nguyên tắc Leftmost Prefix Rule\n• Những trường hợp không nên sử dụng index để tránh làm chậm thao tác ghi dữ liệu\n• Các mẹo tối ưu hóa câu lệnh SQL kết hợp với index hiệu quả",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.epub"
+  },
+  {
+    "id": "566ef9a5de12",
+    "title": "Database_Indexing_Nhung_Dieu_Developer_Can_Biet",
+    "category": "Software Engineering Disciplines",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Database/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.pdf",
+    "cover": "assets/covers/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.webp",
+    "format": "pdf",
+    "description": "Hiệu năng cơ sở dữ liệu là yếu tố then chốt quyết định tốc độ và độ ổn định của ứng dụng web. Một trong những nguyên nhân phổ biến nhất gây ra tình trạng chậm chạp của hệ thống là do thiếu kiến thức về cách lập chỉ mục (indexing) khi truy vấn dữ liệu.\n\nCuốn sách \"Database Indexing & Những Điều Developer Cần Biết\" cung cấp những kiến thức thực tiễn và chuyên sâu về cách thức hoạt động của Index trong cơ sở dữ liệu. Từ đó giúp lập trình viên hiểu rõ bản chất và cách áp dụng index hiệu quả để tối ưu hóa hiệu suất truy vấn.\n\n• Hiểu cơ chế hoạt động của B-Tree index và Hash index trong các hệ quản trị cơ sở dữ liệu\n• Cách phân tích Execution Plan để phát hiện các truy vấn thiếu tối ưu\n• Kỹ thuật tạo composite index và các nguyên tắc Leftmost Prefix Rule\n• Những trường hợp không nên sử dụng index để tránh làm chậm thao tác ghi dữ liệu\n• Các mẹo tối ưu hóa câu lệnh SQL kết hợp với index hiệu quả",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.pdf"
   }
 ]
