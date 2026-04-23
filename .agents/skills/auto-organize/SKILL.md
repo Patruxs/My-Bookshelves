@@ -3,334 +3,111 @@ name: auto-organize
 description: Tự động phân loại sách mới trong Inbox vào đúng thư mục thể loại/chủ đề bằng Antigravity AI Agent
 ---
 
-# 📚 Auto-Organize Skill — Phân loại sách tự động bằng AI Agent (Batch Mode)
+# Auto-Organize Skill — Batch Mode
 
-## Mô tả
+> **Nguyên tắc:** Phân loại TẤT CẢ → hỏi user **1 lần** → di chuyển + bìa + mô tả + upload hàng loạt.
 
-Skill này được thực thi bởi **Antigravity AI Agent** (không cần API key ngoài).
-Agent sẽ: quét tất cả → chuẩn hóa tên → **phân loại + viết mô tả HÀNG LOẠT** → hỏi user **1 lần** → di chuyển batch → tạo bìa → chèn mô tả → upload → cập nhật website.
+## ⚠️ Quy tắc bảo vệ dữ liệu
 
-## ⚡ Triết lý Batch Processing
+| Quy tắc | Chi tiết |
+|---------|----------|
+| `generate_data.py` CHỈ 1 LẦN | Nếu fail → fix root cause, KHÔNG chạy lại |
+| Verify PyMuPDF + Pillow | PHẢI có cả 2 trước khi generate. Dùng `python -m pip install` |
+| Verify `download_url` | Sau generate: số thiếu URL = đúng N sách mới. Nếu > N → DỪNG |
+| Dry-run upload | BẮT BUỘC trước upload thật. Count > N → DỪNG |
+| Mất `download_url` | Khôi phục: `git checkout site/data.json` |
 
-> **Nguyên tắc cốt lõi:** Giảm thiểu tương tác với user, tối đa hóa xử lý trong bộ nhớ.
+## Quy trình thực thi
 
-| Cũ (Sequential)                         | Mới (Batch)                                            |
-| --------------------------------------- | ------------------------------------------------------ |
-| Phân loại từng file → hỏi user từng lần | Phân loại TẤT CẢ → hỏi user **1 lần duy nhất**         |
-| Viết description từng entry             | Soạn description TẤT CẢ trong bộ nhớ → chèn 1 lần      |
-| Di chuyển từng file riêng lẻ            | Di chuyển TẤT CẢ file bằng batch bash commands         |
-| Edit data.json từng entry               | Edit data.json bằng `multi_replace_file_content` 1 lần |
+### Bước 1–3: Chuẩn bị
 
-## Cấu trúc dự án
+1. Đọc `prompts/classify_book.md` để nắm quy tắc phân loại.
+2. Quét `Inbox/`, ghi nhận **N = tổng số sách mới** (.pdf/.epub). Nếu rỗng → dừng.
+3. Chuẩn hóa tên: `rename_books.py --base-dir .` → nếu cần → `--execute`.
 
-```
-My-Bookshelves/
-├── Inbox/                               # Sách mới cần phân loại
-├── Books/                               # Thư viện sách đã tổ chức (Dynamic Categories)
-│   ├── {N}_{Category_Name}/             # Category folders (số + Snake_Case)
-│   │   └── {Topic_Name}/               # Topic folders (Snake_Case)
-│   │       └── Book_Name.pdf           # File sách (ASCII Snake_Case, không dấu)
-├── site/                                # Website tĩnh (HTML/CSS/JS)
-│   ├── index.html
-│   ├── app.js                           # Dynamic category icons/colors via hash
-│   ├── data.json                        # Dữ liệu sách (auto-generated)
-│   └── assets/covers/                   # Ảnh bìa sách (.webp, 600px, q85)
-├── scripts/
-│   ├── rename_books.py                  # Chuẩn hóa tên file → ASCII Snake_Case
-│   ├── generate_data.py                 # Quét sách → tạo data.json + cover WebP
-│   ├── upload_releases.py               # Smart Incremental Sync → GitHub Releases
-│   ├── auto_organize.py                 # Helper: quét cấu trúc thư viện
-│   └── optimize_covers.py              # Legacy: re-optimize covers → WebP
-└── .agents/skills/auto-organize/
-    ├── SKILL.md                         # File này
-    ├── prompts/classify_book.md         # Quy tắc phân loại (Dynamic Categories)
-    └── config/settings.json             # Cấu hình
-```
-
-## Dynamic Categories
-
-Hệ thống hỗ trợ **không giới hạn số lượng danh mục**:
-
-- AI được phép **tự tạo Category mới** nếu sách không phù hợp Category có sẵn
-- Category mới dùng số tiếp theo: nếu đã có 1-5, category mới là `6_Ten_Danh_Muc`
-- Frontend (`app.js`) tự động gán icon và màu badge qua hash — không cần cập nhật code
-- Luôn ưu tiên folder **có sẵn** trước khi tạo mới
-
-## Quy chuẩn đặt tên file sách
-
-- **ASCII Snake_Case** không dấu: `Go_With_Domain.pdf`, `Kien_truc_ung_dung_web.epub`
-- Tiếng Việt KHÔNG DẤU (đ→d, ă→a, ứ→u, v.v.)
-- CHỈ dùng `_` phân cách, KHÔNG dùng khoảng trắng, `-`, `+`, `.`
-- Chạy `python scripts/rename_books.py --base-dir . --execute` để chuẩn hóa
-
-## ⚠️ CRITICAL: Quy tắc bảo vệ dữ liệu
-
-### Nguyên nhân lỗi phổ biến: Upload lại toàn bộ sách
-
-Khi `generate_data.py` chạy, nó tạo lại `data.json` từ đầu. Script có logic preserve `download_url` bằng cách match `file_path` hoặc `title` từ data.json cũ. Tuy nhiên:
-
-1. **Chạy generate_data.py khi thiếu PyMuPDF** → bìa fail → data.json có thể bị lỗi → chạy lại lần 2 có thể mất `download_url`
-2. **Đổi tên file/folder** → `file_path` cũ không match → phải rely vào `title` match (rủi ro hơn). Nếu đổi tên file, chạy `rename_books.py --execute` trước — script sẽ tự cập nhật `file_path` trong data.json.
-3. **Chạy generate_data.py nhiều lần** → mỗi lần nó đọc data.json hiện tại làm base → nếu lần trước đã mất URL thì lần sau không recover được
-
-### Quy tắc bắt buộc
-
-1. **Chuẩn hóa tên file** trước khi generate: chạy `rename_books.py --execute` nếu cần
-2. **Kiểm tra PyMuPDF VÀ Pillow** trước khi chạy `generate_data.py` — KHÔNG chạy khi thiếu
-3. **Chạy `generate_data.py` CHỈ 1 LẦN** — nếu fail thì fix nguyên nhân rồi mới chạy lại
-4. **Verify `download_url`** ngay sau khi `generate_data.py` chạy xong
-5. **Dry-run upload** trước khi upload thật — đếm file phải = đúng số sách mới
-6. Nếu verify thấy mất `download_url` nhiều hơn expected → **DỪNG**, báo user
-
-## Quy trình thực thi — BATCH MODE (dành cho Agent)
-
-Khi user gọi `/auto-organize` hoặc yêu cầu phân loại sách, Agent phải thực hiện **đúng** các bước sau:
-
----
-
-### Bước 1: Đọc cấu hình
-
-Đọc file `config/settings.json` để biết:
-
-- Tên thư mục inbox (`inbox_dir`)
-- Các extension được hỗ trợ (`book_extensions`)
-
-### Bước 2: Quét Inbox + Ghi nhận N
-
-Liệt kê tất cả file trong thư mục `Inbox/`.
-Chỉ xử lý file có extension `.pdf` hoặc `.epub`.
-Ghi nhận **N = tổng số sách mới** để dùng cho bước verify sau.
-
-### Bước 3: Chuẩn hóa tên file (ASCII Snake_Case)
-
-```bash
-python scripts/rename_books.py --base-dir .
-```
-
-Kiểm tra dry-run. Nếu có file cần đổi tên:
-
-```bash
-python scripts/rename_books.py --base-dir . --execute
-```
-
-> Bước này đảm bảo tên file ASCII-safe trước khi upload lên GitHub Releases (tránh lỗi Unicode trong URL).
-
-### Bước 4: Đọc và lưu cấu trúc thư viện hiện tại (Context Grounding)
+### Bước 4: Context Grounding (BẮT BUỘC)
 
 ```bash
 python scripts/generate_structure_log.py --base-dir .
 ```
 
-Script đọc `site/data.json` (source of truth) và tạo `library_structure.log` bao gồm:
-- Tất cả categories, topics, subtopics với số lượng sách
-- Danh sách tên file sách cụ thể trong mỗi folder
-- Phần tóm tắt `AVAILABLE CATEGORIES (for classification)` ở cuối file
+Sau đó dùng `view_file` đọc toàn bộ `library_structure.log`. Chú ý phần **AVAILABLE CATEGORIES** ở cuối — đây là danh sách folder có sẵn mà Agent phải ưu tiên dùng.
 
-> **BẮT BUỘC**: Agent phải dùng `view_file` để đọc toàn bộ nội dung file `library_structure.log` vừa tạo. Đặc biệt chú ý phần `AVAILABLE CATEGORIES` — đây là danh sách đầy đủ các folder có sẵn mà Agent phải ưu tiên dùng trước khi tạo mới.
+### Bước 5: Batch Classify + Descriptions (trong bộ nhớ)
 
-### Bước 5: 🧠 BATCH CLASSIFY + DESCRIPTIONS (trong bộ nhớ)
+Với mỗi file trong Inbox, Agent xác định trong bộ nhớ:
+- `category_folder` + `topic_folder` (đối chiếu với log, ưu tiên CÓ SẴN)
+- `description` 3 phần: Context → Overview → Key Takeaways (4-5 `•` bullets)
 
-> ⚠️ **ĐÂY LÀ BƯỚC QUAN TRỌNG NHẤT — THAY ĐỔI CỐT LÕI SO VỚI WORKFLOW CŨ**
+**Ngôn ngữ description:**
+- Tên file tiếng Anh → viết English
+- Tên file tiếng Việt (dấu hoặc pattern VN: `Ch01_`, `Giao_trinh_`, `PTTKHT`...) → viết tiếng Việt
 
-Đọc file `prompts/classify_book.md` để nắm quy tắc phân loại.
+> ⚠️ KHÔNG hỏi user từng cuốn. Xử lý TẤT CẢ rồi mới hiển thị.
 
-Agent PHẢI xử lý **TẤT CẢ N cuốn sách cùng lúc** trong một lần suy luận:
+### Bước 6: Hiển thị bảng + Xác nhận
 
-**Với mỗi file trong Inbox, Agent xác định:**
-
-- `category_folder`: Folder cấp 1 phù hợp nhất (có sẵn HOẶC tạo mới)
-- `topic_folder`: Folder cấp 2 (hoặc cấp 3) phù hợp nhất
-- `description`: Mô tả 3 phần hoàn chỉnh (Context + Overview + Key Takeaways)
-
-**Quy tắc phân loại:**
-
-- Phân tích tên file → xác định ngôn ngữ, chủ đề, loại sách
-- Ưu tiên folder có sẵn → chỉ tạo mới khi cần (format `{N}_Snake_Case`)
-- Sách tiếng Việt → description viết bằng tiếng Việt
-
-**Quy tắc description (3 phần):**
-
-1. **Context & Problem** (đoạn 1): Bối cảnh, tầm quan trọng, thách thức
-2. **Book Overview** (đoạn 2): Giới thiệu sách, tác giả, giải pháp
-3. **Key Takeaways** (4-5 bullet points): Dùng ký tự `•`, ngăn cách bằng `\n`
-
-Các đoạn ngăn cách bằng `\n\n` trong JSON string.
-
-**🌐 Quy tắc ngôn ngữ description (BẮT BUỘC):**
-
-| Tên file sách | Ngôn ngữ description |
-|---|---|
-| Tiếng Anh (ASCII, không dấu tiếng Việt) | ✅ Viết bằng **tiếng Anh** |
-| Tiếng Việt (có dấu: ă, ơ, ư, đ, v.v. HOẶC từ khóa tiếng Việt rõ ràng) | ✅ Viết bằng **tiếng Việt** |
-
-Cách nhận biết:
-- File tiếng Việt: tên file chứa ký tự có dấu (`Gia_tri`, `Ky_su`, `Kien_truc`...) hoặc các từ tiếng Việt không dấu rõ ràng như `Giao_trinh`, `Bai_giang`, `Vi_du`, `Ch01_`, `PTTKHT`, v.v.
-- File tiếng Anh: tên file toàn ASCII, không có pattern tiếng Việt.
-
-> ⚠️ **KHÔNG hỏi user xác nhận từng cuốn.** Agent lưu TẤT CẢ kết quả trong bộ nhớ rồi mới hiển thị.
-
-### Bước 6: 📋 IN BẢNG TỔNG HỢP DUY NHẤT
-
-Hiển thị kết quả phân loại **TẤT CẢ N cuốn** trong **một bảng duy nhất**:
+In bảng tổng hợp DUY NHẤT:
 
 ```
-## 📚 Kết quả phân loại (N cuốn sách)
-
-| # | File | Category → Topic | Mô tả (tóm tắt dòng đầu) |
-|---|------|-------------------|---------------------------|
-| 1 | Clean_Code.pdf | Software Engineering / Software Architecture | A practical guide to writing clean... |
-| 2 | Head_First_Java.pdf | Computer Science / Programming Languages/Java | Introduction to object-oriented... |
-| ... | ... | ... | ... |
-
-> Bạn có muốn tiến hành di chuyển và xử lý tất cả? (Yes/No)
+| # | File | Category → Topic | Mô tả (tóm tắt) |
 ```
 
-### Bước 7: ✅ HỎI USER XÁC NHẬN — ĐÚNG 1 LẦN DUY NHẤT
+Hỏi user **1 LẦN DUY NHẤT**. Nếu chỉnh sửa → sửa trong bộ nhớ → hiện lại bảng.
 
-- Nếu user muốn chỉnh sửa → Agent điều chỉnh trong bộ nhớ rồi hiện lại bảng
-- Nếu user đồng ý → tiến hành các bước 8-14 liên tục, **KHÔNG hỏi thêm**
+### Bước 7–8: Di chuyển + Dependencies
 
-### Bước 8: Di chuyển TẤT CẢ file (batch bash)
-
-Tạo thư mục đích (nếu chưa có) và di chuyển tất cả file bằng batch commands:
-
+7. Di chuyển batch: `mkdir -p` + `mv` gộp ít lệnh nhất. Đích luôn bắt đầu `Books/`.
+8. Kiểm tra dependencies:
 ```bash
-mkdir -p "Books/[cat1]/[topic1]" "Books/[cat2]/[topic2]" ...
-mv "Inbox/[file1]" "Books/[cat1]/[topic1]/[file1]"
-mv "Inbox/[file2]" "Books/[cat2]/[topic2]/[file2]"
+python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING"
+python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING"
 ```
+Thiếu → `python -m pip install PyMuPDF` / `Pillow`. **KHÔNG generate khi thiếu.**
 
-> **LƯU Ý**: Đường dẫn đích luôn bắt đầu bằng `Books/` (không phải root).
-> Gộp tất cả `mkdir -p` và `mv` vào **ít lệnh bash nhất có thể**.
-
-### Bước 9: ⚠️ Kiểm tra dependencies (BẮT BUỘC trước generate)
-
-```bash
-python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING PyMuPDF"
-python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING Pillow"
-```
-
-- Nếu thiếu PyMuPDF → cài `python -m pip install PyMuPDF`
-- Nếu thiếu Pillow → cài `python -m pip install Pillow`
-- ⚠️ **LUÔN dùng `python -m pip install`** — hệ thống có thể có nhiều Python versions.
-- **TUYỆT ĐỐI KHÔNG** chạy `generate_data.py` khi thiếu PyMuPDF hoặc Pillow.
-
-### Bước 10: Tạo bìa sách + cập nhật data.json (CHỈ 1 LẦN)
+### Bước 9: Generate covers + data.json (CHỈ 1 LẦN)
 
 ```bash
 python scripts/generate_data.py --base-dir .
 ```
 
-Script sẽ tự động:
-
-- Trích xuất trang đầu của PDF làm ảnh bìa
-- Resize xuống **600px** width + convert sang **WebP** quality 85 (<80KB/ảnh)
-- Lưu vào `site/assets/covers/` dạng `.webp`
-- Cập nhật `site/data.json` với entry mới (preserve description + download_url cũ)
-
-> ⚠️ **KHÔNG CHẠY LẠI LẦN 2** — nếu có lỗi, fix nguyên nhân root cause trước.
-
-### Bước 11: ⚠️ VERIFY download_url preservation (BẮT BUỘC)
+### Bước 10: Verify download_url
 
 ```bash
-python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8')); missing=[b['title'] for b in data if not b.get('download_url')]; print(f'Sách thiếu download_url: {len(missing)}'); [print(f'  - {t}') for t in missing]"
+python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8')); missing=[b['title'] for b in data if not b.get('download_url')]; print(f'Thiếu URL: {len(missing)}'); [print(f'  - {t}') for t in missing]"
 ```
 
-**Kiểm tra kết quả:**
+- Thiếu == N → ✅ OK. Thiếu > N → ❌ DỪNG, `git checkout site/data.json`.
 
-- ✅ Số sách thiếu `download_url` == N (đúng bằng số sách mới vừa thêm) → OK
-- ❌ Số sách thiếu `download_url` > N → `generate_data.py` đã xóa mất URL cũ → **DỪNG LẠI**
-  - Phải khôi phục bằng `git checkout site/data.json` rồi fix nguyên nhân
-  - KHÔNG tiếp tục upload trong trường hợp này
+### Bước 11: Chèn descriptions hàng loạt
 
-### Bước 12: 📝 CHÈN DESCRIPTIONS HÀNG LOẠT (1 lần duy nhất)
+Dùng `multi_replace_file_content` chèn TẤT CẢ `"description": ""` cùng lúc. KHÔNG edit từng entry.
 
-Agent mở `site/data.json`, tìm **TẤT CẢ** entry mới có `"description": ""`, và chèn descriptions đã soạn ở bước 5 **trong một lần chỉnh sửa duy nhất**.
-
-> ⚠️ Sử dụng `multi_replace_file_content` để thay thế tất cả `"description": ""` entries cùng lúc.
-> KHÔNG edit từng entry riêng lẻ — quá tốn thời gian và token.
-
-Ví dụ JSON sau khi chèn:
-
-```json
-"description": "Context paragraph about the problem domain...\n\nBook overview and author introduction...\n\n• Key takeaway 1\n• Key takeaway 2\n• Key takeaway 3\n• Key takeaway 4\n• Key takeaway 5"
-```
-
-### Bước 13: ⚠️ DRY-RUN upload (BẮT BUỘC trước upload thật)
-
-```bash
-python scripts/upload_releases.py --dry-run
-```
-
-**Kiểm tra kết quả:**
-
-- ✅ Số file cần upload == N (đúng bằng số sách mới) → OK, tiếp tục bước 14
-- ❌ Số file cần upload > N → có lỗi preserve `download_url` → **DỪNG LẠI**
-  - KHÔNG chạy upload thật
-  - Báo lỗi cho user kèm danh sách file bất thường
-
-### Bước 14: Upload sách MỚI lên GitHub Releases
-
-Chạy script upload — CHỈ file mới sẽ được upload (không re-upload tất cả):
-
-```bash
-python scripts/upload_releases.py
-```
-
-Script sẽ tự động:
-
-- Diff local vs data.json → tìm file MỚI (thiếu `download_url`)
-- Upload CHỈ file mới lên Release cố định (`storage-v1`)
-- Cập nhật `download_url` trong `data.json`
-
-### Bước 15: Cập nhật library_structure.log
+### Bước 12: Cập nhật library_structure.log (BẮT BUỘC)
 
 ```bash
 python scripts/generate_structure_log.py --base-dir .
 ```
 
-> Regenerate log sau khi `data.json` đã được cập nhật `download_url`. Đảm bảo log luôn đồng bộ cho lần chạy tiếp theo.
+> Log PHẢI cập nhật ngay sau khi phân loại xong, tránh topic trùng lặp lần sau.
 
-### Bước 16: Commit và Push
+### Bước 13–14: Upload
+
+13. Dry-run: `upload_releases.py --dry-run` → đếm = N → OK. > N → DỪNG.
+14. Upload: `upload_releases.py` (chỉ file mới).
+
+### Bước 15: Commit + Push
 
 ```bash
 git add -A && git commit -m "add: [N] books to library" && git push
 ```
 
-### Bước 17: 📊 Báo cáo kết quả tổng hợp
-
-Hiển thị bảng tổng kết cho user:
+### Bước 16: Báo cáo
 
 ```
 ✅ Hoàn tất: N cuốn sách đã xử lý
 
 | # | Sách | Đích | Bìa | Mô tả | Upload |
-|---|------|------|------|-------|--------|
-| 1 | Clean_Code.pdf | Books/.../Software_Architecture/ | ✅ WebP | ✅ 3 phần | ✅ |
-| 2 | Head_First_Java.pdf | Books/.../Java/ | ✅ WebP | ✅ 3 phần | ✅ |
-
 📤 Upload: N file mới (KHÔNG re-upload sách cũ)
 🔗 Links: ?book={id1}, ?book={id2}, ...
 ```
-
----
-
-## Quy tắc quan trọng
-
-1. **HỎI USER ĐÚNG 1 LẦN** — phân loại hàng loạt trong bộ nhớ, hiển thị bảng tổng hợp, xác nhận 1 lần
-2. **Đọc `prompts/classify_book.md`** trước khi phân loại
-3. **Quét lại cấu trúc thư mục** mỗi lần chạy (có thể có folder mới)
-4. **Ưu tiên folder có sẵn** — chỉ đề xuất tạo mới khi thực sự cần
-5. **Di chuyển batch** — gộp tất cả `mv` commands, không chạy từng file
-6. **Chuẩn hóa tên file** bằng `rename_books.py` trước khi generate/upload
-7. **Đường dẫn sách trong `Books/`** — tất cả sách nằm trong folder `Books/`
-8. **Kiểm tra PyMuPDF VÀ Pillow** trước khi chạy `generate_data.py` — bắt buộc cả hai
-9. **Chạy `generate_data.py` CHỈ 1 LẦN** — không chạy lại nếu đã thành công
-10. **VERIFY `download_url`** sau khi generate — đếm số thiếu phải = đúng N sách mới
-11. **Chèn descriptions HÀNG LOẠT** — dùng `multi_replace_file_content` 1 lần
-12. **DRY-RUN bắt buộc** trước upload — đếm file phải = đúng N sách mới
-13. **LUÔN viết description** cho sách mới — không để trống
-14. **Ngôn ngữ description theo tên file**: tên file tiếng Anh → description tiếng Anh; tên file tiếng Việt → description tiếng Việt
-15. **Ảnh bìa PHẢI là WebP** (400px, quality 80) — không commit ảnh JPG/PNG vào repo
-16. **Dynamic Categories** — AI tự do tạo category mới khi cần (format `{N}_Snake_Case`)
-17. **Dùng `python -m pip install`** — tránh cài nhầm Python version khi hệ thống có nhiều Python
