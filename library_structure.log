@@ -32,8 +32,8 @@ Generated from: site/data.json (94 books total)
             • Computer_Systems_A_Programmer_s_Perspective_3rd_Edition.pdf
             • Operating_Systems_Three_Easy_Pieces.pdf
 
-[2] 2_Software_Engineering_Disciplines (33 books)
-    Display Name: Software Engineering Disciplines
+[2] 2_Software_Engineering (33 books)
+    Display Name: Software Engineering
     ├── Cloud_Native_and_Observability (7 books)
     │       • Distributed_Tracing_in_Practice.pdf
     │       • EB_Confluent_Designing_Event_Driven_Systems.pdf
@@ -143,7 +143,7 @@ AVAILABLE CATEGORIES (for classification):
     -> Programming_Languages/Java
     -> Programming_Languages/JavaScript
     -> Systems_and_OS
-  2_Software_Engineering_Disciplines
+  2_Software_Engineering
     -> Cloud_Native_and_Observability
     -> Database
     -> DevOps
