@@ -1010,5 +1010,27 @@
     "format": "pdf",
     "description": "Hiệu năng cơ sở dữ liệu là yếu tố then chốt quyết định tốc độ và độ ổn định của ứng dụng web. Một trong những nguyên nhân phổ biến nhất gây ra tình trạng chậm chạp của hệ thống là do thiếu kiến thức về cách lập chỉ mục (indexing) khi truy vấn dữ liệu.\n\nCuốn sách \"Database Indexing & Những Điều Developer Cần Biết\" cung cấp những kiến thức thực tiễn và chuyên sâu về cách thức hoạt động của Index trong cơ sở dữ liệu. Từ đó giúp lập trình viên hiểu rõ bản chất và cách áp dụng index hiệu quả để tối ưu hóa hiệu suất truy vấn.\n\n• Hiểu cơ chế hoạt động của B-Tree index và Hash index trong các hệ quản trị cơ sở dữ liệu\n• Cách phân tích Execution Plan để phát hiện các truy vấn thiếu tối ưu\n• Kỹ thuật tạo composite index và các nguyên tắc Leftmost Prefix Rule\n• Những trường hợp không nên sử dụng index để tránh làm chậm thao tác ghi dữ liệu\n• Các mẹo tối ưu hóa câu lệnh SQL kết hợp với index hiệu quả",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.pdf"
+  },
+  {
+    "id": "fed9f31ba3d0",
+    "title": "Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Edition_Brendan_Burns_Eddie_Villalba_Dave_Strebel_etc",
+    "category": "Software Engineering Disciplines",
+    "topic": "Kubernetes",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Kubernetes/Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Edition_Brendan_Burns_Eddie_Villalba_Dave_Strebel_etc.pdf",
+    "cover": "assets/covers/Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Editi.webp",
+    "format": "pdf",
+    "description": "As Kubernetes adoption accelerates, deploying applications at scale introduces complex challenges in architecture, networking, and security.\n\n\"Kubernetes Best Practices\" provides blueprints and patterns designed by industry experts to help you build resilient and maintainable containerized applications.\n\n• Focuses on real-world implementation patterns\n• Covers advanced configuration and networking\n• Helps establish robust CI/CD pipelines\n• Details security best practices in production\n• Enhances cluster monitoring and observability",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Edition_Brendan_Burns_Eddie_Villalba_Dave_Strebel_etc.pdf"
+  },
+  {
+    "id": "b0d5a6ff4379",
+    "title": "Kubernetes_in_Action_Marko_Luksa",
+    "category": "Software Engineering Disciplines",
+    "topic": "Kubernetes",
+    "file_path": "Books/2_Software_Engineering_Disciplines/Kubernetes/Kubernetes_in_Action_Marko_Luksa.pdf",
+    "cover": "assets/covers/Kubernetes_in_Action_Marko_Luksa.webp",
+    "format": "pdf",
+    "description": "Navigating the complexities of container orchestration can be daunting for developers new to the cloud-native ecosystem.\n\n\"Kubernetes in Action\" is a comprehensive guide that teaches you how to use Kubernetes to deploy distributed applications, from basic concepts to advanced operations.\n\n• Explains fundamental Kubernetes architecture\n• Guides through deploying and scaling applications\n• Covers persistent storage and networking\n• Details rolling updates and deployment strategies\n• Includes practical hands-on examples",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kubernetes_in_Action_Marko_Luksa.pdf"
   }
 ]

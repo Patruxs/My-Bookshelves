@@ -323,19 +323,29 @@ def main():
             pass
 
     # Merge: keep existing descriptions and download_urls (match by file_path first, then title)
-    for book in books:
-        if book['file_path'] in existing_descriptions:
-            book['description'] = existing_descriptions[book['file_path']]
-        elif book['title'] in existing_by_title:
-            book['description'] = existing_by_title[book['title']]
-        if book['file_path'] in existing_download_urls:
-            book['download_url'] = existing_download_urls[book['file_path']]
-        elif book['title'] in existing_urls_by_title:
-            book['download_url'] = existing_urls_by_title[book['title']]
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(books, f, ensure_ascii=False, indent=2)
+    final_books = []
+    if 'existing' in locals():
+        existing_paths = {b.get('file_path', ''): b for b in existing}
+        for book in books:
+            if book['file_path'] in existing_descriptions:
+                book['description'] = existing_descriptions[book['file_path']]
+            elif book['title'] in existing_by_title:
+                book['description'] = existing_by_title[book['title']]
+            if book['file_path'] in existing_download_urls:
+                book['download_url'] = existing_download_urls[book['file_path']]
+            elif book['title'] in existing_urls_by_title:
+                book['download_url'] = existing_urls_by_title[book['title']]
+            
+            existing_paths[book['file_path']] = book
+            
+        final_books = list(existing_paths.values())
+    else:
+        final_books = books
 
-    print(f"✅ Generated {output_path} with {len(books)} books.")
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(final_books, f, ensure_ascii=False, indent=2)
+
+    print(f"✅ Generated {output_path} with {len(final_books)} books.")
 
 
 if __name__ == '__main__':

@@ -84,6 +84,7 @@ site/app.js              # All JS logic: routing, rendering, detail view, relate
 site/data.json           # Mảng JSON chứa metadata của tất cả sách
 site/assets/covers/      # Ảnh bìa WebP (600px, q85)
 scripts/*.py
+library_structure.log    # AI Context Grounding — tự động generate từ data.json
 .agents/skills/auto-organize/
 .agents/workflows/
 .agents/rules/
@@ -256,12 +257,15 @@ Khi viết code cho dự án này, AI PHẢI:
 15. **PHẢI verify `download_url` preservation** sau khi `generate_data.py` chạy xong.
 16. **PHẢI chạy `upload_releases.py --dry-run`** trước upload thật — nếu count > N sách mới → DỪNG.
 17. **Dùng `python -m pip install`** khi cài package — tránh cài nhầm Python version.
+18. **PHẢI đọc `library_structure.log`** (dùng `view_file`) trước khi phân loại sách — đối chiếu với cấu trúc có sẵn, KHÔNG tự ý tạo topic mới nếu đã có folder phù hợp.
+19. **PHẢI chạy `generate_structure_log.py`** sau khi thêm sách mới để cập nhật log cho lần chạy sau.
 
 SCRIPTS REFERENCE:
 
 - `python scripts/rename_books.py --base-dir .` → xem trước file cần đổi tên (DRY-RUN)
 - `python scripts/rename_books.py --base-dir . --execute` → chuẩn hóa tên file ASCII Snake_Case
 - `python scripts/generate_data.py --base-dir .` → tạo cover WebP + data.json (CHỈ CHẠY 1 LẦN)
+- `python scripts/generate_structure_log.py --base-dir .` → tạo/cập nhật library_structure.log từ data.json
 - `python scripts/upload_releases.py --dry-run` → xem trước file cần upload (BẮT BUỘC TRƯỚC UPLOAD)
 - `python scripts/upload_releases.py` → Smart Incremental Sync (chỉ upload sách MỚI)
 - `python scripts/upload_releases.py --force` → re-upload tất cả (CHỈ KHI CẦN)

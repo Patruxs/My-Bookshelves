@@ -1,0 +1,168 @@
+============================================================
+LIBRARY STRUCTURE LOG
+Generated from: site/data.json (94 books total)
+============================================================
+
+[1] 1_Computer_Science_Fundamentals (20 books)
+    Display Name: Computer Science Fundamentals
+    ├── Data_Structures_and_Algorithms (2 books)
+    │       • Leetcode_Pattern_Recognition_Guide.pdf
+    │       • Prefix_Trees_and_Tries.pdf
+    ├── Machine_Learning (1 books)
+    │       • MLCoBanVuHuuTiep.pdf
+    ├── Programming_Languages (13 books)
+    │       • Crafting_Interpreters.pdf
+    │       • Structure_and_Interpretation_of_Computer_Programs.pdf
+    │   ├── Java (10 books)
+    │           • Guide_To_Clear_Java_Developer_Interview.pdf
+    │           • Head_First_Java_2nd_Edition.pdf
+    │           • Introduction_to_Programming_Using_Java.pdf
+    │           • Java_How_to_Program_9th_edition.pdf
+    │           • OCP_17_Programmer_s_guide.pdf
+    │           • OCP_Oracle_Certified_Professional_Java_SE_21_Developer_Study_Guide.pdf
+    │           • Send_API_Hibernate_JDBC.pdf
+    │           • Spring_Start_Here.pdf
+    │           • Teach_Yourself_Java_in_21_days.pdf
+    │           • TroubleShooting_Java_2th_edition.pdf
+    │   └── JavaScript (1 books)
+    │           • Eloquent_JavaScript.pdf
+    └── Systems_and_OS (4 books)
+            • 20_Years_of_Linux_Experience_in_20Minutes.pdf
+            • A_Latency_Handbook_for_SWE_Quang_Hoang.pdf
+            • Computer_Systems_A_Programmer_s_Perspective_3rd_Edition.pdf
+            • Operating_Systems_Three_Easy_Pieces.pdf
+
+[2] 2_Software_Engineering_Disciplines (33 books)
+    Display Name: Software Engineering Disciplines
+    ├── Cloud_Native_and_Observability (7 books)
+    │       • Distributed_Tracing_in_Practice.pdf
+    │       • EB_Confluent_Designing_Event_Driven_Systems.pdf
+    │       • EB_Confluent_Kafka_Definitive_Guide_Complete.pdf
+    │       • EB_I_Heart_Logs.pdf
+    │       • EB_Making_Sense_of_Stream_Processing_Confluent.pdf
+    │       • Istio_in_Action.pdf
+    │       • Observability_Engineering.pdf
+    ├── Database (4 books)
+    │       • Database_Indexing_Nhung_Dieu_Developer_Can_Biet.epub
+    │       • Database_Indexing_Nhung_Dieu_Developer_Can_Biet.pdf
+    │       • Database_Internals.pdf
+    │       • SQL_Performance_Explained.pdf
+    ├── DevOps (6 books)
+    │       • AWS_Certified_Cloud_Practitioner_Slides_v42.pdf
+    │       • Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.pdf
+    │       • DevOps_Roadmap_Ebook_2025.pdf
+    │       • GitOps_and_Kubernetes.pdf
+    │       • Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.pdf
+    │       • Securing_Devops.pdf
+    ├── Docker (2 books)
+    │       • Docker_Cheatsheet.pdf
+    │       • Docker_in_Action.pdf
+    ├── Game_Development (1 books)
+    │       • Game_Programming_Patterns.pdf
+    ├── Kubernetes (6 books)
+    │       • Benjamin_Muschko_Certified_Kubernetes_Application_Developer_CKAD_Study_Guide_In_Depth_Guidance_and_Practice_O_Reilly_Media_2021.pdf
+    │       • Certified_Kubernetes_Administrator_CKA_Study_Guide.pdf
+    │       • Core_Kubernetes.pdf
+    │       • K8S_CHEAT_SHEET.pdf
+    │       • Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Edition_Brendan_Burns_Eddie_Villalba_Dave_Strebel_etc.pdf
+    │       • Kubernetes_in_Action_Marko_Luksa.pdf
+    └── Software_Architecture_and_Design (7 books)
+            • A_Philosophy_of_Software_Design.pdf
+            • Designing_Data_Intensive_Applications.pdf
+            • Go_With_Domain.pdf
+            • Kien_truc_ung_dung_web.epub
+            • Kien_truc_ung_dung_web.pdf
+            • System_Design.pdf
+            • The_Ultimate_System_Design_Playbook.pdf
+
+[3] 3_Career_and_Professional_Development (5 books)
+    Display Name: Career and Professional Development
+    ├── Interview_Prep (2 books)
+    │       • Cracking_the_Coding_Interview.pdf
+    │       • FAANG_Study_Plan.pdf
+    └── Job_Search_and_Career_Growth (3 books)
+            • 10_Essential_Coding_Projects_to_Master_Your_Fundamentals_and_Land_a_100_000_Job_ASAP.pdf
+            • Learn_How_to_Code_Online_and_Land_a_100k_Job_ASAP.pdf
+            • Think_Like_a_CTO.pdf
+
+[4] 4_Personal_Development_and_Skills (21 books)
+    Display Name: Personal Development and Skills
+    ├── AI_and_Prompts (9 books)
+    │       • Claude_AI_cho_CEO_Thuc_hanh_SP.pdf
+    │       • How_Anthropic_teams_use_Claude_Code_v2.pdf
+    │       • How_Modern_PMs_Work_With_AI_Agents_Van_Tran.pdf
+    │       • Huong_dan_su_dung_claude_hieu_qua.pdf
+    │       • Mastering_Claude_AI_2026.pdf
+    │       • Maverick_s_Viral_Prompt_Library.pdf
+    │       • NotebookLM_Creative_Agency_Prompt_Pack.pdf
+    │       • Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.pdf
+    │       • The_Complete_Guide_to_Building_Skill_for_Claude.pdf
+    ├── Business_and_Entrepreneurship (2 books)
+    │       • Million_Dollar_Weekend.pdf
+    │       • The_Millionaire_Fastlane.pdf
+    └── English_Learning (10 books)
+            • AK_Method_Step_By_Step_My_English_Learning_Journey_From_Beginner_To_Advanced.pdf
+            • Barrons_600_Essential_Words_For_The_TOEIC.pdf
+            • Hack_Speaking_voi_cong_nghe_ASN.pdf
+            • Lo_trinh_hoc_tieng_anh_giao_tiep_1_thang.pdf
+            • Lo_trinh_tu_hoc_0_7_0_ASN_1.pdf
+            • THE_4_STEP_ENGLISH_MASTERY_SYSTEM.pdf
+            • The_Truth_About_Learning_English_v2.pdf
+            • Toeic_Listening_And_Reading_Tip.pdf
+            • Tu_hoc_IELTS_voi_combo_AI_2025.pdf
+            • Tu_luyen_Speaking_khi_khong_co_moi_truong.pdf
+
+[5] 5_University_Courses (15 books)
+    Display Name: University Courses
+    ├── Artificial_Intelligence (1 books)
+    │       • AI_co_ban_va_ung_dung.pdf
+    ├── Database_Administration (1 books)
+    │       • Quan_tri_co_so_du_lieu.pdf
+    ├── E_Commerce (1 books)
+    │       • Thuong_mai_dien_tu.pdf
+    └── PTTKHT_Systems_Analysis_and_Design (12 books)
+            • Ch01_Gioi_thieu_ve_PTTKHT.pdf
+            • Ch02_Lap_ke_hoach_va_quan_tri_du_an.pdf
+            • Ch03_Mo_hinh_phat_trien_phan_mem.pdf
+            • Ch04_Thu_thap_thong_tin.pdf
+            • Ch05a_Mo_hinh_hoa_quy_trinh_va_du_lieu.pdf
+            • Ch05b_Tu_dien_du_lieu.pdf
+            • Ch06_Chuyen_tiep_sang_giai_doan_thiet_ke.pdf
+            • Ch07_Thiet_ke_co_so_du_lieu.pdf
+            • Ch08_Thiet_ke_giao_dien_nguoi_dung.pdf
+            • Ch09_Thiet_ke_kien_truc_ung_dung.pdf
+            • Ch10_Phat_trien_ung_dung_cai_dat_van_hanh.pdf
+            • Ch11_Mo_hinh_hoa_huong_doi_tuong.pdf
+
+============================================================
+AVAILABLE CATEGORIES (for classification):
+
+  1_Computer_Science_Fundamentals
+    -> Data_Structures_and_Algorithms
+    -> Machine_Learning
+    -> Programming_Languages/Java
+    -> Programming_Languages/JavaScript
+    -> Systems_and_OS
+  2_Software_Engineering_Disciplines
+    -> Cloud_Native_and_Observability
+    -> Database
+    -> DevOps
+    -> Docker
+    -> Game_Development
+    -> Kubernetes
+    -> Software_Architecture_and_Design
+  3_Career_and_Professional_Development
+    -> Interview_Prep
+    -> Job_Search_and_Career_Growth
+  4_Personal_Development_and_Skills
+    -> AI_and_Prompts
+    -> Business_and_Entrepreneurship
+    -> English_Learning
+  5_University_Courses
+    -> Artificial_Intelligence
+    -> Database_Administration
+    -> E_Commerce
+    -> PTTKHT_Systems_Analysis_and_Design
+
+Next available category number: 6
+============================================================

@@ -115,11 +115,18 @@ python scripts/rename_books.py --base-dir . --execute
 
 > Bước này đảm bảo tên file ASCII-safe trước khi upload lên GitHub Releases (tránh lỗi Unicode trong URL).
 
-### Bước 4: Đọc cấu trúc thư viện hiện tại
+### Bước 4: Đọc và lưu cấu trúc thư viện hiện tại (Context Grounding)
 
 ```bash
-python scripts/auto_organize.py --structure --base-dir .
+python scripts/generate_structure_log.py --base-dir .
 ```
+
+Script đọc `site/data.json` (source of truth) và tạo `library_structure.log` bao gồm:
+- Tất cả categories, topics, subtopics với số lượng sách
+- Danh sách tên file sách cụ thể trong mỗi folder
+- Phần tóm tắt `AVAILABLE CATEGORIES (for classification)` ở cuối file
+
+> **BẮT BUỘC**: Agent phải dùng `view_file` để đọc toàn bộ nội dung file `library_structure.log` vừa tạo. Đặc biệt chú ý phần `AVAILABLE CATEGORIES` — đây là danh sách đầy đủ các folder có sẵn mà Agent phải ưu tiên dùng trước khi tạo mới.
 
 ### Bước 5: 🧠 BATCH CLASSIFY + DESCRIPTIONS (trong bộ nhớ)
 
@@ -276,13 +283,21 @@ Script sẽ tự động:
 - Upload CHỈ file mới lên Release cố định (`storage-v1`)
 - Cập nhật `download_url` trong `data.json`
 
-### Bước 15: Commit và Push
+### Bước 15: Cập nhật library_structure.log
+
+```bash
+python scripts/generate_structure_log.py --base-dir .
+```
+
+> Regenerate log sau khi `data.json` đã được cập nhật `download_url`. Đảm bảo log luôn đồng bộ cho lần chạy tiếp theo.
+
+### Bước 16: Commit và Push
 
 ```bash
 git add -A && git commit -m "add: [N] books to library" && git push
 ```
 
-### Bước 16: 📊 Báo cáo kết quả tổng hợp
+### Bước 17: 📊 Báo cáo kết quả tổng hợp
 
 Hiển thị bảng tổng kết cho user:
 

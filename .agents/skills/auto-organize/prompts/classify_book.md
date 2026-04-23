@@ -6,9 +6,9 @@ Given a book filename, determine the best **Category** and **Topic** folder wher
 
 ## CURRENT LIBRARY STRUCTURE
 
-All books are stored under the `Books/` directory:
+All books are stored under the `Books/` directory.
 
-{library_structure}
+**MANDATORY:** You must refer to the exact structure you read from the `library_structure.log` file (generated in the previous workflow step) to understand the current library folders. Use that structure to inform your classification.
 
 ## CLASSIFICATION RULES
 

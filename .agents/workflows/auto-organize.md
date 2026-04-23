@@ -51,18 +51,22 @@ Nếu dry-run hiện file cần đổi tên → chạy `--execute`:
 python scripts/rename_books.py --base-dir . --execute
 ```
 
-// turbo 5. Quét cấu trúc thư viện hiện tại:
+// turbo 5. Quét và lưu cấu trúc thư viện hiện tại vào file log (Context Grounding):
 
 ```bash
-python scripts/auto_organize.py --structure --base-dir .
+python scripts/generate_structure_log.py --base-dir .
 ```
 
-6. **🧠 BATCH CLASSIFY + WRITE DESCRIPTIONS (trong bộ nhớ)**
+> Script đọc `site/data.json` (source of truth) và tạo `library_structure.log` — bao gồm tất cả categories, topics, subtopics, và tên file sách cụ thể.
+
+6. **BẮT BUỘC:** Sử dụng `view_file` để đọc toàn bộ nội dung `library_structure.log`. Agent PHẢI nạp và hiểu cấu trúc này TRƯỚC KHI phân loại. Đặc biệt chú ý phần `AVAILABLE CATEGORIES (for classification)` ở cuối file.
+
+7. **🧠 BATCH CLASSIFY + WRITE DESCRIPTIONS (trong bộ nhớ)**
 
    **Agent PHẢI xử lý TẤT CẢ N cuốn sách cùng lúc trong một lần suy luận:**
 
    Với mỗi file trong Inbox:
-   - Phân tích tên file để xác định category và topic (dùng folder có sẵn hoặc tạo mới)
+   - Đối chiếu với `library_structure.log` để xác định category và topic (ưu tiên folder CÓ SẴN)
    - Soạn sẵn description theo **format 3 phần** (Context + Overview + Key Takeaways)
    - Lưu kết quả vào bộ nhớ (KHÔNG hỏi user từng file)
 
@@ -149,7 +153,15 @@ python scripts/upload_releases.py
 
 > Script tự diff local vs data.json, chỉ upload file MỚI.
 
-16. Commit và push:
+// turbo 16. **CẬP NHẬT library_structure.log** sau khi data.json đã thay đổi:
+
+```bash
+python scripts/generate_structure_log.py --base-dir .
+```
+
+> Bước này đảm bảo `library_structure.log` luôn đồng bộ với `data.json` cho lần chạy tiếp theo.
+
+17. Commit và push:
 
 ```bash
 git add -A && git commit -m "add: [N] books to library" && git push
