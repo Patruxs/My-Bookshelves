@@ -29,7 +29,6 @@ venv/
 auto_organize.log
 *.log
 !library_structure.log
-repomix-output.xml
 _site/
 
 # ══════════════════════════════════════════════════
