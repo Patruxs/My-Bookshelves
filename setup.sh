@@ -22,7 +22,7 @@ echo -e "${CYAN}╚════════════════════�
 echo ""
 
 # ── Step 1: Check Python ──
-echo -e "[1/5] 🐍 Checking Python..."
+echo -e "[1/6] 🐍 Checking Python..."
 
 # Try python3 first, then python
 PYTHON_CMD=""
@@ -41,7 +41,7 @@ echo -e "   ${GREEN}✅ $PYTHON_CMD $PYTHON_VERSION detected${NC}"
 
 # ── Step 2: Create virtual environment ──
 echo ""
-echo -e "[2/5] 📦 Setting up virtual environment..."
+echo -e "[2/6] 📦 Setting up virtual environment..."
 
 if [ -d "venv" ]; then
     echo -e "   ⏭️  Virtual environment already exists"
@@ -52,7 +52,7 @@ fi
 
 # ── Step 3: Activate venv & install dependencies ──
 echo ""
-echo -e "[3/5] 📥 Installing Python dependencies..."
+echo -e "[3/6] 📥 Installing Python dependencies..."
 
 source venv/bin/activate
 python -m pip install --upgrade pip >/dev/null 2>&1
@@ -66,18 +66,23 @@ echo -e "   ${GREEN}✅ All dependencies installed${NC}"
 
 # ── Step 4: Create project directories ──
 echo ""
-echo -e "[4/5] 📁 Creating project directories..."
+echo -e "[4/6] 📁 Creating project directories..."
 
 mkdir -p Books Inbox site/assets/covers
 echo -e "   ${GREEN}✅ Books/  Inbox/  site/assets/covers/${NC}"
 
 # ── Step 5: Verify installation ──
 echo ""
-echo -e "[5/5] ✅ Verifying setup..."
+echo -e "[5/6] ✅ Verifying setup..."
 
 python -c "import fitz; print('   ✅ PyMuPDF', fitz.version[0])" 2>/dev/null || echo -e "   ${RED}❌ PyMuPDF not working${NC}"
 python -c "from PIL import Image; print('   ✅ Pillow', Image.__version__)" 2>/dev/null || echo -e "   ${RED}❌ Pillow not working${NC}"
 python -c "import docx; print('   ✅ python-docx')" 2>/dev/null || echo -e "   ${RED}❌ python-docx not working${NC}"
+
+# ── Step 6: Clean up sample data ──
+echo ""
+echo -e "[6/6] 🧹 Cleaning up sample data..."
+python scripts/reset_library.py --force
 
 # ── Done ──
 echo ""
