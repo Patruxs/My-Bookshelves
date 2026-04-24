@@ -21,13 +21,13 @@ Nếu rỗng → thông báo user, dừng.
 // turbo 4. Chuẩn hóa tên file (dry-run trước, `--execute` nếu cần):
 
 ```bash
-python scripts/rename_books.py --base-dir .
+python scripts/cli.py rename --base-dir .
 ```
 
 // turbo 5. Generate library structure log:
 
 ```bash
-python scripts/generate_structure_log.py --base-dir .
+python scripts/cli.py structure --base-dir .
 ```
 
 6. **BẮT BUỘC:** `view_file` đọc toàn bộ `library_structure.log`. Chú ý phần `AVAILABLE CATEGORIES`.
@@ -48,7 +48,7 @@ python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING"
 // turbo 11. Generate covers + data.json — **CHỈ 1 LẦN**:
 
 ```bash
-python scripts/generate_data.py --base-dir .
+python scripts/cli.py generate --base-dir .
 ```
 
 // turbo 12. Verify `download_url` (thiếu = đúng N → OK, > N → DỪNG):
@@ -62,19 +62,19 @@ python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8
 // turbo 14. Cập nhật log ngay sau phân loại:
 
 ```bash
-python scripts/generate_structure_log.py --base-dir .
+python scripts/cli.py structure --base-dir .
 ```
 
 15. **DRY-RUN upload** (count = N → OK, > N → DỪNG):
 
 ```bash
-python scripts/upload_releases.py --dry-run
+python scripts/cli.py upload --dry-run
 ```
 
 16. Upload sách mới:
 
 ```bash
-python scripts/upload_releases.py
+python scripts/cli.py upload
 ```
 
 17. Commit + push:

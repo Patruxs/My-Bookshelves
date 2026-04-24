@@ -1,7 +1,7 @@
 {
     "inbox_dir": "Inbox",
     "books_dir": "Books",
-    "book_extensions": [".pdf", ".epub"],
+    "book_extensions": [".pdf", ".epub", ".docx"],
     "log_file": "auto_organize.log",
     "classification": {
         "auto_create_new_topics": true,
@@ -20,8 +20,8 @@
         "note": "Smart Incremental Sync: only uploads NEW books, uses data.json as single source of truth"
     },
     "dependencies": {
-        "required": ["PyMuPDF (fitz)", "Pillow (PIL)"],
-        "install_cmd": "python -m pip install PyMuPDF Pillow",
+        "required": ["PyMuPDF (fitz)", "Pillow (PIL)", "python-docx"],
+        "install_cmd": "python -m pip install PyMuPDF Pillow python-docx",
         "note": "MUST use 'python -m pip install' (not 'pip install') to ensure packages are installed for the correct Python interpreter. System may have multiple Python versions."
     }
 }

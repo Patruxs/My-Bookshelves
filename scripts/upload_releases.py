@@ -6,7 +6,7 @@ Cơ chế Đồng bộ hóa Thông minh: CHỈ upload sách MỚI lên GitHub Re
 không re-upload toàn bộ thư viện. Dùng data.json làm Single Source of Truth.
 
 Workflow:
-  1. Quét Books/ tìm tất cả PDF/EPUB
+  1. Quét Books/ tìm tất cả PDF/EPUB/DOCX
   2. Đọc data.json → lọc ra file đã có download_url (đã uploaded)
   3. Diff → danh sách file MỚI cần upload
   4. Tạo cover WebP cho file mới (nếu chưa có)
@@ -51,7 +51,7 @@ BOOKS_DIR = "Books"
 DATA_JSON = "site/data.json"
 COVER_DIR = "site/assets/covers"
 COVER_WEB_PATH = "assets/covers"
-BOOK_EXTENSIONS = {".pdf", ".epub"}
+BOOK_EXTENSIONS = {".pdf", ".epub", ".docx"}
 DEFAULT_TAG = "storage-v1"
 COVER_WIDTH = 250
 COVER_QUALITY = 60
@@ -118,6 +118,12 @@ try:
 except ImportError:
     HAS_EBOOKLIB = False
 
+try:
+    from docx import Document as DocxDocument
+    HAS_PYTHON_DOCX = True
+except ImportError:
+    HAS_PYTHON_DOCX = False
+
 
 def extract_cover(file_path: Path, output_path: Path) -> bool:
     """Extract cover from PDF/EPUB → WebP (250px, q60)."""
@@ -177,6 +183,25 @@ def extract_cover(file_path: Path, output_path: Path) -> bool:
                     img = img.resize((COVER_WIDTH, int(img.height * ratio)), Image.LANCZOS)
                 img.save(str(output_path), "WEBP", quality=COVER_QUALITY, method=6)
                 return True
+        except Exception as e:
+            print(f"    ⚠️  Cover error: {e}")
+            return False
+
+    elif ext == ".docx" and HAS_PYTHON_DOCX and HAS_PILLOW:
+        try:
+            from io import BytesIO
+            doc = DocxDocument(str(file_path))
+            for rel in doc.part.rels.values():
+                if "image" in rel.reltype:
+                    image_data = rel.target_part.blob
+                    img = Image.open(BytesIO(image_data))
+                    if img.mode in ("RGBA", "P"):
+                        img = img.convert("RGB")
+                    if img.width > COVER_WIDTH:
+                        ratio = COVER_WIDTH / img.width
+                        img = img.resize((COVER_WIDTH, int(img.height * ratio)), Image.LANCZOS)
+                    img.save(str(output_path), "WEBP", quality=COVER_QUALITY, method=6)
+                    return True
         except Exception as e:
             print(f"    ⚠️  Cover error: {e}")
             return False
@@ -244,7 +269,7 @@ def ensure_release(tag: str) -> bool:
     result = subprocess.run(
         ["gh", "release", "create", tag,
          "--title", f"📚 Library Storage ({tag})",
-         "--notes", "Persistent storage for book files (PDF/EPUB). Managed by upload_releases.py.",
+         "--notes", "Persistent storage for book files (PDF/EPUB/DOCX). Managed by upload_releases.py.",
          "--latest"],
         capture_output=True, text=True
     )

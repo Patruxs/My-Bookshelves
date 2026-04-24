@@ -42,7 +42,7 @@ if sys.stderr.encoding != 'utf-8':
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════
 
-BOOK_EXTENSIONS = {".pdf", ".epub"}
+BOOK_EXTENSIONS = {".pdf", ".epub", ".docx"}
 DATA_JSON = "site/data.json"
 SCAN_DIRS = ["Books", "Inbox"]
 

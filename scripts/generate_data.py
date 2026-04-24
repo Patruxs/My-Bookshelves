@@ -2,7 +2,7 @@
 """
 📚 My Bookshelves — Data Generator (Agent 2: Python/Data Engineer)
 
-Scans the book directory structure, extracts cover images from PDF/EPUB files,
+Scans the book directory structure, extracts cover images from PDF/EPUB/DOCX files,
 and generates a data.json file for the frontend.
 
 Usage:
@@ -36,9 +36,17 @@ except ImportError:
 # Note: ebooklib no longer needed for cover extraction.
 # PyMuPDF (fitz) handles both PDF and EPUB page rendering.
 
+try:
+    from docx import Document as DocxDocument
+    HAS_PYTHON_DOCX = True
+except ImportError:
+    HAS_PYTHON_DOCX = False
+    print("⚠️  python-docx not installed. DOCX cover extraction disabled.")
+    print("   Install with: pip install python-docx")
+
 
 # ── Configuration ──
-BOOK_EXTENSIONS = {'.pdf', '.epub'}
+BOOK_EXTENSIONS = {'.pdf', '.epub', '.docx'}
 COVER_DIR = 'site/assets/covers'       # Filesystem path (relative to base_dir)
 COVER_WEB_PATH = 'assets/covers'       # Web URL path (relative to site/ root)
 OUTPUT_FILE = 'site/data.json'
@@ -144,6 +152,39 @@ def extract_epub_cover(epub_path: str, output_path: str) -> bool:
         return False
 
 
+def extract_docx_cover(docx_path: str, output_path: str) -> bool:
+    """Extract first embedded image from DOCX as cover image (WebP, optimized).
+
+    DOCX files cannot be page-rendered like PDF/EPUB. Instead, we look for
+    the first embedded image (typically a cover or header image) and use that.
+    """
+    if not HAS_PYTHON_DOCX or not HAS_PILLOW:
+        return False
+    try:
+        from io import BytesIO
+
+        doc = DocxDocument(docx_path)
+        # Iterate through all relationships to find images
+        for rel in doc.part.rels.values():
+            if "image" in rel.reltype:
+                image_data = rel.target_part.blob
+                img = Image.open(BytesIO(image_data))
+                if img.mode in ("RGBA", "P"):
+                    img = img.convert("RGB")
+                # Resize to max COVER_WIDTH
+                if img.width > COVER_WIDTH:
+                    ratio = COVER_WIDTH / img.width
+                    new_height = int(img.height * ratio)
+                    img = img.resize((COVER_WIDTH, new_height), Image.LANCZOS)
+                img.save(output_path, 'WEBP', quality=COVER_QUALITY, method=6)
+                return True
+
+        return False
+    except Exception as e:
+        print(f"  ❌ Error extracting DOCX cover: {e}")
+        return False
+
+
 def generate_book_id(file_path: str) -> str:
     """Generate a unique ID from file path."""
     return hashlib.md5(file_path.encode('utf-8')).hexdigest()[:12]
@@ -207,7 +248,8 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
             # Sort: PDF before EPUB for same stem (PDF cover takes priority)
             def _sort_pdf_first(name: str) -> tuple:
                 p = Path(name)
-                ext_order = 0 if p.suffix.lower() == '.pdf' else 1
+                ext_priority = {'.pdf': 0, '.epub': 1, '.docx': 2}
+                ext_order = ext_priority.get(p.suffix.lower(), 3)
                 return (p.stem, ext_order)
 
             for filename in sorted(files, key=_sort_pdf_first):
@@ -257,6 +299,8 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
                             pdf_covered_stems.add(cover_stem)
                     elif ext == '.epub':
                         has_cover = extract_epub_cover(str(file_path), str(cover_path))
+                    elif ext == '.docx':
+                        has_cover = extract_docx_cover(str(file_path), str(cover_path))
 
                     if has_cover:
                         extracted += 1

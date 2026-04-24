@@ -33,7 +33,7 @@ CONFIG_FILE = SKILL_DIR / 'config' / 'settings.json'
 
 DEFAULT_CONFIG = {
     "inbox_dir": "Inbox",
-    "book_extensions": [".pdf", ".epub"],
+    "book_extensions": [".pdf", ".epub", ".docx"],
     "log_file": "auto_organize.log",
 }
 
@@ -113,19 +113,19 @@ def cmd_structure(base_dir: str):
         cat_readable = match.group(2).replace('_', ' ')
         # Count books in this category
         book_count = sum(1 for _ in cat_folder.rglob('*')
-                        if _.is_file() and _.suffix.lower() in {'.pdf', '.epub'})
+                        if _.is_file() and _.suffix.lower() in {'.pdf', '.epub', '.docx'})
         print(f"📂 {cat_folder.name} ({cat_readable}) — {book_count} books")
 
         for sub in sorted(cat_folder.iterdir()):
             if sub.is_dir():
                 sub_count = sum(1 for _ in sub.rglob('*')
-                               if _.is_file() and _.suffix.lower() in {'.pdf', '.epub'})
+                               if _.is_file() and _.suffix.lower() in {'.pdf', '.epub', '.docx'})
                 print(f"   ├── {sub.name} ({sub_count})")
 
                 for subsub in sorted(sub.iterdir()):
                     if subsub.is_dir():
                         subsub_count = sum(1 for _ in subsub.rglob('*')
-                                          if _.is_file() and _.suffix.lower() in {'.pdf', '.epub'})
+                                          if _.is_file() and _.suffix.lower() in {'.pdf', '.epub', '.docx'})
                         print(f"   │   └── {subsub.name} ({subsub_count})")
     print()
 

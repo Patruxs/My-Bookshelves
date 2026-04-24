@@ -74,17 +74,35 @@ Exception: `!library_structure.log` được phép commit.
 7. Hỏi user xác nhận trước khi move/rename file.
 8. CSS dùng Variables, JS dùng ES6+, ảnh chỉ WebP.
 
-## SCRIPTS
+## SCRIPTS (CLI & TUI)
 
-| Lệnh | Chức năng |
+**Giao diện tương tác TUI:**
+`python scripts/tui.py`
+
+**Giao diện dòng lệnh CLI:**
+
+| Lệnh (`python scripts/cli.py <cmd>`) | Chức năng |
 |-------|-----------|
-| `python scripts/rename_books.py --base-dir .` | Xem trước rename (dry-run) |
-| `python scripts/rename_books.py --base-dir . --execute` | Chuẩn hóa tên ASCII Snake_Case |
-| `python scripts/generate_data.py --base-dir .` | Tạo cover + data.json (CHỈ 1 LẦN) |
-| `python scripts/generate_structure_log.py --base-dir .` | Cập nhật library_structure.log |
-| `python scripts/upload_releases.py --dry-run` | Xem trước upload (BẮT BUỘC) |
-| `python scripts/upload_releases.py` | Upload sách MỚI |
-| `python scripts/upload_releases.py --force` | Re-upload tất cả |
-| `python scripts/upload_releases.py --hard-reset` | Xóa + tạo lại release |
+| `list` | Liệt kê tất cả sách/topic/category |
+| `rename` | Xem trước rename (dry-run) |
+| `rename --execute` | Chuẩn hóa tên ASCII Snake_Case |
+| `generate` | Tạo cover + data.json (CHỈ 1 LẦN) |
+| `structure` | Cập nhật library_structure.log |
+| `upload --dry-run` | Xem trước upload (BẮT BUỘC) |
+| `upload` | Upload sách MỚI |
+| `upload --force` | Re-upload tất cả |
+| `upload --hard-reset` | Xóa + tạo lại release |
+| `delete --book "Title"` | Xem trước xóa sách (dry-run) |
+| `delete --book "Title" --execute` | Xóa sách khỏi data.json + cover |
+| `delete --topic "Topic" --category "Cat"` | Xem trước xóa topic |
+| `delete --topic "Topic" --category "Cat" --execute` | Xóa toàn bộ topic |
+| `delete --category "Cat" --execute` | Xóa toàn bộ category |
+| `delete --book "Title" --execute --delete-files` | Xóa cả file vật lý |
+| `update --book "Title" --set-description "Desc"` | Xem trước update description |
+| `update --book "Title" --set-description "Desc" --execute` | Update description |
+| `update --book "Title" --set-category "Cat" --execute` | Chuyển sách sang category khác |
+| `update --book "Title" --set-topic "Topic" --execute` | Chuyển sách sang topic khác |
+| `update --topic "Old" --category "Cat" --rename "New" --execute` | Đổi tên topic |
+| `update --category "Old" --rename "New" --execute` | Đổi tên category |
 
 REPO: `Patruxs/My-Bookshelves` · branch: `main` · deploy: GitHub Pages từ `site/`
