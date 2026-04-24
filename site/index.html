@@ -555,7 +555,88 @@
             background: var(--bg-secondary);
             padding: 2px 6px;
             border-radius: 4px;
-            border: 1px solid var(--border)
+            border: 1px solid var(--border);
+            transition: opacity 0.2s ease
+        }
+
+        /* === Global Search Indicator === */
+        .search-input.global-active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.15);
+            padding-right: 130px
+        }
+
+        .search-global-indicator {
+            position: absolute;
+            right: 36px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: var(--accent);
+            background: rgba(41, 151, 255, 0.1);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            white-space: nowrap
+        }
+
+        .search-global-indicator svg {
+            width: 10px;
+            height: 10px;
+            flex-shrink: 0
+        }
+
+        .search-global-indicator.visible {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .search-clear-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, background 0.2s ease
+        }
+
+        .search-clear-btn svg {
+            width: 10px;
+            height: 10px
+        }
+
+        .search-clear-btn.visible {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .search-clear-btn:hover {
+            background: var(--accent);
+            color: #fff
+        }
+
+        /* Hide keyboard hint when global search is active */
+        .search-input.global-active ~ .search-kbd {
+            opacity: 0;
+            pointer-events: none
         }
 
         /* === Toolbar === */
@@ -1419,7 +1500,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    <input id="search" class="search-input" type="text" placeholder="Search books...">
+                    <input id="search" class="search-input" type="text" placeholder="Search all books... (global)">
+                    <span id="search-global-indicator" class="search-global-indicator">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Global
+                    </span>
+                    <button id="search-clear-btn" class="search-clear-btn" onclick="clearSearch()" type="button" title="Clear search">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
                     <kbd class="search-kbd">⌘K</kbd>
                 </div>
 

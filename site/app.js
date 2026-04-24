@@ -9,6 +9,7 @@ const CONFIG = { githubRepo: "Patruxs/My-Bookshelves", branch: "main" };
 // ═══ STATE ═══
 let allBooks = [], filteredBooks = [], currentSort = null, currentBookId = null;
 let sidebarSelection = { category: "", topic: "" };
+let isGlobalSearch = false;
 let currentPage = 1;
 let booksPerPage = 16;
 let savedScrollPos = 0;
@@ -83,7 +84,7 @@ async function init() {
     applyFilters();
     hideSkeleton();
 
-    searchInput.addEventListener("input", debounce(applyFilters, 200));
+    searchInput.addEventListener("input", debounce(handleSearchInput, 200));
     filterFmt.addEventListener("change", applyFilters);
     $("#sort-az").addEventListener("click", () => toggleSort("az"));
     $("#sort-za").addEventListener("click", () => toggleSort("za"));
@@ -178,6 +179,8 @@ function clearAllFilters() {
     searchInput.value = "";
     filterFmt.value = "";
     currentSort = null;
+    isGlobalSearch = false;
+    updateSearchModeUI();
     $("#sort-az").classList.remove("active");
     $("#sort-za").classList.remove("active");
     sidebarSelectAll();
@@ -227,18 +230,104 @@ function animNum(el, target) {
     })(start);
 }
 
+// ═══ SEARCH MODE ═══
+function handleSearchInput() {
+    const q = searchInput.value.trim();
+    if (q.length > 0) {
+        isGlobalSearch = true;
+    } else {
+        isGlobalSearch = false;
+    }
+    updateSearchModeUI();
+    applyFilters();
+}
+
+function updateSearchModeUI() {
+    const indicator = $("#search-global-indicator");
+    const clearBtn = $("#search-clear-btn");
+    if (isGlobalSearch && searchInput.value.trim()) {
+        indicator.classList.add("visible");
+        clearBtn.classList.add("visible");
+        searchInput.classList.add("global-active");
+    } else {
+        indicator.classList.remove("visible");
+        clearBtn.classList.remove("visible");
+        searchInput.classList.remove("global-active");
+    }
+}
+
+function clearSearch() {
+    searchInput.value = "";
+    isGlobalSearch = false;
+    updateSearchModeUI();
+    applyFilters();
+    searchInput.focus();
+}
+
+// ═══ SMART SEARCH SCORING ═══
+function scoreBook(book, query) {
+    const q = query.toLowerCase();
+    const title = book.title.toLowerCase();
+    const cleanedTitle = cleanTitle(book.title).toLowerCase();
+    const topic = book.topic.toLowerCase();
+    const category = book.category.toLowerCase();
+    const desc = (book.description || "").toLowerCase();
+
+    // Tokenize query for multi-word matching
+    const tokens = q.split(/\s+/).filter(t => t.length > 0);
+    let score = 0;
+
+    // Exact full query match in title → highest score
+    if (title.includes(q) || cleanedTitle.includes(q)) score += 100;
+    // Exact match in topic
+    if (topic.includes(q)) score += 60;
+    // Exact match in category
+    if (category.includes(q)) score += 40;
+    // Exact match in description
+    if (desc.includes(q)) score += 20;
+
+    // Token-based matching (each token contributes)
+    for (const token of tokens) {
+        if (title.includes(token) || cleanedTitle.includes(token)) score += 30;
+        if (topic.includes(token)) score += 15;
+        if (category.includes(token)) score += 10;
+        if (desc.includes(token)) score += 5;
+    }
+
+    // Title starts with query → bonus
+    if (cleanedTitle.startsWith(q)) score += 50;
+
+    return score;
+}
+
 // ═══ FILTER + SORT ═══
 function applyFilters() {
     const q = searchInput.value.toLowerCase().trim();
     const fmt = filterFmt.value;
     const { category: cat, topic } = sidebarSelection;
 
-    filteredBooks = allBooks.filter(b =>
-        (!q || b.title.toLowerCase().includes(q)) &&
-        (!cat || b.category === cat) &&
-        (!topic || b.topic === topic) &&
-        (!fmt || b.formats.includes(fmt))
-    );
+    if (q && isGlobalSearch) {
+        // GLOBAL search: ignore sidebar filters, search ALL books
+        const scored = allBooks
+            .map(b => ({ book: b, score: scoreBook(b, q) }))
+            .filter(item => item.score > 0);
+
+        // Apply format filter only
+        const fmtFiltered = fmt
+            ? scored.filter(item => item.book.formats.includes(fmt))
+            : scored;
+
+        // Sort by relevance score (highest first)
+        fmtFiltered.sort((a, b) => b.score - a.score);
+        filteredBooks = fmtFiltered.map(item => item.book);
+    } else {
+        // Normal sidebar-based filtering (no search query)
+        filteredBooks = allBooks.filter(b =>
+            (!cat || b.category === cat) &&
+            (!topic || b.topic === topic) &&
+            (!fmt || b.formats.includes(fmt))
+        );
+    }
 
     if (currentSort === "az") filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
     else if (currentSort === "za") filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
