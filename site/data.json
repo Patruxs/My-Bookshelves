@@ -1032,5 +1032,16 @@
     "format": "pdf",
     "description": "Navigating the complexities of container orchestration can be daunting for developers new to the cloud-native ecosystem.\n\n\"Kubernetes in Action\" is a comprehensive guide that teaches you how to use Kubernetes to deploy distributed applications, from basic concepts to advanced operations.\n\n• Explains fundamental Kubernetes architecture\n• Guides through deploying and scaling applications\n• Covers persistent storage and networking\n• Details rolling updates and deployment strategies\n• Includes practical hands-on examples",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kubernetes_in_Action_Marko_Luksa.pdf"
+  },
+  {
+    "id": "ff62c0a886fb",
+    "title": "Vibe_code_process",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Vibe_code_process.pdf",
+    "cover": "assets/covers/Vibe_code_process.webp",
+    "format": "pdf",
+    "description": "Context: Tài liệu về \"Vibe Coding Process\".\n\nOverview: Hướng dẫn tối ưu hóa quy trình lập trình thông qua việc tương tác và làm việc với các công cụ AI hiện đại.\n\nKey Takeaways:\n• Nắm bắt nguyên lý cốt lõi của vibe coding.\n• Cách tích hợp AI agent vào quy trình phát triển.\n• Thực hành tốt nhất về context management.\n• Chiến lược debug và cải thiện code với AI.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Vibe_code_process.pdf"
   }
 ]

@@ -1,6 +1,6 @@
 ============================================================
 LIBRARY STRUCTURE LOG
-Generated from: site/data.json (94 books total)
+Generated from: site/data.json (95 books total)
 ============================================================
 
 [1] 1_Computer_Science_Fundamentals (20 books)
@@ -85,9 +85,9 @@ Generated from: site/data.json (94 books total)
             • Learn_How_to_Code_Online_and_Land_a_100k_Job_ASAP.pdf
             • Think_Like_a_CTO.pdf
 
-[4] 4_Personal_Development_and_Skills (21 books)
+[4] 4_Personal_Development_and_Skills (22 books)
     Display Name: Personal Development and Skills
-    ├── AI_and_Prompts (9 books)
+    ├── AI_and_Prompts (10 books)
     │       • Claude_AI_cho_CEO_Thuc_hanh_SP.pdf
     │       • How_Anthropic_teams_use_Claude_Code_v2.pdf
     │       • How_Modern_PMs_Work_With_AI_Agents_Van_Tran.pdf
@@ -97,6 +97,7 @@ Generated from: site/data.json (94 books total)
     │       • NotebookLM_Creative_Agency_Prompt_Pack.pdf
     │       • Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.pdf
     │       • The_Complete_Guide_to_Building_Skill_for_Claude.pdf
+    │       • Vibe_code_process.pdf
     ├── Business_and_Entrepreneurship (2 books)
     │       • Million_Dollar_Weekend.pdf
     │       • The_Millionaire_Fastlane.pdf
