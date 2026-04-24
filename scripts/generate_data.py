@@ -33,14 +33,8 @@ try:
 except ImportError:
     HAS_PILLOW = False
 
-try:
-    import ebooklib
-    from ebooklib import epub
-    HAS_EBOOKLIB = True
-except ImportError:
-    HAS_EBOOKLIB = False
-    print("⚠️  ebooklib not installed. EPUB cover extraction disabled.")
-    print("   Install with: pip install ebooklib")
+# Note: ebooklib no longer needed for cover extraction.
+# PyMuPDF (fitz) handles both PDF and EPUB page rendering.
 
 
 # ── Configuration ──
@@ -112,50 +106,39 @@ def extract_pdf_cover(pdf_path: str, output_path: str) -> bool:
 
 
 def extract_epub_cover(epub_path: str, output_path: str) -> bool:
-    """Extract cover image from EPUB file (WebP, optimized)."""
-    if not HAS_EBOOKLIB:
+    """Extract first page of EPUB as cover image using PyMuPDF (WebP, optimized).
+
+    PyMuPDF can open and render EPUB pages directly, producing reliable
+    covers from the actual first page rather than searching embedded images
+    which may pick up diagrams or icons instead of the real cover.
+    """
+    if not HAS_PYMUPDF:
         return False
     try:
-        book = epub.read_epub(epub_path, options={'ignore_ncx': True})
+        doc = fitz.open(epub_path)
+        if doc.page_count == 0:
+            doc.close()
+            return False
 
-        cover_image = None
+        page = doc[0]
+        # Render at 3x for quality before downscale (sharp on Retina)
+        zoom = 3.0
+        mat = fitz.Matrix(zoom, zoom)
+        pix = page.get_pixmap(matrix=mat, alpha=False)
 
-        # Method 1: Look for cover in metadata
-        for item in book.get_items():
-            if item.get_type() == ebooklib.ITEM_COVER:
-                cover_image = item.get_content()
-                break
+        if HAS_PILLOW:
+            img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+            # Resize to max COVER_WIDTH
+            if img.width > COVER_WIDTH:
+                ratio = COVER_WIDTH / img.width
+                new_height = int(img.height * ratio)
+                img = img.resize((COVER_WIDTH, new_height), Image.LANCZOS)
+            img.save(output_path, 'WEBP', quality=COVER_QUALITY, method=6)
+        else:
+            pix.save(output_path)
 
-        # Method 2: Look for images with 'cover' in the name
-        if not cover_image:
-            for item in book.get_items_of_type(ebooklib.ITEM_IMAGE):
-                if 'cover' in item.get_name().lower():
-                    cover_image = item.get_content()
-                    break
-
-        # Method 3: Use first image found
-        if not cover_image:
-            for item in book.get_items_of_type(ebooklib.ITEM_IMAGE):
-                cover_image = item.get_content()
-                break
-
-        if cover_image:
-            if HAS_PILLOW:
-                from io import BytesIO
-                img = Image.open(BytesIO(cover_image))
-                if img.mode in ('RGBA', 'P'):
-                    img = img.convert('RGB')
-                if img.width > COVER_WIDTH:
-                    ratio = COVER_WIDTH / img.width
-                    new_height = int(img.height * ratio)
-                    img = img.resize((COVER_WIDTH, new_height), Image.LANCZOS)
-                img.save(output_path, 'WEBP', quality=COVER_QUALITY, method=6)
-            else:
-                with open(output_path, 'wb') as f:
-                    f.write(cover_image)
-            return True
-
-        return False
+        doc.close()
+        return True
     except Exception as e:
         print(f"  ❌ Error extracting EPUB cover: {e}")
         return False
@@ -186,6 +169,7 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
     skipped = 0
     extracted = 0
     failed = 0
+    pdf_covered_stems = set()  # Track covers already generated from PDF
 
     print(f"\n📂 Scanning: {base}")
     print(f"📁 Covers directory: {covers_dir}\n")
@@ -220,7 +204,13 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
                 # First subfolder is the topic
                 topic_name = parse_topic_name(parts[0])
 
-            for filename in sorted(files):
+            # Sort: PDF before EPUB for same stem (PDF cover takes priority)
+            def _sort_pdf_first(name: str) -> tuple:
+                p = Path(name)
+                ext_order = 0 if p.suffix.lower() == '.pdf' else 1
+                return (p.stem, ext_order)
+
+            for filename in sorted(files, key=_sort_pdf_first):
                 file_path = root_path / filename
                 ext = file_path.suffix.lower()
 
@@ -244,8 +234,18 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
                     old_jpg.unlink()  # Remove stale JPG
 
                 # Extract cover (skip if exists and not forced)
+                # PDF covers take priority — if PDF already created this cover,
+                # EPUB should not overwrite it (even with --force).
+                cover_stem = sanitize_filename(title)
                 has_cover = False
-                if cover_path.exists() and not force_covers:
+
+                if ext == '.epub' and cover_stem in pdf_covered_stems:
+                    # PDF already generated this cover — skip EPUB
+                    has_cover = cover_path.exists()
+                    if has_cover:
+                        skipped += 1
+                        print(f"  ⏭️  Skip cover (PDF priority): {title}")
+                elif cover_path.exists() and not force_covers:
                     has_cover = True
                     skipped += 1
                     print(f"  ⏭️  Skip cover (exists): {title}")
@@ -253,6 +253,8 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
                     print(f"  🖼️  Extracting cover: {title}...", end=' ')
                     if ext == '.pdf':
                         has_cover = extract_pdf_cover(str(file_path), str(cover_path))
+                        if has_cover:
+                            pdf_covered_stems.add(cover_stem)
                     elif ext == '.epub':
                         has_cover = extract_epub_cover(str(file_path), str(cover_path))
 
