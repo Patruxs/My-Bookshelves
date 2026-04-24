@@ -7,7 +7,18 @@
 const CONFIG = { githubRepo: "Patruxs/My-Bookshelves", branch: "main" };
 
 // ═══ STATE ═══
-let allBooks = [], filteredBooks = [], currentSort = null, currentBookId = null;
+let allBooks = [], filteredBooks = [], currentBookId = null;
+let activeFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
+let pendingFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
+
+function copyFilters(source) {
+    return {
+        sort: source.sort,
+        format: source.format,
+        category: new Set(source.category),
+        topic: new Set(source.topic)
+    };
+}
 let sidebarSelection = { category: "", topic: "" };
 let isGlobalSearch = false;
 let currentPage = 1;
@@ -37,7 +48,7 @@ function calculateBooksPerPage() {
 // ═══ DOM ═══
 const $ = s => document.querySelector(s);
 const grid = $("#grid"), skeleton = $("#skeleton"), noResults = $("#no-results");
-const searchInput = $("#search"), filterFmt = $("#filter-fmt");
+const searchInput = $("#search");
 const paginationEl = $("#pagination");
 const homeView = $("#home-view"), detailView = $("#detail-view");
 
@@ -80,18 +91,18 @@ async function init() {
     } catch (e) { console.warn("data.json:", e); allBooks = []; }
 
     renderSidebar();
-    updateStats();
+    populateFilterPanel();
     applyFilters();
     hideSkeleton();
 
     searchInput.addEventListener("input", debounce(handleSearchInput, 200));
-    filterFmt.addEventListener("change", applyFilters);
-    $("#sort-az").addEventListener("click", () => toggleSort("az"));
-    $("#sort-za").addEventListener("click", () => toggleSort("za"));
 
     document.addEventListener("keydown", e => {
         if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); searchInput.focus(); }
-        if (e.key === "Escape" && detailView.style.display !== "none") showHomeView();
+        if (e.key === "Escape") {
+            if ($("#filter-panel").classList.contains("open")) closeFilterPanel();
+            else if (detailView.style.display !== "none") showHomeView();
+        }
     });
 
     // Handle browser back/forward
@@ -177,12 +188,11 @@ function sidebarSelectAll() {
 
 function clearAllFilters() {
     searchInput.value = "";
-    filterFmt.value = "";
-    currentSort = null;
+    activeFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
+    pendingFilters = copyFilters(activeFilters);
     isGlobalSearch = false;
     updateSearchModeUI();
-    $("#sort-az").classList.remove("active");
-    $("#sort-za").classList.remove("active");
+    updateFilterPanelUI();
     sidebarSelectAll();
 }
 
@@ -204,6 +214,187 @@ function collapseAllCategories() {
 function toggleSidebar() { $("#sidebar").classList.toggle("open"); $("#sb-overlay").classList.toggle("active"); }
 function closeSidebar() { $("#sidebar").classList.remove("open"); $("#sb-overlay").classList.remove("active"); }
 
+// ═══ FILTER PANEL (Dynamic Multi-Select) ═══
+function populateFilterPanel() {
+    const panel = $("#filter-panel");
+    const formats = [...new Set(allBooks.flatMap(b => b.formats))].sort();
+    const categories = [...new Set(allBooks.map(b => b.category))].sort((a, b) => a.localeCompare(b));
+    const topics = [...new Set(allBooks.map(b => b.topic))].sort((a, b) => a.localeCompare(b));
+
+    let html = '';
+
+    // Sort section
+    html += `<div class="fp-section">
+        <div class="fp-label">📝 Sort by Title</div>
+        <div class="fp-chips">
+            <button class="fp-chip" data-group="sort" data-value="az" onclick="toggleChip(this)">A → Z</button>
+            <button class="fp-chip" data-group="sort" data-value="za" onclick="toggleChip(this)">Z → A</button>
+        </div>
+    </div>`;
+
+    // Format section
+    if (formats.length > 0) {
+        html += `<div class="fp-section">
+            <div class="fp-label">📄 Format</div>
+            <div class="fp-chips">
+                ${formats.map(f => `<button class="fp-chip" data-group="format" data-value="${esc(f)}" onclick="toggleChip(this)">${f.toUpperCase()}</button>`).join('')}
+            </div>
+        </div>`;
+    }
+
+    // Category section
+    html += `<div class="fp-section">
+        <div class="fp-label">📂 Category</div>
+        <div class="fp-chips">
+            ${categories.map(c => `<button class="fp-chip" data-group="category" data-value="${esc(c)}" onclick="toggleChip(this)">${esc(c)}</button>`).join('')}
+        </div>
+    </div>`;
+
+    // Topic section
+    html += `<div class="fp-section">
+        <div class="fp-label">📌 Topic</div>
+        <div class="fp-chips">
+            ${topics.map(t => `<button class="fp-chip" data-group="topic" data-value="${esc(t)}" onclick="toggleChip(this)">${esc(t)}</button>`).join('')}
+        </div>
+    </div>`;
+
+    // Footer
+    html += `<div class="fp-footer">
+        <button class="fp-clear" onclick="clearFilterPanel()">Clear All</button>
+        <button class="fp-apply" onclick="applyFilterPanel()">Apply Filters</button>
+    </div>`;
+
+    panel.innerHTML = html;
+}
+
+function toggleFilterPanel() {
+    const panel = $("#filter-panel");
+    const overlay = $("#filter-overlay");
+    const isOpen = panel.classList.contains("open");
+    
+    if (!isOpen) {
+        // Opening: clone activeFilters to pendingFilters
+        pendingFilters = copyFilters(activeFilters);
+        updateFilterPanelUI();
+    }
+    
+    panel.classList.toggle("open");
+    overlay.classList.toggle("active", !isOpen);
+}
+
+function closeFilterPanel() {
+    $("#filter-panel").classList.remove("open");
+    $("#filter-overlay").classList.remove("active");
+}
+
+function toggleChip(btn) {
+    const group = btn.dataset.group;
+    const value = btn.dataset.value;
+
+    if (group === "category" || group === "topic") {
+        // Multi-select: toggle value in/out of the Set
+        const set = pendingFilters[group];
+        if (set.has(value)) {
+            set.delete(value);
+        } else {
+            set.add(value);
+        }
+        // When categories change, remove topics that no longer belong
+        if (group === "category") {
+            pruneInvalidTopics();
+        }
+    } else {
+        // Exclusive toggle for sort/format
+        pendingFilters[group] = pendingFilters[group] === value ? null : value;
+    }
+
+    updateFilterPanelUI();
+}
+
+function pruneInvalidTopics() {
+    if (pendingFilters.category.size === 0) return;
+    const validTopics = new Set(
+        allBooks.filter(b => pendingFilters.category.has(b.category)).map(b => b.topic)
+    );
+    for (const t of pendingFilters.topic) {
+        if (!validTopics.has(t)) pendingFilters.topic.delete(t);
+    }
+}
+
+function clearFilterPanel() {
+    pendingFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
+    updateFilterPanelUI();
+}
+
+function applyFilterPanel() {
+    activeFilters = copyFilters(pendingFilters);
+    updateFilterPanelUI();
+    applyFilters();
+    closeFilterPanel();
+}
+
+function updateFilterPanelUI() {
+    // Compute valid topics based on selected categories
+    const selectedCats = pendingFilters.category;
+    const validTopics = selectedCats.size > 0
+        ? new Set(allBooks.filter(b => selectedCats.has(b.category)).map(b => b.topic))
+        : null; // null = all topics valid
+
+    // Update chip states
+    document.querySelectorAll(".fp-chip").forEach(chip => {
+        const group = chip.dataset.group;
+        const value = chip.dataset.value;
+
+        if (group === "category" || group === "topic") {
+            chip.classList.toggle("active", pendingFilters[group].has(value));
+            // Disable topics that don't belong to selected categories
+            if (group === "topic" && validTopics) {
+                chip.classList.toggle("disabled", !validTopics.has(value));
+            } else if (group === "topic") {
+                chip.classList.remove("disabled");
+            }
+        } else {
+            chip.classList.toggle("active", pendingFilters[group] === value);
+        }
+    });
+
+    // Update section labels with active count
+    document.querySelectorAll(".fp-section").forEach(section => {
+        const label = section.querySelector(".fp-label");
+        const chips = section.querySelectorAll(".fp-chip");
+        if (!chips.length) return;
+        const group = chips[0].dataset.group;
+        let count = 0;
+        if (group === "category" || group === "topic") {
+            count = pendingFilters[group].size;
+        } else {
+            count = pendingFilters[group] ? 1 : 0;
+        }
+        let badge = label.querySelector(".fp-label-count");
+        if (count > 0) {
+            if (!badge) {
+                badge = document.createElement("span");
+                badge.className = "fp-label-count";
+                label.appendChild(badge);
+            }
+            badge.textContent = count;
+        } else if (badge) {
+            badge.remove();
+        }
+    });
+
+    // Update main button badge
+    const count = (activeFilters.sort ? 1 : 0) +
+                  (activeFilters.format ? 1 : 0) +
+                  activeFilters.category.size +
+                  activeFilters.topic.size;
+    const badge = $("#filter-badge");
+    const btn = $("#filter-btn");
+    badge.textContent = count;
+    badge.classList.toggle("visible", count > 0);
+    btn.classList.toggle("has-active", count > 0);
+}
+
 // ═══ SKELETON ═══
 function showSkeleton() {
     let h = "";
@@ -213,28 +404,14 @@ function showSkeleton() {
 }
 function hideSkeleton() { skeleton.style.display = "none"; grid.style.display = "grid"; }
 
-// ═══ STATS ═══
-function updateStats() {
-    const cats = new Set(allBooks.map(b => b.category));
-    const tops = new Set(allBooks.map(b => b.topic));
-    animNum($("#stat-total"), allBooks.length);
-    animNum($("#stat-cats"), cats.size);
-    animNum($("#stat-topics"), tops.size);
-}
-function animNum(el, target) {
-    const start = performance.now(), dur = 600;
-    (function step(now) {
-        const p = Math.min((now - start) / dur, 1);
-        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) requestAnimationFrame(step);
-    })(start);
-}
-
 // ═══ SEARCH MODE ═══
 function handleSearchInput() {
     const q = searchInput.value.trim();
     if (q.length > 0) {
         isGlobalSearch = true;
+        if (detailView.style.display !== "none") {
+            showHomeView();
+        }
     } else {
         isGlobalSearch = false;
     }
@@ -303,45 +480,54 @@ function scoreBook(book, query) {
 // ═══ FILTER + SORT ═══
 function applyFilters() {
     const q = searchInput.value.toLowerCase().trim();
-    const fmt = filterFmt.value;
-    const { category: cat, topic } = sidebarSelection;
+    const { sort: sortDir, format: fmtFilter, category: catSet, topic: topicSet } = activeFilters;
+    const { category: sbCat, topic: sbTopic } = sidebarSelection;
+    const hasDropdownFilter = fmtFilter || catSet.size > 0 || topicSet.size > 0;
 
     if (q && isGlobalSearch) {
-        // GLOBAL search: ignore sidebar filters, search ALL books
+        // GLOBAL search: search ALL books, then apply panel filters
         const scored = allBooks
             .map(b => ({ book: b, score: scoreBook(b, q) }))
             .filter(item => item.score > 0);
 
-        // Apply format filter only
-        const fmtFiltered = fmt
-            ? scored.filter(item => item.book.formats.includes(fmt))
-            : scored;
+        let filtered = scored;
+        if (fmtFilter) filtered = filtered.filter(i => i.book.formats.includes(fmtFilter));
+        if (catSet.size > 0) filtered = filtered.filter(i => catSet.has(i.book.category));
+        if (topicSet.size > 0) filtered = filtered.filter(i => topicSet.has(i.book.topic));
 
-        // Sort by relevance score (highest first)
-        fmtFiltered.sort((a, b) => b.score - a.score);
-        filteredBooks = fmtFiltered.map(item => item.book);
+        if (sortDir === "az") {
+            filtered.sort((a, b) => cleanTitle(a.book.title).localeCompare(cleanTitle(b.book.title)));
+        } else if (sortDir === "za") {
+            filtered.sort((a, b) => cleanTitle(b.book.title).localeCompare(cleanTitle(a.book.title)));
+        } else {
+            filtered.sort((a, b) => b.score - a.score);
+        }
+        filteredBooks = filtered.map(item => item.book);
     } else {
-        // Normal sidebar-based filtering (no search query)
-        filteredBooks = allBooks.filter(b =>
-            (!cat || b.category === cat) &&
-            (!topic || b.topic === topic) &&
-            (!fmt || b.formats.includes(fmt))
-        );
-    }
+        // Panel filters take priority, fallback to sidebar
+        if (hasDropdownFilter) {
+            filteredBooks = allBooks.filter(b =>
+                (catSet.size === 0 || catSet.has(b.category)) &&
+                (topicSet.size === 0 || topicSet.has(b.topic)) &&
+                (!fmtFilter || b.formats.includes(fmtFilter))
+            );
+        } else {
+            filteredBooks = allBooks.filter(b =>
+                (!sbCat || b.category === sbCat) &&
+                (!sbTopic || b.topic === sbTopic)
+            );
+        }
 
-    if (currentSort === "az") filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
-    else if (currentSort === "za") filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
+        if (sortDir === "az") {
+            filteredBooks.sort((a, b) => cleanTitle(a.title).localeCompare(cleanTitle(b.title)));
+        } else if (sortDir === "za") {
+            filteredBooks.sort((a, b) => cleanTitle(b.title).localeCompare(cleanTitle(a.title)));
+        }
+    }
 
     currentPage = 1;
     renderBooks();
     renderPagination();
-}
-
-function toggleSort(dir) {
-    currentSort = currentSort === dir ? null : dir;
-    $("#sort-az").classList.toggle("active", currentSort === "az");
-    $("#sort-za").classList.toggle("active", currentSort === "za");
-    applyFilters();
 }
 
 // ═══ RENDER BOOKS ═══

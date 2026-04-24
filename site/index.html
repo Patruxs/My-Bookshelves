@@ -147,29 +147,6 @@
             opacity: 0.9
         }
 
-        .nav-stats {
-            display: flex;
-            gap: 18px;
-            margin-left: auto
-        }
-
-        .nav-stat {
-            text-align: center;
-            line-height: 1.2
-        }
-
-        .nav-stat-num {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary)
-        }
-
-        .nav-stat-label {
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-tertiary)
-        }
 
         .nav-gh {
             color: var(--text-tertiary);
@@ -508,12 +485,14 @@
         /* === Search Bar — Apple-style === */
         .search {
             position: relative;
-            margin-bottom: 16px
+            flex: 1;
+            max-width: 480px;
+            margin: 0 auto;
         }
 
         .search-input {
             width: 100%;
-            height: 40px;
+            height: 36px;
             background: var(--bg-elevated);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
@@ -648,67 +627,229 @@
             margin-bottom: clamp(14px, 2vw, 20px)
         }
 
-        .toolbar-select {
-            height: 34px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 0 30px 0 12px;
-            font-size: 13px;
-            color: var(--text-secondary);
-            font-family: var(--font);
-            cursor: pointer;
-            outline: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%236e6e73' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            transition: border-color var(--transition)
-        }
-
-        .toolbar-select:hover {
-            border-color: var(--border-hover)
-        }
-
         .toolbar-spacer {
             flex: 1
-        }
-
-        .sort-group {
-            display: flex;
-            gap: 2px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 2px
-        }
-
-        .sort-btn {
-            height: 28px;
-            padding: 0 10px;
-            border: none;
-            background: none;
-            color: var(--text-tertiary);
-            font-size: 12px;
-            font-weight: 500;
-            font-family: var(--font);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease
-        }
-
-        .sort-btn:hover {
-            color: var(--text-secondary)
-        }
-
-        .sort-btn.active {
-            background: var(--bg-tertiary);
-            color: var(--text-primary)
         }
 
         .book-count {
             font-size: 12px;
             color: var(--text-tertiary)
+        }
+
+        /* === Filter Panel — Apple-style === */
+        .filter-wrap {
+            position: relative;
+        }
+
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 34px;
+            padding: 0 14px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-family: var(--font);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.has-active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-btn svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .filter-badge {
+            display: none;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 9px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 18px;
+            text-align: center;
+        }
+
+        .filter-badge.visible {
+            display: inline-block;
+        }
+
+        .filter-panel {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            min-width: 800px;
+            max-width: 1000px;
+            max-height: 480px;
+            overflow-y: auto;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-hover);
+            padding: 16px;
+            z-index: 60;
+            opacity: 0;
+            transform: translateY(-8px) scale(0.97);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .filter-panel.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .fp-section {
+            margin-bottom: 14px;
+        }
+
+        .fp-section:last-of-type {
+            margin-bottom: 8px;
+        }
+
+        .fp-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+            padding: 0 2px;
+        }
+
+        .fp-label-count {
+            font-size: 9px;
+            font-weight: 700;
+            background: var(--accent);
+            color: #fff;
+            padding: 1px 6px;
+            border-radius: 8px;
+            line-height: 14px;
+        }
+
+        .fp-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .fp-chip {
+            display: inline-flex;
+            align-items: center;
+            height: 28px;
+            padding: 0 11px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text-secondary);
+            font-size: 11.5px;
+            font-weight: 500;
+            font-family: var(--font);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .fp-chip:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .fp-chip.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .fp-chip.active:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .fp-chip.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        .fp-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            margin-top: 10px;
+        }
+
+        .fp-clear {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            font-family: var(--font);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .fp-clear:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .fp-apply {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font);
+            cursor: pointer;
+            padding: 6px 16px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .fp-apply:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .filter-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 55;
+        }
+
+        .filter-overlay.active {
+            display: block;
         }
 
         /* ═══════════════════════════════
@@ -1304,14 +1445,25 @@
            ═══════════════════════════════════════ */
         @media (max-width: 640px) {
 
-            /* Navbar: compact */
+            /* Navbar: compact & wrapped */
             .nav {
-                height: 44px;
+                height: auto;
+                min-height: 48px;
+                padding: 6px 0 10px;
             }
 
             .nav-inner {
+                height: auto;
                 padding: 0 12px;
-                gap: 10px;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .search {
+                order: 10;
+                flex-basis: 100%;
+                margin: 4px 0 0 0;
+                max-width: none;
             }
 
             .nav-logo {
@@ -1348,7 +1500,7 @@
                 width: 280px;
                 min-width: 280px;
                 top: 0;
-                padding-top: 56px;
+                padding-top: 124px;
             }
 
             /* Main padding is now fluid via clamp() in base .main */
@@ -1369,17 +1521,18 @@
                 left: 10px;
             }
 
-            /* Toolbar sizing uses clamp() in base styles */
-            .toolbar-select {
+            /* Filter panel mobile */
+            .filter-btn {
                 height: 30px;
                 font-size: 12px;
-                padding: 0 26px 0 10px;
+                padding: 0 10px;
             }
 
-            .sort-btn {
-                height: 26px;
-                padding: 0 8px;
-                font-size: 11px;
+            .filter-panel {
+                min-width: 280px;
+                max-width: calc(100vw - 24px);
+                left: 0;
+                right: auto;
             }
 
             .book-count {
@@ -1436,20 +1589,22 @@
                 </svg>
                 My Bookshelves
             </a>
-            <div class="nav-stats">
-                <div class="nav-stat">
-                    <div class="nav-stat-num" id="stat-total">0</div>
-                    <div class="nav-stat-label">Books</div>
-                </div>
-                <div class="nav-stat">
-                    <div class="nav-stat-num" id="stat-cats">0</div>
-                    <div class="nav-stat-label">Categories</div>
-                </div>
-                <div class="nav-stat">
-                    <div class="nav-stat-num" id="stat-topics">0</div>
-                    <div class="nav-stat-label">Topics</div>
-                </div>
+            <div class="search">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input id="search" class="search-input" type="text" placeholder="Search...">
+                <span id="search-global-indicator" class="search-global-indicator">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Global
+                </span>
+                <button id="search-clear-btn" class="search-clear-btn" onclick="clearSearch()" type="button" title="Clear search">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <kbd class="search-kbd">⌘K</kbd>
             </div>
+
             <a href="https://github.com/Patruxs/My-Bookshelves" target="_blank" class="nav-gh" title="GitHub">
                 <svg fill="currentColor" viewBox="0 0 24 24">
                     <path
@@ -1494,38 +1649,20 @@
 
             <!-- MAIN -->
             <div class="main">
-                <!-- Search -->
-                <div class="search">
-                    <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <input id="search" class="search-input" type="text" placeholder="Search all books... (global)">
-                    <span id="search-global-indicator" class="search-global-indicator">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        Global
-                    </span>
-                    <button id="search-clear-btn" class="search-clear-btn" onclick="clearSearch()" type="button" title="Clear search">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
-                    </button>
-                    <kbd class="search-kbd">⌘K</kbd>
-                </div>
+                <!-- Search (Moved to Navbar) -->
 
                 <!-- Toolbar -->
                 <div class="toolbar">
-                    <select id="filter-format" class="toolbar-select" style="display:none">
-                        <option value="">Format</option>
-                    </select>
-                    <select id="filter-fmt" class="toolbar-select">
-                        <option value="">All Formats</option>
-                        <option value="pdf">PDF</option>
-                        <option value="epub">EPUB</option>
-                    </select>
-                    <div class="toolbar-spacer"></div>
-                    <div class="sort-group">
-                        <button id="sort-az" class="sort-btn" title="A → Z">A→Z</button>
-                        <button id="sort-za" class="sort-btn" title="Z → A">Z→A</button>
+                    <div class="filter-wrap">
+                        <button id="filter-btn" class="filter-btn" onclick="toggleFilterPanel()" type="button">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                            Filter
+                            <span id="filter-badge" class="filter-badge">0</span>
+                        </button>
+                        <div id="filter-panel" class="filter-panel"></div>
                     </div>
+                    <div id="filter-overlay" class="filter-overlay" onclick="closeFilterPanel()"></div>
+                    <div class="toolbar-spacer"></div>
                     <span class="book-count"><span id="shown-count">0</span> books</span>
                 </div>
 
