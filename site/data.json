@@ -1043,5 +1043,38 @@
     "format": "pdf",
     "description": "Context: Tài liệu về \"Vibe Coding Process\".\n\nOverview: Hướng dẫn tối ưu hóa quy trình lập trình thông qua việc tương tác và làm việc với các công cụ AI hiện đại.\n\nKey Takeaways:\n• Nắm bắt nguyên lý cốt lõi của vibe coding.\n• Cách tích hợp AI agent vào quy trình phát triển.\n• Thực hành tốt nhất về context management.\n• Chiến lược debug và cải thiện code với AI.",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Vibe_code_process.pdf"
+  },
+  {
+    "id": "1232c2487caf",
+    "title": "AI_Engineering_Building_Applications_with_Foundation_Models",
+    "category": "Computer Science Fundamentals",
+    "topic": "Machine Learning",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/AI_Engineering_Building_Applications_with_Foundation_Models.pdf",
+    "cover": "assets/covers/AI_Engineering_Building_Applications_with_Foundation_Models.webp",
+    "format": "pdf",
+    "description": "Context: A comprehensive guide on AI Engineering and building applications using foundation models.\\n\\nOverview: This book provides insights and practical techniques for integrating foundation models into software applications, covering everything from prompt engineering to system architecture.\\n\\nKey Takeaways:\\n• Understand the core concepts of foundation models.\\n• Learn techniques for effective prompt engineering.\\n• Design robust architectures for AI-powered applications.\\n• Address challenges in deploying and scaling AI systems.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AI_Engineering_Building_Applications_with_Foundation_Models.pdf"
+  },
+  {
+    "id": "5cd3e09d3037",
+    "title": "Building_Applications_with_AI_Agents",
+    "category": "Computer Science Fundamentals",
+    "topic": "Machine Learning",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/Building_Applications_with_AI_Agents.pdf",
+    "cover": "assets/covers/Building_Applications_with_AI_Agents.webp",
+    "format": "pdf",
+    "description": "Context: A practical resource focused on developing applications powered by AI agents.\\n\\nOverview: The book explores the architecture, design patterns, and implementation strategies for building autonomous and semi-autonomous AI agents that can interact with their environment and tools.\\n\\nKey Takeaways:\\n• Master the fundamentals of agentic AI design.\\n• Learn how to integrate external tools and APIs with AI agents.\\n• Explore real-world use cases for autonomous AI systems.\\n• Implement robust orchestration for multi-agent workflows.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_Applications_with_AI_Agents.pdf"
+  },
+  {
+    "id": "ecfa4b348853",
+    "title": "How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026",
+    "category": "Career and Professional Development",
+    "topic": "Job Search and Career Growth",
+    "file_path": "Books/3_Career_and_Professional_Development/Job_Search_and_Career_Growth/How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.pdf",
+    "cover": "assets/covers/How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.webp",
+    "format": "pdf",
+    "description": "Context: A career guide for transitioning into AI and Machine Learning engineering roles in 2026.\\n\\nOverview: This guide outlines the necessary skills, roadmap, and strategies for software engineers or data professionals looking to pivot into the rapidly growing field of AI/ML engineering.\\n\\nKey Takeaways:\\n• Identify the core skills required for modern AI/ML roles.\\n• Build a targeted portfolio of AI and Machine Learning projects.\\n• Learn effective strategies for technical interviews in AI.\\n• Navigate the evolving job market for AI professionals in 2026.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.pdf"
   }
 ]

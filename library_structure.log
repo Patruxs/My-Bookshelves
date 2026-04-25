@@ -1,14 +1,16 @@
 ============================================================
 LIBRARY STRUCTURE LOG
-Generated from: site/data.json (95 books total)
+Generated from: site/data.json (98 books total)
 ============================================================
 
-[1] 1_Computer_Science_Fundamentals (20 books)
+[1] 1_Computer_Science_Fundamentals (22 books)
     Display Name: Computer Science Fundamentals
     ├── Data_Structures_and_Algorithms (2 books)
     │       • Leetcode_Pattern_Recognition_Guide.pdf
     │       • Prefix_Trees_and_Tries.pdf
-    ├── Machine_Learning (1 books)
+    ├── Machine_Learning (3 books)
+    │       • AI_Engineering_Building_Applications_with_Foundation_Models.pdf
+    │       • Building_Applications_with_AI_Agents.pdf
     │       • MLCoBanVuHuuTiep.pdf
     ├── Programming_Languages (13 books)
     │       • Crafting_Interpreters.pdf
@@ -75,13 +77,14 @@ Generated from: site/data.json (95 books total)
             • System_Design.pdf
             • The_Ultimate_System_Design_Playbook.pdf
 
-[3] 3_Career_and_Professional_Development (5 books)
+[3] 3_Career_and_Professional_Development (6 books)
     Display Name: Career and Professional Development
     ├── Interview_Prep (2 books)
     │       • Cracking_the_Coding_Interview.pdf
     │       • FAANG_Study_Plan.pdf
-    └── Job_Search_and_Career_Growth (3 books)
+    └── Job_Search_and_Career_Growth (4 books)
             • 10_Essential_Coding_Projects_to_Master_Your_Fundamentals_and_Land_a_100_000_Job_ASAP.pdf
+            • How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.pdf
             • Learn_How_to_Code_Online_and_Land_a_100k_Job_ASAP.pdf
             • Think_Like_a_CTO.pdf
 
