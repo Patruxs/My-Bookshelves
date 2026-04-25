@@ -109,14 +109,20 @@
    NAVBAR — Apple Frosted Glass
    ═══════════════════════════════ */
         .nav {
-            position: sticky;
-            top: 0;
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 50;
             height: var(--nav-h);
+            max-width: calc(100% - clamp(24px, 4vw, 48px));
+            width: fit-content;
             background: var(--glass);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid var(--glass-border)
+            border: 1px solid var(--glass-border);
+            border-radius: 9999px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
         }
 
         .nav-inner {
@@ -125,7 +131,7 @@
             height: 100%;
             display: flex;
             align-items: center;
-            padding: 0 clamp(12px, 2vw, 22px);
+            padding: 0 clamp(20px, 3vw, 28px);
             gap: 16px
         }
 
@@ -186,15 +192,14 @@
             margin: 0 auto
         }
 
-        /* === Sidebar === */
         .sidebar {
             width: var(--sidebar-w);
             min-width: var(--sidebar-w);
-            height: calc(100vh - var(--nav-h));
+            height: 100vh;
             position: sticky;
-            top: var(--nav-h);
+            top: 0;
             overflow-y: auto;
-            padding: 16px 12px;
+            padding: 24px 12px;
             border-right: 1px solid var(--border);
             transition: transform var(--transition), opacity var(--transition)
         }
@@ -405,7 +410,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            z-index: 30;
+            z-index: 90;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px)
         }
@@ -422,7 +427,7 @@
                 width: 320px;
                 min-width: 320px;
                 height: 100vh;
-                z-index: 40;
+                z-index: 100;
                 background: var(--glass);
                 backdrop-filter: saturate(180%) blur(20px);
                 -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -430,8 +435,7 @@
                 box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
                 transform: translateX(-100%);
                 opacity: 0;
-                padding: 20px 16px;
-                padding-top: 60px;
+                padding: 24px 16px;
             }
 
             .sidebar.open {
@@ -441,6 +445,14 @@
 
             .nav-menu-btn {
                 display: flex
+            }
+
+            .sb-close-btn {
+                display: flex !important;
+                background: none;
+                border: none;
+                color: var(--text-tertiary);
+                cursor: pointer;
             }
 
             /* Larger text in sidebar for touch */
@@ -479,19 +491,23 @@
         .main {
             flex: 1;
             min-width: 0;
-            padding: clamp(12px, 2vw, 20px) clamp(12px, 3vw, 24px) 60px
+            padding: calc(var(--nav-h) + 40px) clamp(12px, 3vw, 24px) 60px
         }
 
         /* === Search Bar — Apple-style === */
         .search {
             position: relative;
             flex: 1;
-            max-width: 480px;
+            width: 400px;
+            max-width: 100%;
             margin: 0 auto;
         }
 
         .search-input {
+            display: block;
             width: 100%;
+            flex: 1;
+            min-width: 0;
             height: 36px;
             background: var(--bg-elevated);
             border: 1px solid var(--border);
@@ -1011,6 +1027,163 @@
             }
         }
 
+        /* ═══════════════════════════════
+   LAYOUT TOGGLE & LIST VIEW
+   ═══════════════════════════════ */
+        .layout-toggle {
+            display: flex;
+            align-items: center;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 2px;
+            gap: 2px;
+            margin-right: 4px;
+        }
+
+        .layout-btn {
+            background: transparent;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .layout-btn:hover {
+            color: var(--text-secondary);
+        }
+
+        .layout-btn.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .layout-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .grid.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .grid.list-view .card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: auto;
+            min-height: 180px;
+        }
+
+        .grid.list-view .card:hover {
+            transform: translateX(4px) translateY(-2px);
+        }
+
+        .grid.list-view .card-cover {
+            width: 130px;
+            min-width: 130px;
+            height: 180px;
+            border-right: 1px solid var(--border);
+            aspect-ratio: auto;
+        }
+
+        .grid.list-view .card-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 12px 16px;
+            min-width: 0;
+        }
+
+        .grid.list-view .card-title {
+            font-size: clamp(16px, 2.5vw, 18px);
+            margin-bottom: 8px;
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+        }
+
+        .card-desc-list {
+            display: none;
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 8px;
+            line-height: 1.45;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .grid:not(.list-view) .card-desc-list {
+            display: none !important;
+        }
+        
+        .grid.list-view .card-desc-list {
+            display: -webkit-box !important;
+            line-clamp: 3;
+            -webkit-line-clamp: 3;
+        }
+
+        .grid.list-view .skeleton {
+            display: flex;
+            flex-direction: row;
+            height: 180px;
+        }
+
+        .grid.list-view .skeleton > div:first-child {
+            width: 130px;
+            min-width: 130px;
+            height: 180px;
+            aspect-ratio: auto !important;
+            border-right: 1px solid var(--border);
+        }
+        
+        .grid.list-view .skeleton > div:last-child {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 640px) {
+            .grid.list-view .card {
+                min-height: 130px;
+            }
+            .grid.list-view .card-cover {
+                width: 90px;
+                min-width: 90px;
+                height: 130px;
+            }
+            .grid.list-view .card-title {
+                white-space: normal;
+                line-clamp: 2;
+                -webkit-line-clamp: 2;
+                font-size: 15px;
+            }
+            .grid.list-view .card-desc-list {
+                line-clamp: 2;
+                -webkit-line-clamp: 2;
+                margin-top: 4px;
+                font-size: 13px;
+            }
+            .grid.list-view .skeleton {
+                height: 130px;
+            }
+            .grid.list-view .skeleton > div:first-child {
+                width: 90px;
+                min-width: 90px;
+                height: 130px;
+            }
+        }
+
         /* === No Results === */
         .no-results {
             display: none;
@@ -1066,7 +1239,7 @@
         .detail-view {
             max-width: 960px;
             margin: 0 auto;
-            padding: clamp(16px, 3vw, 24px) clamp(16px, 3vw, 28px) 60px
+            padding: calc(var(--nav-h) + 40px) clamp(16px, 3vw, 28px) 60px
         }
 
         .dv-back {
@@ -1449,35 +1622,36 @@
            ═══════════════════════════════════════ */
         @media (max-width: 640px) {
 
-            /* Navbar: compact & wrapped */
+            /* Navbar: single line pill */
             .nav {
-                height: auto;
+                height: 48px;
                 min-height: 48px;
-                padding: 6px 0 10px;
+                padding: 0;
+                top: 8px;
+                width: calc(100% - 24px);
+                max-width: none;
+                border-radius: 9999px;
+                border: 1px solid var(--glass-border);
             }
 
             .nav-inner {
-                height: auto;
-                padding: 0 12px;
-                gap: 8px;
-                flex-wrap: wrap;
+                height: 100%;
+                padding: 0 10px;
+                gap: 6px;
+                flex-wrap: nowrap;
+                align-items: center;
             }
 
             .search {
-                order: 10;
-                flex-basis: 100%;
-                margin: 4px 0 0 0;
-                max-width: none;
+                order: 0;
+                flex: 1;
+                margin: 0;
+                min-width: 0;
+                width: auto;
             }
 
             .nav-logo {
-                font-size: 14px;
-                gap: 6px;
-            }
-
-            .nav-logo svg {
-                width: 18px;
-                height: 18px;
+                display: none;
             }
 
             .nav-gh svg {
@@ -1504,14 +1678,11 @@
                 width: 280px;
                 min-width: 280px;
                 top: 0;
-                padding-top: 124px;
+                padding-top: 24px;
             }
 
             /* Main padding is now fluid via clamp() in base .main */
 
-            .search {
-                margin-bottom: 10px;
-            }
 
             .search-input {
                 height: 36px;
@@ -1591,7 +1762,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
-                My Bookshelves
+                <span>My Bookshelves</span>
             </a>
             <div class="search">
                 <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1637,8 +1808,13 @@
             <!-- SIDEBAR -->
             <aside id="sidebar" class="sidebar">
                 <div class="sidebar-heading">
-                    <span>Categories</span>
-                    <button onclick="collapseAllCategories()">Collapse</button>
+                    CATEGORIES
+                    <div style="display:flex; gap: 12px; align-items: center;">
+                        <button onclick="collapseAllCategories()">Collapse</button>
+                        <button class="sb-close-btn" onclick="closeSidebar()" title="Close sidebar" style="display:none;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
                 </div>
                 <button id="sb-all" class="sb-all active" onclick="sidebarSelectAll()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1667,6 +1843,16 @@
                     </div>
                     <div id="filter-overlay" class="filter-overlay" onclick="closeFilterPanel()"></div>
                     <div class="toolbar-spacer"></div>
+                    
+                    <div class="layout-toggle">
+                        <button id="btn-grid" class="layout-btn active" onclick="setViewMode('grid')" title="Grid View">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                        </button>
+                        <button id="btn-list" class="layout-btn" onclick="setViewMode('list')" title="List View">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        </button>
+                    </div>
+
                     <span class="book-count"><span id="shown-count">0</span> books</span>
                 </div>
 

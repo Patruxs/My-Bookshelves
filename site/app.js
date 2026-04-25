@@ -10,6 +10,7 @@ const CONFIG = { githubRepo: "Patruxs/My-Bookshelves", branch: "main" };
 let allBooks = [], filteredBooks = [], currentBookId = null;
 let activeFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
 let pendingFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
+let viewMode = localStorage.getItem("viewMode") || "grid";
 
 function copyFilters(source) {
     return {
@@ -75,6 +76,25 @@ function toggleTheme() {
 }
 initTheme();
 
+// ═══ VIEW MODE ═══
+function setViewMode(mode) {
+    viewMode = mode;
+    localStorage.setItem("viewMode", mode);
+    
+    const btnGrid = $("#btn-grid");
+    const btnList = $("#btn-list");
+    if (btnGrid) btnGrid.classList.toggle("active", mode === "grid");
+    if (btnList) btnList.classList.toggle("active", mode === "list");
+    
+    if (mode === "list") {
+        grid.classList.add("list-view");
+        skeleton.classList.add("list-view");
+    } else {
+        grid.classList.remove("list-view");
+        skeleton.classList.remove("list-view");
+    }
+}
+
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded", init);
 
@@ -82,6 +102,7 @@ async function init() {
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
+    setViewMode(viewMode);
     showSkeleton();
     booksPerPage = calculateBooksPerPage();
     try {
@@ -211,7 +232,13 @@ function collapseAllCategories() {
     document.querySelectorAll(".sb-chevron").forEach(c => c.classList.remove("open"));
     document.querySelectorAll(".sb-topics").forEach(t => t.classList.remove("open"));
 }
-function toggleSidebar() { $("#sidebar").classList.toggle("open"); $("#sb-overlay").classList.toggle("active"); }
+function toggleSidebar() { 
+    if ($("#detail-view").style.display !== "none") {
+        showHomeView(false);
+    }
+    $("#sidebar").classList.toggle("open"); 
+    $("#sb-overlay").classList.toggle("active"); 
+}
 function closeSidebar() { $("#sidebar").classList.remove("open"); $("#sb-overlay").classList.remove("active"); }
 
 // ═══ FILTER PANEL (Dynamic Multi-Select) ═══
@@ -400,9 +427,9 @@ function showSkeleton() {
     let h = "";
     for (let i = 0; i < 12; i++) h += `<div class="skeleton"><div class="shimmer" style="aspect-ratio:3/4"></div><div style="padding:12px"><div class="shimmer" style="height:12px;border-radius:4px;margin-bottom:6px;width:80%"></div><div class="shimmer" style="height:10px;border-radius:4px;width:50%"></div></div></div>`;
     skeleton.innerHTML = h;
-    skeleton.style.display = "grid";
+    skeleton.style.display = "";
 }
-function hideSkeleton() { skeleton.style.display = "none"; grid.style.display = "grid"; }
+function hideSkeleton() { skeleton.style.display = "none"; grid.style.display = ""; }
 
 // ═══ SEARCH MODE ═══
 function handleSearchInput() {
@@ -560,7 +587,8 @@ function renderBooks() {
             </div>
             <div class="card-info">
                 <div class="card-title">${esc(title)}</div>
-                <span class="card-badge badge-${n}">${esc(book.topic)}</span>
+                <div><span class="card-badge badge-${n}">${esc(book.topic)}</span></div>
+                <div class="card-desc-list">${esc((book.description || "").substring(0, 200))}${book.description && book.description.length > 200 ? "..." : ""}</div>
             </div>
         </div>`;
     }).join("");
