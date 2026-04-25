@@ -37,7 +37,12 @@ Sau đó dùng `view_file` đọc toàn bộ `library_structure.log`. Chú ý ph
 
 Với mỗi file trong Inbox, Agent xác định trong bộ nhớ:
 - `category_folder` + `topic_folder` (đối chiếu với log, ưu tiên CÓ SẴN)
-- `description` 3 phần: Context → Overview → Key Takeaways (4-5 `•` bullets)
+- `description` viết theo **O'Reilly style** — 3 đoạn prose tự nhiên, KHÔNG dùng label:
+  1. **Đoạn 1** (bối cảnh): Nêu vấn đề/thách thức mà sách giải quyết
+  2. **Đoạn 2** (tổng quan): Giới thiệu sách, tác giả, phương pháp tiếp cận
+  3. **Đoạn 3** (bullets): 4-5 `•` bullets bắt đầu bằng động từ (Master, Build, Learn, Explore, Implement...)
+  
+  Ngăn cách 3 đoạn bằng `\n\n`. **CẤM** dùng label `Context:`, `Overview:`, `Key Takeaways:`.
 
 **Ngôn ngữ description:**
 - Tên file tiếng Anh → viết English
