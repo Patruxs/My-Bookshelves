@@ -83,6 +83,9 @@ python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8
 
 Dùng `multi_replace_file_content` chèn TẤT CẢ `"description": ""` cùng lúc. KHÔNG edit từng entry.
 
+> ⚠️ **JSON newline:** Dùng `\n` (single escape) cho xuống dòng, KHÔNG dùng `\\n` (double escape).
+> `"Dòng 1.\n\nDòng 2."` ✅ — `"Dòng 1.\\n\\nDòng 2."` ❌ (hiển thị literal `\n`).
+
 ### Bước 12: Cập nhật library_structure.log (BẮT BUỘC)
 
 ```bash

@@ -59,6 +59,9 @@ python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8
 
 13. **CHÈN DESCRIPTIONS** — `multi_replace_file_content` chèn tất cả `"description": ""` cùng lúc.
 
+> ⚠️ **JSON newline:** Dùng `\n` (single escape) cho xuống dòng, KHÔNG dùng `\\n` (double escape).
+> So sánh: `"Dòng 1.\n\nDòng 2."` ✅ — `"Dòng 1.\\n\\nDòng 2."` ❌ (hiển thị literal `\n`).
+
 // turbo 14. Cập nhật log ngay sau phân loại:
 
 ```bash
