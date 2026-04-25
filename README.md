@@ -57,6 +57,12 @@ python -m http.server 8080
 # → http://localhost:8080/site/
 ```
 
+## 🔄 Adding New Books
+
+1. Drop files into `Inbox/`
+2. Run `/auto-organize` — AI classifies, moves, generates covers, writes descriptions, uploads
+3. Push to `main` → GitHub Pages auto-deploys
+
 ## 💾 Storage Strategy
 
 ```
@@ -119,12 +125,6 @@ setup.sh                        # One-command setup (macOS/Linux)
 | `python scripts/cli.py upload`                             | Upload new books to GitHub Releases     |
 | `python scripts/cli.py delete --book "Title"`              | Delete a book                           |
 | `python scripts/cli.py update --book "Title" ...`          | Update metadata                         |
-
-## 🔄 Adding New Books
-
-1. Drop files into `Inbox/`
-2. Run `/auto-organize` — AI classifies, moves, generates covers, writes descriptions, uploads
-3. Push to `main` → GitHub Pages auto-deploys
 
 ## 🤝 Contributing
 
