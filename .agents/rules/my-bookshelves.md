@@ -31,10 +31,23 @@ library_structure.log                   # AI Context Grounding (auto-generated)
 | File sách | ASCII Snake_Case, không dấu | `Go_With_Domain.pdf`, `Kien_truc_ung_dung_web.epub` |
 | Category | `{N}_Snake_Case` | `1_Computer_Science_Fundamentals` |
 | Topic | `Snake_Case` | `Data_Structures_and_Algorithms` |
+| Sub-topic | `Topic/SubTopic` (Snake_Case) | `Programming_Languages/Java` |
 | Ảnh bìa | `Sanitize_Title.webp` | `Head_First_Java_2nd_Edition.webp` |
 | Scripts | lowercase_underscore | `generate_data.py` |
 
 Tên sách: CHỈ dùng `_`, KHÔNG dùng khoảng trắng/`-`/`+`/`.`. Tiếng Việt KHÔNG DẤU.
+
+### ⚠️ HAI DẠNG TÊN (Folder vs Display) — CRITICAL
+
+| Context | Format | Ví dụ |
+|---------|--------|-------|
+| **Folder trên disk** | `Snake_Case` | `Programming_Languages/Java` |
+| **Trường `topic` trong data.json** | Display name (spaces) | `Programming Languages/Java` |
+| **Trường `category` trong data.json** | Display name (spaces) | `Computer Science Fundamentals` |
+
+> ⚠️ **KHÔNG BAO GIỜ** dùng `Snake_Case` (dấu gạch dưới `_`) khi ghi giá trị `topic` hoặc `category` vào `data.json`. Luôn dùng display name với khoảng trắng.
+> Sai: `"topic": "Programming_Languages/Java"` ❌
+> Đúng: `"topic": "Programming Languages/Java"` ✅
 
 ## 4. FRONTEND
 
@@ -73,6 +86,8 @@ Exception: `!library_structure.log` được phép commit.
 6. PHẢI đọc `SKILL.md` trước khi thực hiện `/auto-organize`.
 7. Hỏi user xác nhận trước khi move/rename file.
 8. CSS dùng Variables, JS dùng ES6+, ảnh chỉ WebP.
+9. **Sub-topic**: Sách trong thư mục con (VD: `Programming_Languages/Java/`) PHẢI có `topic` = `"Programming Languages/Java"` (display name, KHÔNG dùng `_`). KHÔNG ĐƯỢC ghi `"Programming Languages"` (thiếu sub-topic).
+10. **Verify sau generate**: Sau khi chạy `generate_data.py`, PHẢI kiểm tra trường `topic` của sách mới có khớp đúng đường dẫn thư mục không (đặc biệt sách trong sub-topic).
 
 ## SCRIPTS (CLI & TUI)
 

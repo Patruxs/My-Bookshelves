@@ -57,6 +57,15 @@ python scripts/cli.py generate --base-dir .
 python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8')); missing=[b['title'] for b in data if not b.get('download_url')]; print(f'Thiếu URL: {len(missing)}'); [print(f'  - {t}') for t in missing]"
 ```
 
+// turbo 12b. **BẮT BUỘC** — Verify `topic` cho sách trong sub-folder (VD: `Programming_Languages/Java`):
+
+```bash
+python -c "import json; d=json.load(open('site/data.json','r',encoding='utf-8')); errors=[(b['title'],b['topic'],b['file_path']) for b in d if b['file_path'].count('/')>=4 and '/'.join(b['file_path'].split('/')[2:-1]).replace('_',' ')!=b['topic']]; print(f'Sub-topic mismatches: {len(errors)}'); [print(f'  - {t} | topic={tp} | path={p}') for t,tp,p in errors]"
+```
+
+> ⚠️ Nếu có mismatch → sửa `topic` trong data.json. Luôn dùng **display name** (khoảng trắng), KHÔNG dùng `Snake_Case` (`_`).
+> Đúng: `"topic": "Programming Languages/Java"` ✅ — Sai: `"topic": "Programming_Languages/Java"` ❌
+
 13. **CHÈN DESCRIPTIONS** — `multi_replace_file_content` chèn tất cả `"description": ""` cùng lúc.
 
 > ⚠️ **JSON newline:** Dùng `\n` (single escape) cho xuống dòng, KHÔNG dùng `\\n` (double escape).

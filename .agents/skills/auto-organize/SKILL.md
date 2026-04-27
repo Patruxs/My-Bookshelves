@@ -14,8 +14,10 @@ description: Tự động phân loại sách mới trong Inbox vào đúng thư 
 | `generate_data.py` CHỈ 1 LẦN | Nếu fail → fix root cause, KHÔNG chạy lại |
 | Verify PyMuPDF + Pillow | PHẢI có cả 2 trước khi generate. Dùng `python -m pip install` |
 | Verify `download_url` | Sau generate: số thiếu URL = đúng N sách mới. Nếu > N → DỪNG |
+| **Verify `topic` sub-folder** | Sau generate: kiểm tra sách trong sub-topic (VD: `Java/`) có `topic` chứa đầy đủ path (`Programming Languages/Java`) không. Nếu thiếu → sửa ngay |
 | Dry-run upload | BẮT BUỘC trước upload thật. Count > N → DỪNG |
 | Mất `download_url` | Khôi phục: `git checkout site/data.json` |
+| **Folder vs Display name** | Folder trên disk dùng `Snake_Case`, nhưng trường `topic`/`category` trong `data.json` dùng display name (khoảng trắng). VD: folder `Programming_Languages/Java` → topic `"Programming Languages/Java"`. KHÔNG BAO GIỜ ghi `_` vào `data.json` |
 
 ## Quy trình thực thi
 
@@ -83,6 +85,16 @@ python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8
 ```
 
 - Thiếu == N → ✅ OK. Thiếu > N → ❌ DỪNG, `git checkout site/data.json`.
+
+### Bước 10b: Verify `topic` cho sub-topic (BẮT BUỘC)
+
+```bash
+python -c "import json; d=json.load(open('site/data.json','r',encoding='utf-8')); errors=[(b['title'],b['topic'],b['file_path']) for b in d if b['file_path'].count('/')>=4 and '/'.join(b['file_path'].split('/')[2:-1]).replace('_',' ')!=b['topic']]; print(f'Sub-topic mismatches: {len(errors)}'); [print(f'  ❌ {t} | topic={tp} | path={p}') for t,tp,p in errors]"
+```
+
+> ⚠️ Nếu có mismatch: sửa trường `topic` trong data.json. Luôn dùng **display name** (khoảng trắng), KHÔNG dùng `Snake_Case` (`_`).
+> Đúng: `"topic": "Programming Languages/Java"` ✅
+> Sai: `"topic": "Programming_Languages/Java"` ❌ (sẽ tạo topic trùng lặp trên UI)
 
 ### Bước 11: Chèn descriptions hàng loạt
 

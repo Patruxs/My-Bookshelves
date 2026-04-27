@@ -241,9 +241,13 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
             if len(parts) == 0:
                 # Files directly in category folder
                 topic_name = category_name
-            else:
-                # First subfolder is the topic
+            elif len(parts) == 1:
+                # Single-level topic (e.g. Data_Structures_and_Algorithms)
                 topic_name = parse_topic_name(parts[0])
+            else:
+                # Nested sub-topic (e.g. Programming_Languages/Java)
+                # Join ALL parts with '/' to preserve hierarchy
+                topic_name = '/'.join(parse_topic_name(p) for p in parts)
 
             # Sort: PDF before EPUB for same stem (PDF cover takes priority)
             def _sort_pdf_first(name: str) -> tuple:
