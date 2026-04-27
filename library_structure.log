@@ -1,9 +1,9 @@
 ============================================================
 LIBRARY STRUCTURE LOG
-Generated from: site/data.json (98 books total)
+Generated from: site/data.json (102 books total)
 ============================================================
 
-[1] 1_Computer_Science_Fundamentals (22 books)
+[1] 1_Computer_Science_Fundamentals (25 books)
     Display Name: Computer Science Fundamentals
     ├── Data_Structures_and_Algorithms (2 books)
     │       • Leetcode_Pattern_Recognition_Guide.pdf
@@ -12,15 +12,18 @@ Generated from: site/data.json (98 books total)
     │       • AI_Engineering_Building_Applications_with_Foundation_Models.pdf
     │       • Building_Applications_with_AI_Agents.pdf
     │       • MLCoBanVuHuuTiep.pdf
-    ├── Programming_Languages (13 books)
+    ├── Programming_Languages (16 books)
     │       • Crafting_Interpreters.pdf
     │       • Structure_and_Interpretation_of_Computer_Programs.pdf
-    │   ├── Java (10 books)
+    │   ├── Java (13 books)
     │           • Guide_To_Clear_Java_Developer_Interview.pdf
     │           • Head_First_Java_2nd_Edition.pdf
     │           • Introduction_to_Programming_Using_Java.pdf
     │           • Java_How_to_Program_9th_edition.pdf
+    │           • OCA_OCP_Java_SE_8_Programmer_Practice_Tests.pdf
+    │           • OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study.pdf
     │           • OCP_17_Programmer_s_guide.pdf
+    │           • OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study.pdf
     │           • OCP_Oracle_Certified_Professional_Java_SE_21_Developer_Study_Guide.pdf
     │           • Send_API_Hibernate_JDBC.pdf
     │           • Spring_Start_Here.pdf
@@ -34,7 +37,7 @@ Generated from: site/data.json (98 books total)
             • Computer_Systems_A_Programmer_s_Perspective_3rd_Edition.pdf
             • Operating_Systems_Three_Easy_Pieces.pdf
 
-[2] 2_Software_Engineering (33 books)
+[2] 2_Software_Engineering (34 books)
     Display Name: Software Engineering
     ├── Cloud_Native_and_Observability (7 books)
     │       • Distributed_Tracing_in_Practice.pdf
@@ -68,14 +71,16 @@ Generated from: site/data.json (98 books total)
     │       • K8S_CHEAT_SHEET.pdf
     │       • Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Edition_Brendan_Burns_Eddie_Villalba_Dave_Strebel_etc.pdf
     │       • Kubernetes_in_Action_Marko_Luksa.pdf
-    └── Software_Architecture_and_Design (7 books)
-            • A_Philosophy_of_Software_Design.pdf
-            • Designing_Data_Intensive_Applications.pdf
-            • Go_With_Domain.pdf
-            • Kien_truc_ung_dung_web.epub
-            • Kien_truc_ung_dung_web.pdf
-            • System_Design.pdf
-            • The_Ultimate_System_Design_Playbook.pdf
+    ├── Software_Architecture_and_Design (7 books)
+    │       • A_Philosophy_of_Software_Design.pdf
+    │       • Designing_Data_Intensive_Applications.pdf
+    │       • Go_With_Domain.pdf
+    │       • Kien_truc_ung_dung_web.epub
+    │       • Kien_truc_ung_dung_web.pdf
+    │       • System_Design.pdf
+    │       • The_Ultimate_System_Design_Playbook.pdf
+    └── Web_Development (1 books)
+            • Learning_Web_Design_5th_Edition.pdf
 
 [3] 3_Career_and_Professional_Development (6 books)
     Display Name: Career and Professional Development
@@ -155,6 +160,7 @@ AVAILABLE CATEGORIES (for classification):
     -> Game_Development
     -> Kubernetes
     -> Software_Architecture_and_Design
+    -> Web_Development
   3_Career_and_Professional_Development
     -> Interview_Prep
     -> Job_Search_and_Career_Growth

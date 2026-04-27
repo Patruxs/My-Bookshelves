@@ -150,13 +150,30 @@ function renderSidebar() {
     const tree = {};
     allBooks.forEach(b => {
         if (!tree[b.category]) tree[b.category] = {};
-        if (!tree[b.category][b.topic]) tree[b.category][b.topic] = 0;
-        tree[b.category][b.topic]++;
+        
+        const parts = b.topic.split('/');
+        const mainTopic = parts[0];
+        const subTopic = parts.length > 1 ? parts[1] : null;
+
+        if (!tree[b.category][mainTopic]) {
+            tree[b.category][mainTopic] = { count: 0, subtopics: {} };
+        }
+        
+        if (subTopic) {
+            if (!tree[b.category][mainTopic].subtopics[subTopic]) {
+                tree[b.category][mainTopic].subtopics[subTopic] = 0;
+            }
+            tree[b.category][mainTopic].subtopics[subTopic]++;
+        } else {
+            tree[b.category][mainTopic].count++;
+        }
     });
     $("#sb-all-count").textContent = allBooks.length;
 
     let html = "";
-    for (const [cat, topics] of Object.entries(tree)) {
+    const sortedCats = Object.keys(tree).sort((a, b) => a.localeCompare(b));
+    for (const cat of sortedCats) {
+        const topics = tree[cat];
         const count = allBooks.filter(b => b.category === cat).length;
         const n = getCatNum(cat);
         html += `<div>
@@ -167,19 +184,41 @@ function renderSidebar() {
                 <span class="sb-cat-count">${count}</span>
             </button>
             <div class="sb-topics" data-cat="${esc(cat)}">`;
-        const sortedTopics = Object.keys(topics).sort((a,b) => a.localeCompare(b));
-        for (const topic of sortedTopics) {
-            const tc = topics[topic];
-            const parts = topic.split('/');
-            const isSub = parts.length > 1;
-            const displayName = isSub ? parts.slice(1).join('/') : parts[0];
-            const extraStyle = isSub ? 'padding-left: 32px; font-size: 12px; opacity: 0.9;' : '';
-            const dotStyle = isSub ? 'opacity: 0.2; transform: scale(0.6);' : '';
-            html += `<button class="sb-topic" style="${extraStyle}" data-cat="${esc(cat)}" data-topic="${esc(topic)}" onclick="sidebarSelectTopic(this)">
-                <span class="sb-topic-dot dot-${n}" style="${dotStyle}"></span>
-                <span class="sb-topic-name">${esc(displayName)}</span>
-                <span class="sb-topic-count">${tc}</span>
-            </button>`;
+        
+        const sortedMainTopics = Object.keys(topics).sort((a,b) => a.localeCompare(b));
+        for (const mainTopic of sortedMainTopics) {
+            const data = topics[mainTopic];
+            const hasSub = Object.keys(data.subtopics).length > 0;
+            const totalCount = data.count + Object.values(data.subtopics).reduce((a,b)=>a+b, 0);
+            
+            if (hasSub) {
+                html += `<div>
+                    <button class="sb-topic parent" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" onclick="sidebarToggleTopic(this)">
+                        <svg class="sb-sub-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <span class="sb-topic-dot dot-${n}"></span>
+                        <span class="sb-topic-name">${esc(mainTopic)}</span>
+                        <span class="sb-topic-count">${totalCount}</span>
+                    </button>
+                    <div class="sb-subtopics">`;
+                
+                const sortedSubs = Object.keys(data.subtopics).sort((a,b) => a.localeCompare(b));
+                for (const sub of sortedSubs) {
+                    const stCount = data.subtopics[sub];
+                    const fullTopic = `${mainTopic}/${sub}`;
+                    html += `<button class="sb-topic sub" data-cat="${esc(cat)}" data-topic="${esc(fullTopic)}" onclick="sidebarSelectTopic(this)">
+                        <span class="sb-topic-dot dot-${n}" style="opacity: 0.2; transform: scale(0.6);"></span>
+                        <span class="sb-topic-name">${esc(sub)}</span>
+                        <span class="sb-topic-count">${stCount}</span>
+                    </button>`;
+                }
+                html += `</div></div>`;
+            } else {
+                html += `<button class="sb-topic" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" onclick="sidebarSelectTopic(this)">
+                    <span class="sb-topic-dot dot-${n}"></span>
+                    <span class="sb-topic-name">${esc(mainTopic)}</span>
+                    <span class="sb-topic-count">${totalCount}</span>
+                </button>`;
+            }
         }
         html += `</div></div>`;
     }
@@ -204,6 +243,23 @@ function sidebarToggleCat(btn) {
 
 function sidebarSelectTopic(btn) {
     sidebarSelection = { category: btn.dataset.cat, topic: btn.dataset.topic };
+    updateSidebarUI();
+    applyFilters();
+}
+
+function sidebarToggleTopic(btn) {
+    const chevron = btn.querySelector(".sb-sub-chevron");
+    const subtopics = btn.nextElementSibling;
+    
+    if (sidebarSelection.category === btn.dataset.cat && sidebarSelection.topic === btn.dataset.topic) {
+        if (chevron) chevron.classList.toggle("open");
+        if (subtopics) subtopics.classList.toggle("open");
+        return;
+    }
+    
+    sidebarSelection = { category: btn.dataset.cat, topic: btn.dataset.topic };
+    if (chevron) chevron.classList.add("open");
+    if (subtopics) subtopics.classList.add("open");
     updateSidebarUI();
     applyFilters();
 }
@@ -236,8 +292,8 @@ function updateSidebarUI() {
 }
 
 function collapseAllCategories() {
-    document.querySelectorAll(".sb-chevron").forEach(c => c.classList.remove("open"));
-    document.querySelectorAll(".sb-topics").forEach(t => t.classList.remove("open"));
+    document.querySelectorAll(".sb-chevron, .sb-sub-chevron").forEach(c => c.classList.remove("open"));
+    document.querySelectorAll(".sb-topics, .sb-subtopics").forEach(t => t.classList.remove("open"));
 }
 function toggleSidebar() { 
     if ($("#detail-view").style.display !== "none") {
@@ -548,7 +604,7 @@ function applyFilters() {
         } else {
             filteredBooks = allBooks.filter(b =>
                 (!sbCat || b.category === sbCat) &&
-                (!sbTopic || b.topic === sbTopic)
+                (!sbTopic || b.topic === sbTopic || b.topic.startsWith(sbTopic + '/'))
             );
         }
 

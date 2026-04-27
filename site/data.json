@@ -982,7 +982,7 @@
     "id": "e02ea8cd7b5f",
     "title": "OCP_17_Programmer_s_guide",
     "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
+    "topic": "Programming Languages",
     "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCP_17_Programmer_s_guide.pdf",
     "cover": "assets/covers/OCP_17_Programmer_s_guide.webp",
     "format": "pdf",
@@ -1076,5 +1076,49 @@
     "format": "pdf",
     "description": "The AI and Machine Learning job market in 2026 is booming, but breaking in from a traditional software engineering or data role is not straightforward. The skill gaps, portfolio expectations, and interview formats are fundamentally different from conventional development positions.\n\nThis career guide provides a concrete roadmap for software engineers and data professionals looking to pivot into AI/ML engineering. It covers the essential skills to acquire, how to build a compelling project portfolio, and strategies for navigating the unique hiring process in the AI industry.\n\n• Identify the core technical skills required for modern AI/ML roles: Python, deep learning frameworks, and MLOps\n• Build a targeted portfolio of projects that demonstrate real ML engineering competence\n• Prepare for AI-specific technical interviews: ML system design, coding, and research discussions\n• Navigate the evolving AI job market: company types, role variations, and compensation benchmarks\n• Create a structured transition plan with realistic timelines and milestones",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.pdf"
+  },
+  {
+    "id": "f0bd122ec9eb",
+    "title": "OCA_OCP_Java_SE_8_Programmer_Practice_Tests",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCA_OCP_Java_SE_8_Programmer_Practice_Tests.pdf",
+    "cover": "assets/covers/OCA_OCP_Java_SE_8_Programmer_Practice_Tests.webp",
+    "format": "pdf",
+    "description": "Preparing for Oracle's Java SE 8 certification exams requires rigorous practice and a deep understanding of core language features. Many candidates struggle not with the concepts, but with the specific formats, edge cases, and tricky questions presented in the actual tests.\n\nThis practice test book by Jeanne Boyarsky and Scott Selikoff is the ultimate companion for the OCA and OCP exams. It offers hundreds of realistic questions covering every exam objective, complete with detailed explanations to help identify knowledge gaps and reinforce key concepts.\n\n• Assess your readiness for the OCA (1Z0-808) and OCP (1Z0-809) exams\n• Master tricky edge cases in Java syntax, concurrency, and streams\n• Understand the reasoning behind correct and incorrect answers through detailed explanations\n• Build confidence by practicing with questions modeled after the real exams\n• Identify weak areas in your Java knowledge to focus your study efforts",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OCA_OCP_Java_SE_8_Programmer_Practice_Tests.pdf"
+  },
+  {
+    "id": "bc4fbd22ea0b",
+    "title": "OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study.pdf",
+    "cover": "assets/covers/OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study.webp",
+    "format": "pdf",
+    "description": "Achieving the Oracle Certified Associate (OCA) certification is a crucial first step for Java developers looking to validate their foundational skills. However, mastering the strict rules of the Java language, especially around variable scope, exception handling, and object orientation, can be challenging for beginners.\n\nThe OCA Java SE 8 Programmer I Study Guide by Jeanne Boyarsky and Scott Selikoff provides a thorough, step-by-step walkthrough of the exam objectives. It combines clear explanations of core Java concepts with practical examples, review questions, and exam tips to ensure complete preparation.\n\n• Grasp the fundamentals of Java data types, operators, and control flow statements\n• Master object-oriented programming principles including inheritance, encapsulation, and polymorphism\n• Learn to handle exceptions properly and understand the standard Java API\n• Practice with chapter review questions to test your comprehension\n• Navigate the specific pitfalls and trick questions commonly found in the OCA exam",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study.pdf"
+  },
+  {
+    "id": "64552d2eacc3",
+    "title": "OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study.pdf",
+    "cover": "assets/covers/OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study.webp",
+    "format": "pdf",
+    "description": "As Java continues to evolve with rapid release cycles, the SE 17 certification represents the modern standard for professional Java developers. The exam demands a deep understanding of advanced language features, including records, sealed classes, modularity, and modern concurrency models.\n\nThis OCP Java SE 17 Developer Study Guide delivers an in-depth exploration of the latest Java features required for the 1Z0-829 exam. It provides developers with the knowledge needed not just to pass the certification, but to build robust, modern, and scalable Java applications in enterprise environments.\n\n• Master modern Java features like records, pattern matching, and sealed classes\n• Implement robust concurrent applications using the Java Concurrency API\n• Understand and apply the Java Platform Module System (JPMS) for better application structure\n• Explore advanced stream processing and functional programming techniques\n• Secure Java applications and manage localization effectively",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study.pdf"
+  },
+  {
+    "id": "b85b5f0e9e0b",
+    "title": "Learning_Web_Design_5th_Edition",
+    "category": "Software Engineering",
+    "topic": "Web Development",
+    "file_path": "Books/2_Software_Engineering/Web_Development/Learning_Web_Design_5th_Edition.pdf",
+    "cover": "assets/covers/Learning_Web_Design_5th_Edition.webp",
+    "format": "pdf",
+    "description": "The modern web requires not just writing HTML and CSS, but understanding responsive design, accessibility, and modern layouts. As web standards evolve rapidly, developers and designers need a solid foundation in the core technologies that power user interfaces.\n\nLearning Web Design by Jennifer Robbins provides a comprehensive, beginner-friendly guide to building websites. It covers everything from basic HTML syntax and CSS styling to web graphics and introductory JavaScript, making it an essential resource for anyone starting in web development.\n\n• Master the fundamentals of HTML5 semantic elements and document structure\n• Build responsive, mobile-first layouts using CSS Grid and Flexbox\n• Optimize web graphics for performance without sacrificing quality\n• Implement modern web typography and color theory principles\n• Explore the basics of JavaScript to add interactivity to your sites",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Web_Design_5th_Edition.pdf"
   }
 ]
