@@ -15,9 +15,7 @@ Generated from: site/data.json (98 books total)
     ├── Programming_Languages (13 books)
     │       • Crafting_Interpreters.pdf
     │       • Structure_and_Interpretation_of_Computer_Programs.pdf
-    │   ├── JavaScript (1 books)
-    │           • Eloquent_JavaScript.pdf
-    │   └── java (10 books)
+    │   ├── Java (10 books)
     │           • Guide_To_Clear_Java_Developer_Interview.pdf
     │           • Head_First_Java_2nd_Edition.pdf
     │           • Introduction_to_Programming_Using_Java.pdf
@@ -28,6 +26,8 @@ Generated from: site/data.json (98 books total)
     │           • Spring_Start_Here.pdf
     │           • Teach_Yourself_Java_in_21_days.pdf
     │           • TroubleShooting_Java_2th_edition.pdf
+    │   └── JavaScript (1 books)
+    │           • Eloquent_JavaScript.pdf
     └── Systems_and_OS (4 books)
             • 20_Years_of_Linux_Experience_in_20Minutes.pdf
             • A_Latency_Handbook_for_SWE_Quang_Hoang.pdf
@@ -144,8 +144,8 @@ AVAILABLE CATEGORIES (for classification):
   1_Computer_Science_Fundamentals
     -> Data_Structures_and_Algorithms
     -> Machine_Learning
+    -> Programming_Languages/Java
     -> Programming_Languages/JavaScript
-    -> Programming_Languages/java
     -> Systems_and_OS
   2_Software_Engineering
     -> Cloud_Native_and_Observability
