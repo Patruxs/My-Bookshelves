@@ -21,10 +21,37 @@ function copyFilters(source) {
     };
 }
 let sidebarSelection = { category: "", topic: "" };
+let sidebarViewMode = 'collections'; // 'discover' | 'collections' | 'archive' | 'recent'
 let isGlobalSearch = false;
 let currentPage = 1;
 let booksPerPage = 16;
 let savedScrollPos = 0;
+let categoriesCollapsed = false;
+
+// ═══ RECENT & ARCHIVE (localStorage) ═══
+function getRecentBooks() {
+    try { return JSON.parse(localStorage.getItem('recentBooks') || '[]'); } catch { return []; }
+}
+function addRecentBook(bookId) {
+    let recent = getRecentBooks().filter(id => id !== bookId);
+    recent.unshift(bookId);
+    if (recent.length > 50) recent = recent.slice(0, 50);
+    localStorage.setItem('recentBooks', JSON.stringify(recent));
+}
+function getArchivedBooks() {
+    try { return JSON.parse(localStorage.getItem('archivedBooks') || '[]'); } catch { return []; }
+}
+function addArchivedBook(bookId) {
+    let archived = getArchivedBooks();
+    if (!archived.includes(bookId)) {
+        archived.unshift(bookId);
+        localStorage.setItem('archivedBooks', JSON.stringify(archived));
+    }
+}
+function removeArchivedBook(bookId) {
+    let archived = getArchivedBooks().filter(id => id !== bookId);
+    localStorage.setItem('archivedBooks', JSON.stringify(archived));
+}
 
 // ═══ DYNAMIC PAGINATION ═══
 const MIN_BOOKS = 30;
@@ -168,7 +195,8 @@ function renderSidebar() {
             tree[b.category][mainTopic].count++;
         }
     });
-    $("#sb-all-count").textContent = allBooks.length;
+    const sbAllCount = $("#sb-all-count");
+    if (sbAllCount) sbAllCount.textContent = allBooks.length;
 
     let html = "";
     const sortedCats = Object.keys(tree).sort((a, b) => a.localeCompare(b));
@@ -178,10 +206,9 @@ function renderSidebar() {
         const n = getCatNum(cat);
         html += `<div>
             <button class="sb-cat" data-cat="${esc(cat)}" onclick="sidebarToggleCat(this)">
-                <svg class="sb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                <span class="sb-cat-icon">${getCatIcon(cat)}</span>
-                <span class="sb-cat-name">${esc(cat)}</span>
-                <span class="sb-cat-count">${count}</span>
+                <svg class="sb-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                <span class="sb-label">${esc(cat)}</span>
+                <svg class="sb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
             <div class="sb-topics" data-cat="${esc(cat)}">`;
         
@@ -189,34 +216,26 @@ function renderSidebar() {
         for (const mainTopic of sortedMainTopics) {
             const data = topics[mainTopic];
             const hasSub = Object.keys(data.subtopics).length > 0;
-            const totalCount = data.count + Object.values(data.subtopics).reduce((a,b)=>a+b, 0);
             
             if (hasSub) {
                 html += `<div>
                     <button class="sb-topic parent" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" onclick="sidebarToggleTopic(this)">
-                        <svg class="sb-sub-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                        <span class="sb-topic-dot dot-${n}"></span>
-                        <span class="sb-topic-name">${esc(mainTopic)}</span>
-                        <span class="sb-topic-count">${totalCount}</span>
+                        <span class="sb-label">${esc(mainTopic)}</span>
+                        <svg class="sb-chevron sb-sub-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div class="sb-subtopics">`;
                 
                 const sortedSubs = Object.keys(data.subtopics).sort((a,b) => a.localeCompare(b));
                 for (const sub of sortedSubs) {
-                    const stCount = data.subtopics[sub];
                     const fullTopic = `${mainTopic}/${sub}`;
                     html += `<button class="sb-topic sub" data-cat="${esc(cat)}" data-topic="${esc(fullTopic)}" onclick="sidebarSelectTopic(this)">
-                        <span class="sb-topic-dot dot-${n}" style="opacity: 0.2; transform: scale(0.6);"></span>
-                        <span class="sb-topic-name">${esc(sub)}</span>
-                        <span class="sb-topic-count">${stCount}</span>
+                        <span class="sb-label">${esc(sub)}</span>
                     </button>`;
                 }
                 html += `</div></div>`;
             } else {
                 html += `<button class="sb-topic" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" onclick="sidebarSelectTopic(this)">
-                    <span class="sb-topic-dot dot-${n}"></span>
-                    <span class="sb-topic-name">${esc(mainTopic)}</span>
-                    <span class="sb-topic-count">${totalCount}</span>
+                    <span class="sb-label">${esc(mainTopic)}</span>
                 </button>`;
             }
         }
@@ -234,6 +253,7 @@ function sidebarToggleCat(btn) {
         topics.classList.toggle("open");
         return;
     }
+    sidebarViewMode = 'collections';
     sidebarSelection = { category: cat, topic: "" };
     chevron.classList.add("open");
     topics.classList.add("open");
@@ -242,7 +262,38 @@ function sidebarToggleCat(btn) {
 }
 
 function sidebarSelectTopic(btn) {
+    sidebarViewMode = 'collections';
     sidebarSelection = { category: btn.dataset.cat, topic: btn.dataset.topic };
+    updateSidebarUI();
+    applyFilters();
+}
+
+function sidebarSelectTopicByNames(cat, topic) {
+    sidebarViewMode = 'collections';
+    sidebarSelection = { category: cat, topic: topic };
+    
+    // Expand the category in sidebar
+    const catBtn = document.querySelector(`.sb-cat-btn[data-cat="${cat}"]`);
+    if (catBtn) {
+        const chevron = catBtn.querySelector(".sb-chevron");
+        const topicsEl = catBtn.nextElementSibling;
+        if (chevron) chevron.classList.add("open");
+        if (topicsEl) topicsEl.classList.add("open");
+    }
+    
+    // Expand the topic if it's a subtopic
+    const topicParts = topic.split('/');
+    if (topicParts.length > 1) {
+        const parentTopic = topicParts[0];
+        const topicBtn = document.querySelector(`.sb-topic-btn[data-cat="${cat}"][data-topic="${parentTopic}"]`);
+        if (topicBtn) {
+            const chevron = topicBtn.querySelector(".sb-sub-chevron");
+            const subtopicsEl = topicBtn.nextElementSibling;
+            if (chevron) chevron.classList.add("open");
+            if (subtopicsEl) subtopicsEl.classList.add("open");
+        }
+    }
+    
     updateSidebarUI();
     applyFilters();
 }
@@ -257,6 +308,7 @@ function sidebarToggleTopic(btn) {
         return;
     }
     
+    sidebarViewMode = 'collections';
     sidebarSelection = { category: btn.dataset.cat, topic: btn.dataset.topic };
     if (chevron) chevron.classList.add("open");
     if (subtopics) subtopics.classList.add("open");
@@ -266,6 +318,28 @@ function sidebarToggleTopic(btn) {
 
 function sidebarSelectAll() {
     sidebarSelection = { category: "", topic: "" };
+    sidebarViewMode = 'collections';
+    updateSidebarUI();
+    applyFilters();
+}
+
+function sidebarSelectDiscover() {
+    sidebarSelection = { category: "", topic: "" };
+    sidebarViewMode = 'discover';
+    updateSidebarUI();
+    applyFilters();
+}
+
+function sidebarSelectArchive() {
+    sidebarSelection = { category: "", topic: "" };
+    sidebarViewMode = 'archive';
+    updateSidebarUI();
+    applyFilters();
+}
+
+function sidebarSelectRecent() {
+    sidebarSelection = { category: "", topic: "" };
+    sidebarViewMode = 'recent';
     updateSidebarUI();
     applyFilters();
 }
@@ -275,13 +349,21 @@ function clearAllFilters() {
     activeFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
     pendingFilters = copyFilters(activeFilters);
     isGlobalSearch = false;
+    sidebarViewMode = 'collections';
     updateSearchModeUI();
-    updateFilterPanelUI();
+    updateFilterBadge();
     sidebarSelectAll();
 }
 
 function updateSidebarUI() {
-    $("#sb-all").classList.toggle("active", !sidebarSelection.category);
+    const btnCollections = $("#sb-collections");
+    const btnDiscover = $("#sb-discover");
+    const btnArchive = $("#sb-archive");
+    const btnRecent = $("#sb-recent");
+    if (btnCollections) btnCollections.classList.toggle("active", sidebarViewMode === 'collections' && !sidebarSelection.category);
+    if (btnDiscover) btnDiscover.classList.toggle("active", sidebarViewMode === 'discover');
+    if (btnArchive) btnArchive.classList.toggle("active", sidebarViewMode === 'archive');
+    if (btnRecent) btnRecent.classList.toggle("active", sidebarViewMode === 'recent');
     document.querySelectorAll(".sb-cat").forEach(b => {
         b.classList.toggle("active", b.dataset.cat === sidebarSelection.category && !sidebarSelection.topic);
     });
@@ -292,8 +374,20 @@ function updateSidebarUI() {
 }
 
 function collapseAllCategories() {
-    document.querySelectorAll(".sb-chevron, .sb-sub-chevron").forEach(c => c.classList.remove("open"));
-    document.querySelectorAll(".sb-topics, .sb-subtopics").forEach(t => t.classList.remove("open"));
+    categoriesCollapsed = !categoriesCollapsed;
+    const btn = $("#sb-collapse-btn");
+    
+    if (categoriesCollapsed) {
+        // Close all chevrons and submenus, but don't hide the main tree
+        document.querySelectorAll(".sb-chevron, .sb-sub-chevron").forEach(c => c.classList.remove("open"));
+        document.querySelectorAll(".sb-topics, .sb-subtopics").forEach(t => t.classList.remove("open"));
+        if (btn) btn.textContent = 'Expand';
+    } else {
+        // Open all main categories
+        document.querySelectorAll(".sb-chevron").forEach(c => c.classList.add("open"));
+        document.querySelectorAll(".sb-topics").forEach(t => t.classList.add("open"));
+        if (btn) btn.textContent = 'Collapse';
+    }
 }
 function toggleSidebar() { 
     if ($("#detail-view").style.display !== "none") {
@@ -304,57 +398,200 @@ function toggleSidebar() {
 }
 function closeSidebar() { $("#sidebar").classList.remove("open"); $("#sb-overlay").classList.remove("active"); }
 
-// ═══ FILTER PANEL (Dynamic Multi-Select) ═══
+// ═══ FILTER PANEL (Modal UI) ═══
+let activeFilterTab = 'topic';
+let fpSearchQuery = '';
+
 function populateFilterPanel() {
     const panel = $("#filter-panel");
-    const formats = [...new Set(allBooks.flatMap(b => b.formats))].sort();
-    const categories = [...new Set(allBooks.map(b => b.category))].sort((a, b) => a.localeCompare(b));
-    const topics = [...new Set(allBooks.map(b => b.topic))].sort((a, b) => a.localeCompare(b));
+    const title = "Filters";
 
-    let html = '';
-
-    // Sort section
-    html += `<div class="fp-section">
-        <div class="fp-label">📝 Sort by Title</div>
-        <div class="fp-chips">
-            <button class="fp-chip" data-group="sort" data-value="az" onclick="toggleChip(this)">A → Z</button>
-            <button class="fp-chip" data-group="sort" data-value="za" onclick="toggleChip(this)">Z → A</button>
+    let html = `
+        <div class="fp-header">
+            <div class="fp-title">${title}</div>
+            <button class="fp-close" onclick="closeFilterPanel()">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
         </div>
-    </div>`;
-
-    // Format section
-    if (formats.length > 0) {
-        html += `<div class="fp-section">
-            <div class="fp-label">📄 Format</div>
-            <div class="fp-chips">
-                ${formats.map(f => `<button class="fp-chip" data-group="format" data-value="${esc(f)}" onclick="toggleChip(this)">${f.toUpperCase()}</button>`).join('')}
+        <div class="fp-body">
+            <div class="fp-sidebar">
+                <button class="fp-tab ${activeFilterTab === 'topic' ? 'active' : ''}" onclick="setFilterTab('topic')">Categories & Topics</button>
+                <button class="fp-tab ${activeFilterTab === 'format' ? 'active' : ''}" onclick="setFilterTab('format')">Formats</button>
+                <button class="fp-tab ${activeFilterTab === 'sort' ? 'active' : ''}" onclick="setFilterTab('sort')">Sort</button>
             </div>
-        </div>`;
+            <div class="fp-content">
+                <div class="fp-search" ${(activeFilterTab === 'sort' || activeFilterTab === 'format') ? 'style="display:none;"' : ''}>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <input type="text" id="fp-search-input" placeholder="Search ${activeFilterTab}s..." value="${esc(fpSearchQuery)}" oninput="handleFpSearch(this.value)">
+                </div>
+                <div class="fp-list" id="fp-list-container">
+                    ${renderFpList()}
+                </div>
+            </div>
+        </div>
+        <div class="fp-footer">
+            <button class="fp-clear" onclick="clearFilterPanel()">Clear All</button>
+            <div class="fp-actions">
+                <button class="fp-btn fp-btn-apply" onclick="applyFilterPanel()">Show Results</button>
+            </div>
+        </div>
+    `;
+    panel.innerHTML = html;
+    updateApplyButton();
+}
+
+function countPendingResults() {
+    const q = searchInput.value.toLowerCase().trim();
+    const { format: fmtFilter, category: catSet, topic: topicSet } = pendingFilters;
+    const { category: sbCat, topic: sbTopic } = sidebarSelection;
+    const hasDropdownFilter = fmtFilter || catSet.size > 0 || topicSet.size > 0;
+
+    let books = allBooks;
+    if (q && isGlobalSearch) {
+        books = allBooks.filter(b => scoreBook(b, q) > 0);
+    } else if (!hasDropdownFilter) {
+        books = allBooks.filter(b =>
+            (!sbCat || b.category === sbCat) &&
+            (!sbTopic || b.topic === sbTopic || b.topic.startsWith(sbTopic + '/'))
+        );
+    }
+    
+    if (hasDropdownFilter) {
+        books = books.filter(b =>
+            (catSet.size === 0 || catSet.has(b.category)) &&
+            (topicSet.size === 0 || topicSet.has(b.topic)) &&
+            (!fmtFilter || b.formats.includes(fmtFilter))
+        );
+    }
+    return books.length;
+}
+
+function updateApplyButton() {
+    const applyBtn = document.querySelector(".fp-btn-apply");
+    if (applyBtn) {
+        applyBtn.innerHTML = `Show Results <span style="opacity: 0.5; margin: 0 8px; font-weight: 300;">|</span> ${countPendingResults()}`;
+    }
+}
+
+function renderFpList() {
+    let sections = [];
+    const q = fpSearchQuery.toLowerCase();
+
+    if (activeFilterTab === 'topic') {
+        const selectedCats = pendingFilters.category;
+        const validBooks = selectedCats.size > 0 ? allBooks.filter(b => selectedCats.has(b.category)) : allBooks;
+        const validTopicNames = new Set(validBooks.map(b => b.topic));
+
+        // Categories section
+        const catCounts = {};
+        allBooks.forEach(b => catCounts[b.category] = (catCounts[b.category] || 0) + 1);
+        let catItems = Object.entries(catCounts).map(([name, count]) => ({ name, count, value: name, group: 'category' }));
+
+        // Topics section
+        const topCounts = {};
+        allBooks.forEach(b => topCounts[b.topic] = (topCounts[b.topic] || 0) + 1);
+        let topItems = Object.entries(topCounts).map(([name, count]) => {
+            return { name, count, value: name, group: 'topic', disabled: selectedCats.size > 0 && !validTopicNames.has(name) };
+        });
+
+        if (q) {
+            catItems = catItems.filter(i => i.name.toLowerCase().includes(q));
+            topItems = topItems.filter(i => i.name.toLowerCase().includes(q));
+        }
+
+        catItems.sort((a, b) => a.name.localeCompare(b.name));
+        topItems.sort((a, b) => a.name.localeCompare(b.name));
+
+        sections.push({ title: "Categories", items: catItems });
+        sections.push({ title: "Topics", items: topItems });
+    } else if (activeFilterTab === 'format') {
+        const counts = {};
+        allBooks.forEach(b => {
+            b.formats.forEach(f => counts[f] = (counts[f] || 0) + 1);
+        });
+        let items = Object.entries(counts).map(([name, count]) => ({ name: name.toUpperCase(), count, value: name, group: 'format' }));
+        if (q) items = items.filter(i => i.name.toLowerCase().includes(q));
+        items.sort((a, b) => a.name.localeCompare(b.name));
+        sections.push({ title: "", items });
+    } else if (activeFilterTab === 'sort') {
+        let items = [
+            { name: "A → Z", value: "az", group: "sort" },
+            { name: "Z → A", value: "za", group: "sort" }
+        ];
+        if (q) items = items.filter(i => i.name.toLowerCase().includes(q));
+        sections.push({ title: "", items });
     }
 
-    // Category section
-    html += `<div class="fp-section">
-        <div class="fp-label">📂 Category</div>
-        <div class="fp-chips">
-            ${categories.map(c => `<button class="fp-chip" data-group="category" data-value="${esc(c)}" onclick="toggleChip(this)">${esc(c)}</button>`).join('')}
-        </div>
-    </div>`;
+    if (sections.every(s => s.items.length === 0)) {
+        return `<div style="color:var(--text-tertiary); font-size:14px; padding-top: 10px;">No matches found.</div>`;
+    }
 
-    // Topic section
-    html += `<div class="fp-section">
-        <div class="fp-label">📌 Topic</div>
-        <div class="fp-chips">
-            ${topics.map(t => `<button class="fp-chip" data-group="topic" data-value="${esc(t)}" onclick="toggleChip(this)">${esc(t)}</button>`).join('')}
-        </div>
-    </div>`;
+    let html = '';
+    sections.forEach(sec => {
+        if (sec.items.length === 0) return;
+        if (sec.title) {
+            html += `<div class="fp-section-title">${sec.title}</div>`;
+        }
+        html += `<div class="fp-list-grid">` + sec.items.map(i => {
+            let isChecked = false;
+            if (i.group === 'topic' || i.group === 'category') {
+                isChecked = pendingFilters[i.group].has(i.value);
+            } else {
+                isChecked = pendingFilters[i.group] === i.value;
+            }
+            return `
+                <label class="fp-checkbox ${i.disabled ? 'disabled' : ''}">
+                    <input type="checkbox" ${isChecked ? 'checked' : ''} ${i.disabled ? 'disabled' : ''} onchange="toggleFpItem('${i.group}', '${esc(i.value)}')">
+                    <span class="fp-name">${esc(i.name)}</span>
+                    ${i.count !== undefined ? `<span class="fp-count">${i.count}</span>` : ''}
+                </label>
+            `;
+        }).join('') + `</div>`;
+    });
+    return html;
+}
 
-    // Footer
-    html += `<div class="fp-footer">
-        <button class="fp-clear" onclick="clearFilterPanel()">Clear All</button>
-        <button class="fp-apply" onclick="applyFilterPanel()">Apply Filters</button>
-    </div>`;
+function setFilterTab(tab) {
+    activeFilterTab = tab;
+    fpSearchQuery = '';
+    const searchInput = $("#fp-search-input");
+    if (searchInput) {
+        searchInput.value = '';
+        searchInput.placeholder = tab === 'topic' ? `Search Categories & Topics...` : `Search ${tab}s...`;
+        searchInput.parentElement.style.display = (tab === 'sort' || tab === 'format') ? 'none' : '';
+    }
+    
+    document.querySelectorAll('.fp-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(tab));
+    });
+    
+    $("#fp-list-container").innerHTML = renderFpList();
+}
 
-    panel.innerHTML = html;
+function handleFpSearch(q) {
+    fpSearchQuery = q;
+    $("#fp-list-container").innerHTML = renderFpList();
+}
+
+function toggleFpItem(group, value) {
+    if (group === "category" || group === "topic") {
+        const set = pendingFilters[group];
+        if (set.has(value)) {
+            set.delete(value);
+        } else {
+            set.add(value);
+        }
+        if (group === "category") {
+            pruneInvalidTopics();
+            if (activeFilterTab === 'topic') {
+                $("#fp-list-container").innerHTML = renderFpList();
+            }
+        }
+    } else {
+        pendingFilters[group] = pendingFilters[group] === value ? null : value;
+        $("#fp-list-container").innerHTML = renderFpList();
+    }
+    updateApplyButton();
 }
 
 function toggleFilterPanel() {
@@ -363,42 +600,25 @@ function toggleFilterPanel() {
     const isOpen = panel.classList.contains("open");
     
     if (!isOpen) {
-        // Opening: clone activeFilters to pendingFilters
         pendingFilters = copyFilters(activeFilters);
-        updateFilterPanelUI();
+        populateFilterPanel();
     }
     
     panel.classList.toggle("open");
     overlay.classList.toggle("active", !isOpen);
+    document.body.style.overflow = isOpen ? '' : 'hidden';
 }
 
 function closeFilterPanel() {
     $("#filter-panel").classList.remove("open");
     $("#filter-overlay").classList.remove("active");
+    document.body.style.overflow = '';
 }
 
-function toggleChip(btn) {
-    const group = btn.dataset.group;
-    const value = btn.dataset.value;
-
-    if (group === "category" || group === "topic") {
-        // Multi-select: toggle value in/out of the Set
-        const set = pendingFilters[group];
-        if (set.has(value)) {
-            set.delete(value);
-        } else {
-            set.add(value);
-        }
-        // When categories change, remove topics that no longer belong
-        if (group === "category") {
-            pruneInvalidTopics();
-        }
-    } else {
-        // Exclusive toggle for sort/format
-        pendingFilters[group] = pendingFilters[group] === value ? null : value;
-    }
-
-    updateFilterPanelUI();
+function clearFilterPanel() {
+    pendingFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
+    $("#fp-list-container").innerHTML = renderFpList();
+    updateApplyButton();
 }
 
 function pruneInvalidTopics() {
@@ -411,78 +631,76 @@ function pruneInvalidTopics() {
     }
 }
 
-function clearFilterPanel() {
-    pendingFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
-    updateFilterPanelUI();
-}
-
 function applyFilterPanel() {
     activeFilters = copyFilters(pendingFilters);
-    updateFilterPanelUI();
+    updateFilterBadge();
     applyFilters();
     closeFilterPanel();
 }
 
-function updateFilterPanelUI() {
-    // Compute valid topics based on selected categories
-    const selectedCats = pendingFilters.category;
-    const validTopics = selectedCats.size > 0
-        ? new Set(allBooks.filter(b => selectedCats.has(b.category)).map(b => b.topic))
-        : null; // null = all topics valid
-
-    // Update chip states
-    document.querySelectorAll(".fp-chip").forEach(chip => {
-        const group = chip.dataset.group;
-        const value = chip.dataset.value;
-
-        if (group === "category" || group === "topic") {
-            chip.classList.toggle("active", pendingFilters[group].has(value));
-            // Disable topics that don't belong to selected categories
-            if (group === "topic" && validTopics) {
-                chip.classList.toggle("disabled", !validTopics.has(value));
-            } else if (group === "topic") {
-                chip.classList.remove("disabled");
-            }
-        } else {
-            chip.classList.toggle("active", pendingFilters[group] === value);
-        }
-    });
-
-    // Update section labels with active count
-    document.querySelectorAll(".fp-section").forEach(section => {
-        const label = section.querySelector(".fp-label");
-        const chips = section.querySelectorAll(".fp-chip");
-        if (!chips.length) return;
-        const group = chips[0].dataset.group;
-        let count = 0;
-        if (group === "category" || group === "topic") {
-            count = pendingFilters[group].size;
-        } else {
-            count = pendingFilters[group] ? 1 : 0;
-        }
-        let badge = label.querySelector(".fp-label-count");
-        if (count > 0) {
-            if (!badge) {
-                badge = document.createElement("span");
-                badge.className = "fp-label-count";
-                label.appendChild(badge);
-            }
-            badge.textContent = count;
-        } else if (badge) {
-            badge.remove();
-        }
-    });
-
-    // Update main button badge
+function updateFilterBadge() {
     const count = (activeFilters.sort ? 1 : 0) +
                   (activeFilters.format ? 1 : 0) +
                   activeFilters.category.size +
                   activeFilters.topic.size;
-    const badge = $("#filter-badge");
     const btn = $("#filter-btn");
-    badge.textContent = count;
-    badge.classList.toggle("visible", count > 0);
-    btn.classList.toggle("has-active", count > 0);
+    if (btn) btn.classList.toggle("has-active", count > 0);
+    
+    updateActiveFiltersUI();
+}
+
+function updateActiveFiltersUI() {
+    let titleHtml = "All Books";
+    if (sidebarViewMode === 'discover') {
+        titleHtml = '✨ Discover';
+    } else if (sidebarViewMode === 'collections' && !sidebarSelection.category) {
+        titleHtml = '📚 Collections';
+    } else if (sidebarViewMode === 'archive') {
+        titleHtml = '📦 Archive';
+    } else if (sidebarViewMode === 'recent') {
+        titleHtml = '🕐 Recent';
+    } else if (sidebarSelection.topic) {
+        titleHtml = sidebarSelection.topic.split('/').map(p => esc(p)).join(' <span class="ch-separator">/</span> ');
+    } else if (sidebarSelection.category) {
+        titleHtml = esc(sidebarSelection.category);
+    } else if (isGlobalSearch && searchInput.value.trim()) {
+        titleHtml = "Search Results";
+    }
+    const titleEl = $("#ch-title");
+    if (titleEl) titleEl.innerHTML = titleHtml;
+
+    const chipsContainer = $("#active-filters");
+    if (!chipsContainer) return;
+    
+    let html = '';
+    
+    if (activeFilters.sort) {
+        const sortLabels = { "az": "A to Z", "za": "Z to A", "score": "Relevance" };
+        html += `<span class="filter-chip" onclick="removeFilter('sort', null)">${sortLabels[activeFilters.sort] || "Sort"} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>`;
+    }
+    if (activeFilters.format) {
+        html += `<span class="filter-chip" onclick="removeFilter('format', null)">${activeFilters.format} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>`;
+    }
+    activeFilters.category.forEach(c => {
+        html += `<span class="filter-chip" onclick="removeFilter('category', '${esc(c)}')">${esc(c)} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>`;
+    });
+    activeFilters.topic.forEach(t => {
+        const tName = t.split('/').pop();
+        html += `<span class="filter-chip" onclick="removeFilter('topic', '${esc(t)}')">${esc(tName)} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>`;
+    });
+    
+    chipsContainer.innerHTML = html;
+}
+
+function removeFilter(type, value) {
+    if (type === 'sort') activeFilters.sort = null;
+    else if (type === 'format') activeFilters.format = null;
+    else if (type === 'category') activeFilters.category.delete(value);
+    else if (type === 'topic') activeFilters.topic.delete(value);
+    
+    pendingFilters = copyFilters(activeFilters);
+    updateFilterBadge();
+    applyFilters();
 }
 
 // ═══ SKELETON ═══
@@ -574,6 +792,24 @@ function applyFilters() {
     const { category: sbCat, topic: sbTopic } = sidebarSelection;
     const hasDropdownFilter = fmtFilter || catSet.size > 0 || topicSet.size > 0;
 
+    // Handle special sidebar view modes
+    if (sidebarViewMode === 'archive') {
+        const archivedIds = getArchivedBooks();
+        filteredBooks = archivedIds.map(id => allBooks.find(b => b.id === id)).filter(Boolean);
+        currentPage = 1;
+        renderBooks();
+        renderPagination();
+        return;
+    }
+    if (sidebarViewMode === 'recent') {
+        const recentIds = getRecentBooks();
+        filteredBooks = recentIds.map(id => allBooks.find(b => b.id === id)).filter(Boolean);
+        currentPage = 1;
+        renderBooks();
+        renderPagination();
+        return;
+    }
+
     if (q && isGlobalSearch) {
         // GLOBAL search: search ALL books, then apply panel filters
         const scored = allBooks
@@ -608,6 +844,11 @@ function applyFilters() {
             );
         }
 
+        // Discover mode: shuffle
+        if (sidebarViewMode === 'discover' && !q) {
+            filteredBooks = shuffleArray([...filteredBooks]);
+        }
+
         if (sortDir === "az") {
             filteredBooks.sort((a, b) => cleanTitle(a.title).localeCompare(cleanTitle(b.title)));
         } else if (sortDir === "za") {
@@ -626,11 +867,21 @@ function renderBooks() {
         grid.innerHTML = "";
         paginationEl.innerHTML = "";
         noResults.classList.add("visible");
-        $("#shown-count").textContent = "0";
+        const countEl = $("#ch-count-val");
+        if (countEl) countEl.textContent = "0";
+        updateActiveFiltersUI();
         return;
     }
     noResults.classList.remove("visible");
-    $("#shown-count").textContent = filteredBooks.length;
+    const countEl = $("#ch-count-val");
+    if (countEl) countEl.textContent = filteredBooks.length;
+    updateActiveFiltersUI();
+
+    // Collections mode: grouped by category → topic
+    if (sidebarViewMode === 'collections' && !sidebarSelection.category) {
+        renderCollectionsView();
+        return;
+    }
 
     const start = (currentPage - 1) * booksPerPage;
     const end = start + booksPerPage;
@@ -655,6 +906,73 @@ function renderBooks() {
             </div>
         </div>`;
     }).join("");
+}
+
+function renderCollectionsView() {
+    // Group books: category → topic → books[]
+    const groups = {};
+    filteredBooks.forEach(b => {
+        if (!groups[b.category]) groups[b.category] = {};
+        if (!groups[b.category][b.topic]) groups[b.category][b.topic] = [];
+        groups[b.category][b.topic].push(b);
+    });
+
+    const sortedCats = Object.keys(groups).sort((a, b) => a.localeCompare(b));
+    let html = '';
+
+    for (const cat of sortedCats) {
+        const n = getCatNum(cat);
+        const topics = groups[cat];
+        const sortedTopics = Object.keys(topics).sort((a, b) => a.localeCompare(b));
+
+        html += `<div class="coll-category fade-in">
+            <div class="coll-cat-header">
+                <svg class="coll-cat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                <span class="coll-cat-name">${esc(cat)}</span>
+                <span class="coll-cat-count">${allBooks.filter(b => b.category === cat).length}</span>
+            </div>`;
+
+        for (const topic of sortedTopics) {
+            const allBooksInTopic = topics[topic];
+            const maxDisplay = 10;
+            const books = allBooksInTopic.slice(0, maxDisplay);
+            const hasMore = allBooksInTopic.length > maxDisplay;
+            const topicDisplay = topic.includes('/') ? topic.split('/').pop() : topic;
+
+            html += `<div class="coll-topic">
+                <div class="coll-topic-header">
+                    <span class="coll-topic-name">${esc(topicDisplay)}</span>
+                    <span class="coll-topic-count">${allBooksInTopic.length} books</span>
+                </div>
+                <div class="coll-scroll-row">`;
+
+            for (const book of books) {
+                const title = cleanTitle(book.title);
+                const cover = book.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
+                html += `<div class="coll-card" onclick="showDetailView('${book.id}')" tabindex="0" role="button" aria-label="${esc(title)}">
+                    <div class="coll-card-cover">
+                        <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(title))}'">
+                    </div>
+                    <div class="coll-card-title">${esc(title)}</div>
+                </div>`;
+            }
+
+            if (hasMore) {
+                html += `<div class="coll-view-more-card" onclick="sidebarSelectTopicByNames('${esc(cat)}', '${esc(topic)}')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:28px;height:28px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    <span>View All<br>(${allBooksInTopic.length - maxDisplay} more)</span>
+                </div>`;
+            }
+
+            html += `</div></div>`;
+        }
+
+        html += `</div>`;
+    }
+
+    grid.innerHTML = html;
+    // Hide pagination for collections view
+    paginationEl.innerHTML = "";
 }
 
 // ═══ PAGINATION ═══
@@ -725,6 +1043,7 @@ function showDetailView(bookId, pushHistory = true) {
     const b = allBooks.find(x => x.id === bookId);
     if (!b) return;
     currentBookId = bookId;
+    addRecentBook(bookId);
 
     const title = cleanTitle(b.title);
     const n = getCatNum(b.category);
@@ -752,11 +1071,15 @@ function showDetailView(bookId, pushHistory = true) {
                 <div class="dv-actions">
                     ${b.formats.map(f => {
                         const fUrl = getDownloadUrl(b.files[f], b.downloads[f]);
-                        return `<a href="${esc(fUrl)}" target="_blank" class="btn-primary" download>
+                        return `<a href="${esc(fUrl)}" target="_blank" class="btn-primary" download onclick="addArchivedBook('${bookId}')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                             Download ${f.toUpperCase()}
                         </a>`;
                     }).join('')}
+                    <button class="btn-secondary" onclick="toggleArchiveBook('${bookId}')" id="dv-archive-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                        ${getArchivedBooks().includes(bookId) ? 'Archived ✓' : 'Archive'}
+                    </button>
                     <button class="btn-secondary" onclick="shareBook()">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                         Share
@@ -857,6 +1180,23 @@ function shareBook() {
         });
 }
 
+function toggleArchiveBook(bookId) {
+    const archived = getArchivedBooks();
+    if (archived.includes(bookId)) {
+        removeArchivedBook(bookId);
+        showToast("Removed from Archive");
+    } else {
+        addArchivedBook(bookId);
+        showToast("Added to Archive");
+    }
+    // Update button text
+    const btn = $("#dv-archive-btn");
+    if (btn) {
+        const isArchived = getArchivedBooks().includes(bookId);
+        btn.innerHTML = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg> ${isArchived ? 'Archived ✓' : 'Archive'}`;
+    }
+}
+
 function checkUrlBookParam() {
     const id = new URLSearchParams(location.search).get("book");
     if (id) requestAnimationFrame(() => showDetailView(id, false));
@@ -881,6 +1221,13 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
 function escXml(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; } return h; }
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
 function cleanTitle(t) {
     const lowerWords = ["a","an","the","and","or","but","in","on","of","to","for","with","by","at","from","as","is"];
     return t.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim()
