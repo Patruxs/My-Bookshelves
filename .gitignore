@@ -29,6 +29,7 @@ venv/
 auto_organize.log
 *.log
 !library_structure.log
+library_structure.log
 _site/
 
 # ══════════════════════════════════════════════════

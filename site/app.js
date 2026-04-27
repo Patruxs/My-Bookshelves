@@ -205,7 +205,7 @@ function renderSidebar() {
         const count = allBooks.filter(b => b.category === cat).length;
         const n = getCatNum(cat);
         html += `<div>
-            <button class="sb-cat" data-cat="${esc(cat)}" onclick="sidebarToggleCat(this)">
+            <button class="sb-cat" data-cat="${esc(cat)}" onclick="sidebarToggleCat(event, this)">
                 <svg class="sb-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
                 <span class="sb-label">${esc(cat)}</span>
                 <svg class="sb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -219,7 +219,7 @@ function renderSidebar() {
             
             if (hasSub) {
                 html += `<div>
-                    <button class="sb-topic parent" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" onclick="sidebarToggleTopic(this)">
+                    <button class="sb-topic parent" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" onclick="sidebarToggleTopic(event, this)">
                         <span class="sb-label">${esc(mainTopic)}</span>
                         <svg class="sb-chevron sb-sub-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
@@ -244,10 +244,19 @@ function renderSidebar() {
     $("#sb-tree").innerHTML = html;
 }
 
-function sidebarToggleCat(btn) {
+function sidebarToggleCat(e, btn) {
+    const isChevronClick = e && e.target && e.target.closest && e.target.closest('.sb-chevron');
     const cat = btn.dataset.cat;
     const chevron = btn.querySelector(".sb-chevron");
     const topics = btn.nextElementSibling;
+    
+    if (isChevronClick) {
+        e.stopPropagation();
+        chevron.classList.toggle("open");
+        topics.classList.toggle("open");
+        return;
+    }
+
     if (sidebarSelection.category === cat && !sidebarSelection.topic) {
         chevron.classList.toggle("open");
         topics.classList.toggle("open");
@@ -298,9 +307,17 @@ function sidebarSelectTopicByNames(cat, topic) {
     applyFilters();
 }
 
-function sidebarToggleTopic(btn) {
+function sidebarToggleTopic(e, btn) {
+    const isChevronClick = e && e.target && e.target.closest && e.target.closest('.sb-chevron');
     const chevron = btn.querySelector(".sb-sub-chevron");
     const subtopics = btn.nextElementSibling;
+    
+    if (isChevronClick) {
+        e.stopPropagation();
+        if (chevron) chevron.classList.toggle("open");
+        if (subtopics) subtopics.classList.toggle("open");
+        return;
+    }
     
     if (sidebarSelection.category === btn.dataset.cat && sidebarSelection.topic === btn.dataset.topic) {
         if (chevron) chevron.classList.toggle("open");
