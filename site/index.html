@@ -320,20 +320,36 @@
             flex-shrink: 0
         }
 
-        .sb-chevron.open {
+        .sb-chevron.open, .sb-sub-chevron.open {
             transform: rotate(90deg)
         }
 
+        .sb-sub-chevron {
+            width: 8px;
+            height: 8px;
+            color: var(--text-tertiary);
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+            margin-right: 2px;
+        }
+
         /* Sidebar: Topics */
-        .sb-topics {
+        .sb-topics, .sb-subtopics {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
-            padding-left: 12px
+        }
+        
+        .sb-topics {
+            padding-left: 12px;
+        }
+        
+        .sb-subtopics {
+            padding-left: 20px;
         }
 
-        .sb-topics.open {
-            max-height: 600px
+        .sb-topics.open, .sb-subtopics.open {
+            max-height: 1000px;
         }
 
         .sb-topic {
