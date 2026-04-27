@@ -167,10 +167,17 @@ function renderSidebar() {
                 <span class="sb-cat-count">${count}</span>
             </button>
             <div class="sb-topics" data-cat="${esc(cat)}">`;
-        for (const [topic, tc] of Object.entries(topics)) {
-            html += `<button class="sb-topic" data-cat="${esc(cat)}" data-topic="${esc(topic)}" onclick="sidebarSelectTopic(this)">
-                <span class="sb-topic-dot dot-${n}"></span>
-                <span class="sb-topic-name">${esc(topic)}</span>
+        const sortedTopics = Object.keys(topics).sort((a,b) => a.localeCompare(b));
+        for (const topic of sortedTopics) {
+            const tc = topics[topic];
+            const parts = topic.split('/');
+            const isSub = parts.length > 1;
+            const displayName = isSub ? parts.slice(1).join('/') : parts[0];
+            const extraStyle = isSub ? 'padding-left: 32px; font-size: 12px; opacity: 0.9;' : '';
+            const dotStyle = isSub ? 'opacity: 0.2; transform: scale(0.6);' : '';
+            html += `<button class="sb-topic" style="${extraStyle}" data-cat="${esc(cat)}" data-topic="${esc(topic)}" onclick="sidebarSelectTopic(this)">
+                <span class="sb-topic-dot dot-${n}" style="${dotStyle}"></span>
+                <span class="sb-topic-name">${esc(displayName)}</span>
                 <span class="sb-topic-count">${tc}</span>
             </button>`;
         }
