@@ -15,7 +15,7 @@ echo ================================================================
 echo.
 
 :: -- Step 1: Check Python --
-echo [1/6] Checking Python...
+echo [1/5] Checking Python...
 python --version >nul 2>&1
 if %ERRORLEVEL% neq 0 (
     echo    [ERROR] Python not found! Please install Python 3.8+
@@ -26,24 +26,9 @@ for /f "tokens=2 delims= " %%v in ('python --version 2^>^&1') do (
     echo    [OK] Python %%v detected
 )
 
-:: -- Step 2: Create virtual environment --
+:: -- Step 2: Install dependencies --
 echo.
-echo [2/6] Setting up virtual environment...
-if exist "venv\" (
-    echo    [SKIP] Virtual environment already exists
-) else (
-    python -m venv venv
-    if %ERRORLEVEL% neq 0 (
-        echo    [ERROR] Failed to create virtual environment
-        exit /b 1
-    )
-    echo    [OK] Created venv/
-)
-
-:: -- Step 3: Activate venv and install dependencies --
-echo.
-echo [3/6] Installing Python dependencies...
-call venv\Scripts\activate.bat
+echo [2/5] Installing Python dependencies...
 python -m pip install --upgrade pip >nul 2>&1
 python -m pip install -r requirements.txt
 if %ERRORLEVEL% neq 0 (
@@ -52,17 +37,17 @@ if %ERRORLEVEL% neq 0 (
 )
 echo    [OK] All dependencies installed
 
-:: -- Step 4: Create project directories --
+:: -- Step 3: Create project directories --
 echo.
-echo [4/6] Creating project directories...
+echo [3/5] Creating project directories...
 if not exist "Books\" mkdir Books
 if not exist "Inbox\" mkdir Inbox
 if not exist "site\assets\covers\" mkdir site\assets\covers
 echo    [OK] Books/  Inbox/  site/assets/covers/
 
-:: -- Step 5: Verify installation --
+:: -- Step 4: Verify installation --
 echo.
-echo [5/6] Verifying setup...
+echo [4/5] Verifying setup...
 python -c "import fitz; print('    [OK] PyMuPDF', fitz.version[0])"
 if %ERRORLEVEL% neq 0 echo    [FAIL] PyMuPDF not working
 python -c "from PIL import Image; print('    [OK] Pillow', Image.__version__)"
@@ -70,9 +55,9 @@ if %ERRORLEVEL% neq 0 echo    [FAIL] Pillow not working
 python -c "import docx; print('    [OK] python-docx')"
 if %ERRORLEVEL% neq 0 echo    [FAIL] python-docx not working
 
-:: -- Step 6: Clean up sample data --
+:: -- Step 5: Clean up sample data --
 echo.
-echo [6/6] Cleaning up sample data...
+echo [5/5] Cleaning up sample data...
 python scripts\reset_library.py --force
 
 :: -- Done --
@@ -80,9 +65,6 @@ echo.
 echo ================================================================
 echo   Setup complete!
 echo ================================================================
-echo.
-echo   Activate venv:
-echo     venv\Scripts\activate
 echo.
 echo   View locally:
 echo     python -m http.server 8080

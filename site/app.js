@@ -977,6 +977,10 @@ function renderCollectionsView() {
 
 // ═══ PAGINATION ═══
 function renderPagination() {
+    if (sidebarViewMode === 'collections' && !sidebarSelection.category) {
+        paginationEl.innerHTML = "";
+        return;
+    }
     const total = filteredBooks.length;
     const totalPages = Math.ceil(total / booksPerPage);
     if (totalPages <= 1) { paginationEl.innerHTML = ""; return; }
