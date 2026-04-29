@@ -16,3 +16,20 @@
 - **Status**: Fixed
 
 ---
+
+## [2026-04-29 22:37] - Inline Metadata Query Quoting Error
+
+- **Type**: Agent
+- **Severity**: Low
+- **File**: `N/A`
+- **Agent**: Codex
+- **Root Cause**: A final inline Python metadata query embedded escaped quotes inside an f-string in a PowerShell command, producing an unterminated string.
+- **Error Message**:
+  ```
+  SyntaxError: unterminated string literal (detected at line 1)
+  ```
+- **Fix Applied**: Re-run the metadata query with simpler string formatting that avoids nested escaped quotes.
+- **Prevention**: Keep inline verification commands simple; use `.format()` or separate variables when passing Python through PowerShell.
+- **Status**: Fixed
+
+---
