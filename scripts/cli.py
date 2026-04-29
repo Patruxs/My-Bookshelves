@@ -10,6 +10,7 @@ Usage:
 
 Commands:
     list            List all books, topics, and categories
+    codex-sync      Regenerate the .codex adapter from .agents
     delete          Delete books, topics, or categories
     update          Update book metadata, rename topics/categories
     generate        Generate data.json and cover images
@@ -26,6 +27,7 @@ Examples:
     python scripts/cli.py generate
     python scripts/cli.py rename
     python scripts/cli.py upload --dry-run
+    python scripts/cli.py codex-sync --base-dir .
 """
 
 import subprocess
@@ -52,6 +54,11 @@ COMMANDS = {
         "script": "delete_books.py",
         "inject_args": [],
         "desc": "Delete books, topics, or categories",
+    },
+    "codex-sync": {
+        "script": "sync_codex.py",
+        "inject_args": [],
+        "desc": "Regenerate the .codex adapter from .agents",
     },
     "update": {
         "script": "update_books.py",
@@ -108,6 +115,7 @@ def print_help() -> None:
     print("  python scripts/cli.py rename --base-dir . --execute")
     print("  python scripts/cli.py upload --dry-run")
     print("  python scripts/cli.py structure --base-dir .")
+    print("  python scripts/cli.py codex-sync --base-dir .")
     print()
 
 

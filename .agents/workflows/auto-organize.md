@@ -1,10 +1,18 @@
 ---
-description: Phân loại sách mới từ Inbox bằng AI Agent (Batch Processing workflow)
+description: Phân loại sách mới từ Inbox bằng AI Agent (Batch Processing workflow cho Antigravity và Codex)
 ---
 
 # /auto-organize — Phân loại sách tự động (Batch Mode)
 
 > Agent phân loại TẤT CẢ sách → hỏi user **1 lần** → di chuyển + bìa + mô tả + upload. Chi tiết đầy đủ xem `SKILL.md`.
+
+## Codex compatibility
+
+- Trong Codex, user có thể gọi `/auto-organize`, `auto-organize`, hoặc yêu cầu phân loại sách trong `Inbox/`.
+- `view_file` tương đương đọc file bằng tool của Codex hoặc `Get-Content -Raw`.
+- `multi_replace_file_content` tương đương batch edit bằng `apply_patch` rồi validate JSON.
+- Các dòng `// turbo` là ghi chú tối ưu của Antigravity; Codex chỉ cần thực hiện lệnh tương đương.
+- Nếu đang ở Windows/PowerShell, dùng lệnh native tương đương cho `ls`, `mkdir`, `mv` khi cần.
 
 1. Đọc skill instructions tại `.agents/skills/auto-organize/SKILL.md`.
 
@@ -30,7 +38,7 @@ python scripts/cli.py rename --base-dir .
 python scripts/cli.py structure --base-dir .
 ```
 
-6. **BẮT BUỘC:** `view_file` đọc toàn bộ `library_structure.log`. Chú ý phần `AVAILABLE CATEGORIES`.
+6. **BẮT BUỘC:** đọc toàn bộ `library_structure.log` (Antigravity: `view_file`; Codex: tool đọc file hoặc `Get-Content -Raw`). Chú ý phần `AVAILABLE CATEGORIES`.
 
 7. **🧠 BATCH CLASSIFY + DESCRIPTIONS** — Xử lý TẤT CẢ trong bộ nhớ. Đối chiếu log, ưu tiên folder CÓ SẴN. Soạn description 3 phần. KHÔNG hỏi user từng cuốn.
 
@@ -66,7 +74,7 @@ python -c "import json; d=json.load(open('site/data.json','r',encoding='utf-8'))
 > ⚠️ Nếu có mismatch → sửa `topic` trong data.json. Luôn dùng **display name** (khoảng trắng), KHÔNG dùng `Snake_Case` (`_`).
 > Đúng: `"topic": "Programming Languages/Java"` ✅ — Sai: `"topic": "Programming_Languages/Java"` ❌
 
-13. **CHÈN DESCRIPTIONS** — `multi_replace_file_content` chèn tất cả `"description": ""` cùng lúc.
+13. **CHÈN DESCRIPTIONS** — batch edit tất cả `"description": ""` cùng lúc (Antigravity: `multi_replace_file_content`; Codex: `apply_patch` hoặc CLI phù hợp).
 
 > ⚠️ **JSON newline:** Dùng `\n` (single escape) cho xuống dòng, KHÔNG dùng `\\n` (double escape).
 > So sánh: `"Dòng 1.\n\nDòng 2."` ✅ — `"Dòng 1.\\n\\nDòng 2."` ❌ (hiển thị literal `\n`).

@@ -1,11 +1,24 @@
 ---
 name: auto-organize
-description: Tự động phân loại sách mới trong Inbox vào đúng thư mục thể loại/chủ đề bằng Antigravity AI Agent
+description: Tự động phân loại sách mới trong Inbox vào đúng thư mục thể loại/chủ đề bằng Antigravity hoặc Codex AI Agent
 ---
 
 # Auto-Organize Skill — Batch Mode
 
 > **Nguyên tắc:** Phân loại TẤT CẢ → hỏi user **1 lần** → di chuyển + bìa + mô tả + upload hàng loạt.
+
+## Codex compatibility
+
+Skill này là nguồn dùng chung cho Antigravity và Codex.
+
+| Antigravity | Codex |
+|-------------|-------|
+| `/auto-organize` slash command | User có thể gọi `/auto-organize`, `auto-organize`, hoặc mô tả yêu cầu bằng tiếng Việt |
+| `view_file` | Dùng tool đọc file hoặc `Get-Content -Raw` |
+| `multi_replace_file_content` | Dùng `apply_patch` cho batch edit rồi validate JSON |
+| `mkdir -p` / `mv` | Trên Windows dùng `New-Item -ItemType Directory -Force` / `Move-Item` nếu alias không phù hợp |
+
+Khi chạy bằng Codex, vẫn phải tuân thủ đầy đủ các guardrail bên dưới: hỏi user đúng 1 lần trước khi move/rename hàng loạt, dry-run trước upload, và không chạy generate lần hai nếu chưa xử lý root cause.
 
 ## ⚠️ Quy tắc bảo vệ dữ liệu
 
@@ -33,7 +46,7 @@ description: Tự động phân loại sách mới trong Inbox vào đúng thư 
 python scripts/cli.py structure --base-dir .
 ```
 
-Sau đó dùng `view_file` đọc toàn bộ `library_structure.log`. Chú ý phần **AVAILABLE CATEGORIES** ở cuối — đây là danh sách folder có sẵn mà Agent phải ưu tiên dùng.
+Sau đó đọc toàn bộ `library_structure.log` (Antigravity: `view_file`; Codex: tool đọc file hoặc `Get-Content -Raw`). Chú ý phần **AVAILABLE CATEGORIES** ở cuối — đây là danh sách folder có sẵn mà Agent phải ưu tiên dùng.
 
 ### Bước 5: Batch Classify + Descriptions (trong bộ nhớ)
 
@@ -98,7 +111,7 @@ python -c "import json; d=json.load(open('site/data.json','r',encoding='utf-8'))
 
 ### Bước 11: Chèn descriptions hàng loạt
 
-Dùng `multi_replace_file_content` chèn TẤT CẢ `"description": ""` cùng lúc. KHÔNG edit từng entry.
+Dùng batch edit để chèn TẤT CẢ `"description": ""` cùng lúc. Antigravity dùng `multi_replace_file_content`; Codex dùng `apply_patch` hoặc CLI phù hợp rồi validate JSON. KHÔNG edit từng entry thủ công rời rạc.
 
 > ⚠️ **JSON newline:** Dùng `\n` (single escape) cho xuống dòng, KHÔNG dùng `\\n` (double escape).
 > `"Dòng 1.\n\nDòng 2."` ✅ — `"Dòng 1.\\n\\nDòng 2."` ❌ (hiển thị literal `\n`).

@@ -89,6 +89,18 @@ Exception: `!library_structure.log` được phép commit.
 9. **Sub-topic**: Sách trong thư mục con (VD: `Programming_Languages/Java/`) PHẢI có `topic` = `"Programming Languages/Java"` (display name, KHÔNG dùng `_`). KHÔNG ĐƯỢC ghi `"Programming Languages"` (thiếu sub-topic).
 10. **Verify sau generate**: Sau khi chạy `generate_data.py`, PHẢI kiểm tra trường `topic` của sách mới có khớp đúng đường dẫn thư mục không (đặc biệt sách trong sub-topic).
 
+## 9. CODEX COMPATIBILITY
+
+- `AGENTS.md` ở root là entrypoint cho Codex và trỏ về các rule/skill/workflow trong `.agents/`.
+- `.agents/` là nguồn chung cho cả Antigravity và Codex; không duplicate logic sang nơi khác nếu không cần.
+- Khi cập nhật `.agents/`, chạy `python scripts/cli.py codex-sync --base-dir .` để sinh lại `.codex/`.
+- Khi gặp chỉ thị Antigravity-specific:
+  - `view_file` → Codex dùng tool đọc file hoặc `Get-Content -Raw`.
+  - `multi_replace_file_content` → Codex dùng `apply_patch` cho batch edit rồi validate JSON.
+  - `// turbo` → chỉ là ghi chú tối ưu, không phải cú pháp bắt buộc.
+- Codex chạy trên PowerShell trong repo này, nên có thể thay `mkdir -p`/`mv` bằng `New-Item -ItemType Directory -Force`/`Move-Item`.
+- Với `/auto-organize`, Codex phải đọc `.agents/workflows/auto-organize.md` và `.agents/skills/auto-organize/SKILL.md` trước khi thao tác.
+
 ## SCRIPTS (CLI & TUI)
 
 **Giao diện tương tác TUI:**
@@ -107,6 +119,7 @@ Exception: `!library_structure.log` được phép commit.
 | `upload` | Upload sách MỚI |
 | `upload --force` | Re-upload tất cả |
 | `upload --hard-reset` | Xóa + tạo lại release |
+| `codex-sync` | Regenerate `.codex/` adapter từ `.agents/` |
 | `delete --book "Title"` | Xem trước xóa sách (dry-run) |
 | `delete --book "Title" --execute` | Xóa sách khỏi data.json + cover |
 | `delete --topic "Topic" --category "Cat"` | Xem trước xóa topic |

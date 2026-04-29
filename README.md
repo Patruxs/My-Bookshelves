@@ -9,7 +9,7 @@ A personal digital library — static web, zero dependencies, AI-powered organiz
 - 📖 **SPA Detail View** — Click to view cover, description, related books, download
 - 🔍 **Search & Filter** — By title, category, topic, format
 - 📁 **Sidebar Navigation** — Dynamic category tree with topic counts
-- 🤖 **AI Auto-Organizer** — Drop books in `Inbox/`, run `/auto-organize`
+- 🤖 **AI Auto-Organizer** — Drop books in `Inbox/`, run `/auto-organize` in Antigravity or ask Codex to run `auto-organize`
 - 💻 **Interactive TUI** — Manage everything visually in your terminal with `python scripts/tui.py`
 - 📱 **Responsive** — Desktop, tablet, mobile
 - 💾 **< 1MB repo** — Books stored on GitHub Releases, covers as WebP
@@ -60,7 +60,7 @@ python -m http.server 8080
 ## 🔄 Adding New Books
 
 1. Drop files into `Inbox/`
-2. Run `/auto-organize` — AI classifies, moves, generates covers, writes descriptions, uploads
+2. Run `/auto-organize` in Antigravity, or ask Codex to run `auto-organize` — AI classifies, moves, generates covers, writes descriptions, uploads
 3. Push to `main` → GitHub Pages auto-deploys
 
 ## 💾 Storage Strategy
@@ -73,7 +73,9 @@ Git Repo (~1MB)           GitHub Releases (unlimited)
 │   ├── data.json             └── ...
 │   └── assets/covers/*.webp
 ├── scripts/
-└── .agents/
+├── .agents/              # Shared Antigravity/Codex skills, workflows, rules
+├── .codex/               # Codex adapter files that point back to .agents/
+└── AGENTS.md             # Codex entrypoint
 ```
 
 Books are **never committed** to git — `.gitignore` blocks `*.pdf *.epub *.docx`. Upload via `upload_releases.py`.
@@ -110,6 +112,9 @@ scripts/                        # Python automation
 requirements.txt                # Python dependencies
 setup.bat                       # One-command setup (Windows)
 setup.sh                        # One-command setup (macOS/Linux)
+AGENTS.md                       # Codex compatibility entrypoint
+.codex/                         # Codex adapter layer (manifest, rules, workflows)
+.agents/                        # Shared AI rules, skills, and workflows
 ```
 
 ## 📋 Scripts Reference
@@ -123,6 +128,7 @@ setup.sh                        # One-command setup (macOS/Linux)
 | `python scripts/cli.py structure`                          | Update library_structure.log            |
 | `python scripts/cli.py upload --dry-run`                   | Preview upload (always run first!)      |
 | `python scripts/cli.py upload`                             | Upload new books to GitHub Releases     |
+| `python scripts/cli.py codex-sync --base-dir .`            | Regenerate `.codex/` from `.agents/`    |
 | `python scripts/cli.py delete --book "Title"`              | Delete a book                           |
 | `python scripts/cli.py update --book "Title" ...`          | Update metadata                         |
 

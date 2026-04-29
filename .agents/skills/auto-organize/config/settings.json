@@ -7,6 +7,14 @@
         "auto_create_new_topics": true,
         "always_confirm": true
     },
+    "agent_runtime": {
+        "shared_with": ["antigravity", "codex"],
+        "codex_entrypoint": "AGENTS.md",
+        "codex_adapter_dir": ".codex",
+        "workflow_file": ".agents/workflows/auto-organize.md",
+        "skill_file": ".agents/skills/auto-organize/SKILL.md",
+        "rule_file": ".agents/rules/my-bookshelves.md"
+    },
     "cover_optimization": {
         "max_width": 600,
         "format": "webp",
