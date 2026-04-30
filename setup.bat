@@ -1,6 +1,8 @@
 @echo off
 chcp 65001 >nul 2>&1
 setlocal EnableDelayedExpansion
+set "PYTHONUTF8=1"
+set "PYTHONIOENCODING=utf-8"
 cd /d "%~dp0"
 
 :: ================================================================
@@ -38,8 +40,30 @@ if not exist "venv\Scripts\python.exe" (
     )
 )
 set "PYTHON_CMD=venv\Scripts\python.exe"
-"%PYTHON_CMD%" -m pip install --upgrade pip >nul 2>&1
-"%PYTHON_CMD%" -m pip install -r requirements.txt
+
+"%PYTHON_CMD%" -m pip --version >nul 2>&1
+if %ERRORLEVEL% neq 0 (
+    echo    [WARN] Existing venv has a broken pip install. Recreating venv...
+    rmdir /s /q venv
+    python -m venv venv
+    if %ERRORLEVEL% neq 0 (
+        echo    [ERROR] Failed to recreate virtual environment
+        exit /b 1
+    )
+)
+
+"%PYTHON_CMD%" -c "import pathlib, site, sys; sys.exit(0 if any(path.name.lower().startswith('~ip') for root in site.getsitepackages() for path in pathlib.Path(root).glob('~ip*')) else 1)" >nul 2>&1
+if %ERRORLEVEL% equ 0 (
+    echo    [WARN] Existing venv has a partial pip upgrade. Recreating venv...
+    rmdir /s /q venv
+    python -m venv venv
+    if %ERRORLEVEL% neq 0 (
+        echo    [ERROR] Failed to recreate virtual environment
+        exit /b 1
+    )
+)
+
+"%PYTHON_CMD%" -X utf8 -m pip install --disable-pip-version-check --no-cache-dir -r requirements.txt
 if %ERRORLEVEL% neq 0 (
     echo    [ERROR] Failed to install dependencies
     exit /b 1

@@ -38,9 +38,6 @@ cd My-Bookshelves
 # Windows Command Prompt
 setup.bat
 
-# Windows Git Bash
-chmod +x setup.sh && ./setup.sh
-
 # macOS / Linux
 chmod +x setup.sh && ./setup.sh
 ```

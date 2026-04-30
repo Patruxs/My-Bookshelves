@@ -7,6 +7,8 @@
 
 set -e
 cd "$(dirname "$0")"
+export PYTHONUTF8=1
+export PYTHONIOENCODING=utf-8
 
 # Colors
 RED='\033[0;31m'
@@ -59,17 +61,25 @@ find_venv_python() {
     return 1
 }
 
-# ── Step 2: Create virtual environment + install dependencies ──
-echo ""
-echo -e "[2/5] 📥 Creating virtual environment and installing Python dependencies..."
+venv_has_broken_pip() {
+    if ! "$PYTHON_CMD" -m pip --version >/dev/null 2>&1; then
+        return 0
+    fi
 
-if ! VENV_PYTHON="$(find_venv_python)"; then
+    if "$PYTHON_CMD" -c "import pathlib, site, sys; sys.exit(0 if any(path.name.lower().startswith('~ip') for root in site.getsitepackages() for path in pathlib.Path(root).glob('~ip*')) else 1)" >/dev/null 2>&1; then
+        return 0
+    fi
+
+    return 1
+}
+
+create_venv() {
     VENV_EXISTED="false"
     if [ -d "venv" ]; then
         VENV_EXISTED="true"
     fi
 
-    if ! "$PYTHON_CMD" -m venv venv; then
+    if ! "$1" -m venv venv; then
         echo -e "   ${RED}❌ Failed to create virtual environment${NC}"
         echo "      If you are on Ubuntu/WSL, install python3-venv and rerun setup."
         echo "      If you are on Windows Git Bash, make sure Windows Python is on PATH or run setup.bat."
@@ -84,18 +94,29 @@ if ! VENV_PYTHON="$(find_venv_python)"; then
         echo "      Expected one of: venv/bin/python, venv/Scripts/python.exe"
         exit 1
     fi
+}
+
+# ── Step 2: Create virtual environment + install dependencies ──
+echo ""
+echo -e "[2/5] 📥 Creating virtual environment and installing Python dependencies..."
+
+SYSTEM_PYTHON_CMD="$PYTHON_CMD"
+if ! VENV_PYTHON="$(find_venv_python)"; then
+    create_venv "$SYSTEM_PYTHON_CMD"
 fi
 PYTHON_CMD="$VENV_PYTHON"
 
 echo "   Using $PYTHON_CMD"
-echo "   Upgrading pip..."
-if ! "$PYTHON_CMD" -m pip install --upgrade pip; then
-    echo -e "   ${RED}❌ Failed to upgrade pip${NC}"
-    exit 1
+if venv_has_broken_pip; then
+    echo -e "   ${YELLOW}⚠️  Existing venv has a broken pip install. Recreating venv...${NC}"
+    rm -rf venv
+    create_venv "$SYSTEM_PYTHON_CMD"
+    PYTHON_CMD="$VENV_PYTHON"
+    echo "   Using $PYTHON_CMD"
 fi
 
 echo "   Installing requirements..."
-if ! "$PYTHON_CMD" -m pip install -r requirements.txt; then
+if ! "$PYTHON_CMD" -X utf8 -m pip install --disable-pip-version-check --no-cache-dir -r requirements.txt; then
     echo -e "   ${RED}❌ Failed to install dependencies${NC}"
     exit 1
 fi
