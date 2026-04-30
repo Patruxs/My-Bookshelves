@@ -38,6 +38,9 @@ cd My-Bookshelves
 # Windows Command Prompt
 setup.bat
 
+# Windows Git Bash
+chmod +x setup.sh && ./setup.sh
+
 # macOS / Linux
 chmod +x setup.sh && ./setup.sh
 ```
@@ -66,6 +69,9 @@ setup.bat --reset-sample-data
 
 # Windows Command Prompt:
 venv\Scripts\activate.bat
+
+# Windows Git Bash:
+source venv/Scripts/activate
 
 # macOS/Linux:
 source venv/bin/activate

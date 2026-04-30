@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ══════════════════════════════════════════════════════════
-# 📚 My Bookshelves — One-Command Setup (macOS / Linux)
+# 📚 My Bookshelves — One-Command Setup (macOS / Linux / Git Bash)
 # ══════════════════════════════════════════════════════════
 # Usage: chmod +x setup.sh && ./setup.sh
 # ══════════════════════════════════════════════════════════
@@ -40,19 +40,62 @@ fi
 PYTHON_VERSION=$($PYTHON_CMD --version 2>&1 | awk '{print $2}')
 echo -e "   ${GREEN}✅ $PYTHON_CMD $PYTHON_VERSION detected${NC}"
 
+find_venv_python() {
+    if [ -x "venv/bin/python" ]; then
+        echo "venv/bin/python"
+        return 0
+    fi
+
+    if [ -x "venv/Scripts/python.exe" ]; then
+        echo "venv/Scripts/python.exe"
+        return 0
+    fi
+
+    if [ -x "venv/Scripts/python" ]; then
+        echo "venv/Scripts/python"
+        return 0
+    fi
+
+    return 1
+}
+
 # ── Step 2: Create virtual environment + install dependencies ──
 echo ""
 echo -e "[2/5] 📥 Creating virtual environment and installing Python dependencies..."
 
-if [ ! -x "venv/bin/python" ]; then
-    $PYTHON_CMD -m venv venv
+if ! VENV_PYTHON="$(find_venv_python)"; then
+    VENV_EXISTED="false"
+    if [ -d "venv" ]; then
+        VENV_EXISTED="true"
+    fi
+
+    if ! "$PYTHON_CMD" -m venv venv; then
+        echo -e "   ${RED}❌ Failed to create virtual environment${NC}"
+        echo "      If you are on Ubuntu/WSL, install python3-venv and rerun setup."
+        echo "      If you are on Windows Git Bash, make sure Windows Python is on PATH or run setup.bat."
+        if [ "$VENV_EXISTED" = "false" ] && [ -d "venv" ]; then
+            rm -rf venv
+        fi
+        exit 1
+    fi
+
+    if ! VENV_PYTHON="$(find_venv_python)"; then
+        echo -e "   ${RED}❌ Virtual environment was created, but its Python executable was not found${NC}"
+        echo "      Expected one of: venv/bin/python, venv/Scripts/python.exe"
+        exit 1
+    fi
 fi
-PYTHON_CMD="venv/bin/python"
+PYTHON_CMD="$VENV_PYTHON"
 
-$PYTHON_CMD -m pip install --upgrade pip >/dev/null 2>&1
-$PYTHON_CMD -m pip install -r requirements.txt
+echo "   Using $PYTHON_CMD"
+echo "   Upgrading pip..."
+if ! "$PYTHON_CMD" -m pip install --upgrade pip; then
+    echo -e "   ${RED}❌ Failed to upgrade pip${NC}"
+    exit 1
+fi
 
-if [ $? -ne 0 ]; then
+echo "   Installing requirements..."
+if ! "$PYTHON_CMD" -m pip install -r requirements.txt; then
     echo -e "   ${RED}❌ Failed to install dependencies${NC}"
     exit 1
 fi
@@ -69,20 +112,34 @@ echo -e "   ${GREEN}✅ Books/  Inbox/  site/assets/covers/${NC}"
 echo ""
 echo -e "[4/5] ✅ Verifying setup..."
 
-$PYTHON_CMD -c "import fitz; print('   ✅ PyMuPDF', fitz.version[0])" 2>/dev/null || echo -e "   ${RED}❌ PyMuPDF not working${NC}"
-$PYTHON_CMD -c "from PIL import Image; print('   ✅ Pillow', Image.__version__)" 2>/dev/null || echo -e "   ${RED}❌ Pillow not working${NC}"
-$PYTHON_CMD -c "import docx; print('   ✅ python-docx')" 2>/dev/null || echo -e "   ${RED}❌ python-docx not working${NC}"
+if PYMUPDF_VERSION=$("$PYTHON_CMD" -c "import fitz; print(fitz.version[0])" 2>/dev/null); then
+    echo -e "   ${GREEN}✅ PyMuPDF $PYMUPDF_VERSION${NC}"
+else
+    echo -e "   ${RED}❌ PyMuPDF not working${NC}"
+fi
+
+if PILLOW_VERSION=$("$PYTHON_CMD" -c "from PIL import Image; print(Image.__version__)" 2>/dev/null); then
+    echo -e "   ${GREEN}✅ Pillow $PILLOW_VERSION${NC}"
+else
+    echo -e "   ${RED}❌ Pillow not working${NC}"
+fi
+
+if "$PYTHON_CMD" -c "import docx" 2>/dev/null; then
+    echo -e "   ${GREEN}✅ python-docx${NC}"
+else
+    echo -e "   ${RED}❌ python-docx not working${NC}"
+fi
 
 # ── Step 5: Optional reset + doctor ──
 echo ""
 echo -e "[5/5] 🩺 Running repo doctor..."
 if [ "${1:-}" = "--reset-sample-data" ]; then
     echo -e "   ${YELLOW}⚠️  Resetting sample data because --reset-sample-data was provided${NC}"
-    $PYTHON_CMD scripts/reset_library.py --force
+    "$PYTHON_CMD" scripts/reset_library.py --force
 else
     echo -e "   ${GREEN}✅ Skipping reset. Existing library data is preserved.${NC}"
 fi
-$PYTHON_CMD scripts/cli.py doctor --base-dir .
+"$PYTHON_CMD" scripts/cli.py doctor --base-dir .
 
 # ── Done ──
 echo ""
@@ -96,7 +153,7 @@ echo -e "${CYAN}║${NC}    → http://localhost:8080/site/                     
 echo -e "${CYAN}║${NC}                                                     ${CYAN}║${NC}"
 echo -e "${CYAN}║${NC}  Add books:                                         ${CYAN}║${NC}"
 echo -e "${CYAN}║${NC}    1. Drop files into Inbox/                        ${CYAN}║${NC}"
-echo -e "${CYAN}║${NC}    2. venv/bin/python scripts/cli.py generate --base-dir . ${CYAN}║${NC}"
+printf "${CYAN}║${NC}    2. %s scripts/cli.py generate --base-dir .${CYAN}║${NC}\n" "$PYTHON_CMD"
 echo -e "${CYAN}║${NC}                                                     ${CYAN}║${NC}"
 echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${NC}"
 echo ""
