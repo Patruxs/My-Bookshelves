@@ -1,4 +1,4 @@
-name: 📚 Build & Deploy My Bookshelves
+name: Deploy GitHub Pages
 
 on:
   push:
@@ -11,25 +11,25 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: 📥 Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 📤 Upload GitHub Pages artifact
+      - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
-      - name: 🚀 Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
