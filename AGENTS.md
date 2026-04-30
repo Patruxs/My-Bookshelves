@@ -1,13 +1,13 @@
 # AGENTS.md
 
-Huong dan nay la entrypoint cho Codex khi lam viec trong repo My-Bookshelves.
-Thu muc `.agents/` van la nguon dung chung cho ca Antigravity va Codex.
-Thu muc `.codex/` la adapter rieng cho Codex va chi tro ve `.agents/`.
+This guide is the entrypoint for Codex when working in the My-Bookshelves repo.
+The `.agents/` directory remains the shared source for both Antigravity and Codex.
+The `.codex/` directory is the Codex-specific adapter and only points back to `.agents/`.
 
 ## Load Order
 
-1. Luon doc `.agents/rules/my-bookshelves.md` truoc khi sua code, metadata, sach, cover, upload, hoac workflow.
-2. Khi user goi `/auto-organize`, `auto-organize`, hoac yeu cau phan loai sach trong `Inbox/`, doc:
+1. Always read `.agents/rules/my-bookshelves.md` before editing code, metadata, books, covers, uploads, or workflows.
+2. When the user invokes `/auto-organize`, `auto-organize`, or asks to classify books in `Inbox/`, read:
    - `.codex/manifest.json`
    - `.codex/rules.md`
    - `.codex/workflows/auto-organize.md`
@@ -15,40 +15,40 @@ Thu muc `.codex/` la adapter rieng cho Codex va chi tro ve `.agents/`.
    - `.agents/skills/auto-organize/SKILL.md`
    - `.agents/skills/auto-organize/prompts/classify_book.md`
    - `.agents/skills/auto-organize/config/settings.json`
-3. Neu chi sua frontend, van phai giu ranh gioi zero-dependency trong project rules.
+3. Even when only editing frontend code, keep the zero-dependency boundary from the project rules.
 
 ## Codex Compatibility Map
 
 | Antigravity concept | Codex equivalent |
 | --- | --- |
-| Slash workflow nhu `/auto-organize` | User co the goi bang text; doc file trong `.agents/workflows/` va thuc thi cac buoc |
-| `view_file` | Dung cong cu doc file hoac `Get-Content -Raw` trong PowerShell |
-| `multi_replace_file_content` | Dung `apply_patch` cho batch edit; voi JSON lon, uu tien tool/CLI san co va validate JSON sau khi sua |
-| `// turbo` comment | Ghi chu toi uu tu Antigravity, khong phai syntax bat buoc voi Codex |
-| Bash snippets | Chay tuong duong trong PowerShell khi o Windows (`Get-ChildItem`, `New-Item`, `Move-Item`) |
+| Slash workflow such as `/auto-organize` | The user can invoke it in plain text; read the file in `.agents/workflows/` and execute the steps |
+| `view_file` | Use a file-reading tool or `Get-Content -Raw` in PowerShell |
+| `multi_replace_file_content` | Use `apply_patch` for batch edits; for large JSON files, prefer existing tools/CLI and validate JSON after editing |
+| `// turbo` comment | Optimization note from Antigravity, not required syntax for Codex |
+| Bash snippets | Run the equivalent command in PowerShell on Windows (`Get-ChildItem`, `New-Item`, `Move-Item`) |
 
 ## Operating Rules For Codex
 
-- Shell mac dinh la PowerShell, working directory la repo root.
-- Dung `rg`/`rg --files` de tim file va noi dung.
-- Khong commit file sach (`*.pdf`, `*.epub`, `*.docx`) vao git.
-- Hoi user xac nhan mot lan truoc khi rename/move hang loat sach hoac upload that.
-- Truoc khi chay `generate`, phai verify PyMuPDF, Pillow va python-docx dung interpreter.
-- `python scripts/cli.py generate --base-dir .` chi chay mot lan cho moi batch; neu fail thi sua root cause truoc.
-- Sau `generate`, bat buoc verify `download_url` va `topic` cua sach trong sub-folder.
-- Khi ghi `category`/`topic` vao `site/data.json`, dung display name co khoang trang; khong ghi `Snake_Case`.
-- Neu test/build/lint/runtime fail trong qua trinh lam viec, append vao `ERRORS.md` theo rule error logging cua workspace.
+- The default shell is PowerShell, and the working directory is the repo root.
+- Use `rg`/`rg --files` to search for files and content.
+- Do not commit book files (`*.pdf`, `*.epub`, `*.docx`) to git.
+- Ask the user for one confirmation before bulk renaming/moving books or performing a real upload.
+- Before running `generate`, verify PyMuPDF, Pillow, and python-docx with the active interpreter.
+- Run `python scripts/cli.py generate --base-dir .` only once per batch; if it fails, fix the root cause before retrying.
+- After `generate`, always verify the `download_url` and `topic` for books in subfolders.
+- When writing `category`/`topic` to `site/data.json`, use display names with spaces; do not write `Snake_Case`.
+- If a test/build/lint/runtime failure occurs during work, append it to `ERRORS.md` according to the workspace error logging rule.
 
 ## Auto-Organize Summary
 
-Quy trinh dung chung:
+Shared workflow:
 
-1. Quet `Inbox/` va dem N sach moi.
-2. Dry-run rename, chi execute sau khi user dong y.
-3. Generate va doc `library_structure.log`.
-4. Phan loai tat ca sach trong bo nho, uu tien folder co san.
-5. Hien mot bang tong hop va hoi user xac nhan mot lan.
-6. Move batch vao `Books/`.
-7. Verify dependencies, generate cover/data, chen descriptions, verify metadata.
-8. Dry-run upload, upload that neu count dung N.
-9. Cap nhat `library_structure.log`, commit/push neu workflow/user yeu cau.
+1. Scan `Inbox/` and count N new books.
+2. Dry-run the rename; execute only after user approval.
+3. Generate and read `library_structure.log`.
+4. Classify all books in memory, prioritizing existing folders.
+5. Show a summary table and ask the user for one confirmation.
+6. Move the batch into `Books/`.
+7. Verify dependencies, generate covers/data, insert descriptions, and verify metadata.
+8. Dry-run the upload, then perform the real upload only if the count matches N.
+9. Update `library_structure.log`, then commit/push if the workflow or user requests it.

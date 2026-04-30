@@ -1,32 +1,32 @@
 ---
-description: Phân loại sách mới từ Inbox bằng AI Agent (Batch Processing workflow cho Antigravity và Codex)
+description: Classify new books from Inbox with an AI Agent (batch processing workflow for Antigravity and Codex)
 ---
 
-# /auto-organize — Phân loại sách tự động (Batch Mode)
+# /auto-organize - Automatic Book Classification (Batch Mode)
 
-> Agent phân loại TẤT CẢ sách → hỏi user **1 lần** → di chuyển + bìa + mô tả + upload. Chi tiết đầy đủ xem `SKILL.md`.
+> Agent classifies ALL books -> asks the user **once** -> moves files + covers + descriptions + upload. See `SKILL.md` for full details.
 
 ## Codex compatibility
 
-- Trong Codex, user có thể gọi `/auto-organize`, `auto-organize`, hoặc yêu cầu phân loại sách trong `Inbox/`.
-- `view_file` tương đương đọc file bằng tool của Codex hoặc `Get-Content -Raw`.
-- `multi_replace_file_content` tương đương batch edit bằng `apply_patch` rồi validate JSON.
-- Các dòng `// turbo` là ghi chú tối ưu của Antigravity; Codex chỉ cần thực hiện lệnh tương đương.
-- Nếu đang ở Windows/PowerShell, dùng lệnh native tương đương cho `ls`, `mkdir`, `mv` khi cần.
+- In Codex, the user can invoke `/auto-organize`, `auto-organize`, or ask to classify books in `Inbox/`.
+- `view_file` is equivalent to reading the file with a Codex tool or `Get-Content -Raw`.
+- `multi_replace_file_content` is equivalent to batch editing with `apply_patch`, then validating JSON.
+- `// turbo` lines are Antigravity optimization notes; Codex only needs to run the equivalent command.
+- On Windows/PowerShell, use native equivalent commands for `ls`, `mkdir`, and `mv` when needed.
 
-1. Đọc skill instructions tại `.agents/skills/auto-organize/SKILL.md`.
+1. Read skill instructions at `.agents/skills/auto-organize/SKILL.md`.
 
-2. Đọc quy tắc phân loại tại `.agents/skills/auto-organize/prompts/classify_book.md`.
+2. Read classification rules at `.agents/skills/auto-organize/prompts/classify_book.md`.
 
-// turbo 3. Quét Inbox, ghi nhận N sách mới:
+// turbo 3. Scan Inbox and record N new books:
 
 ```bash
 ls "Inbox/"
 ```
 
-Nếu rỗng → thông báo user, dừng.
+If empty -> notify the user and stop.
 
-// turbo 4. Chuẩn hóa tên file (dry-run trước, `--execute` nếu cần):
+// turbo 4. Normalize file names (dry-run first, `--execute` if needed):
 
 ```bash
 python scripts/cli.py rename --base-dir .
@@ -38,60 +38,60 @@ python scripts/cli.py rename --base-dir .
 python scripts/cli.py structure --base-dir .
 ```
 
-6. **BẮT BUỘC:** đọc toàn bộ `library_structure.log` (Antigravity: `view_file`; Codex: tool đọc file hoặc `Get-Content -Raw`). Chú ý phần `AVAILABLE CATEGORIES`.
+6. **REQUIRED:** read the full `library_structure.log` (Antigravity: `view_file`; Codex: file-reading tool or `Get-Content -Raw`). Pay attention to the `AVAILABLE CATEGORIES` section.
 
-7. **🧠 BATCH CLASSIFY + DESCRIPTIONS** — Xử lý TẤT CẢ trong bộ nhớ. Đối chiếu log, ưu tiên folder CÓ SẴN. Soạn description 3 phần. KHÔNG hỏi user từng cuốn.
+7. **Batch classify + descriptions** - Process EVERYTHING in memory. Compare against the log and prioritize EXISTING folders. Draft 3-part descriptions. DO NOT ask the user book by book.
 
-8. **📋 IN BẢNG TỔNG HỢP** → Hỏi user **1 LẦN DUY NHẤT**.
+8. **Print summary table** -> Ask the user **ONLY ONCE**.
 
-9. Di chuyển TẤT CẢ file batch (`mkdir -p` + `mv`). Đích luôn bắt đầu `Books/`.
+9. Move ALL files in the batch (`mkdir -p` + `mv`). Destination must always start with `Books/`.
 
-// turbo 10. Kiểm tra dependencies:
+// turbo 10. Check dependencies:
 
 ```bash
 python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING"
 python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING"
 ```
 
-// turbo 11. Generate covers + data.json — **CHỈ 1 LẦN**:
+// turbo 11. Generate covers + data.json - **ONLY ONCE**:
 
 ```bash
 python scripts/cli.py generate --base-dir .
 ```
 
-// turbo 12. Verify `download_url` (thiếu = đúng N → OK, > N → DỪNG):
+// turbo 12. Verify `download_url` (missing = exactly N -> OK, > N -> STOP):
 
 ```bash
-python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8')); missing=[b['title'] for b in data if not b.get('download_url')]; print(f'Thiếu URL: {len(missing)}'); [print(f'  - {t}') for t in missing]"
+python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8')); missing=[b['title'] for b in data if not b.get('download_url')]; print(f'Missing URL: {len(missing)}'); [print(f'  - {t}') for t in missing]"
 ```
 
-// turbo 12b. **BẮT BUỘC** — Verify `topic` cho sách trong sub-folder (VD: `Programming_Languages/Java`):
+// turbo 12b. **REQUIRED** - Verify `topic` for books in subfolders (for example `Programming_Languages/Java`):
 
 ```bash
 python -c "import json; d=json.load(open('site/data.json','r',encoding='utf-8')); errors=[(b['title'],b['topic'],b['file_path']) for b in d if b['file_path'].count('/')>=4 and '/'.join(b['file_path'].split('/')[2:-1]).replace('_',' ')!=b['topic']]; print(f'Sub-topic mismatches: {len(errors)}'); [print(f'  - {t} | topic={tp} | path={p}') for t,tp,p in errors]"
 ```
 
-> ⚠️ Nếu có mismatch → sửa `topic` trong data.json. Luôn dùng **display name** (khoảng trắng), KHÔNG dùng `Snake_Case` (`_`).
-> Đúng: `"topic": "Programming Languages/Java"` ✅ — Sai: `"topic": "Programming_Languages/Java"` ❌
+> If there is a mismatch -> fix `topic` in data.json. Always use the **display name** (spaces), NOT `Snake_Case` (`_`).
+> Correct: `"topic": "Programming Languages/Java"` - Wrong: `"topic": "Programming_Languages/Java"`
 
-13. **CHÈN DESCRIPTIONS** — batch edit tất cả `"description": ""` cùng lúc (Antigravity: `multi_replace_file_content`; Codex: `apply_patch` hoặc CLI phù hợp).
+13. **Insert descriptions** - batch edit all `"description": ""` values at once (Antigravity: `multi_replace_file_content`; Codex: `apply_patch` or suitable CLI).
 
-> ⚠️ **JSON newline:** Dùng `\n` (single escape) cho xuống dòng, KHÔNG dùng `\\n` (double escape).
-> So sánh: `"Dòng 1.\n\nDòng 2."` ✅ — `"Dòng 1.\\n\\nDòng 2."` ❌ (hiển thị literal `\n`).
+> **JSON newline:** Use `\n` (single escape) for line breaks, NOT `\\n` (double escape).
+> Compare: `"Line 1.\n\nLine 2."` - `"Line 1.\\n\\nLine 2."` is wrong and displays literal `\n`.
 
-// turbo 14. Cập nhật log ngay sau phân loại:
+// turbo 14. Update the log immediately after classification:
 
 ```bash
 python scripts/cli.py structure --base-dir .
 ```
 
-15. **DRY-RUN upload** (count = N → OK, > N → DỪNG):
+15. **DRY-RUN upload** (count = N -> OK, > N -> STOP):
 
 ```bash
 python scripts/cli.py upload --dry-run
 ```
 
-16. Upload sách mới:
+16. Upload new books:
 
 ```bash
 python scripts/cli.py upload
@@ -103,4 +103,4 @@ python scripts/cli.py upload
 git add -A && git commit -m "add: [N] books to library" && git push
 ```
 
-18. **Báo cáo kết quả** cho user (bảng tổng kết + links).
+18. **Report results** to the user (summary table + links).

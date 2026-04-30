@@ -1,136 +1,136 @@
 ---
 trigger: always_on
 glob: "**"
-description: Project Rules — Kim chỉ nam cho toàn bộ quá trình phát triển My Bookshelves
+description: Project Rules - guiding principles for the full My Bookshelves development workflow
 ---
 
-Dự án My-Bookshelves là thư viện sách cá nhân static web host trên GitHub Pages.
+My-Bookshelves is a personal static book library hosted on GitHub Pages.
 
 ## 1. CORE PHILOSOPHY
 
-- **Apple-Style UI/UX**: Tối giản, glassmorphism (`backdrop-filter: blur(20px)`), khoảng trắng rộng, bo góc 12-16px, transition mượt. Light mode mặc định.
-- **Zero-Dependency**: 100% Vanilla HTML + CSS + JS (ES6+). CẤM React/Vue/Tailwind/Bootstrap/jQuery/FontAwesome. System fonts only. Icons = SVG inline hoặc emoji.
-- **Storage ≤ 5MB**: PDF/EPUB lưu trên GitHub Releases (tag `storage-v1`), KHÔNG trong git. Ảnh bìa WebP 600px q85 (<80KB). Không external resources/CDN.
+- **Apple-Style UI/UX**: Minimal, glassmorphism (`backdrop-filter: blur(20px)`), generous whitespace, 12-16px border radius, smooth transitions. Light mode by default.
+- **Zero-Dependency**: 100% vanilla HTML + CSS + JS (ES6+). NO React/Vue/Tailwind/Bootstrap/jQuery/FontAwesome. System fonts only. Icons = inline SVG or emoji.
+- **Storage <= 5MB**: Store PDF/EPUB files on GitHub Releases (tag `storage-v1`), NOT in git. Cover images must be WebP 600px q85 (<80KB). No external resources/CDN.
 
-## 2. CẤU TRÚC DỰ ÁN
+## 2. PROJECT STRUCTURE
 
 ```
-Books/{N}_{Category}/{Topic}/book.pdf   # Sách (gitignored, lưu trên Releases)
+Books/{N}_{Category}/{Topic}/book.pdf   # Books (gitignored, stored on Releases)
 site/index.html                         # Single-file HTML+CSS, SPA views
 site/app.js                             # All JS logic
-site/data.json                          # Metadata sách (source of truth)
-site/assets/covers/*.webp               # Ảnh bìa
+site/data.json                          # Book metadata (source of truth)
+site/assets/covers/*.webp               # Cover images
 scripts/*.py                            # Automation scripts
-library_structure.log                   # AI Context Grounding (auto-generated)
+library_structure.log                   # AI context grounding (auto-generated)
 ```
 
-## 3. QUY TẮC ĐẶT TÊN
+## 3. NAMING RULES
 
-| Loại | Format | Ví dụ |
-|------|--------|-------|
-| File sách | ASCII Snake_Case, không dấu | `Go_With_Domain.pdf`, `Kien_truc_ung_dung_web.epub` |
+| Type | Format | Example |
+|------|--------|---------|
+| Book file | ASCII Snake_Case, no diacritics | `Go_With_Domain.pdf`, `Kien_truc_ung_dung_web.epub` |
 | Category | `{N}_Snake_Case` | `1_Computer_Science_Fundamentals` |
 | Topic | `Snake_Case` | `Data_Structures_and_Algorithms` |
 | Sub-topic | `Topic/SubTopic` (Snake_Case) | `Programming_Languages/Java` |
-| Ảnh bìa | `Sanitize_Title.webp` | `Head_First_Java_2nd_Edition.webp` |
+| Cover image | `Sanitize_Title.webp` | `Head_First_Java_2nd_Edition.webp` |
 | Scripts | lowercase_underscore | `generate_data.py` |
 
-Tên sách: CHỈ dùng `_`, KHÔNG dùng khoảng trắng/`-`/`+`/`.`. Tiếng Việt KHÔNG DẤU.
+Book names: use ONLY `_`; do NOT use spaces/`-`/`+`/`.`. Vietnamese titles must be written without diacritics.
 
-### ⚠️ HAI DẠNG TÊN (Folder vs Display) — CRITICAL
+### Warning: Two Naming Forms (Folder vs Display) - Critical
 
-| Context | Format | Ví dụ |
-|---------|--------|-------|
-| **Folder trên disk** | `Snake_Case` | `Programming_Languages/Java` |
-| **Trường `topic` trong data.json** | Display name (spaces) | `Programming Languages/Java` |
-| **Trường `category` trong data.json** | Display name (spaces) | `Computer Science Fundamentals` |
+| Context | Format | Example |
+|---------|--------|---------|
+| **Folder on disk** | `Snake_Case` | `Programming_Languages/Java` |
+| **`topic` field in data.json** | Display name (spaces) | `Programming Languages/Java` |
+| **`category` field in data.json** | Display name (spaces) | `Computer Science Fundamentals` |
 
-> ⚠️ **KHÔNG BAO GIỜ** dùng `Snake_Case` (dấu gạch dưới `_`) khi ghi giá trị `topic` hoặc `category` vào `data.json`. Luôn dùng display name với khoảng trắng.
-> Sai: `"topic": "Programming_Languages/Java"` ❌
-> Đúng: `"topic": "Programming Languages/Java"` ✅
+> **NEVER** use `Snake_Case` (underscores `_`) when writing `topic` or `category` values to `data.json`. Always use display names with spaces.
+> Wrong: `"topic": "Programming_Languages/Java"`
+> Correct: `"topic": "Programming Languages/Java"`
 
 ## 4. FRONTEND
 
-- **CSS**: Variables cho theming (`--bg`, `--accent`...). Intrinsic responsive: `clamp()`, `auto-fill`, `flex-wrap`. `@media` chỉ cho sidebar/navbar breakpoints.
-- **JS**: `querySelector()`, `addEventListener()`, Fetch API. Inline `onclick` chỉ cho dynamic HTML.
-- **SPA**: View switching (`#home-view`/`#detail-view`), `history.pushState` → `?book=id`.
-- **Pagination**: Dynamic `calculateBooksPerPage()` — bội số của số cột, recalculate on resize.
+- **CSS**: Variables for theming (`--bg`, `--accent`...). Intrinsic responsive layout: `clamp()`, `auto-fill`, `flex-wrap`. Use `@media` only for sidebar/navbar breakpoints.
+- **JS**: `querySelector()`, `addEventListener()`, Fetch API. Inline `onclick` only for dynamic HTML.
+- **SPA**: View switching (`#home-view`/`#detail-view`), `history.pushState` -> `?book=id`.
+- **Pagination**: Dynamic `calculateBooksPerPage()` - a multiple of the column count, recalculated on resize.
 - **Cache busting**: `fetch("data.json?v=" + Date.now(), {cache:"no-store"})`.
 
 ## 5. PYTHON SCRIPTS
 
 - PEP 8, type hints, docstrings, `pathlib.Path`, `argparse`.
-- `generate_data.py` yêu cầu **PyMuPDF + Pillow** cùng interpreter. Luôn dùng `python -m pip install`.
-- Ảnh bìa: PDF page 1 → zoom 3x → resize 600px → WebP q85 method=6 → convert RGB trước save.
+- `generate_data.py` requires **PyMuPDF + Pillow** in the same interpreter. Always use `python -m pip install`.
+- Covers: PDF page 1 -> zoom 3x -> resize 600px -> WebP q85 method=6 -> convert RGB before saving.
 
-## 6. DATA PIPELINE — ⚠️ CRITICAL
+## 6. DATA PIPELINE - Critical
 
-- `generate_data.py` CHỈ CHẠY 1 LẦN. PHẢI verify PyMuPDF+Pillow trước.
-- PHẢI verify `download_url` preservation sau generate (thiếu URL = đúng N sách mới).
-- `upload_releases.py --dry-run` BẮT BUỘC trước upload thật.
-- Description format 3 phần: Context → Overview → Key Takeaways (4-5 `•` bullets). Ngăn cách `\n\n`. Sách VN viết tiếng Việt.
-- Mất `download_url` → `git checkout site/data.json` khôi phục.
+- Run `generate_data.py` ONLY ONCE per batch. MUST verify PyMuPDF+Pillow first.
+- MUST verify `download_url` preservation after generate (missing URL count = exactly N new books).
+- `upload_releases.py --dry-run` is REQUIRED before a real upload.
+- Description format has 3 parts: Context -> Overview -> Key Takeaways (4-5 `•` bullets). Separate with `\n\n`. Write Vietnamese books in Vietnamese.
+- Lost `download_url` -> restore with `git checkout site/data.json`.
 
 ## 7. GIT
 
-KHÔNG BAO GIỜ commit: `*.pdf`, `*.epub`, `*.jpg`, `*.png`, `venv/`, `node_modules/`, IDE config.
-Exception: `!library_structure.log` được phép commit.
+NEVER commit: `*.pdf`, `*.epub`, `*.jpg`, `*.png`, `venv/`, `node_modules/`, IDE config.
+Exception: `!library_structure.log` may be committed.
 
-## 8. CHỈ THỊ CHO AI
+## 8. AI INSTRUCTIONS
 
-1. KHÔNG code placeholder/TODO — mọi function phải hoàn chỉnh.
-2. KHÔNG đề xuất thư viện ngoài — luôn Vanilla.
-3. KHÔNG chỉnh data.json mà xóa description/download_url đã có.
-4. PHẢI đọc `library_structure.log` trước khi phân loại sách — ưu tiên folder CÓ SẴN.
-5. PHẢI chạy `generate_structure_log.py` sau khi thêm sách mới.
-6. PHẢI đọc `SKILL.md` trước khi thực hiện `/auto-organize`.
-7. Hỏi user xác nhận trước khi move/rename file.
-8. CSS dùng Variables, JS dùng ES6+, ảnh chỉ WebP.
-9. **Sub-topic**: Sách trong thư mục con (VD: `Programming_Languages/Java/`) PHẢI có `topic` = `"Programming Languages/Java"` (display name, KHÔNG dùng `_`). KHÔNG ĐƯỢC ghi `"Programming Languages"` (thiếu sub-topic).
-10. **Verify sau generate**: Sau khi chạy `generate_data.py`, PHẢI kiểm tra trường `topic` của sách mới có khớp đúng đường dẫn thư mục không (đặc biệt sách trong sub-topic).
+1. NO placeholder/TODO code - every function must be complete.
+2. DO NOT suggest external libraries - always stay vanilla.
+3. DO NOT edit `data.json` in a way that removes existing descriptions/download URLs.
+4. MUST read `library_structure.log` before classifying books - prioritize EXISTING folders.
+5. MUST run `generate_structure_log.py` after adding new books.
+6. MUST read `SKILL.md` before executing `/auto-organize`.
+7. Ask the user for confirmation before moving/renaming files.
+8. CSS uses variables, JS uses ES6+, images are WebP only.
+9. **Sub-topic**: Books in subfolders (for example `Programming_Languages/Java/`) MUST have `topic` = `"Programming Languages/Java"` (display name, NOT `_`). DO NOT write `"Programming Languages"` only (missing sub-topic).
+10. **Verify after generate**: After running `generate_data.py`, MUST check that the `topic` field for each new book matches its folder path correctly (especially books in sub-topics).
 
 ## 9. CODEX COMPATIBILITY
 
-- `AGENTS.md` ở root là entrypoint cho Codex và trỏ về các rule/skill/workflow trong `.agents/`.
-- `.agents/` là nguồn chung cho cả Antigravity và Codex; không duplicate logic sang nơi khác nếu không cần.
-- Khi cập nhật `.agents/`, chạy `python scripts/cli.py codex-sync --base-dir .` để sinh lại `.codex/`.
-- Khi gặp chỉ thị Antigravity-specific:
-  - `view_file` → Codex dùng tool đọc file hoặc `Get-Content -Raw`.
-  - `multi_replace_file_content` → Codex dùng `apply_patch` cho batch edit rồi validate JSON.
-  - `// turbo` → chỉ là ghi chú tối ưu, không phải cú pháp bắt buộc.
-- Codex chạy trên PowerShell trong repo này, nên có thể thay `mkdir -p`/`mv` bằng `New-Item -ItemType Directory -Force`/`Move-Item`.
-- Với `/auto-organize`, Codex phải đọc `.agents/workflows/auto-organize.md` và `.agents/skills/auto-organize/SKILL.md` trước khi thao tác.
+- Root `AGENTS.md` is the Codex entrypoint and points to rules/skills/workflows in `.agents/`.
+- `.agents/` is the shared source for both Antigravity and Codex; do not duplicate logic elsewhere unless necessary.
+- When updating `.agents/`, run `python scripts/cli.py codex-sync --base-dir .` to regenerate `.codex/`.
+- When encountering Antigravity-specific instructions:
+  - `view_file` -> Codex uses a file-reading tool or `Get-Content -Raw`.
+  - `multi_replace_file_content` -> Codex uses `apply_patch` for batch edits, then validates JSON.
+  - `// turbo` -> optimization note only, not required syntax.
+- Codex runs on PowerShell in this repo, so `mkdir -p`/`mv` can be replaced with `New-Item -ItemType Directory -Force`/`Move-Item`.
+- For `/auto-organize`, Codex must read `.agents/workflows/auto-organize.md` and `.agents/skills/auto-organize/SKILL.md` before making changes.
 
 ## SCRIPTS (CLI & TUI)
 
-**Giao diện tương tác TUI:**
+**Interactive TUI:**
 `python scripts/tui.py`
 
-**Giao diện dòng lệnh CLI:**
+**Command-line CLI:**
 
-| Lệnh (`python scripts/cli.py <cmd>`) | Chức năng |
-|-------|-----------|
-| `list` | Liệt kê tất cả sách/topic/category |
-| `rename` | Xem trước rename (dry-run) |
-| `rename --execute` | Chuẩn hóa tên ASCII Snake_Case |
-| `generate` | Tạo cover + data.json (CHỈ 1 LẦN) |
-| `structure` | Cập nhật library_structure.log |
-| `upload --dry-run` | Xem trước upload (BẮT BUỘC) |
-| `upload` | Upload sách MỚI |
-| `upload --force` | Re-upload tất cả |
-| `upload --hard-reset` | Xóa + tạo lại release |
-| `codex-sync` | Regenerate `.codex/` adapter từ `.agents/` |
-| `delete --book "Title"` | Xem trước xóa sách (dry-run) |
-| `delete --book "Title" --execute` | Xóa sách khỏi data.json + cover |
-| `delete --topic "Topic" --category "Cat"` | Xem trước xóa topic |
-| `delete --topic "Topic" --category "Cat" --execute` | Xóa toàn bộ topic |
-| `delete --category "Cat" --execute` | Xóa toàn bộ category |
-| `delete --book "Title" --execute --delete-files` | Xóa cả file vật lý |
-| `update --book "Title" --set-description "Desc"` | Xem trước update description |
+| Command (`python scripts/cli.py <cmd>`) | Function |
+|-------|----------|
+| `list` | List all books/topics/categories |
+| `rename` | Preview renames (dry-run) |
+| `rename --execute` | Normalize names to ASCII Snake_Case |
+| `generate` | Generate covers + data.json (ONLY ONCE) |
+| `structure` | Update library_structure.log |
+| `upload --dry-run` | Preview upload (REQUIRED) |
+| `upload` | Upload NEW books |
+| `upload --force` | Re-upload everything |
+| `upload --hard-reset` | Delete + recreate release |
+| `codex-sync` | Regenerate the `.codex/` adapter from `.agents/` |
+| `delete --book "Title"` | Preview book deletion (dry-run) |
+| `delete --book "Title" --execute` | Delete book from data.json + cover |
+| `delete --topic "Topic" --category "Cat"` | Preview topic deletion |
+| `delete --topic "Topic" --category "Cat" --execute` | Delete an entire topic |
+| `delete --category "Cat" --execute` | Delete an entire category |
+| `delete --book "Title" --execute --delete-files` | Also delete the physical file |
+| `update --book "Title" --set-description "Desc"` | Preview description update |
 | `update --book "Title" --set-description "Desc" --execute` | Update description |
-| `update --book "Title" --set-category "Cat" --execute` | Chuyển sách sang category khác |
-| `update --book "Title" --set-topic "Topic" --execute` | Chuyển sách sang topic khác |
-| `update --topic "Old" --category "Cat" --rename "New" --execute` | Đổi tên topic |
-| `update --category "Old" --rename "New" --execute` | Đổi tên category |
+| `update --book "Title" --set-category "Cat" --execute` | Move book to another category |
+| `update --book "Title" --set-topic "Topic" --execute` | Move book to another topic |
+| `update --topic "Old" --category "Cat" --rename "New" --execute` | Rename topic |
+| `update --category "Old" --rename "New" --execute` | Rename category |
 
-REPO: `Patruxs/My-Bookshelves` · branch: `main` · deploy: GitHub Pages từ `site/`
+REPO: `Patruxs/My-Bookshelves` · branch: `main` · deploy: GitHub Pages from `site/`

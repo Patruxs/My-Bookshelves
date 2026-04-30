@@ -1,146 +1,146 @@
 ---
 name: auto-organize
-description: Tự động phân loại sách mới trong Inbox vào đúng thư mục thể loại/chủ đề bằng Antigravity hoặc Codex AI Agent
+description: Automatically classify new books in Inbox into the correct category/topic folders with an Antigravity or Codex AI Agent
 ---
 
-# Auto-Organize Skill — Batch Mode
+# Auto-Organize Skill - Batch Mode
 
-> **Nguyên tắc:** Phân loại TẤT CẢ → hỏi user **1 lần** → di chuyển + bìa + mô tả + upload hàng loạt.
+> **Principle:** Classify EVERYTHING -> ask the user **once** -> move files + covers + descriptions + bulk upload.
 
 ## Codex compatibility
 
-Skill này là nguồn dùng chung cho Antigravity và Codex.
+This skill is the shared source for Antigravity and Codex.
 
 | Antigravity | Codex |
 |-------------|-------|
-| `/auto-organize` slash command | User có thể gọi `/auto-organize`, `auto-organize`, hoặc mô tả yêu cầu bằng tiếng Việt |
-| `view_file` | Dùng tool đọc file hoặc `Get-Content -Raw` |
-| `multi_replace_file_content` | Dùng `apply_patch` cho batch edit rồi validate JSON |
-| `mkdir -p` / `mv` | Trên Windows dùng `New-Item -ItemType Directory -Force` / `Move-Item` nếu alias không phù hợp |
+| `/auto-organize` slash command | The user can invoke `/auto-organize`, `auto-organize`, or describe the request in plain language |
+| `view_file` | Use a file-reading tool or `Get-Content -Raw` |
+| `multi_replace_file_content` | Use `apply_patch` for batch edits, then validate JSON |
+| `mkdir -p` / `mv` | On Windows, use `New-Item -ItemType Directory -Force` / `Move-Item` if aliases are not suitable |
 
-Khi chạy bằng Codex, vẫn phải tuân thủ đầy đủ các guardrail bên dưới: hỏi user đúng 1 lần trước khi move/rename hàng loạt, dry-run trước upload, và không chạy generate lần hai nếu chưa xử lý root cause.
+When running with Codex, still follow every guardrail below: ask the user exactly once before bulk move/rename operations, dry-run before upload, and do not run generate a second time until the root cause has been handled.
 
-## ⚠️ Quy tắc bảo vệ dữ liệu
+## Data Protection Rules
 
-| Quy tắc | Chi tiết |
-|---------|----------|
-| `generate_data.py` CHỈ 1 LẦN | Nếu fail → fix root cause, KHÔNG chạy lại |
-| Verify PyMuPDF + Pillow | PHẢI có cả 2 trước khi generate. Dùng `python -m pip install` |
-| Verify `download_url` | Sau generate: số thiếu URL = đúng N sách mới. Nếu > N → DỪNG |
-| **Verify `topic` sub-folder** | Sau generate: kiểm tra sách trong sub-topic (VD: `Java/`) có `topic` chứa đầy đủ path (`Programming Languages/Java`) không. Nếu thiếu → sửa ngay |
-| Dry-run upload | BẮT BUỘC trước upload thật. Count > N → DỪNG |
-| Mất `download_url` | Khôi phục: `git checkout site/data.json` |
-| **Folder vs Display name** | Folder trên disk dùng `Snake_Case`, nhưng trường `topic`/`category` trong `data.json` dùng display name (khoảng trắng). VD: folder `Programming_Languages/Java` → topic `"Programming Languages/Java"`. KHÔNG BAO GIỜ ghi `_` vào `data.json` |
+| Rule | Details |
+|------|---------|
+| Run `generate_data.py` ONLY ONCE | If it fails -> fix the root cause; DO NOT rerun blindly |
+| Verify PyMuPDF + Pillow | BOTH must be present before generate. Use `python -m pip install` |
+| Verify `download_url` | After generate: missing URL count must equal exactly N new books. If > N -> STOP |
+| **Verify subfolder `topic`** | After generate: check that books in sub-topics (for example `Java/`) have `topic` containing the full path (`Programming Languages/Java`). If missing -> fix immediately |
+| Dry-run upload | REQUIRED before real upload. Count > N -> STOP |
+| Lost `download_url` | Restore with: `git checkout site/data.json` |
+| **Folder vs Display name** | Folders on disk use `Snake_Case`, but `topic`/`category` fields in `data.json` use display names (spaces). Example: folder `Programming_Languages/Java` -> topic `"Programming Languages/Java"`. NEVER write `_` into `data.json` |
 
-## Quy trình thực thi
+## Execution Workflow
 
-### Bước 1–3: Chuẩn bị
+### Steps 1-3: Prepare
 
-1. Đọc `prompts/classify_book.md` để nắm quy tắc phân loại.
-2. Quét `Inbox/`, ghi nhận **N = tổng số sách mới** (.pdf/.epub). Nếu rỗng → dừng.
-3. Chuẩn hóa tên: `python scripts/cli.py rename --base-dir .` → nếu cần → `--execute`.
+1. Read `prompts/classify_book.md` to understand classification rules.
+2. Scan `Inbox/`, recording **N = total new books** (.pdf/.epub). If empty -> stop.
+3. Normalize names: `python scripts/cli.py rename --base-dir .` -> if needed -> `--execute`.
 
-### Bước 4: Context Grounding (BẮT BUỘC)
+### Step 4: Context Grounding (REQUIRED)
 
 ```bash
 python scripts/cli.py structure --base-dir .
 ```
 
-Sau đó đọc toàn bộ `library_structure.log` (Antigravity: `view_file`; Codex: tool đọc file hoặc `Get-Content -Raw`). Chú ý phần **AVAILABLE CATEGORIES** ở cuối — đây là danh sách folder có sẵn mà Agent phải ưu tiên dùng.
+Then read the full `library_structure.log` (Antigravity: `view_file`; Codex: file-reading tool or `Get-Content -Raw`). Pay attention to the **AVAILABLE CATEGORIES** section at the end - this is the list of existing folders the agent must prioritize.
 
-### Bước 5: Batch Classify + Descriptions (trong bộ nhớ)
+### Step 5: Batch Classify + Descriptions (in memory)
 
-Với mỗi file trong Inbox, Agent xác định trong bộ nhớ:
-- `category_folder` + `topic_folder` (đối chiếu với log, ưu tiên CÓ SẴN)
-- `description` viết theo **O'Reilly style** — 3 đoạn prose tự nhiên, KHÔNG dùng label:
-  1. **Đoạn 1** (bối cảnh): Nêu vấn đề/thách thức mà sách giải quyết
-  2. **Đoạn 2** (tổng quan): Giới thiệu sách, tác giả, phương pháp tiếp cận
-  3. **Đoạn 3** (bullets): 4-5 `•` bullets bắt đầu bằng động từ (Master, Build, Learn, Explore, Implement...)
-  
-  Ngăn cách 3 đoạn bằng `\n\n`. **CẤM** dùng label `Context:`, `Overview:`, `Key Takeaways:`.
+For each file in Inbox, the agent determines in memory:
+- `category_folder` + `topic_folder` (compare against the log, prioritize EXISTING folders)
+- `description` written in **O'Reilly style** - 3 natural prose sections, with NO labels:
+  1. **Paragraph 1** (context): State the problem/challenge the book addresses
+  2. **Paragraph 2** (overview): Introduce the book, author, and approach
+  3. **Paragraph 3** (bullets): 4-5 `•` bullets starting with verbs (Master, Build, Learn, Explore, Implement...)
 
-**Ngôn ngữ description:**
-- Tên file tiếng Anh → viết English
-- Tên file tiếng Việt (dấu hoặc pattern VN: `Ch01_`, `Giao_trinh_`, `PTTKHT`...) → viết tiếng Việt
+  Separate the 3 sections with `\n\n`. **DO NOT** use labels such as `Context:`, `Overview:`, or `Key Takeaways:`.
 
-> ⚠️ KHÔNG hỏi user từng cuốn. Xử lý TẤT CẢ rồi mới hiển thị.
+**Description language:**
+- English filename -> write English
+- Vietnamese filename (diacritics or VN patterns: `Ch01_`, `Giao_trinh_`, `PTTKHT`...) -> write Vietnamese
 
-### Bước 6: Hiển thị bảng + Xác nhận
+> DO NOT ask the user book by book. Process EVERYTHING, then display the summary.
 
-In bảng tổng hợp DUY NHẤT:
+### Step 6: Show Table + Confirm
+
+Print ONE summary table:
 
 ```
-| # | File | Category → Topic | Mô tả (tóm tắt) |
+| # | File | Category -> Topic | Description (summary) |
 ```
 
-Hỏi user **1 LẦN DUY NHẤT**. Nếu chỉnh sửa → sửa trong bộ nhớ → hiện lại bảng.
+Ask the user **ONLY ONCE**. If edits are requested -> update in memory -> show the table again.
 
-### Bước 7–8: Di chuyển + Dependencies
+### Steps 7-8: Move + Dependencies
 
-7. Di chuyển batch: `mkdir -p` + `mv` gộp ít lệnh nhất. Đích luôn bắt đầu `Books/`.
-8. Kiểm tra dependencies:
+7. Move the batch: `mkdir -p` + `mv`, using as few commands as practical. Destination must always start with `Books/`.
+8. Check dependencies:
 ```bash
 python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING"
 python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING"
 ```
-Thiếu → `python -m pip install PyMuPDF` / `Pillow`. **KHÔNG generate khi thiếu.**
+If missing -> `python -m pip install PyMuPDF` / `Pillow`. **DO NOT generate while dependencies are missing.**
 
-### Bước 9: Generate covers + data.json (CHỈ 1 LẦN)
+### Step 9: Generate covers + data.json (ONLY ONCE)
 
 ```bash
 python scripts/cli.py generate --base-dir .
 ```
 
-### Bước 10: Verify download_url
+### Step 10: Verify download_url
 
 ```bash
-python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8')); missing=[b['title'] for b in data if not b.get('download_url')]; print(f'Thiếu URL: {len(missing)}'); [print(f'  - {t}') for t in missing]"
+python -c "import json; data=json.load(open('site/data.json','r',encoding='utf-8')); missing=[b['title'] for b in data if not b.get('download_url')]; print(f'Missing URL: {len(missing)}'); [print(f'  - {t}') for t in missing]"
 ```
 
-- Thiếu == N → ✅ OK. Thiếu > N → ❌ DỪNG, `git checkout site/data.json`.
+- Missing == N -> OK. Missing > N -> STOP, `git checkout site/data.json`.
 
-### Bước 10b: Verify `topic` cho sub-topic (BẮT BUỘC)
+### Step 10b: Verify `topic` for sub-topics (REQUIRED)
 
 ```bash
-python -c "import json; d=json.load(open('site/data.json','r',encoding='utf-8')); errors=[(b['title'],b['topic'],b['file_path']) for b in d if b['file_path'].count('/')>=4 and '/'.join(b['file_path'].split('/')[2:-1]).replace('_',' ')!=b['topic']]; print(f'Sub-topic mismatches: {len(errors)}'); [print(f'  ❌ {t} | topic={tp} | path={p}') for t,tp,p in errors]"
+python -c "import json; d=json.load(open('site/data.json','r',encoding='utf-8')); errors=[(b['title'],b['topic'],b['file_path']) for b in d if b['file_path'].count('/')>=4 and '/'.join(b['file_path'].split('/')[2:-1]).replace('_',' ')!=b['topic']]; print(f'Sub-topic mismatches: {len(errors)}'); [print(f'  ERROR {t} | topic={tp} | path={p}') for t,tp,p in errors]"
 ```
 
-> ⚠️ Nếu có mismatch: sửa trường `topic` trong data.json. Luôn dùng **display name** (khoảng trắng), KHÔNG dùng `Snake_Case` (`_`).
-> Đúng: `"topic": "Programming Languages/Java"` ✅
-> Sai: `"topic": "Programming_Languages/Java"` ❌ (sẽ tạo topic trùng lặp trên UI)
+> If there is a mismatch: fix the `topic` field in data.json. Always use the **display name** (spaces), NOT `Snake_Case` (`_`).
+> Correct: `"topic": "Programming Languages/Java"`
+> Wrong: `"topic": "Programming_Languages/Java"` (creates duplicate topics in the UI)
 
-### Bước 11: Chèn descriptions hàng loạt
+### Step 11: Insert descriptions in bulk
 
-Dùng batch edit để chèn TẤT CẢ `"description": ""` cùng lúc. Antigravity dùng `multi_replace_file_content`; Codex dùng `apply_patch` hoặc CLI phù hợp rồi validate JSON. KHÔNG edit từng entry thủ công rời rạc.
+Use a batch edit to insert ALL `"description": ""` values at once. Antigravity uses `multi_replace_file_content`; Codex uses `apply_patch` or a suitable CLI, then validates JSON. DO NOT manually edit each entry one by one.
 
-> ⚠️ **JSON newline:** Dùng `\n` (single escape) cho xuống dòng, KHÔNG dùng `\\n` (double escape).
-> `"Dòng 1.\n\nDòng 2."` ✅ — `"Dòng 1.\\n\\nDòng 2."` ❌ (hiển thị literal `\n`).
+> **JSON newline:** Use `\n` (single escape) for line breaks, NOT `\\n` (double escape).
+> `"Line 1.\n\nLine 2."` is correct - `"Line 1.\\n\\nLine 2."` is wrong and displays literal `\n`.
 
-### Bước 12: Cập nhật library_structure.log (BẮT BUỘC)
+### Step 12: Update library_structure.log (REQUIRED)
 
 ```bash
 python scripts/cli.py structure --base-dir .
 ```
 
-> Log PHẢI cập nhật ngay sau khi phân loại xong, tránh topic trùng lặp lần sau.
+> The log MUST be updated immediately after classification is complete to avoid duplicate topics next time.
 
-### Bước 13–14: Upload
+### Steps 13-14: Upload
 
-13. Dry-run: `python scripts/cli.py upload --dry-run` → đếm = N → OK. > N → DỪNG.
-14. Upload: `python scripts/cli.py upload` (chỉ file mới).
+13. Dry-run: `python scripts/cli.py upload --dry-run` -> count = N -> OK. > N -> STOP.
+14. Upload: `python scripts/cli.py upload` (new files only).
 
-### Bước 15: Commit + Push
+### Step 15: Commit + Push
 
 ```bash
 git add -A && git commit -m "add: [N] books to library" && git push
 ```
 
-### Bước 16: Báo cáo
+### Step 16: Report
 
 ```
-✅ Hoàn tất: N cuốn sách đã xử lý
+Complete: N books processed
 
-| # | Sách | Đích | Bìa | Mô tả | Upload |
-📤 Upload: N file mới (KHÔNG re-upload sách cũ)
-🔗 Links: ?book={id1}, ?book={id2}, ...
+| # | Book | Destination | Cover | Description | Upload |
+Upload: N new files (DO NOT re-upload old books)
+Links: ?book={id1}, ?book={id2}, ...
 ```

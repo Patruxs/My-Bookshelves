@@ -2,23 +2,23 @@
 """
 📚 My Bookshelves — Smart Incremental Sync (Agent 4: DevOps)
 
-Cơ chế Đồng bộ hóa Thông minh: CHỈ upload sách MỚI lên GitHub Releases,
-không re-upload toàn bộ thư viện. Dùng data.json làm Single Source of Truth.
+Smart Incremental Sync: upload ONLY NEW books to GitHub Releases,
+without re-uploading the entire library. Uses data.json as the single source of truth.
 
 Workflow:
-  1. Quét Books/ tìm tất cả PDF/EPUB/DOCX
-  2. Đọc data.json → lọc ra file đã có download_url (đã uploaded)
-  3. Diff → danh sách file MỚI cần upload
-  4. Tạo cover WebP cho file mới (nếu chưa có)
-  5. Upload CHỈ file mới lên Release cố định (storage-v1)
-  6. Append metadata vào data.json + cập nhật download_url
+  1. Scan Books/ for all PDF/EPUB/DOCX files
+  2. Read data.json → filter files that already have download_url (already uploaded)
+  3. Diff → list NEW files that need upload
+  4. Create WebP covers for new files (if missing)
+  5. Upload ONLY new files to the fixed release (storage-v1)
+  6. Append metadata to data.json + update download_url
   7. Commit data.json + covers → done
 
 Usage:
-    python scripts/upload_releases.py                     # Sync mới
+    python scripts/upload_releases.py                     # Sync new files
     python scripts/upload_releases.py --tag storage-v1    # Custom tag
-    python scripts/upload_releases.py --dry-run            # Xem trước
-    python scripts/upload_releases.py --force              # Re-upload tất cả
+    python scripts/upload_releases.py --dry-run            # Preview
+    python scripts/upload_releases.py --force              # Re-upload everything
 
 Requirements:
     - GitHub CLI (gh) installed & authenticated

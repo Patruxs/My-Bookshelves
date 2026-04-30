@@ -2,17 +2,17 @@
 """
 📚 My Bookshelves — Auto-Organizer Utility
 
-Công cụ hỗ trợ cho Antigravity AI Agent để quét Inbox và di chuyển file.
-Script này KHÔNG gọi API bên ngoài — Agent sẽ trực tiếp phân loại sách.
+Helper utility for the Antigravity AI Agent to scan Inbox and move files.
+This script does NOT call external APIs — the Agent classifies books directly.
 
-Cách dùng (bởi Agent hoặc user):
-    # Liệt kê file trong Inbox
+Usage (by Agent or user):
+    # List files in Inbox
     python auto_organize.py --list
 
-    # Di chuyển 1 file cụ thể (Agent gọi sau khi phân loại)
+    # Move one specific file (called by the Agent after classification)
     python auto_organize.py --move "filename.pdf" --to "1_Computer_Science/Programming_Languages/Java"
 
-    # Hiển thị cấu trúc thư viện
+    # Show library structure
     python auto_organize.py --structure
 """
 

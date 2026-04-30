@@ -2,13 +2,13 @@
 """
 📚 Generate Library Structure Log — AI-Optimized Format
 
-Quét data.json (source of truth) để tạo file library_structure.log
-dạng text thuần, dễ đọc cho AI Agent trước khi phân loại sách.
+Scan data.json (source of truth) to create library_structure.log
+as plain text that is easy for the AI Agent to read before classifying books.
 
 Output format:
-- Liệt kê tất cả categories, topics, subtopics
-- Đếm số sách trong mỗi folder
-- Liệt kê tên file sách cụ thể (giúp AI tránh trùng lặp)
+- List all categories, topics, and subtopics
+- Count books in each folder
+- List specific book filenames to help the AI avoid duplicates
 
 Usage:
     python scripts/generate_structure_log.py --base-dir .
