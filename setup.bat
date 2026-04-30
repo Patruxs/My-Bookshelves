@@ -29,9 +29,9 @@ for /f "tokens=2 delims= " %%v in ('python --version 2^>^&1') do (
     echo    [OK] Python %%v detected
 )
 
-:: -- Step 2: Create virtual environment + install dependencies --
+:: -- Step 2: Create virtual environment + upgrade/install dependencies --
 echo.
-echo [2/5] Creating virtual environment and installing Python dependencies...
+echo [2/5] Creating virtual environment and upgrading Python dependencies...
 if not exist "venv\Scripts\python.exe" (
     python -m venv venv
     if %ERRORLEVEL% neq 0 (
@@ -63,12 +63,12 @@ if %ERRORLEVEL% equ 0 (
     )
 )
 
-"%PYTHON_CMD%" -X utf8 -m pip install --disable-pip-version-check --no-cache-dir -r requirements.txt
+"%PYTHON_CMD%" -X utf8 -m pip install --upgrade --upgrade-strategy eager --disable-pip-version-check --no-cache-dir -r requirements.txt
 if %ERRORLEVEL% neq 0 (
-    echo    [ERROR] Failed to install dependencies
+    echo    [ERROR] Failed to install or upgrade dependencies
     exit /b 1
 )
-echo    [OK] All dependencies installed
+echo    [OK] All dependencies installed or upgraded
 
 :: -- Step 3: Create project directories --
 echo.

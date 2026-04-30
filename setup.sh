@@ -96,9 +96,9 @@ create_venv() {
     fi
 }
 
-# ── Step 2: Create virtual environment + install dependencies ──
+# ── Step 2: Create virtual environment + upgrade/install dependencies ──
 echo ""
-echo -e "[2/5] 📥 Creating virtual environment and installing Python dependencies..."
+echo -e "[2/5] 📥 Creating virtual environment and upgrading Python dependencies..."
 
 SYSTEM_PYTHON_CMD="$PYTHON_CMD"
 if ! VENV_PYTHON="$(find_venv_python)"; then
@@ -115,12 +115,12 @@ if venv_has_broken_pip; then
     echo "   Using $PYTHON_CMD"
 fi
 
-echo "   Installing requirements..."
-if ! "$PYTHON_CMD" -X utf8 -m pip install --disable-pip-version-check --no-cache-dir -r requirements.txt; then
-    echo -e "   ${RED}❌ Failed to install dependencies${NC}"
+echo "   Installing or upgrading requirements..."
+if ! "$PYTHON_CMD" -X utf8 -m pip install --upgrade --upgrade-strategy eager --disable-pip-version-check --no-cache-dir -r requirements.txt; then
+    echo -e "   ${RED}❌ Failed to install or upgrade dependencies${NC}"
     exit 1
 fi
-echo -e "   ${GREEN}✅ All dependencies installed${NC}"
+echo -e "   ${GREEN}✅ All dependencies installed or upgraded${NC}"
 
 # ── Step 3: Create project directories ──
 echo ""
