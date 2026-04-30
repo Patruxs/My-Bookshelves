@@ -1,6 +1,7 @@
 @echo off
 chcp 65001 >nul 2>&1
 setlocal EnableDelayedExpansion
+cd /d "%~dp0"
 
 :: ================================================================
 ::  My Bookshelves -- One-Command Setup (Windows)
