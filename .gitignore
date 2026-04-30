@@ -39,6 +39,7 @@ auto_organize.log
 ERRORS.md
 *.log
 library_structure.log
+!library_structure.log
 _site/
 .backups/
 site/.backups/
