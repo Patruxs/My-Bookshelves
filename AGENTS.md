@@ -37,6 +37,8 @@ The `.codex/` directory is the Codex-specific adapter and only points back to `.
 - Run `python scripts/cli.py generate --base-dir .` only once per batch; if it fails, fix the root cause before retrying.
 - After `generate`, always verify the `download_url` and `topic` for books in subfolders.
 - When writing `category`/`topic` to `site/data.json`, use display names with spaces; do not write `Snake_Case`.
+- Use `python scripts/cli.py doctor --base-dir . --strict` before upload/deploy-sensitive changes.
+- `setup.bat` and `setup.sh` are non-destructive by default; pass `--reset-sample-data` only when a reset is explicitly intended.
 - If a test/build/lint/runtime failure occurs during work, append it to `ERRORS.md` according to the workspace error logging rule.
 
 ## Auto-Organize Summary

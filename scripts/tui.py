@@ -531,7 +531,7 @@ def screen_upload() -> None:
     elif choice == "4":
         warning("This will DELETE the existing release and create a new one!")
         if confirm("Hard reset GitHub Release?"):
-            run_script("upload_releases.py", ["--hard-reset"])
+            run_script("upload_releases.py", ["--hard-reset", "--yes"])
         pause()
 
 

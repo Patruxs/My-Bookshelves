@@ -41,7 +41,15 @@ This will automatically:
 2. ✅ Create a virtual environment (`venv/`)
 3. ✅ Install all Python dependencies (PyMuPDF, Pillow, python-docx)
 4. ✅ Create required directories (`Books/`, `Inbox/`, `site/assets/covers/`)
-5. ✅ Verify everything works
+5. ✅ Run a non-destructive repo doctor check
+
+Setup preserves existing library data. To intentionally reset sample data, run:
+
+```bash
+setup.bat --reset-sample-data
+# or
+./setup.sh --reset-sample-data
+```
 
 ### After Setup
 
@@ -126,6 +134,8 @@ AGENTS.md                       # Codex compatibility entrypoint
 | `python scripts/cli.py generate`                           | Extract covers (WebP) + build data.json |
 | `python scripts/cli.py rename`                             | Normalize filenames to ASCII Snake_Case |
 | `python scripts/cli.py structure`                          | Update library_structure.log            |
+| `python scripts/cli.py doctor --base-dir . --strict`        | Validate dependencies, metadata, covers |
+| `python scripts/cli.py validate --base-dir . --json`        | Machine-readable validation report      |
 | `python scripts/cli.py upload --dry-run`                   | Preview upload (always run first!)      |
 | `python scripts/cli.py upload`                             | Upload new books to GitHub Releases     |
 | `python scripts/cli.py codex-sync --base-dir .`            | Regenerate `.codex/` from `.agents/`    |

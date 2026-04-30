@@ -152,6 +152,8 @@ def build_manifest(workflows: list[WorkflowInfo]) -> dict[str, object]:
             "rename_execute": "python scripts/cli.py rename --base-dir . --execute",
             "generate": "python scripts/cli.py generate --base-dir .",
             "structure": "python scripts/cli.py structure --base-dir .",
+            "doctor": "python scripts/cli.py doctor --base-dir . --strict",
+            "validate_json": "python scripts/cli.py validate --base-dir . --json",
             "upload_dry_run": "python scripts/cli.py upload --dry-run",
             "upload": "python scripts/cli.py upload",
         },
@@ -258,6 +260,7 @@ This file is the compact Codex reminder.
 - Prefer dry-run commands before any destructive action.
 - Ask the user one time before batch rename, move, upload, or commit/push.
 - Run `python scripts/cli.py structure --base-dir .` after adding or moving books.
+- Run `python scripts/cli.py doctor --base-dir . --strict` before upload/deploy-sensitive changes.
 - Verify dependencies before generating data: PyMuPDF, Pillow, python-docx.
 - Run `python scripts/cli.py generate --base-dir .` only once per batch unless a failure root cause has been fixed.
 

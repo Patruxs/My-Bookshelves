@@ -26,11 +26,19 @@ for /f "tokens=2 delims= " %%v in ('python --version 2^>^&1') do (
     echo    [OK] Python %%v detected
 )
 
-:: -- Step 2: Install dependencies --
+:: -- Step 2: Create virtual environment + install dependencies --
 echo.
-echo [2/5] Installing Python dependencies...
-python -m pip install --upgrade pip >nul 2>&1
-python -m pip install -r requirements.txt
+echo [2/5] Creating virtual environment and installing Python dependencies...
+if not exist "venv\Scripts\python.exe" (
+    python -m venv venv
+    if %ERRORLEVEL% neq 0 (
+        echo    [ERROR] Failed to create virtual environment
+        exit /b 1
+    )
+)
+set "PYTHON_CMD=venv\Scripts\python.exe"
+"%PYTHON_CMD%" -m pip install --upgrade pip >nul 2>&1
+"%PYTHON_CMD%" -m pip install -r requirements.txt
 if %ERRORLEVEL% neq 0 (
     echo    [ERROR] Failed to install dependencies
     exit /b 1
@@ -48,17 +56,23 @@ echo    [OK] Books/  Inbox/  site/assets/covers/
 :: -- Step 4: Verify installation --
 echo.
 echo [4/5] Verifying setup...
-python -c "import fitz; print('    [OK] PyMuPDF', fitz.version[0])"
+"%PYTHON_CMD%" -c "import fitz; print('    [OK] PyMuPDF', fitz.version[0])"
 if %ERRORLEVEL% neq 0 echo    [FAIL] PyMuPDF not working
-python -c "from PIL import Image; print('    [OK] Pillow', Image.__version__)"
+"%PYTHON_CMD%" -c "from PIL import Image; print('    [OK] Pillow', Image.__version__)"
 if %ERRORLEVEL% neq 0 echo    [FAIL] Pillow not working
-python -c "import docx; print('    [OK] python-docx')"
+"%PYTHON_CMD%" -c "import docx; print('    [OK] python-docx')"
 if %ERRORLEVEL% neq 0 echo    [FAIL] python-docx not working
 
-:: -- Step 5: Clean up sample data --
+:: -- Step 5: Optional reset + doctor --
 echo.
-echo [5/5] Cleaning up sample data...
-python scripts\reset_library.py --force
+echo [5/5] Running repo doctor...
+if /I "%~1"=="--reset-sample-data" (
+    echo    [WARN] Resetting sample data because --reset-sample-data was provided
+    "%PYTHON_CMD%" scripts\reset_library.py --force
+) else (
+    echo    [OK] Skipping reset. Existing library data is preserved.
+)
+"%PYTHON_CMD%" scripts\cli.py doctor --base-dir .
 
 :: -- Done --
 echo.
@@ -72,7 +86,7 @@ echo     Open http://localhost:8080/site/
 echo.
 echo   Add books:
 echo     1. Drop files into Inbox/
-echo     2. python scripts/generate_data.py --base-dir .
+echo     2. venv\Scripts\python.exe scripts\cli.py generate --base-dir .
 echo.
 echo ================================================================
 echo.

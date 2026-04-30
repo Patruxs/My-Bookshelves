@@ -39,9 +39,14 @@ fi
 PYTHON_VERSION=$($PYTHON_CMD --version 2>&1 | awk '{print $2}')
 echo -e "   ${GREEN}✅ $PYTHON_CMD $PYTHON_VERSION detected${NC}"
 
-# ── Step 2: Install dependencies ──
+# ── Step 2: Create virtual environment + install dependencies ──
 echo ""
-echo -e "[2/5] 📥 Installing Python dependencies..."
+echo -e "[2/5] 📥 Creating virtual environment and installing Python dependencies..."
+
+if [ ! -x "venv/bin/python" ]; then
+    $PYTHON_CMD -m venv venv
+fi
+PYTHON_CMD="venv/bin/python"
 
 $PYTHON_CMD -m pip install --upgrade pip >/dev/null 2>&1
 $PYTHON_CMD -m pip install -r requirements.txt
@@ -67,10 +72,16 @@ $PYTHON_CMD -c "import fitz; print('   ✅ PyMuPDF', fitz.version[0])" 2>/dev/nu
 $PYTHON_CMD -c "from PIL import Image; print('   ✅ Pillow', Image.__version__)" 2>/dev/null || echo -e "   ${RED}❌ Pillow not working${NC}"
 $PYTHON_CMD -c "import docx; print('   ✅ python-docx')" 2>/dev/null || echo -e "   ${RED}❌ python-docx not working${NC}"
 
-# ── Step 5: Clean up sample data ──
+# ── Step 5: Optional reset + doctor ──
 echo ""
-echo -e "[5/5] 🧹 Cleaning up sample data..."
-$PYTHON_CMD scripts/reset_library.py --force
+echo -e "[5/5] 🩺 Running repo doctor..."
+if [ "${1:-}" = "--reset-sample-data" ]; then
+    echo -e "   ${YELLOW}⚠️  Resetting sample data because --reset-sample-data was provided${NC}"
+    $PYTHON_CMD scripts/reset_library.py --force
+else
+    echo -e "   ${GREEN}✅ Skipping reset. Existing library data is preserved.${NC}"
+fi
+$PYTHON_CMD scripts/cli.py doctor --base-dir .
 
 # ── Done ──
 echo ""
@@ -84,7 +95,7 @@ echo -e "${CYAN}║${NC}    → http://localhost:8080/site/                     
 echo -e "${CYAN}║${NC}                                                     ${CYAN}║${NC}"
 echo -e "${CYAN}║${NC}  Add books:                                         ${CYAN}║${NC}"
 echo -e "${CYAN}║${NC}    1. Drop files into Inbox/                        ${CYAN}║${NC}"
-echo -e "${CYAN}║${NC}    2. python scripts/generate_data.py --base-dir .  ${CYAN}║${NC}"
+echo -e "${CYAN}║${NC}    2. venv/bin/python scripts/cli.py generate --base-dir . ${CYAN}║${NC}"
 echo -e "${CYAN}║${NC}                                                     ${CYAN}║${NC}"
 echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${NC}"
 echo ""

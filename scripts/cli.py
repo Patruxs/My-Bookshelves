@@ -10,6 +10,8 @@ Usage:
 
 Commands:
     list            List all books, topics, and categories
+    doctor          Validate repo health and dependencies
+    validate        Validate repo health and dependencies
     codex-sync      Regenerate the .codex adapter from .agents
     delete          Delete books, topics, or categories
     update          Update book metadata, rename topics/categories
@@ -27,6 +29,7 @@ Examples:
     python scripts/cli.py generate
     python scripts/cli.py rename
     python scripts/cli.py upload --dry-run
+    python scripts/cli.py doctor --base-dir . --strict
     python scripts/cli.py codex-sync --base-dir .
 """
 
@@ -54,6 +57,16 @@ COMMANDS = {
         "script": "delete_books.py",
         "inject_args": [],
         "desc": "Delete books, topics, or categories",
+    },
+    "doctor": {
+        "script": "doctor.py",
+        "inject_args": [],
+        "desc": "Validate repo health and dependencies",
+    },
+    "validate": {
+        "script": "doctor.py",
+        "inject_args": [],
+        "desc": "Validate repo health and dependencies",
     },
     "codex-sync": {
         "script": "sync_codex.py",
@@ -114,6 +127,8 @@ def print_help() -> None:
     print("  python scripts/cli.py generate --base-dir .")
     print("  python scripts/cli.py rename --base-dir . --execute")
     print("  python scripts/cli.py upload --dry-run")
+    print("  python scripts/cli.py doctor --base-dir . --strict")
+    print("  python scripts/cli.py validate --base-dir . --json")
     print("  python scripts/cli.py structure --base-dir .")
     print("  python scripts/cli.py codex-sync --base-dir .")
     print()

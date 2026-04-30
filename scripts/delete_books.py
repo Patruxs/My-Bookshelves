@@ -40,6 +40,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+from lib.json_io import load_books, save_books
+from lib.output import emit_json
+
 # Fix Windows console encoding for Vietnamese/Unicode output
 if sys.stdout.encoding != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
@@ -74,8 +77,7 @@ def load_data(base_dir: Path) -> list[dict]:
         print(f"❌ data.json not found at: {data_path}")
         sys.exit(1)
 
-    with open(data_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return load_books(base_dir)
 
 
 def save_data(base_dir: Path, books: list[dict]) -> None:
@@ -86,33 +88,32 @@ def save_data(base_dir: Path, books: list[dict]) -> None:
         books: List of book entries to save.
     """
     data_path = base_dir / DATA_JSON
-    with open(data_path, "w", encoding="utf-8") as f:
-        json.dump(books, f, ensure_ascii=False, indent=2)
+    save_books(base_dir, books, backup=True)
 
 
 # ══════════════════════════════════════════════════════════
 # LISTING
 # ══════════════════════════════════════════════════════════
 
-def list_library(base_dir: Path) -> None:
+def build_library_tree(books: list[dict]) -> dict[str, dict[str, list[str]]]:
+    """Build a category/topic/title tree."""
+    tree: dict[str, dict[str, list[str]]] = {}
+    for b in books:
+        cat = b.get("category", "Unknown")
+        topic = b.get("topic", "Unknown")
+        title = b.get("title", "Unknown")
+        tree.setdefault(cat, {}).setdefault(topic, []).append(title)
+    return tree
+
+
+def list_library(base_dir: Path) -> dict[str, object]:
     """Print all categories, topics, and book counts.
 
     Args:
         base_dir: Project root directory.
     """
     books = load_data(base_dir)
-
-    # Build tree
-    tree: dict[str, dict[str, list[str]]] = {}
-    for b in books:
-        cat = b.get("category", "Unknown")
-        topic = b.get("topic", "Unknown")
-        title = b.get("title", "Unknown")
-        if cat not in tree:
-            tree[cat] = {}
-        if topic not in tree[cat]:
-            tree[cat][topic] = []
-        tree[cat][topic].append(title)
+    tree = build_library_tree(books)
 
     print(f"\n📚 Library Overview ({len(books)} books total)\n")
     print("=" * 60)
@@ -129,6 +130,7 @@ def list_library(base_dir: Path) -> None:
                 print(f"      • {display_title}")
 
     print(f"\n{'=' * 60}")
+    return {"books": len(books), "tree": tree}
 
 
 # ══════════════════════════════════════════════════════════
@@ -232,7 +234,8 @@ def display_books_to_delete(books_to_delete: list[dict]) -> None:
 
 
 def delete_cover_images(base_dir: Path, books_to_delete: list[dict],
-                        dry_run: bool = True) -> int:
+                        dry_run: bool = True,
+                        remaining_books: list[dict] | None = None) -> int:
     """Delete cover image files for the specified books.
 
     Args:
@@ -246,11 +249,17 @@ def delete_cover_images(base_dir: Path, books_to_delete: list[dict],
     covers_dir = base_dir / COVERS_DIR
     deleted = 0
 
+    remaining_covers = {
+        b.get("cover", "")
+        for b in (remaining_books or [])
+        if b.get("cover")
+    }
+
     # Collect unique cover paths
     cover_paths: set[str] = set()
     for b in books_to_delete:
         cover = b.get("cover", "")
-        if cover:
+        if cover and cover not in remaining_covers:
             cover_paths.add(cover)
 
     for cover_rel in sorted(cover_paths):
@@ -400,6 +409,10 @@ def main() -> None:
         help="List all categories, topics, and books"
     )
     parser.add_argument(
+        "--json", action="store_true",
+        help="Emit a machine-readable JSON summary"
+    )
+    parser.add_argument(
         "--base-dir", default=".",
         help="Project root directory (default: current directory)"
     )
@@ -417,7 +430,11 @@ def main() -> None:
 
     # ── List mode ──
     if args.list:
-        list_library(base_dir)
+        if args.json:
+            books = load_data(base_dir)
+            emit_json({"ok": True, "books": len(books), "tree": build_library_tree(books)})
+        else:
+            list_library(base_dir)
         return
 
     # ── Validate arguments ──
@@ -481,6 +498,15 @@ def main() -> None:
 
     # ── Dry-run: stop here ──
     if is_dry_run:
+        if args.json:
+            emit_json({
+                "ok": True,
+                "dry_run": True,
+                "selected": len(books_to_delete),
+                "delete_files": args.delete_files,
+                "books": books_to_delete,
+            })
+            return
         print("─" * 60)
         print("ℹ️  DRY-RUN mode. No changes were made.")
         print("   To execute, add --execute flag:")
@@ -502,9 +528,17 @@ def main() -> None:
     print(f"\n{'─' * 60}")
     print("🚀 Executing deletion...\n")
 
+    ids_to_delete = {b["id"] for b in books_to_delete}
+    remaining_books = [b for b in books if b["id"] not in ids_to_delete]
+
     # 1. Delete cover images
     print("📸 Deleting cover images...")
-    covers_deleted = delete_cover_images(base_dir, books_to_delete, dry_run=False)
+    covers_deleted = delete_cover_images(
+        base_dir,
+        books_to_delete,
+        dry_run=False,
+        remaining_books=remaining_books,
+    )
 
     # 2. Delete physical book files (if requested)
     files_deleted = 0
@@ -514,8 +548,6 @@ def main() -> None:
 
     # 3. Remove entries from data.json
     print("\n📝 Updating data.json...")
-    ids_to_delete = {b["id"] for b in books_to_delete}
-    remaining_books = [b for b in books if b["id"] not in ids_to_delete]
     save_data(base_dir, remaining_books)
     print(f"   ✅ Removed {len(books_to_delete)} entries ({len(remaining_books)} books remaining)")
 
@@ -531,6 +563,18 @@ def main() -> None:
     update_structure_log(base_dir)
 
     # ── Summary ──
+    if args.json:
+        emit_json({
+            "ok": True,
+            "dry_run": False,
+            "removed": len(books_to_delete),
+            "covers_deleted": covers_deleted,
+            "files_deleted": files_deleted,
+            "dirs_removed": dirs_removed,
+            "books_remaining": len(remaining_books),
+        })
+        return
+
     print(f"\n{'═' * 60}")
     print("📊 Summary:")
     print(f"   🗑️  Books removed:    {len(books_to_delete)}")

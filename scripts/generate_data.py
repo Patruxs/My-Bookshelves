@@ -18,6 +18,16 @@ import argparse
 import hashlib
 from pathlib import Path
 
+from lib.covers import extract_cover as extract_shared_cover
+from lib.json_io import load_json, write_json_atomic
+from lib.output import emit_json
+
+# Fix Windows console encoding for Unicode status output.
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+if sys.stderr.encoding != 'utf-8':
+    sys.stderr.reconfigure(encoding='utf-8')
+
 # ── Optional imports (graceful fallback) ──
 try:
     import fitz  # PyMuPDF
@@ -274,10 +284,8 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
                 cover_path = covers_dir / cover_filename
                 cover_rel = f"{COVER_WEB_PATH}/{cover_filename}"
 
-                # Also check for old .jpg covers
-                old_jpg = covers_dir / (sanitize_filename(title) + '.jpg')
-                if old_jpg.exists() and not cover_path.exists():
-                    old_jpg.unlink()  # Remove stale JPG
+                # Stale JPG cleanup is intentionally left to optimize_covers.py
+                # so generate runs do not delete files as a side effect.
 
                 # Extract cover (skip if exists and not forced)
                 # PDF covers take priority — if PDF already created this cover,
@@ -298,13 +306,13 @@ def scan_books(base_dir: str, force_covers: bool = False) -> list:
                 else:
                     print(f"  🖼️  Extracting cover: {title}...", end=' ')
                     if ext == '.pdf':
-                        has_cover = extract_pdf_cover(str(file_path), str(cover_path))
+                        has_cover = extract_shared_cover(file_path, cover_path)
                         if has_cover:
                             pdf_covered_stems.add(cover_stem)
                     elif ext == '.epub':
-                        has_cover = extract_epub_cover(str(file_path), str(cover_path))
+                        has_cover = extract_shared_cover(file_path, cover_path)
                     elif ext == '.docx':
-                        has_cover = extract_docx_cover(str(file_path), str(cover_path))
+                        has_cover = extract_shared_cover(file_path, cover_path)
 
                     if has_cover:
                         extracted += 1
@@ -341,6 +349,9 @@ def main():
     parser = argparse.ArgumentParser(description='Generate data.json and cover images for My Bookshelves')
     parser.add_argument('--base-dir', default='..', help='Base directory of the book library (default: parent directory)')
     parser.add_argument('--force', action='store_true', help='Force regenerate all cover images')
+    parser.add_argument('--keep-stale', action='store_true',
+                        help='Keep existing data.json entries whose files were not scanned')
+    parser.add_argument('--json', action='store_true', help='Emit a machine-readable JSON summary')
     parser.add_argument('--output', default=OUTPUT_FILE, help=f'Output JSON file (default: {OUTPUT_FILE})')
     args = parser.parse_args()
 
@@ -352,50 +363,62 @@ def main():
     existing_download_urls = {}
     existing_by_title = {}
     existing_urls_by_title = {}
+    existing = []
     if output_path.exists():
         try:
-            with open(output_path, 'r', encoding='utf-8') as f:
-                existing = json.load(f)
-                for entry in existing:
-                    desc = entry.get('description', '')
-                    url = entry.get('download_url', '')
-                    if entry.get('file_path'):
-                        if desc:
-                            existing_descriptions[entry['file_path']] = desc
-                        if url:
-                            existing_download_urls[entry['file_path']] = url
-                    if entry.get('title'):
-                        if desc:
-                            existing_by_title[entry['title']] = desc
-                        if url:
-                            existing_urls_by_title[entry['title']] = url
-        except (json.JSONDecodeError, KeyError):
-            pass
+            existing = load_json(output_path, default=[]) or []
+            for entry in existing:
+                desc = entry.get('description', '')
+                url = entry.get('download_url', '')
+                if entry.get('file_path'):
+                    if desc:
+                        existing_descriptions[entry['file_path']] = desc
+                    if url:
+                        existing_download_urls[entry['file_path']] = url
+                if entry.get('title'):
+                    if desc:
+                        existing_by_title[entry['title']] = desc
+                    if url:
+                        existing_urls_by_title[entry['title']] = url
+        except (json.JSONDecodeError, KeyError, ValueError) as exc:
+            print(f"⚠️  Could not preserve existing metadata: {exc}")
 
     # Merge: keep existing descriptions and download_urls (match by file_path first, then title)
-    final_books = []
-    if 'existing' in locals():
-        existing_paths = {b.get('file_path', ''): b for b in existing}
-        for book in books:
-            if book['file_path'] in existing_descriptions:
-                book['description'] = existing_descriptions[book['file_path']]
-            elif book['title'] in existing_by_title:
-                book['description'] = existing_by_title[book['title']]
-            if book['file_path'] in existing_download_urls:
-                book['download_url'] = existing_download_urls[book['file_path']]
-            elif book['title'] in existing_urls_by_title:
-                book['download_url'] = existing_urls_by_title[book['title']]
-            
-            existing_paths[book['file_path']] = book
-            
-        final_books = list(existing_paths.values())
+    scanned_paths = {book['file_path'] for book in books}
+    for book in books:
+        if book['file_path'] in existing_descriptions:
+            book['description'] = existing_descriptions[book['file_path']]
+        elif book['title'] in existing_by_title:
+            book['description'] = existing_by_title[book['title']]
+        if book['file_path'] in existing_download_urls:
+            book['download_url'] = existing_download_urls[book['file_path']]
+        elif book['title'] in existing_urls_by_title:
+            book['download_url'] = existing_urls_by_title[book['title']]
+
+    stale_entries = [
+        entry for entry in existing
+        if entry.get('file_path') and entry.get('file_path') not in scanned_paths
+    ]
+    final_books = books + stale_entries if args.keep_stale else books
+    backup_path = write_json_atomic(output_path, final_books, backup=True)
+
+    summary = {
+        "ok": True,
+        "output": output_path,
+        "books_scanned": len(books),
+        "books_written": len(final_books),
+        "stale_removed": 0 if args.keep_stale else len(stale_entries),
+        "stale_kept": len(stale_entries) if args.keep_stale else 0,
+        "backup": backup_path,
+    }
+    if args.json:
+        emit_json(summary)
     else:
-        final_books = books
-
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(final_books, f, ensure_ascii=False, indent=2)
-
-    print(f"✅ Generated {output_path} with {len(final_books)} books.")
+        print(f"✅ Generated {output_path} with {len(final_books)} books.")
+        if stale_entries and not args.keep_stale:
+            print(f"🧹 Removed {len(stale_entries)} stale data.json entrie(s).")
+        if backup_path:
+            print(f"💾 Backup: {backup_path}")
 
 
 if __name__ == '__main__':

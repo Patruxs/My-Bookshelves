@@ -115,6 +115,8 @@ Exception: `!library_structure.log` may be committed.
 | `rename --execute` | Normalize names to ASCII Snake_Case |
 | `generate` | Generate covers + data.json (ONLY ONCE) |
 | `structure` | Update library_structure.log |
+| `doctor` | Validate repo health, dependencies, metadata, covers |
+| `validate` | Alias for `doctor` |
 | `upload --dry-run` | Preview upload (REQUIRED) |
 | `upload` | Upload NEW books |
 | `upload --force` | Re-upload everything |

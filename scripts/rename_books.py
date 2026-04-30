@@ -31,6 +31,9 @@ import argparse
 import unicodedata
 from pathlib import Path
 
+from lib.json_io import write_json_atomic
+from lib.output import emit_json, to_jsonable
+
 # Fix Windows console encoding for Vietnamese/Unicode output
 if sys.stdout.encoding != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
@@ -188,8 +191,7 @@ def update_data_json(base_dir: Path, renamed_items: list[dict]) -> int:
             entry["download_url"] = ""
             updated += 1
 
-    with open(data_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    write_json_atomic(data_path, data, backup=True)
 
     return updated
 
@@ -206,6 +208,7 @@ def main():
     parser.add_argument("--base-dir", default=".", help="Project root directory")
     parser.add_argument("--execute", action="store_true",
                         help="Actually rename files (default: dry-run preview)")
+    parser.add_argument("--json", action="store_true", help="Emit a machine-readable JSON summary")
     args = parser.parse_args()
 
     base_dir = Path(args.base_dir).resolve()
@@ -220,6 +223,9 @@ def main():
     plan = scan_and_plan(base_dir)
 
     if not plan:
+        if args.json:
+            emit_json({"ok": True, "dry_run": not args.execute, "planned": 0, "renamed": 0})
+            return
         print("✅ All filenames are already normalized! Nothing to rename.")
         return
 
@@ -231,6 +237,14 @@ def main():
         print()
 
     if not args.execute:
+        if args.json:
+            emit_json({
+                "ok": True,
+                "dry_run": True,
+                "planned": len(plan),
+                "renames": to_jsonable(plan),
+            })
+            return
         print("─" * 60)
         print("ℹ️  DRY-RUN mode. No files were renamed.")
         print("   To execute, add --execute flag:")
@@ -266,6 +280,18 @@ def main():
     print(f"   ✅ Updated {updated} entries (file_path + cleared download_url)")
 
     # ── Summary ──
+    if args.json:
+        emit_json({
+            "ok": errors == 0,
+            "dry_run": False,
+            "planned": len(plan),
+            "renamed": len(renamed_items),
+            "skipped": errors,
+            "data_json_updated": updated,
+            "renames": to_jsonable(renamed_items),
+        })
+        return
+
     print(f"\n{'═' * 60}")
     print(f"📊 Summary:")
     print(f"   ✅ Renamed:  {len(renamed_items)} files")

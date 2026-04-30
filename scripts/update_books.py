@@ -37,6 +37,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+from lib.json_io import load_books, save_books
+from lib.output import emit_json
+
 # Fix Windows console encoding
 if sys.stdout.encoding != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
@@ -63,30 +66,34 @@ def load_data(base_dir: Path) -> list[dict]:
     if not data_path.exists():
         print(f"❌ data.json not found at: {data_path}")
         sys.exit(1)
-    with open(data_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return load_books(base_dir)
 
 
 def save_data(base_dir: Path, books: list[dict]) -> None:
     """Save books to data.json."""
     data_path = base_dir / DATA_JSON
-    with open(data_path, "w", encoding="utf-8") as f:
-        json.dump(books, f, ensure_ascii=False, indent=2)
+    save_books(base_dir, books, backup=True)
 
 
 # ══════════════════════════════════════════════════════════
 # LISTING
 # ══════════════════════════════════════════════════════════
 
-def list_library(base_dir: Path) -> None:
-    """Print all categories, topics, and book counts."""
-    books = load_data(base_dir)
+def build_library_tree(books: list[dict]) -> dict[str, dict[str, list[str]]]:
+    """Build a category/topic/title tree."""
     tree: dict[str, dict[str, list[str]]] = {}
     for b in books:
         cat = b.get("category", "Unknown")
         topic = b.get("topic", "Unknown")
         title = b.get("title", "Unknown")
         tree.setdefault(cat, {}).setdefault(topic, []).append(title)
+    return tree
+
+
+def list_library(base_dir: Path) -> None:
+    """Print all categories, topics, and book counts."""
+    books = load_data(base_dir)
+    tree = build_library_tree(books)
 
     print(f"\n📚 Library Overview ({len(books)} books total)\n")
     print("=" * 60)
@@ -284,6 +291,8 @@ def main() -> None:
     # Utility
     parser.add_argument("--list", action="store_true",
                         help="List all categories, topics, and books")
+    parser.add_argument("--json", action="store_true",
+                        help="Emit a machine-readable JSON summary")
     parser.add_argument("--base-dir", default=".",
                         help="Project root directory (default: .)")
 
@@ -298,7 +307,11 @@ def main() -> None:
 
     # ── List mode ──
     if args.list:
-        list_library(base_dir)
+        if args.json:
+            books = load_data(base_dir)
+            emit_json({"ok": True, "books": len(books), "tree": build_library_tree(books)})
+        else:
+            list_library(base_dir)
         return
 
     # ── Validate ──
@@ -341,6 +354,17 @@ def main() -> None:
             preview_book_updates(targets, "topic", args.rename)
 
             if is_dry_run:
+                if args.json:
+                    emit_json({
+                        "ok": True,
+                        "dry_run": True,
+                        "operation": "rename_topic",
+                        "selected": len(targets),
+                        "old": args.topic,
+                        "new": args.rename,
+                        "category": args.category,
+                    })
+                    return
                 print("─" * 60)
                 print("ℹ️  DRY-RUN. No changes made. Add --execute to apply.")
                 return
@@ -358,6 +382,14 @@ def main() -> None:
             print(f"\n✅ Renamed topic for {updated} book(s)")
             print("\n📋 Updating library_structure.log...")
             update_structure_log(base_dir)
+            if args.json:
+                emit_json({
+                    "ok": True,
+                    "dry_run": False,
+                    "operation": "rename_topic",
+                    "updated": updated,
+                })
+                return
             print(f"\n{'═' * 60}")
             print(f"📌 Next: git add -A && git commit -m 'Rename topic' && git push")
             print(f"{'═' * 60}")
@@ -374,6 +406,16 @@ def main() -> None:
             preview_book_updates(targets, "category", args.rename)
 
             if is_dry_run:
+                if args.json:
+                    emit_json({
+                        "ok": True,
+                        "dry_run": True,
+                        "operation": "rename_category",
+                        "selected": len(targets),
+                        "old": args.category,
+                        "new": args.rename,
+                    })
+                    return
                 print("─" * 60)
                 print("ℹ️  DRY-RUN. No changes made. Add --execute to apply.")
                 return
@@ -390,6 +432,14 @@ def main() -> None:
             print(f"\n✅ Renamed category for {updated} book(s)")
             print("\n📋 Updating library_structure.log...")
             update_structure_log(base_dir)
+            if args.json:
+                emit_json({
+                    "ok": True,
+                    "dry_run": False,
+                    "operation": "rename_category",
+                    "updated": updated,
+                })
+                return
             print(f"\n{'═' * 60}")
             print(f"📌 Next: git add -A && git commit -m 'Rename category' && git push")
             print(f"{'═' * 60}")
@@ -444,6 +494,15 @@ def main() -> None:
         preview_book_updates(targets, field, value)
 
     if is_dry_run:
+        if args.json:
+            emit_json({
+                "ok": True,
+                "dry_run": True,
+                "selected": len(targets),
+                "updates": [{"field": field, "value": value} for field, value in updates],
+                "books": targets,
+            })
+            return
         print("─" * 60)
         print("ℹ️  DRY-RUN. No changes made. Add --execute to apply.")
         return
@@ -484,6 +543,16 @@ def main() -> None:
 
     print("\n📋 Updating library_structure.log...")
     update_structure_log(base_dir)
+
+    if args.json:
+        emit_json({
+            "ok": True,
+            "dry_run": False,
+            "selected": len(targets),
+            "fields_updated": total_updated,
+            "books_total": len(books),
+        })
+        return
 
     print(f"\n{'═' * 60}")
     print(f"📊 Summary: Updated {total_updated} field(s) across {len(targets)} book(s)")

@@ -21,6 +21,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from lib.output import emit_json
+
 
 CATEGORY_PATTERN = re.compile(r'^(\d+)_(.+)$')
 
@@ -193,6 +195,7 @@ def main():
         '--output', default=None,
         help='Output file path (default: library_structure.log in base-dir)'
     )
+    parser.add_argument('--json', action='store_true', help='Emit a machine-readable JSON summary')
     args = parser.parse_args()
 
     log_content = generate_log(args.base_dir)
@@ -201,11 +204,16 @@ def main():
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(log_content)
 
-    # Use sys.stdout with utf-8 to avoid Windows cp1252 encoding errors
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-    print(f"Generated: {output_path}")
-    # Also print to stdout for quick inspection
-    print(log_content)
+    if args.json:
+        emit_json({
+            "ok": not log_content.startswith("ERROR:"),
+            "output": output_path,
+            "bytes": len(log_content.encode("utf-8")),
+        })
+    else:
+        print(f"Generated: {output_path}")
+        print(log_content)
 
 
 if __name__ == '__main__':

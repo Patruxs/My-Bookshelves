@@ -82,8 +82,9 @@ Ask the user **ONLY ONCE**. If edits are requested -> update in memory -> show t
 ```bash
 python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING"
 python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING"
+python -c "import docx; print('python-docx OK')" 2>&1 || echo "MISSING"
 ```
-If missing -> `python -m pip install PyMuPDF` / `Pillow`. **DO NOT generate while dependencies are missing.**
+If missing -> `python -m pip install PyMuPDF Pillow python-docx`. **DO NOT generate while dependencies are missing.**
 
 ### Step 9: Generate covers + data.json (ONLY ONCE)
 
@@ -124,16 +125,20 @@ python scripts/cli.py structure --base-dir .
 
 > The log MUST be updated immediately after classification is complete to avoid duplicate topics next time.
 
+### Step 12b: Validate metadata
+
+```bash
+python scripts/cli.py doctor --base-dir . --strict
+```
+
 ### Steps 13-14: Upload
 
 13. Dry-run: `python scripts/cli.py upload --dry-run` -> count = N -> OK. > N -> STOP.
-14. Upload: `python scripts/cli.py upload` (new files only).
+14. Ask the user for one explicit confirmation, then upload: `python scripts/cli.py upload` (new files only).
 
 ### Step 15: Commit + Push
 
-```bash
-git add -A && git commit -m "add: [N] books to library" && git push
-```
+Ask the user for one explicit confirmation before running `git add -A && git commit -m "add: [N] books to library" && git push`.
 
 ### Step 16: Report
 

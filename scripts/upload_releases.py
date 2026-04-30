@@ -22,7 +22,7 @@ Usage:
 
 Requirements:
     - GitHub CLI (gh) installed & authenticated
-    - PyMuPDF (fitz), Pillow, ebooklib (optional, for cover extraction)
+    - PyMuPDF (fitz), Pillow, python-docx
 """
 
 import os
@@ -35,6 +35,16 @@ import re
 from pathlib import Path
 from datetime import datetime
 from typing import Optional
+
+from lib.book_paths import format_size as shared_fmt_size
+from lib.book_paths import generate_book_id as shared_generate_book_id
+from lib.book_paths import sanitize_filename as shared_sanitize_filename
+from lib.constants import COVER_QUALITY as SHARED_COVER_QUALITY
+from lib.constants import COVER_WIDTH as SHARED_COVER_WIDTH
+from lib.covers import extract_cover as extract_shared_cover
+from lib.json_io import load_books, save_books
+from lib.output import emit_json
+from lib.scanner import scan_book_files
 
 # Fix Windows console encoding
 if sys.stdout.encoding != 'utf-8':
@@ -53,8 +63,8 @@ COVER_DIR = "site/assets/covers"
 COVER_WEB_PATH = "assets/covers"
 BOOK_EXTENSIONS = {".pdf", ".epub", ".docx"}
 DEFAULT_TAG = "storage-v1"
-COVER_WIDTH = 250
-COVER_QUALITY = 60
+COVER_WIDTH = SHARED_COVER_WIDTH
+COVER_QUALITY = SHARED_COVER_QUALITY
 CATEGORY_PATTERN = re.compile(r"^(\d+)_(.+)$")
 
 
@@ -64,9 +74,7 @@ CATEGORY_PATTERN = re.compile(r"^(\d+)_(.+)$")
 
 def sanitize_filename(name: str) -> str:
     """Create a safe filename from a book title."""
-    name = re.sub(r"[^\w\s\-.]", "", name)
-    name = re.sub(r"\s+", "_", name.strip())
-    return name[:100]
+    return shared_sanitize_filename(name)
 
 
 def parse_category_name(folder_name: str) -> str:
@@ -84,15 +92,12 @@ def parse_topic_name(folder_name: str) -> str:
 
 def generate_book_id(file_path: str) -> str:
     """Generate unique ID: MD5 hash (12 chars) of file_path."""
-    return hashlib.md5(file_path.encode("utf-8")).hexdigest()[:12]
+    return shared_generate_book_id(file_path)
 
 
 def fmt_size(size_bytes: int) -> str:
     """Format bytes to human-readable string."""
-    mb = size_bytes / (1024 * 1024)
-    if mb >= 1:
-        return f"{mb:.1f} MB"
-    return f"{size_bytes / 1024:.0f} KB"
+    return shared_fmt_size(size_bytes)
 
 
 # ══════════════════════════════════════════════════════════
@@ -112,13 +117,6 @@ except ImportError:
     HAS_PILLOW = False
 
 try:
-    import ebooklib
-    from ebooklib import epub
-    HAS_EBOOKLIB = True
-except ImportError:
-    HAS_EBOOKLIB = False
-
-try:
     from docx import Document as DocxDocument
     HAS_PYTHON_DOCX = True
 except ImportError:
@@ -126,87 +124,11 @@ except ImportError:
 
 
 def extract_cover(file_path: Path, output_path: Path) -> bool:
-    """Extract cover from PDF/EPUB → WebP (250px, q60)."""
-    ext = file_path.suffix.lower()
-
-    if ext == ".pdf" and HAS_PYMUPDF:
-        try:
-            doc = fitz.open(str(file_path))
-            if doc.page_count == 0:
-                doc.close()
-                return False
-            page = doc[0]
-            mat = fitz.Matrix(2.0, 2.0)  # 2x zoom then downscale
-            pix = page.get_pixmap(matrix=mat, alpha=False)
-            if HAS_PILLOW:
-                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                if img.width > COVER_WIDTH:
-                    ratio = COVER_WIDTH / img.width
-                    img = img.resize((COVER_WIDTH, int(img.height * ratio)), Image.LANCZOS)
-                img.save(str(output_path), "WEBP", quality=COVER_QUALITY, method=6)
-            else:
-                pix.save(str(output_path))
-            doc.close()
-            return True
-        except Exception as e:
-            print(f"    ⚠️  Cover error: {e}")
-            return False
-
-    elif ext == ".epub" and HAS_EBOOKLIB:
-        try:
-            book = epub.read_epub(str(file_path), options={"ignore_ncx": True})
-            cover_data = None
-            # Method 1: cover metadata
-            for item in book.get_items():
-                if item.get_type() == ebooklib.ITEM_COVER:
-                    cover_data = item.get_content()
-                    break
-            # Method 2: image with 'cover' in name
-            if not cover_data:
-                for item in book.get_items_of_type(ebooklib.ITEM_IMAGE):
-                    if "cover" in item.get_name().lower():
-                        cover_data = item.get_content()
-                        break
-            # Method 3: first image
-            if not cover_data:
-                for item in book.get_items_of_type(ebooklib.ITEM_IMAGE):
-                    cover_data = item.get_content()
-                    break
-
-            if cover_data and HAS_PILLOW:
-                from io import BytesIO
-                img = Image.open(BytesIO(cover_data))
-                if img.mode in ("RGBA", "P"):
-                    img = img.convert("RGB")
-                if img.width > COVER_WIDTH:
-                    ratio = COVER_WIDTH / img.width
-                    img = img.resize((COVER_WIDTH, int(img.height * ratio)), Image.LANCZOS)
-                img.save(str(output_path), "WEBP", quality=COVER_QUALITY, method=6)
-                return True
-        except Exception as e:
-            print(f"    ⚠️  Cover error: {e}")
-            return False
-
-    elif ext == ".docx" and HAS_PYTHON_DOCX and HAS_PILLOW:
-        try:
-            from io import BytesIO
-            doc = DocxDocument(str(file_path))
-            for rel in doc.part.rels.values():
-                if "image" in rel.reltype:
-                    image_data = rel.target_part.blob
-                    img = Image.open(BytesIO(image_data))
-                    if img.mode in ("RGBA", "P"):
-                        img = img.convert("RGB")
-                    if img.width > COVER_WIDTH:
-                        ratio = COVER_WIDTH / img.width
-                        img = img.resize((COVER_WIDTH, int(img.height * ratio)), Image.LANCZOS)
-                    img.save(str(output_path), "WEBP", quality=COVER_QUALITY, method=6)
-                    return True
-        except Exception as e:
-            print(f"    ⚠️  Cover error: {e}")
-            return False
-
-    return False
+    """Extract a WebP cover using the canonical 600px/q85 policy."""
+    ok = extract_shared_cover(file_path, output_path)
+    if not ok:
+        print(f"    ⚠️  Cover unavailable for {file_path.name}")
+    return ok
 
 
 # ══════════════════════════════════════════════════════════
@@ -304,56 +226,20 @@ def scan_local_books(base_dir: Path) -> list[dict]:
     if not books_root.exists():
         print(f"❌ Books directory not found: {books_root}")
         return []
-
-    books = []
-    for cat_folder in sorted(books_root.iterdir()):
-        if not cat_folder.is_dir() or not CATEGORY_PATTERN.match(cat_folder.name):
-            continue
-
-        category_name = parse_category_name(cat_folder.name)
-
-        for root, dirs, files in os.walk(cat_folder):
-            root_path = Path(root)
-            rel_to_cat = root_path.relative_to(cat_folder)
-            parts = rel_to_cat.parts
-            topic_name = parse_topic_name(parts[0]) if parts else category_name
-
-            for filename in sorted(files):
-                file_path = root_path / filename
-                if file_path.suffix.lower() not in BOOK_EXTENSIONS:
-                    continue
-
-                rel_path = file_path.relative_to(base_dir).as_posix()
-                books.append({
-                    "abs_path": file_path,
-                    "rel_path": rel_path,
-                    "filename": filename,
-                    "title": file_path.stem,
-                    "category": category_name,
-                    "topic": topic_name,
-                    "format": file_path.suffix.lower()[1:],
-                    "size": file_path.stat().st_size,
-                })
-    return books
+    return scan_book_files(base_dir)
 
 
 def load_data_json(base_dir: Path) -> list[dict]:
     """Load existing data.json."""
-    data_path = base_dir / DATA_JSON
-    if not data_path.exists():
-        return []
     try:
-        with open(data_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (json.JSONDecodeError, IOError):
+        return load_books(base_dir)
+    except (json.JSONDecodeError, IOError, ValueError):
         return []
 
 
 def save_data_json(base_dir: Path, data: list[dict]) -> None:
     """Save data.json (preserve formatting)."""
-    data_path = base_dir / DATA_JSON
-    with open(data_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    save_books(base_dir, data, backup=True)
 
 
 def compute_diff(local_books: list[dict], existing_data: list[dict], force: bool = False) -> tuple[list[dict], list[dict]]:
@@ -426,6 +312,8 @@ def main():
     parser.add_argument("--tag", default=DEFAULT_TAG, help=f"Release tag (default: {DEFAULT_TAG})")
     parser.add_argument("--dry-run", action="store_true", help="Preview changes without uploading")
     parser.add_argument("--force", action="store_true", help="Re-upload ALL books (ignore existing)")
+    parser.add_argument("--json", action="store_true", help="Emit a machine-readable JSON summary")
+    parser.add_argument("--yes", "-y", action="store_true", help="Skip hard-reset confirmation prompt")
     parser.add_argument("--hard-reset", action="store_true",
                         help="DELETE existing release entirely, recreate, and re-upload ALL files")
     args = parser.parse_args()
@@ -442,6 +330,11 @@ def main():
         print("⚠️" * 20 + "\n")
 
         if not args.dry_run:
+            if not args.yes:
+                response = input("Type yes to continue hard reset: ").strip().lower()
+                if response not in ("yes", "y"):
+                    print("❌ Cancelled.")
+                    return
             if not check_gh_cli():
                 print("❌ GitHub CLI (gh) not installed or not authenticated.")
                 sys.exit(1)
@@ -531,6 +424,18 @@ def main():
     print(f"   📕 Already synced (skip):         {len(local_books) - len(all_to_upload)}")
 
     if not all_to_upload:
+        if args.json:
+            emit_json({
+                "ok": True,
+                "dry_run": args.dry_run,
+                "tag": tag,
+                "local_books": len(local_books),
+                "new_books": 0,
+                "need_upload": 0,
+                "would_upload": 0,
+                "upload_size_bytes": 0,
+                "files": [],
+            })
         print(f"\n✅ Everything is in sync! Nothing to upload.")
         return
 
@@ -539,6 +444,28 @@ def main():
         status = "NEW" if b in new_books else "RE-UPLOAD"
         print(f"      [{status}] {b['filename']} ({fmt_size(b['size'])})")
 
+    if args.dry_run:
+        summary = {
+            "ok": True,
+            "dry_run": True,
+            "tag": tag,
+            "local_books": len(local_books),
+            "new_books": len(new_books),
+            "need_upload": len(need_upload),
+            "would_upload": len(all_to_upload),
+            "upload_size_bytes": upload_size,
+            "files": all_to_upload,
+        }
+        if args.json:
+            emit_json(summary)
+        print(f"\n{'═' * 60}")
+        print(f"🔍 DRY RUN — No files uploaded.")
+        print("   No covers or data files were written.")
+        print(f"   Would upload {len(all_to_upload)} files ({fmt_size(upload_size)})")
+        print(f"   Would add {len(new_books)} new entries to data.json")
+        print(f"{'═' * 60}")
+        return
+
     # ── Step 4: Create covers for new books ──
     if new_books:
         print(f"\n{'─' * 60}")
@@ -546,14 +473,6 @@ def main():
         cover_map = create_covers_for_new(base_dir, new_books)
     else:
         cover_map = {}
-
-    if args.dry_run:
-        print(f"\n{'═' * 60}")
-        print(f"🔍 DRY RUN — No files uploaded.")
-        print(f"   Would upload {len(all_to_upload)} files ({fmt_size(upload_size)})")
-        print(f"   Would add {len(new_books)} new entries to data.json")
-        print(f"{'═' * 60}")
-        return
 
     # ── Step 5: Ensure release exists ──
     print(f"\n{'─' * 60}")
@@ -631,6 +550,21 @@ def main():
     print(f"   🏷️  Release:   {tag}")
     print(f"\n   Next step: git add site/data.json site/assets/covers/ && git commit && git push")
     print(f"{'═' * 60}")
+
+    if args.json:
+        emit_json({
+            "ok": failed == 0,
+            "dry_run": False,
+            "tag": tag,
+            "uploaded": uploaded,
+            "failed": failed,
+            "new_entries": new_count,
+            "download_urls_updated": url_updated,
+            "skipped": len(local_books) - len(all_to_upload),
+        })
+
+    if failed:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

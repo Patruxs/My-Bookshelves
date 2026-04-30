@@ -3,8 +3,9 @@
  * Zero dependencies · Pure JavaScript · Apple-style UI
  */
 
+import { CONFIG } from "./js/config.js";
+
 // ═══ CONFIG ═══
-const CONFIG = { githubRepo: "Patruxs/My-Bookshelves", branch: "main" };
 
 // ═══ STATE ═══
 let allBooks = [], filteredBooks = [], currentBookId = null;
@@ -129,6 +130,7 @@ async function init() {
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
+    setupEventDelegation();
     setViewMode(viewMode);
     showSkeleton();
     booksPerPage = calculateBooksPerPage();
@@ -136,7 +138,11 @@ async function init() {
         const r = await fetch("data.json?v=" + new Date().getTime(), { cache: "no-store" });
         if (!r.ok) throw new Error(r.status);
         allBooks = mergeBooks(await r.json());
-    } catch (e) { console.warn("data.json:", e); allBooks = []; }
+    } catch {
+        allBooks = [];
+        const emptyText = $("#no-results p");
+        if (emptyText) emptyText.textContent = "Library data could not be loaded";
+    }
 
     renderSidebar();
     populateFilterPanel();
@@ -144,14 +150,6 @@ async function init() {
     hideSkeleton();
 
     searchInput.addEventListener("input", debounce(handleSearchInput, 200));
-
-    document.addEventListener("keydown", e => {
-        if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); searchInput.focus(); }
-        if (e.key === "Escape") {
-            if ($("#filter-panel").classList.contains("open")) closeFilterPanel();
-            else if (detailView.style.display !== "none") showHomeView();
-        }
-    });
 
     // Handle browser back/forward
     window.addEventListener("popstate", handlePopState);
@@ -170,6 +168,150 @@ async function init() {
 
     // Check URL on load
     checkUrlBookParam();
+}
+
+let eventDelegationReady = false;
+
+function setupEventDelegation() {
+    if (eventDelegationReady) return;
+    eventDelegationReady = true;
+    document.addEventListener("click", handleDelegatedClick);
+    document.addEventListener("change", handleDelegatedChange);
+    document.addEventListener("input", handleDelegatedInput);
+    document.addEventListener("keydown", handleDelegatedKeydown);
+    document.addEventListener("error", handleImageError, true);
+}
+
+function handleDelegatedClick(e) {
+    if (!(e.target instanceof Element)) return;
+    const actionEl = e.target.closest("[data-action]");
+    if (!actionEl) return;
+    const action = actionEl.dataset.action;
+
+    if (action === "home") {
+        e.preventDefault();
+        showHomeView();
+        clearAllFilters();
+    } else if (action === "toggle-sidebar") {
+        toggleSidebar();
+    } else if (action === "close-sidebar") {
+        closeSidebar();
+    } else if (action === "clear-search") {
+        clearSearch();
+    } else if (action === "toggle-theme") {
+        toggleTheme();
+    } else if (action === "sidebar-discover") {
+        sidebarSelectDiscover();
+    } else if (action === "sidebar-all") {
+        sidebarSelectAll();
+    } else if (action === "sidebar-archive") {
+        sidebarSelectArchive();
+    } else if (action === "sidebar-recent") {
+        sidebarSelectRecent();
+    } else if (action === "collapse-categories") {
+        collapseAllCategories();
+    } else if (action === "toggle-filter") {
+        toggleFilterPanel();
+    } else if (action === "close-filter") {
+        closeFilterPanel();
+    } else if (action === "set-view") {
+        setViewMode(actionEl.dataset.mode || "grid");
+    } else if (action === "show-home") {
+        showHomeView();
+    } else if (action === "sidebar-toggle-cat") {
+        sidebarToggleCat(e, actionEl);
+    } else if (action === "sidebar-toggle-topic") {
+        sidebarToggleTopic(e, actionEl);
+    } else if (action === "sidebar-select-topic") {
+        sidebarSelectTopic(actionEl);
+    } else if (action === "filter-tab") {
+        setFilterTab(actionEl.dataset.tab || "topic");
+    } else if (action === "clear-filter-panel") {
+        clearFilterPanel();
+    } else if (action === "apply-filter-panel") {
+        applyFilterPanel();
+    } else if (action === "remove-filter") {
+        removeFilter(actionEl.dataset.filterType, actionEl.dataset.filterValue || null);
+    } else if (action === "open-book") {
+        showDetailView(actionEl.dataset.bookId);
+    } else if (action === "view-topic") {
+        sidebarSelectTopicByNames(actionEl.dataset.cat, actionEl.dataset.topic);
+    } else if (action === "go-page") {
+        goToPage(Number(actionEl.dataset.page));
+    } else if (action === "archive-download") {
+        addArchivedBook(actionEl.dataset.bookId);
+    } else if (action === "toggle-archive") {
+        toggleArchiveBook(actionEl.dataset.bookId);
+    } else if (action === "share-book") {
+        shareBook();
+    }
+}
+
+function handleDelegatedChange(e) {
+    if (!(e.target instanceof Element)) return;
+    const actionEl = e.target.closest("[data-action]");
+    if (!actionEl) return;
+    if (actionEl.dataset.action === "toggle-fp-item") {
+        toggleFpItem(actionEl.dataset.group, actionEl.dataset.value);
+    }
+}
+
+function handleDelegatedInput(e) {
+    if (!(e.target instanceof Element)) return;
+    const actionEl = e.target.closest("[data-action]");
+    if (!actionEl) return;
+    if (actionEl.dataset.action === "fp-search") {
+        handleFpSearch(actionEl.value);
+    }
+}
+
+function handleDelegatedKeydown(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        searchInput.focus();
+        return;
+    }
+    if (e.key === "Escape") {
+        if ($("#filter-panel").classList.contains("open")) closeFilterPanel();
+        else if (detailView.style.display !== "none") showHomeView();
+        return;
+    }
+    if (e.key === "Tab" && $("#filter-panel").classList.contains("open")) {
+        trapFilterFocus(e);
+        return;
+    }
+    if (e.key !== "Enter" && e.key !== " ") return;
+    if (!(e.target instanceof Element)) return;
+    const actionEl = e.target.closest("[data-action]");
+    if (!actionEl) return;
+    const keyboardActions = new Set(["open-book", "view-topic"]);
+    if (keyboardActions.has(actionEl.dataset.action)) {
+        e.preventDefault();
+        actionEl.click();
+    }
+}
+
+function trapFilterFocus(e) {
+    const panel = $("#filter-panel");
+    const focusables = Array.from(panel.querySelectorAll("button, input, [href], [tabindex]:not([tabindex='-1'])"))
+        .filter(el => !el.disabled && el.offsetParent !== null);
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+    }
+}
+
+function handleImageError(e) {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement) || !img.dataset.fallbackSrc) return;
+    img.src = img.dataset.fallbackSrc;
+    delete img.dataset.fallbackSrc;
 }
 
 // ═══ SIDEBAR ═══
@@ -205,7 +347,7 @@ function renderSidebar() {
         const count = allBooks.filter(b => b.category === cat).length;
         const n = getCatNum(cat);
         html += `<div>
-            <button class="sb-cat" data-cat="${esc(cat)}" onclick="sidebarToggleCat(event, this)">
+            <button class="sb-cat" data-action="sidebar-toggle-cat" data-cat="${esc(cat)}" aria-expanded="false">
                 <svg class="sb-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
                 <span class="sb-label">${esc(cat)}</span>
                 <svg class="sb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -219,7 +361,7 @@ function renderSidebar() {
             
             if (hasSub) {
                 html += `<div>
-                    <button class="sb-topic parent" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" onclick="sidebarToggleTopic(event, this)">
+                    <button class="sb-topic parent" data-action="sidebar-toggle-topic" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" aria-expanded="false">
                         <span class="sb-label">${esc(mainTopic)}</span>
                         <svg class="sb-chevron sb-sub-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
@@ -228,13 +370,13 @@ function renderSidebar() {
                 const sortedSubs = Object.keys(data.subtopics).sort((a,b) => a.localeCompare(b));
                 for (const sub of sortedSubs) {
                     const fullTopic = `${mainTopic}/${sub}`;
-                    html += `<button class="sb-topic sub" data-cat="${esc(cat)}" data-topic="${esc(fullTopic)}" onclick="sidebarSelectTopic(this)">
+                    html += `<button class="sb-topic sub" data-action="sidebar-select-topic" data-cat="${esc(cat)}" data-topic="${esc(fullTopic)}">
                         <span class="sb-label">${esc(sub)}</span>
                     </button>`;
                 }
                 html += `</div></div>`;
             } else {
-                html += `<button class="sb-topic" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" onclick="sidebarSelectTopic(this)">
+                html += `<button class="sb-topic" data-action="sidebar-select-topic" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}">
                     <span class="sb-label">${esc(mainTopic)}</span>
                 </button>`;
             }
@@ -254,18 +396,21 @@ function sidebarToggleCat(e, btn) {
         e.stopPropagation();
         chevron.classList.toggle("open");
         topics.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(topics.classList.contains("open")));
         return;
     }
 
     if (sidebarSelection.category === cat && !sidebarSelection.topic) {
         chevron.classList.toggle("open");
         topics.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(topics.classList.contains("open")));
         return;
     }
     sidebarViewMode = 'collections';
     sidebarSelection = { category: cat, topic: "" };
     chevron.classList.add("open");
     topics.classList.add("open");
+    btn.setAttribute("aria-expanded", "true");
     updateSidebarUI();
     applyFilters();
 }
@@ -282,24 +427,26 @@ function sidebarSelectTopicByNames(cat, topic) {
     sidebarSelection = { category: cat, topic: topic };
     
     // Expand the category in sidebar
-    const catBtn = document.querySelector(`.sb-cat-btn[data-cat="${cat}"]`);
+    const catBtn = document.querySelector(`.sb-cat[data-cat="${cssEscape(cat)}"]`);
     if (catBtn) {
         const chevron = catBtn.querySelector(".sb-chevron");
         const topicsEl = catBtn.nextElementSibling;
         if (chevron) chevron.classList.add("open");
         if (topicsEl) topicsEl.classList.add("open");
+        catBtn.setAttribute("aria-expanded", "true");
     }
     
     // Expand the topic if it's a subtopic
     const topicParts = topic.split('/');
     if (topicParts.length > 1) {
         const parentTopic = topicParts[0];
-        const topicBtn = document.querySelector(`.sb-topic-btn[data-cat="${cat}"][data-topic="${parentTopic}"]`);
+        const topicBtn = document.querySelector(`.sb-topic[data-cat="${cssEscape(cat)}"][data-topic="${cssEscape(parentTopic)}"]`);
         if (topicBtn) {
             const chevron = topicBtn.querySelector(".sb-sub-chevron");
             const subtopicsEl = topicBtn.nextElementSibling;
             if (chevron) chevron.classList.add("open");
             if (subtopicsEl) subtopicsEl.classList.add("open");
+            topicBtn.setAttribute("aria-expanded", "true");
         }
     }
     
@@ -316,12 +463,14 @@ function sidebarToggleTopic(e, btn) {
         e.stopPropagation();
         if (chevron) chevron.classList.toggle("open");
         if (subtopics) subtopics.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(subtopics && subtopics.classList.contains("open")));
         return;
     }
     
     if (sidebarSelection.category === btn.dataset.cat && sidebarSelection.topic === btn.dataset.topic) {
         if (chevron) chevron.classList.toggle("open");
         if (subtopics) subtopics.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(subtopics && subtopics.classList.contains("open")));
         return;
     }
     
@@ -329,6 +478,7 @@ function sidebarToggleTopic(e, btn) {
     sidebarSelection = { category: btn.dataset.cat, topic: btn.dataset.topic };
     if (chevron) chevron.classList.add("open");
     if (subtopics) subtopics.classList.add("open");
+    btn.setAttribute("aria-expanded", "true");
     updateSidebarUI();
     applyFilters();
 }
@@ -412,12 +562,20 @@ function toggleSidebar() {
     }
     $("#sidebar").classList.toggle("open"); 
     $("#sb-overlay").classList.toggle("active"); 
+    const menuBtn = $("#menu-btn");
+    if (menuBtn) menuBtn.setAttribute("aria-expanded", String($("#sidebar").classList.contains("open")));
 }
-function closeSidebar() { $("#sidebar").classList.remove("open"); $("#sb-overlay").classList.remove("active"); }
+function closeSidebar() {
+    $("#sidebar").classList.remove("open");
+    $("#sb-overlay").classList.remove("active");
+    const menuBtn = $("#menu-btn");
+    if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+}
 
 // ═══ FILTER PANEL (Modal UI) ═══
 let activeFilterTab = 'topic';
 let fpSearchQuery = '';
+let lastFilterTrigger = null;
 
 function populateFilterPanel() {
     const panel = $("#filter-panel");
@@ -426,20 +584,20 @@ function populateFilterPanel() {
     let html = `
         <div class="fp-header">
             <div class="fp-title">${title}</div>
-            <button class="fp-close" onclick="closeFilterPanel()">
+            <button class="fp-close" data-action="close-filter" aria-label="Close filters">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
         <div class="fp-body">
             <div class="fp-sidebar">
-                <button class="fp-tab ${activeFilterTab === 'topic' ? 'active' : ''}" onclick="setFilterTab('topic')">Categories & Topics</button>
-                <button class="fp-tab ${activeFilterTab === 'format' ? 'active' : ''}" onclick="setFilterTab('format')">Formats</button>
-                <button class="fp-tab ${activeFilterTab === 'sort' ? 'active' : ''}" onclick="setFilterTab('sort')">Sort</button>
+                <button class="fp-tab ${activeFilterTab === 'topic' ? 'active' : ''}" data-action="filter-tab" data-tab="topic">Categories & Topics</button>
+                <button class="fp-tab ${activeFilterTab === 'format' ? 'active' : ''}" data-action="filter-tab" data-tab="format">Formats</button>
+                <button class="fp-tab ${activeFilterTab === 'sort' ? 'active' : ''}" data-action="filter-tab" data-tab="sort">Sort</button>
             </div>
             <div class="fp-content">
                 <div class="fp-search" ${(activeFilterTab === 'sort' || activeFilterTab === 'format') ? 'style="display:none;"' : ''}>
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    <input type="text" id="fp-search-input" placeholder="Search ${activeFilterTab}s..." value="${esc(fpSearchQuery)}" oninput="handleFpSearch(this.value)">
+                    <input type="text" id="fp-search-input" data-action="fp-search" placeholder="Search ${activeFilterTab}s..." value="${esc(fpSearchQuery)}">
                 </div>
                 <div class="fp-list" id="fp-list-container">
                     ${renderFpList()}
@@ -447,9 +605,9 @@ function populateFilterPanel() {
             </div>
         </div>
         <div class="fp-footer">
-            <button class="fp-clear" onclick="clearFilterPanel()">Clear All</button>
+            <button class="fp-clear" data-action="clear-filter-panel">Clear All</button>
             <div class="fp-actions">
-                <button class="fp-btn fp-btn-apply" onclick="applyFilterPanel()">Show Results</button>
+                <button class="fp-btn fp-btn-apply" data-action="apply-filter-panel">Show Results</button>
             </div>
         </div>
     `;
@@ -558,7 +716,7 @@ function renderFpList() {
             }
             return `
                 <label class="fp-checkbox ${i.disabled ? 'disabled' : ''}">
-                    <input type="checkbox" ${isChecked ? 'checked' : ''} ${i.disabled ? 'disabled' : ''} onchange="toggleFpItem('${i.group}', '${esc(i.value)}')">
+                    <input type="checkbox" data-action="toggle-fp-item" data-group="${esc(i.group)}" data-value="${esc(i.value)}" ${isChecked ? 'checked' : ''} ${i.disabled ? 'disabled' : ''}>
                     <span class="fp-name">${esc(i.name)}</span>
                     ${i.count !== undefined ? `<span class="fp-count">${i.count}</span>` : ''}
                 </label>
@@ -617,19 +775,29 @@ function toggleFilterPanel() {
     const isOpen = panel.classList.contains("open");
     
     if (!isOpen) {
+        lastFilterTrigger = document.activeElement;
         pendingFilters = copyFilters(activeFilters);
         populateFilterPanel();
     }
     
     panel.classList.toggle("open");
     overlay.classList.toggle("active", !isOpen);
+    const btn = $("#filter-btn");
+    if (btn) btn.setAttribute("aria-expanded", String(!isOpen));
     document.body.style.overflow = isOpen ? '' : 'hidden';
+    if (!isOpen) {
+        const firstField = $("#filter-panel").querySelector("button, input, [tabindex]:not([tabindex='-1'])");
+        if (firstField) firstField.focus();
+    }
 }
 
 function closeFilterPanel() {
     $("#filter-panel").classList.remove("open");
     $("#filter-overlay").classList.remove("active");
+    const btn = $("#filter-btn");
+    if (btn) btn.setAttribute("aria-expanded", "false");
     document.body.style.overflow = '';
+    if (lastFilterTrigger && lastFilterTrigger.focus) lastFilterTrigger.focus();
 }
 
 function clearFilterPanel() {
@@ -693,17 +861,17 @@ function updateActiveFiltersUI() {
     
     if (activeFilters.sort) {
         const sortLabels = { "az": "A to Z", "za": "Z to A", "score": "Relevance" };
-        html += `<span class="filter-chip" onclick="removeFilter('sort', null)">${sortLabels[activeFilters.sort] || "Sort"} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>`;
+        html += `<button class="filter-chip" data-action="remove-filter" data-filter-type="sort">${sortLabels[activeFilters.sort] || "Sort"} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>`;
     }
     if (activeFilters.format) {
-        html += `<span class="filter-chip" onclick="removeFilter('format', null)">${activeFilters.format} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>`;
+        html += `<button class="filter-chip" data-action="remove-filter" data-filter-type="format">${activeFilters.format} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>`;
     }
     activeFilters.category.forEach(c => {
-        html += `<span class="filter-chip" onclick="removeFilter('category', '${esc(c)}')">${esc(c)} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>`;
+        html += `<button class="filter-chip" data-action="remove-filter" data-filter-type="category" data-filter-value="${esc(c)}">${esc(c)} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>`;
     });
     activeFilters.topic.forEach(t => {
         const tName = t.split('/').pop();
-        html += `<span class="filter-chip" onclick="removeFilter('topic', '${esc(t)}')">${esc(tName)} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>`;
+        html += `<button class="filter-chip" data-action="remove-filter" data-filter-type="topic" data-filter-value="${esc(t)}">${esc(tName)} <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>`;
     });
     
     chipsContainer.innerHTML = html;
@@ -908,10 +1076,11 @@ function renderBooks() {
         const delay = Math.min(i * 30, 300);
         const title = cleanTitle(book.title);
         const n = getCatNum(book.category);
-        const cover = book.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
-        return `<div class="card fade-in" style="animation-delay:${delay}ms" onclick="showDetailView('${book.id}')" tabindex="0" role="button" aria-label="${esc(title)}">
+        const fallback = placeholderDataUrl(title);
+        const cover = safeCoverSrc(book.cover, title);
+        return `<div class="card fade-in" style="animation-delay:${delay}ms" data-action="open-book" data-book-id="${esc(book.id)}" tabindex="0" role="button" aria-label="${esc(title)}">
             <div class="card-cover">
-                <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(title))}'">
+                <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" data-fallback-src="${esc(fallback)}">
                 <div class="card-overlay">
                     <span class="card-view"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>View</span>
                 </div>
@@ -965,17 +1134,18 @@ function renderCollectionsView() {
 
             for (const book of books) {
                 const title = cleanTitle(book.title);
-                const cover = book.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
-                html += `<div class="coll-card" onclick="showDetailView('${book.id}')" tabindex="0" role="button" aria-label="${esc(title)}">
+                const fallback = placeholderDataUrl(title);
+                const cover = safeCoverSrc(book.cover, title);
+                html += `<div class="coll-card" data-action="open-book" data-book-id="${esc(book.id)}" tabindex="0" role="button" aria-label="${esc(title)}">
                     <div class="coll-card-cover">
-                        <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(title))}'">
+                        <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" data-fallback-src="${esc(fallback)}">
                     </div>
                     <div class="coll-card-title">${esc(title)}</div>
                 </div>`;
             }
 
             if (hasMore) {
-                html += `<div class="coll-view-more-card" onclick="sidebarSelectTopicByNames('${esc(cat)}', '${esc(topic)}')">
+                html += `<div class="coll-view-more-card" data-action="view-topic" data-cat="${esc(cat)}" data-topic="${esc(topic)}" tabindex="0" role="button">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:28px;height:28px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     <span>View All<br>(${allBooksInTopic.length - maxDisplay} more)</span>
                 </div>`;
@@ -1003,7 +1173,7 @@ function renderPagination() {
     if (totalPages <= 1) { paginationEl.innerHTML = ""; return; }
 
     let html = '';
-    html += `<button class="page-btn page-arrow" ${currentPage===1?'disabled':''} onclick="goToPage(${currentPage-1})" title="Previous">
+    html += `<button class="page-btn page-arrow" ${currentPage===1?'disabled':''} data-action="go-page" data-page="${currentPage-1}" title="Previous" aria-label="Previous page">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
     </button>`;
 
@@ -1012,11 +1182,11 @@ function renderPagination() {
         if (p === '...') {
             html += `<span class="page-ellipsis">…</span>`;
         } else {
-            html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goToPage(${p})">${p}</button>`;
+            html += `<button class="page-btn ${p===currentPage?'active':''}" data-action="go-page" data-page="${p}" aria-label="Page ${p}">${p}</button>`;
         }
     });
 
-    html += `<button class="page-btn page-arrow" ${currentPage===totalPages?'disabled':''} onclick="goToPage(${currentPage+1})" title="Next">
+    html += `<button class="page-btn page-arrow" ${currentPage===totalPages?'disabled':''} data-action="go-page" data-page="${currentPage+1}" title="Next" aria-label="Next page">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
     </button>`;
 
@@ -1051,7 +1221,31 @@ function goToPage(page) {
     window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
 }
 
-// ═══ PLACEHOLDER SVG ═══
+// ═══ SAFE URLS & PLACEHOLDER SVG ═══
+function placeholderDataUrl(title) {
+    return "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
+}
+
+function safeCoverSrc(cover, title) {
+    const fallback = placeholderDataUrl(title);
+    if (!cover) return fallback;
+    if (cover.startsWith("data:image/svg+xml,")) return cover;
+    if (/^assets\/covers\/[-\w.%/]+\.webp$/i.test(cover)) return cover;
+    return fallback;
+}
+
+function safeDownloadUrl(url) {
+    if (!url) return "#";
+    try {
+        const parsed = new URL(url, location.href);
+        const allowedProtocols = new Set(["http:", "https:", "file:"]);
+        if (!allowedProtocols.has(parsed.protocol)) return "#";
+        return parsed.href;
+    } catch {
+        return "#";
+    }
+}
+
 function placeholderSVG(title) {
     const colors = ["2997ff", "30d158", "ff9f0a", "ff375f", "bf5af2", "64d2ff"];
     const c = colors[Math.abs(hash(title)) % colors.length];
@@ -1068,9 +1262,9 @@ function showDetailView(bookId, pushHistory = true) {
 
     const title = cleanTitle(b.title);
     const n = getCatNum(b.category);
-    const cover = b.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
+    const fallback = placeholderDataUrl(title);
+    const cover = safeCoverSrc(b.cover, title);
     const desc = b.description || `A book in "${b.topic}" of "${b.category}".`;
-    const dlUrl = getDownloadUrl(b.file_path, b.download_url);
 
     // Related books
     const related = getRelatedBooks(b);
@@ -1079,7 +1273,7 @@ function showDetailView(bookId, pushHistory = true) {
     dv.innerHTML = `
         <div class="dv-hero">
             <div class="dv-cover-wrap">
-                <img class="dv-cover" src="${esc(cover)}" alt="${esc(title)}" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(title))}'">
+                <img class="dv-cover" src="${esc(cover)}" alt="${esc(title)}" data-fallback-src="${esc(fallback)}">
             </div>
             <div class="dv-info">
                 <h1 class="dv-title">${esc(title)}</h1>
@@ -1091,17 +1285,17 @@ function showDetailView(bookId, pushHistory = true) {
                 <p class="dv-desc">${esc(desc)}</p>
                 <div class="dv-actions">
                     ${b.formats.map(f => {
-                        const fUrl = getDownloadUrl(b.files[f], b.downloads[f]);
-                        return `<a href="${esc(fUrl)}" target="_blank" class="btn-primary" download onclick="addArchivedBook('${bookId}')">
+                        const fUrl = safeDownloadUrl(getDownloadUrl(b.files[f], b.downloads[f]));
+                        return `<a href="${esc(fUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary" download data-action="archive-download" data-book-id="${esc(bookId)}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                             Download ${f.toUpperCase()}
                         </a>`;
                     }).join('')}
-                    <button class="btn-secondary" onclick="toggleArchiveBook('${bookId}')" id="dv-archive-btn">
+                    <button class="btn-secondary" data-action="toggle-archive" data-book-id="${esc(bookId)}" id="dv-archive-btn">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
                         ${getArchivedBooks().includes(bookId) ? 'Archived ✓' : 'Archive'}
                     </button>
-                    <button class="btn-secondary" onclick="shareBook()">
+                    <button class="btn-secondary" data-action="share-book">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                         Share
                     </button>
@@ -1115,10 +1309,11 @@ function showDetailView(bookId, pushHistory = true) {
                 ${related.map(rb => {
                     const rTitle = cleanTitle(rb.title);
                     const rN = getCatNum(rb.category);
-                    const rCover = rb.cover || "data:image/svg+xml," + encodeURIComponent(placeholderSVG(rTitle));
-                    return `<div class="card fade-in" onclick="showDetailView('${rb.id}')" tabindex="0" role="button" aria-label="${esc(rTitle)}">
+                    const rFallback = placeholderDataUrl(rTitle);
+                    const rCover = safeCoverSrc(rb.cover, rTitle);
+                    return `<div class="card fade-in" data-action="open-book" data-book-id="${esc(rb.id)}" tabindex="0" role="button" aria-label="${esc(rTitle)}">
                         <div class="card-cover">
-                            <img src="${esc(rCover)}" alt="${esc(rTitle)}" loading="lazy" onerror="this.src='data:image/svg+xml,${encodeURIComponent(placeholderSVG(rTitle))}'">
+                            <img src="${esc(rCover)}" alt="${esc(rTitle)}" loading="lazy" data-fallback-src="${esc(rFallback)}">
                         </div>
                         <div class="card-info">
                             <div class="card-title">${esc(rTitle)}</div>
@@ -1241,6 +1436,7 @@ function getDownloadUrl(fp, downloadUrl) {
 function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
 function escXml(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function cssEscape(s) { return window.CSS && CSS.escape ? CSS.escape(s) : String(s).replace(/"/g, '\\"'); }
 function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; } return h; }
 function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {

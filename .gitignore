@@ -12,6 +12,12 @@
 *.mobi
 *.azw3
 *.djvu
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
 
 # ══════════════════════════════════════════════════
 # 🐍 Python
@@ -19,6 +25,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 venv/
 .venv/
 *.egg-info/
@@ -27,10 +36,14 @@ venv/
 # 📝 Logs & Temp
 # ══════════════════════════════════════════════════
 auto_organize.log
+ERRORS.md
 *.log
 !library_structure.log
-library_structure.log
 _site/
+.backups/
+site/.backups/
+*.tmp
+*.bak
 
 # ══════════════════════════════════════════════════
 # 💻 OS Files
@@ -48,3 +61,6 @@ ehthumbs.db
 *.swp
 *.swo
 *~
+node_modules/
+.env
+.env.*

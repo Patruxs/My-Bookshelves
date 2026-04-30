@@ -54,6 +54,8 @@
     "rename_execute": "python scripts/cli.py rename --base-dir . --execute",
     "generate": "python scripts/cli.py generate --base-dir .",
     "structure": "python scripts/cli.py structure --base-dir .",
+    "doctor": "python scripts/cli.py doctor --base-dir . --strict",
+    "validate_json": "python scripts/cli.py validate --base-dir . --json",
     "upload_dry_run": "python scripts/cli.py upload --dry-run",
     "upload": "python scripts/cli.py upload"
   },

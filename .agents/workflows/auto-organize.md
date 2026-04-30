@@ -51,6 +51,7 @@ python scripts/cli.py structure --base-dir .
 ```bash
 python -c "import fitz; print('PyMuPDF OK')" 2>&1 || echo "MISSING"
 python -c "from PIL import Image; print('Pillow OK')" 2>&1 || echo "MISSING"
+python -c "import docx; print('python-docx OK')" 2>&1 || echo "MISSING"
 ```
 
 // turbo 11. Generate covers + data.json - **ONLY ONCE**:
@@ -85,22 +86,28 @@ python -c "import json; d=json.load(open('site/data.json','r',encoding='utf-8'))
 python scripts/cli.py structure --base-dir .
 ```
 
-15. **DRY-RUN upload** (count = N -> OK, > N -> STOP):
+15. **Validate metadata** before upload:
+
+```bash
+python scripts/cli.py doctor --base-dir . --strict
+```
+
+16. **DRY-RUN upload** (count = N -> OK, > N -> STOP):
 
 ```bash
 python scripts/cli.py upload --dry-run
 ```
 
-16. Upload new books:
+17. Ask the user for one explicit confirmation before the real upload. Upload new books only after approval:
 
 ```bash
 python scripts/cli.py upload
 ```
 
-17. Commit + push:
+18. Ask the user for one explicit confirmation before commit/push. Commit + push only after approval:
 
 ```bash
 git add -A && git commit -m "add: [N] books to library" && git push
 ```
 
-18. **Report results** to the user (summary table + links).
+19. **Report results** to the user (summary table + links).
