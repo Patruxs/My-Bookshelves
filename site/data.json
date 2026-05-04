@@ -550,6 +550,28 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/FAANG_Study_Plan.pdf"
   },
   {
+    "id": "69b2b37bdb58",
+    "title": "Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf",
+    "cover": "assets/covers/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.webp",
+    "format": "pdf",
+    "description": "Coding interviews reward more than memorized solutions; they test whether you can recognize problem families, choose a strategy quickly, and explain tradeoffs under pressure.\n\nCoding Interview Patterns: Nail Your Next Coding Interview focuses on the reusable patterns behind common interview problems. It helps candidates move from one-off practice to a structured toolkit for arrays, strings, graphs, dynamic programming, and other recurring algorithmic themes.\n\n• Master high-frequency coding interview patterns and when to apply them\n• Build confidence by mapping unfamiliar problems to familiar structures\n• Learn to reason about complexity, edge cases, and implementation choices\n• Practice a repeatable approach for explaining solutions clearly\n• Strengthen preparation for technical screens and onsite-style interviews",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf"
+  },
+  {
+    "id": "189320f51e0b",
+    "title": "Programming_Interviews_Exposed_Coding_Your_Way_Through",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf",
+    "cover": "assets/covers/Programming_Interviews_Exposed_Coding_Your_Way_Through.webp",
+    "format": "pdf",
+    "description": "Programming interviews can feel unpredictable because they combine algorithms, communication, debugging, and career judgment in a compressed format. Strong preparation means knowing how to think through problems as much as knowing individual answers.\n\nProgramming Interviews Exposed: Coding Your Way Through the Interview gives practical guidance for navigating technical hiring, from core data structures and algorithms to problem-solving habits and interview strategy. Its approach is grounded in realistic examples that help candidates prepare for both coding questions and the broader interview process.\n\n• Master essential algorithms, data structures, and coding interview techniques\n• Build a practical framework for attacking unfamiliar programming problems\n• Learn how to communicate assumptions, tradeoffs, and complexity clearly\n• Explore common interview formats and preparation strategies\n• Improve confidence for phone screens, whiteboard sessions, and coding tests",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf"
+  },
+  {
     "id": "3b4f6c67528a",
     "title": "10_Essential_Coding_Projects_to_Master_Your_Fundamentals_and_Land_a_100_000_Job_ASAP",
     "category": "Career and Professional Development",

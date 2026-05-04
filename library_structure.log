@@ -1,6 +1,6 @@
 ============================================================
 LIBRARY STRUCTURE LOG
-Generated from: site/data.json (109 books total)
+Generated from: site/data.json (111 books total)
 ============================================================
 
 [1] 1_Computer_Science_Fundamentals (26 books)
@@ -89,11 +89,13 @@ Generated from: site/data.json (109 books total)
     └── Web_Development (1 books)
             • Learning_Web_Design_5th_Edition.pdf
 
-[3] 3_Career_and_Professional_Development (6 books)
+[3] 3_Career_and_Professional_Development (8 books)
     Display Name: Career and Professional Development
-    ├── Interview_Prep (2 books)
+    ├── Interview_Prep (4 books)
+    │       • Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf
     │       • Cracking_the_Coding_Interview.pdf
     │       • FAANG_Study_Plan.pdf
+    │       • Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf
     └── Job_Search_and_Career_Growth (4 books)
             • 10_Essential_Coding_Projects_to_Master_Your_Fundamentals_and_Land_a_100_000_Job_ASAP.pdf
             • How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.pdf
