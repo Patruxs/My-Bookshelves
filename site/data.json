@@ -1,5 +1,126 @@
 [
   {
+    "id": "c00bf2681db4",
+    "title": "Java_Concurrency_in_Practice",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Concurrency_in_Practice.pdf",
+    "cover": "assets/covers/Java_Concurrency_in_Practice.webp",
+    "format": "pdf",
+    "description": "Concurrent programming is where many Java systems become powerful and fragile at the same time. Threads, locks, memory visibility, and race conditions can turn ordinary business logic into production bugs that are difficult to reproduce.\n\nJava Concurrency in Practice by Brian Goetz and colleagues is the classic guide to writing correct, scalable, and maintainable concurrent Java applications. It explains the Java memory model, synchronization patterns, executor frameworks, and design techniques through practical examples.\n\n• Master thread safety, visibility, and safe publication in Java programs\n• Build reliable concurrent components using locks, atomics, and immutable objects\n• Learn how executors, futures, and thread pools structure asynchronous work\n• Diagnose liveness hazards such as deadlock, starvation, and lock contention\n• Apply proven patterns for testing and designing high-performance concurrent code",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Concurrency_in_Practice.pdf"
+  },
+  {
+    "id": "15d0d8b9d1d2",
+    "title": "Java_Core",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Core.pdf",
+    "cover": "assets/covers/Java_Core.webp",
+    "format": "pdf",
+    "description": "Master the foundational elements of the Java programming language to build robust, scalable applications.\n\nThis comprehensive guide covers everything from basic syntax to object-oriented programming principles and advanced core features. It provides a solid grounding for developers looking to deepen their understanding of Java's core capabilities.\n\n• Learn object-oriented concepts like inheritance, encapsulation, and polymorphism.\n• Master exception handling and input/output operations.\n• Explore collections and generic programming to manage data efficiently.\n• Build concurrent applications using multi-threading techniques.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Core.pdf"
+  },
+  {
+    "id": "6cf20c7a1c33",
+    "title": "Java_Spring_Boot_Microservices_and_Angular",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Spring_Boot_Microservices_and_Angular.pdf",
+    "cover": "assets/covers/Java_Spring_Boot_Microservices_and_Angular.webp",
+    "format": "pdf",
+    "description": "Navigate the complexities of building modern full-stack web applications using industry-standard tools.\n\nThis book guides you through integrating a Spring Boot backend with an Angular frontend, focusing on microservices architecture. It demonstrates how to combine these powerful frameworks to deliver responsive and scalable enterprise systems.\n\n• Master the creation of RESTful APIs with Java and Spring Boot.\n• Build dynamic single-page applications using Angular.\n• Implement microservices patterns for decoupled backend architecture.\n• Deploy and manage full-stack applications effectively.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Spring_Boot_Microservices_and_Angular.pdf"
+  },
+  {
+    "id": "821c332f866c",
+    "title": "Continuous_Delivery",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/Continuous_Delivery.pdf",
+    "cover": "assets/covers/Continuous_Delivery.webp",
+    "format": "pdf",
+    "description": "Shipping software often fails at the handoff between development, testing, operations, and release management. Manual deployments, fragile environments, and late integration make every release risky and slow.\n\nContinuous Delivery by Jez Humble and David Farley presents a disciplined approach to building, testing, and releasing software through automated pipelines. The book connects version control, deployment automation, infrastructure management, and organizational feedback loops into one delivery system.\n\n• Build deployment pipelines that make release readiness visible at all times\n• Automate build, test, configuration, and deployment steps for repeatability\n• Learn how to manage environments, databases, and infrastructure changes safely\n• Reduce release risk through small batches, fast feedback, and reliable rollback paths\n• Implement engineering practices that support frequent, low-stress delivery",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Continuous_Delivery.pdf"
+  },
+  {
+    "id": "f8a7dccd2a2f",
+    "title": "Docker_in_Practice_Second_Edition",
+    "category": "Software Engineering",
+    "topic": "Docker",
+    "file_path": "Books/2_Software_Engineering/Docker/Docker_in_Practice_Second_Edition.pdf",
+    "cover": "assets/covers/Docker_in_Practice_Second_Edition.webp",
+    "format": "pdf",
+    "description": "Containers promise portability, but real projects quickly run into networking, storage, image design, security, and operational details. Teams need practical patterns that go beyond a first hello-world container.\n\nDocker in Practice, Second Edition by Ian Miell and Aidan Hobson Sayers collects hands-on techniques for using Docker across development and production workflows. It focuses on concrete recipes, tradeoffs, and command-line practices that help teams package and run applications consistently.\n\n• Build efficient Docker images and compose repeatable application environments\n• Learn practical container networking, volumes, registries, and runtime operations\n• Apply Docker patterns for testing, debugging, CI, and local development\n• Harden containers with safer defaults, smaller images, and clearer boundaries\n• Explore production-minded workflows for managing services with confidence",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Practice_Second_Edition.pdf"
+  },
+  {
+    "id": "d98334afd722",
+    "title": "Building_microservices_designing_fine_grained_systems",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Building_microservices_designing_fine_grained_systems.pdf",
+    "cover": "assets/covers/Building_microservices_designing_fine_grained_systems.webp",
+    "format": "pdf",
+    "description": "Microservices can make teams faster, but they also introduce distributed complexity: service boundaries, data ownership, communication patterns, deployment independence, and failure isolation all become design decisions.\n\nBuilding Microservices by Sam Newman explains how to design fine-grained systems without losing sight of the social and operational realities around them. It covers decomposition, integration, testing, monitoring, security, and evolutionary architecture in a pragmatic style.\n\n• Design service boundaries around business capabilities and team ownership\n• Build resilient communication patterns for synchronous and asynchronous workflows\n• Learn how to manage data, transactions, testing, and deployment across services\n• Explore monitoring, security, and operational practices for distributed systems\n• Evolve monoliths toward microservices without creating unnecessary complexity",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_microservices_designing_fine_grained_systems.pdf"
+  },
+  {
+    "id": "222405d41264",
+    "title": "Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf",
+    "cover": "assets/covers/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.webp",
+    "format": "pdf",
+    "description": "Code is read and changed far more often than it is first written. Without shared discipline, systems accumulate confusion: unclear names, tangled functions, hidden side effects, and tests that no longer protect change.\n\nClean Code by Robert C. Martin is a practical handbook for writing software that communicates intent and remains adaptable. It uses examples, heuristics, and refactorings to show how small choices in naming, functions, objects, and tests shape long-term maintainability.\n\n• Master naming, function design, formatting, and error handling practices\n• Learn how to identify code smells and replace them with clearer structure\n• Build tests that support confident change and reveal design problems\n• Explore object-oriented design principles through concrete Java examples\n• Develop professional habits for keeping codebases understandable over time",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf"
+  },
+  {
+    "id": "70f73a54e99a",
+    "title": "Refactoring_Improving_the_Design_of_Existing_Code",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Refactoring_Improving_the_Design_of_Existing_Code.pdf",
+    "cover": "assets/covers/Refactoring_Improving_the_Design_of_Existing_Code.webp",
+    "format": "pdf",
+    "description": "Healthy software changes continuously, but changing messy code can feel dangerous. Developers need a way to improve design in small steps while preserving behavior and keeping the system working.\n\nRefactoring by Martin Fowler is the foundational guide to improving the design of existing code. It catalogs common refactorings, explains when to apply them, and shows how tests and disciplined transformations make design improvement a routine engineering activity.\n\n• Identify code smells that signal deeper design and maintainability problems\n• Apply small behavior-preserving refactorings to functions, classes, and data structures\n• Learn how automated tests make design changes safer and faster\n• Improve readability, modularity, and extensibility without large rewrites\n• Build judgment for choosing refactorings that match the problem at hand",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Refactoring_Improving_the_Design_of_Existing_Code.pdf"
+  },
+  {
+    "id": "643795f053bf",
+    "title": "The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.pdf",
+    "cover": "assets/covers/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.webp",
+    "format": "pdf",
+    "description": "Programming mastery is not only about syntax or tools; it is about judgment, habits, communication, debugging, and the ability to keep learning as systems and teams change.\n\nThe Pragmatic Programmer by David Thomas and Andrew Hunt distills timeless engineering advice into practical lessons for everyday software work. The 20th anniversary edition updates the classic guidance for modern development while preserving its focus on responsibility, craft, and adaptability.\n\n• Master pragmatic habits for learning, estimating, debugging, and communicating\n• Build systems with clearer boundaries, stronger feedback loops, and less duplication\n• Learn techniques for automation, testing, prototyping, and evolutionary design\n• Explore how to manage technical debt and protect code quality over time\n• Develop the mindset of a thoughtful engineer who improves both code and process",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.pdf"
+  },
+  {
+    "id": "69b2b37bdb58",
+    "title": "Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf",
+    "cover": "assets/covers/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.webp",
+    "format": "pdf",
+    "description": "Coding interviews reward more than memorized solutions; they test whether you can recognize problem families, choose a strategy quickly, and explain tradeoffs under pressure.\n\nCoding Interview Patterns: Nail Your Next Coding Interview focuses on the reusable patterns behind common interview problems. It helps candidates move from one-off practice to a structured toolkit for arrays, strings, graphs, dynamic programming, and other recurring algorithmic themes.\n\n• Master high-frequency coding interview patterns and when to apply them\n• Build confidence by mapping unfamiliar problems to familiar structures\n• Learn to reason about complexity, edge cases, and implementation choices\n• Practice a repeatable approach for explaining solutions clearly\n• Strengthen preparation for technical screens and onsite-style interviews",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf"
+  },
+  {
+    "id": "189320f51e0b",
+    "title": "Programming_Interviews_Exposed_Coding_Your_Way_Through",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf",
+    "cover": "assets/covers/Programming_Interviews_Exposed_Coding_Your_Way_Through.webp",
+    "format": "pdf",
+    "description": "Programming interviews can feel unpredictable because they combine algorithms, communication, debugging, and career judgment in a compressed format. Strong preparation means knowing how to think through problems as much as knowing individual answers.\n\nProgramming Interviews Exposed: Coding Your Way Through the Interview gives practical guidance for navigating technical hiring, from core data structures and algorithms to problem-solving habits and interview strategy. Its approach is grounded in realistic examples that help candidates prepare for both coding questions and the broader interview process.\n\n• Master essential algorithms, data structures, and coding interview techniques\n• Build a practical framework for attacking unfamiliar programming problems\n• Learn how to communicate assumptions, tradeoffs, and complexity clearly\n• Explore common interview formats and preparation strategies\n• Improve confidence for phone screens, whiteboard sessions, and coding tests",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf"
+  },
+  {
     "id": "932e4b18bff6",
     "title": "Leetcode_Pattern_Recognition_Guide",
     "category": "Computer Science Fundamentals",
@@ -548,28 +669,6 @@
     "format": "pdf",
     "description": "Landing a job at FAANG (Facebook, Amazon, Apple, Netflix, Google) requires months of structured preparation across multiple domains — data structures, algorithms, system design, and behavioral interviews. Without a clear plan, candidates waste time on low-impact topics.\n\nThis study plan provides a focused, time-boxed roadmap for FAANG interview preparation, outlining exactly what to study each week, which problems to solve, and how to allocate effort across different interview rounds.\n\n• Follow a structured weekly plan covering arrays, trees, graphs, dynamic programming, and system design\n• Prioritize high-frequency interview topics based on real FAANG interview data\n• Balance time between coding practice, system design study, and behavioral prep\n• Track progress with clear milestones and self-assessment checkpoints\n• Optimize the final weeks with mock interviews and targeted weak-area review",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/FAANG_Study_Plan.pdf"
-  },
-  {
-    "id": "69b2b37bdb58",
-    "title": "Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview",
-    "category": "Career and Professional Development",
-    "topic": "Interview Prep",
-    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf",
-    "cover": "assets/covers/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.webp",
-    "format": "pdf",
-    "description": "Coding interviews reward more than memorized solutions; they test whether you can recognize problem families, choose a strategy quickly, and explain tradeoffs under pressure.\n\nCoding Interview Patterns: Nail Your Next Coding Interview focuses on the reusable patterns behind common interview problems. It helps candidates move from one-off practice to a structured toolkit for arrays, strings, graphs, dynamic programming, and other recurring algorithmic themes.\n\n• Master high-frequency coding interview patterns and when to apply them\n• Build confidence by mapping unfamiliar problems to familiar structures\n• Learn to reason about complexity, edge cases, and implementation choices\n• Practice a repeatable approach for explaining solutions clearly\n• Strengthen preparation for technical screens and onsite-style interviews",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf"
-  },
-  {
-    "id": "189320f51e0b",
-    "title": "Programming_Interviews_Exposed_Coding_Your_Way_Through",
-    "category": "Career and Professional Development",
-    "topic": "Interview Prep",
-    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf",
-    "cover": "assets/covers/Programming_Interviews_Exposed_Coding_Your_Way_Through.webp",
-    "format": "pdf",
-    "description": "Programming interviews can feel unpredictable because they combine algorithms, communication, debugging, and career judgment in a compressed format. Strong preparation means knowing how to think through problems as much as knowing individual answers.\n\nProgramming Interviews Exposed: Coding Your Way Through the Interview gives practical guidance for navigating technical hiring, from core data structures and algorithms to problem-solving habits and interview strategy. Its approach is grounded in realistic examples that help candidates prepare for both coding questions and the broader interview process.\n\n• Master essential algorithms, data structures, and coding interview techniques\n• Build a practical framework for attacking unfamiliar programming problems\n• Learn how to communicate assumptions, tradeoffs, and complexity clearly\n• Explore common interview formats and preparation strategies\n• Improve confidence for phone screens, whiteboard sessions, and coding tests",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf"
   },
   {
     "id": "3b4f6c67528a",
@@ -1142,82 +1241,5 @@
     "format": "pdf",
     "description": "The modern web requires not just writing HTML and CSS, but understanding responsive design, accessibility, and modern layouts. As web standards evolve rapidly, developers and designers need a solid foundation in the core technologies that power user interfaces.\n\nLearning Web Design by Jennifer Robbins provides a comprehensive, beginner-friendly guide to building websites. It covers everything from basic HTML syntax and CSS styling to web graphics and introductory JavaScript, making it an essential resource for anyone starting in web development.\n\n• Master the fundamentals of HTML5 semantic elements and document structure\n• Build responsive, mobile-first layouts using CSS Grid and Flexbox\n• Optimize web graphics for performance without sacrificing quality\n• Implement modern web typography and color theory principles\n• Explore the basics of JavaScript to add interactivity to your sites",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Web_Design_5th_Edition.pdf"
-  },
-  {
-    "id": "c00bf2681db4",
-    "title": "Java_Concurrency_in_Practice",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Concurrency_in_Practice.pdf",
-    "cover": "assets/covers/Java_Concurrency_in_Practice.webp",
-    "format": "pdf",
-    "description": "Concurrent programming is where many Java systems become powerful and fragile at the same time. Threads, locks, memory visibility, and race conditions can turn ordinary business logic into production bugs that are difficult to reproduce.\n\nJava Concurrency in Practice by Brian Goetz and colleagues is the classic guide to writing correct, scalable, and maintainable concurrent Java applications. It explains the Java memory model, synchronization patterns, executor frameworks, and design techniques through practical examples.\n\n• Master thread safety, visibility, and safe publication in Java programs\n• Build reliable concurrent components using locks, atomics, and immutable objects\n• Learn how executors, futures, and thread pools structure asynchronous work\n• Diagnose liveness hazards such as deadlock, starvation, and lock contention\n• Apply proven patterns for testing and designing high-performance concurrent code",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Concurrency_in_Practice.pdf"
-  },
-  {
-    "id": "821c332f866c",
-    "title": "Continuous_Delivery",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/Continuous_Delivery.pdf",
-    "cover": "assets/covers/Continuous_Delivery.webp",
-    "format": "pdf",
-    "description": "Shipping software often fails at the handoff between development, testing, operations, and release management. Manual deployments, fragile environments, and late integration make every release risky and slow.\n\nContinuous Delivery by Jez Humble and David Farley presents a disciplined approach to building, testing, and releasing software through automated pipelines. The book connects version control, deployment automation, infrastructure management, and organizational feedback loops into one delivery system.\n\n• Build deployment pipelines that make release readiness visible at all times\n• Automate build, test, configuration, and deployment steps for repeatability\n• Learn how to manage environments, databases, and infrastructure changes safely\n• Reduce release risk through small batches, fast feedback, and reliable rollback paths\n• Implement engineering practices that support frequent, low-stress delivery",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Continuous_Delivery.pdf"
-  },
-  {
-    "id": "f8a7dccd2a2f",
-    "title": "Docker_in_Practice_Second_Edition",
-    "category": "Software Engineering",
-    "topic": "Docker",
-    "file_path": "Books/2_Software_Engineering/Docker/Docker_in_Practice_Second_Edition.pdf",
-    "cover": "assets/covers/Docker_in_Practice_Second_Edition.webp",
-    "format": "pdf",
-    "description": "Containers promise portability, but real projects quickly run into networking, storage, image design, security, and operational details. Teams need practical patterns that go beyond a first hello-world container.\n\nDocker in Practice, Second Edition by Ian Miell and Aidan Hobson Sayers collects hands-on techniques for using Docker across development and production workflows. It focuses on concrete recipes, tradeoffs, and command-line practices that help teams package and run applications consistently.\n\n• Build efficient Docker images and compose repeatable application environments\n• Learn practical container networking, volumes, registries, and runtime operations\n• Apply Docker patterns for testing, debugging, CI, and local development\n• Harden containers with safer defaults, smaller images, and clearer boundaries\n• Explore production-minded workflows for managing services with confidence",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Practice_Second_Edition.pdf"
-  },
-  {
-    "id": "d98334afd722",
-    "title": "Building_microservices_designing_fine_grained_systems",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Building_microservices_designing_fine_grained_systems.pdf",
-    "cover": "assets/covers/Building_microservices_designing_fine_grained_systems.webp",
-    "format": "pdf",
-    "description": "Microservices can make teams faster, but they also introduce distributed complexity: service boundaries, data ownership, communication patterns, deployment independence, and failure isolation all become design decisions.\n\nBuilding Microservices by Sam Newman explains how to design fine-grained systems without losing sight of the social and operational realities around them. It covers decomposition, integration, testing, monitoring, security, and evolutionary architecture in a pragmatic style.\n\n• Design service boundaries around business capabilities and team ownership\n• Build resilient communication patterns for synchronous and asynchronous workflows\n• Learn how to manage data, transactions, testing, and deployment across services\n• Explore monitoring, security, and operational practices for distributed systems\n• Evolve monoliths toward microservices without creating unnecessary complexity",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_microservices_designing_fine_grained_systems.pdf"
-  },
-  {
-    "id": "222405d41264",
-    "title": "Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf",
-    "cover": "assets/covers/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.webp",
-    "format": "pdf",
-    "description": "Code is read and changed far more often than it is first written. Without shared discipline, systems accumulate confusion: unclear names, tangled functions, hidden side effects, and tests that no longer protect change.\n\nClean Code by Robert C. Martin is a practical handbook for writing software that communicates intent and remains adaptable. It uses examples, heuristics, and refactorings to show how small choices in naming, functions, objects, and tests shape long-term maintainability.\n\n• Master naming, function design, formatting, and error handling practices\n• Learn how to identify code smells and replace them with clearer structure\n• Build tests that support confident change and reveal design problems\n• Explore object-oriented design principles through concrete Java examples\n• Develop professional habits for keeping codebases understandable over time",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf"
-  },
-  {
-    "id": "70f73a54e99a",
-    "title": "Refactoring_Improving_the_Design_of_Existing_Code",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Refactoring_Improving_the_Design_of_Existing_Code.pdf",
-    "cover": "assets/covers/Refactoring_Improving_the_Design_of_Existing_Code.webp",
-    "format": "pdf",
-    "description": "Healthy software changes continuously, but changing messy code can feel dangerous. Developers need a way to improve design in small steps while preserving behavior and keeping the system working.\n\nRefactoring by Martin Fowler is the foundational guide to improving the design of existing code. It catalogs common refactorings, explains when to apply them, and shows how tests and disciplined transformations make design improvement a routine engineering activity.\n\n• Identify code smells that signal deeper design and maintainability problems\n• Apply small behavior-preserving refactorings to functions, classes, and data structures\n• Learn how automated tests make design changes safer and faster\n• Improve readability, modularity, and extensibility without large rewrites\n• Build judgment for choosing refactorings that match the problem at hand",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Refactoring_Improving_the_Design_of_Existing_Code.pdf"
-  },
-  {
-    "id": "643795f053bf",
-    "title": "The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.pdf",
-    "cover": "assets/covers/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.webp",
-    "format": "pdf",
-    "description": "Programming mastery is not only about syntax or tools; it is about judgment, habits, communication, debugging, and the ability to keep learning as systems and teams change.\n\nThe Pragmatic Programmer by David Thomas and Andrew Hunt distills timeless engineering advice into practical lessons for everyday software work. The 20th anniversary edition updates the classic guidance for modern development while preserving its focus on responsibility, craft, and adaptability.\n\n• Master pragmatic habits for learning, estimating, debugging, and communicating\n• Build systems with clearer boundaries, stronger feedback loops, and less duplication\n• Learn techniques for automation, testing, prototyping, and evolutionary design\n• Explore how to manage technical debt and protect code quality over time\n• Develop the mindset of a thoughtful engineer who improves both code and process",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.pdf"
   }
 ]
