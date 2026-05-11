@@ -1,5 +1,16 @@
 [
   {
+    "id": "d2269d4c4b45",
+    "title": "Developing_Open_Cloud_Native_Microservices_Your_Java_Code",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.pdf",
+    "cover": "assets/covers/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.webp",
+    "format": "pdf",
+    "description": "Developing cloud-native microservices requires navigating complex architectural decisions and deploying robust code in distributed environments. Transitioning from monolithic applications to scalable, cloud-native architectures is a significant challenge for many Java developers.\n\nThis book provides a comprehensive guide to building open, cloud-native microservices using Java. It explores the principles of microservice architecture and offers practical, hands-on strategies for implementing them effectively in modern cloud environments.\n\n• Master the core concepts of cloud-native microservice architecture.\n• Build scalable and resilient microservices using modern Java frameworks.\n• Implement best practices for deploying and managing distributed systems.\n• Explore techniques for ensuring observability and fault tolerance.\n• Learn to transition traditional Java applications to the cloud seamlessly.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.pdf"
+  },
+  {
     "id": "c00bf2681db4",
     "title": "Java_Concurrency_in_Practice",
     "category": "Computer Science Fundamentals",
