@@ -154,6 +154,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf"
   },
   {
+    "id": "17fff949df3a",
+    "title": "The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking",
+    "category": "Personal Development and Skills",
+    "topic": "Communication and Writing",
+    "file_path": "Books/4_Personal_Development_and_Skills/Communication_and_Writing/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf",
+    "cover": "assets/covers/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.webp",
+    "format": "pdf",
+    "description": "Clear and logical communication is essential for professionals who need to present complex ideas, influence decisions, and write persuasive documents. Many struggle with structuring their thoughts effectively, leading to confusing and disorganized writing.\n\nThis book introduces the Pyramid Principle, a highly regarded framework for structuring ideas logically before writing. It provides practical techniques for organizing thoughts into a top-down hierarchy, ensuring clarity and impact in any form of business communication.\n\n• Master the top-down approach to structuring ideas and arguments.\n• Learn how to write clear, compelling, and logically sound documents.\n• Explore techniques for defining the problem and outlining the solution effectively.\n• Build stronger analytical thinking skills to improve both writing and presentations.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf"
+  },
+  {
     "id": "932e4b18bff6",
     "title": "Leetcode_Pattern_Recognition_Guide",
     "category": "Computer Science Fundamentals",
