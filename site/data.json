@@ -99,6 +99,28 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Refactoring_Improving_the_Design_of_Existing_Code.pdf"
   },
   {
+    "id": "76489f1846f2",
+    "title": "SDD_Ebook",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/SDD_Ebook.pdf",
+    "cover": "assets/covers/SDD_Ebook.webp",
+    "format": "pdf",
+    "description": "Building scalable and robust software requires a deep understanding of system architecture and design principles. Developers often struggle to create systems that can handle growth and complexity without degrading performance.\n\nThis ebook provides a comprehensive guide to system design, exploring fundamental concepts and practical strategies for architecting modern applications. It covers essential patterns, trade-offs, and best practices used by top engineering teams.\n\n• Master the core principles of designing scalable and resilient software architectures.\n• Explore various architectural patterns and understand when to apply them effectively.\n• Learn how to evaluate trade-offs between performance, availability, and consistency.\n• Build confidence in tackling complex system design interviews and real-world engineering challenges.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SDD_Ebook.pdf"
+  },
+  {
+    "id": "c4060d0a6921",
+    "title": "SDD_Ebook",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/SDD_Ebook.epub",
+    "cover": "assets/covers/SDD_Ebook.webp",
+    "format": "epub",
+    "description": "Building scalable and robust software requires a deep understanding of system architecture and design principles. Developers often struggle to create systems that can handle growth and complexity without degrading performance.\n\nThis ebook provides a comprehensive guide to system design, exploring fundamental concepts and practical strategies for architecting modern applications. It covers essential patterns, trade-offs, and best practices used by top engineering teams.\n\n• Master the core principles of designing scalable and resilient software architectures.\n• Explore various architectural patterns and understand when to apply them effectively.\n• Learn how to evaluate trade-offs between performance, availability, and consistency.\n• Build confidence in tackling complex system design interviews and real-world engineering challenges.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SDD_Ebook.epub"
+  },
+  {
     "id": "643795f053bf",
     "title": "The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th",
     "category": "Software Engineering",

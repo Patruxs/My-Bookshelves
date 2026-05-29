@@ -1,6 +1,6 @@
-# Gemini CLI Instructions for My-Bookshelves
+# Antigravity CLI Instructions for My-Bookshelves
 
-This project is a personal static book library hosted on GitHub Pages. It is shared across Antigravity, Codex, and Gemini CLI. 
+This project is a personal static book library hosted on GitHub Pages. It is shared across Antigravity CLI and Codex. 
 The shared source of truth for workflows and rules is located in the `.agents/` folder. Do not delete or modify the `.agents/` or `.codex/` configurations.
 
 ## Core Principles
