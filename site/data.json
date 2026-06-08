@@ -1,170 +1,5 @@
 [
   {
-    "id": "d2269d4c4b45",
-    "title": "Developing_Open_Cloud_Native_Microservices_Your_Java_Code",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.pdf",
-    "cover": "assets/covers/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.webp",
-    "format": "pdf",
-    "description": "Developing cloud-native microservices requires navigating complex architectural decisions and deploying robust code in distributed environments. Transitioning from monolithic applications to scalable, cloud-native architectures is a significant challenge for many Java developers.\n\nThis book provides a comprehensive guide to building open, cloud-native microservices using Java. It explores the principles of microservice architecture and offers practical, hands-on strategies for implementing them effectively in modern cloud environments.\n\n• Master the core concepts of cloud-native microservice architecture.\n• Build scalable and resilient microservices using modern Java frameworks.\n• Implement best practices for deploying and managing distributed systems.\n• Explore techniques for ensuring observability and fault tolerance.\n• Learn to transition traditional Java applications to the cloud seamlessly.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.pdf"
-  },
-  {
-    "id": "c00bf2681db4",
-    "title": "Java_Concurrency_in_Practice",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Concurrency_in_Practice.pdf",
-    "cover": "assets/covers/Java_Concurrency_in_Practice.webp",
-    "format": "pdf",
-    "description": "Concurrent programming is where many Java systems become powerful and fragile at the same time. Threads, locks, memory visibility, and race conditions can turn ordinary business logic into production bugs that are difficult to reproduce.\n\nJava Concurrency in Practice by Brian Goetz and colleagues is the classic guide to writing correct, scalable, and maintainable concurrent Java applications. It explains the Java memory model, synchronization patterns, executor frameworks, and design techniques through practical examples.\n\n• Master thread safety, visibility, and safe publication in Java programs\n• Build reliable concurrent components using locks, atomics, and immutable objects\n• Learn how executors, futures, and thread pools structure asynchronous work\n• Diagnose liveness hazards such as deadlock, starvation, and lock contention\n• Apply proven patterns for testing and designing high-performance concurrent code",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Concurrency_in_Practice.pdf"
-  },
-  {
-    "id": "15d0d8b9d1d2",
-    "title": "Java_Core",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Core.pdf",
-    "cover": "assets/covers/Java_Core.webp",
-    "format": "pdf",
-    "description": "Master the foundational elements of the Java programming language to build robust, scalable applications.\n\nThis comprehensive guide covers everything from basic syntax to object-oriented programming principles and advanced core features. It provides a solid grounding for developers looking to deepen their understanding of Java's core capabilities.\n\n• Learn object-oriented concepts like inheritance, encapsulation, and polymorphism.\n• Master exception handling and input/output operations.\n• Explore collections and generic programming to manage data efficiently.\n• Build concurrent applications using multi-threading techniques.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Core.pdf"
-  },
-  {
-    "id": "6cf20c7a1c33",
-    "title": "Java_Spring_Boot_Microservices_and_Angular",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Spring_Boot_Microservices_and_Angular.pdf",
-    "cover": "assets/covers/Java_Spring_Boot_Microservices_and_Angular.webp",
-    "format": "pdf",
-    "description": "Navigate the complexities of building modern full-stack web applications using industry-standard tools.\n\nThis book guides you through integrating a Spring Boot backend with an Angular frontend, focusing on microservices architecture. It demonstrates how to combine these powerful frameworks to deliver responsive and scalable enterprise systems.\n\n• Master the creation of RESTful APIs with Java and Spring Boot.\n• Build dynamic single-page applications using Angular.\n• Implement microservices patterns for decoupled backend architecture.\n• Deploy and manage full-stack applications effectively.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Spring_Boot_Microservices_and_Angular.pdf"
-  },
-  {
-    "id": "821c332f866c",
-    "title": "Continuous_Delivery",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/Continuous_Delivery.pdf",
-    "cover": "assets/covers/Continuous_Delivery.webp",
-    "format": "pdf",
-    "description": "Shipping software often fails at the handoff between development, testing, operations, and release management. Manual deployments, fragile environments, and late integration make every release risky and slow.\n\nContinuous Delivery by Jez Humble and David Farley presents a disciplined approach to building, testing, and releasing software through automated pipelines. The book connects version control, deployment automation, infrastructure management, and organizational feedback loops into one delivery system.\n\n• Build deployment pipelines that make release readiness visible at all times\n• Automate build, test, configuration, and deployment steps for repeatability\n• Learn how to manage environments, databases, and infrastructure changes safely\n• Reduce release risk through small batches, fast feedback, and reliable rollback paths\n• Implement engineering practices that support frequent, low-stress delivery",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Continuous_Delivery.pdf"
-  },
-  {
-    "id": "f8a7dccd2a2f",
-    "title": "Docker_in_Practice_Second_Edition",
-    "category": "Software Engineering",
-    "topic": "Docker",
-    "file_path": "Books/2_Software_Engineering/Docker/Docker_in_Practice_Second_Edition.pdf",
-    "cover": "assets/covers/Docker_in_Practice_Second_Edition.webp",
-    "format": "pdf",
-    "description": "Containers promise portability, but real projects quickly run into networking, storage, image design, security, and operational details. Teams need practical patterns that go beyond a first hello-world container.\n\nDocker in Practice, Second Edition by Ian Miell and Aidan Hobson Sayers collects hands-on techniques for using Docker across development and production workflows. It focuses on concrete recipes, tradeoffs, and command-line practices that help teams package and run applications consistently.\n\n• Build efficient Docker images and compose repeatable application environments\n• Learn practical container networking, volumes, registries, and runtime operations\n• Apply Docker patterns for testing, debugging, CI, and local development\n• Harden containers with safer defaults, smaller images, and clearer boundaries\n• Explore production-minded workflows for managing services with confidence",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Practice_Second_Edition.pdf"
-  },
-  {
-    "id": "d98334afd722",
-    "title": "Building_microservices_designing_fine_grained_systems",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Building_microservices_designing_fine_grained_systems.pdf",
-    "cover": "assets/covers/Building_microservices_designing_fine_grained_systems.webp",
-    "format": "pdf",
-    "description": "Microservices can make teams faster, but they also introduce distributed complexity: service boundaries, data ownership, communication patterns, deployment independence, and failure isolation all become design decisions.\n\nBuilding Microservices by Sam Newman explains how to design fine-grained systems without losing sight of the social and operational realities around them. It covers decomposition, integration, testing, monitoring, security, and evolutionary architecture in a pragmatic style.\n\n• Design service boundaries around business capabilities and team ownership\n• Build resilient communication patterns for synchronous and asynchronous workflows\n• Learn how to manage data, transactions, testing, and deployment across services\n• Explore monitoring, security, and operational practices for distributed systems\n• Evolve monoliths toward microservices without creating unnecessary complexity",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_microservices_designing_fine_grained_systems.pdf"
-  },
-  {
-    "id": "222405d41264",
-    "title": "Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf",
-    "cover": "assets/covers/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.webp",
-    "format": "pdf",
-    "description": "Code is read and changed far more often than it is first written. Without shared discipline, systems accumulate confusion: unclear names, tangled functions, hidden side effects, and tests that no longer protect change.\n\nClean Code by Robert C. Martin is a practical handbook for writing software that communicates intent and remains adaptable. It uses examples, heuristics, and refactorings to show how small choices in naming, functions, objects, and tests shape long-term maintainability.\n\n• Master naming, function design, formatting, and error handling practices\n• Learn how to identify code smells and replace them with clearer structure\n• Build tests that support confident change and reveal design problems\n• Explore object-oriented design principles through concrete Java examples\n• Develop professional habits for keeping codebases understandable over time",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf"
-  },
-  {
-    "id": "70f73a54e99a",
-    "title": "Refactoring_Improving_the_Design_of_Existing_Code",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Refactoring_Improving_the_Design_of_Existing_Code.pdf",
-    "cover": "assets/covers/Refactoring_Improving_the_Design_of_Existing_Code.webp",
-    "format": "pdf",
-    "description": "Healthy software changes continuously, but changing messy code can feel dangerous. Developers need a way to improve design in small steps while preserving behavior and keeping the system working.\n\nRefactoring by Martin Fowler is the foundational guide to improving the design of existing code. It catalogs common refactorings, explains when to apply them, and shows how tests and disciplined transformations make design improvement a routine engineering activity.\n\n• Identify code smells that signal deeper design and maintainability problems\n• Apply small behavior-preserving refactorings to functions, classes, and data structures\n• Learn how automated tests make design changes safer and faster\n• Improve readability, modularity, and extensibility without large rewrites\n• Build judgment for choosing refactorings that match the problem at hand",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Refactoring_Improving_the_Design_of_Existing_Code.pdf"
-  },
-  {
-    "id": "76489f1846f2",
-    "title": "SDD_Ebook",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/SDD_Ebook.pdf",
-    "cover": "assets/covers/SDD_Ebook.webp",
-    "format": "pdf",
-    "description": "Building scalable and robust software requires a deep understanding of system architecture and design principles. Developers often struggle to create systems that can handle growth and complexity without degrading performance.\n\nThis ebook provides a comprehensive guide to system design, exploring fundamental concepts and practical strategies for architecting modern applications. It covers essential patterns, trade-offs, and best practices used by top engineering teams.\n\n• Master the core principles of designing scalable and resilient software architectures.\n• Explore various architectural patterns and understand when to apply them effectively.\n• Learn how to evaluate trade-offs between performance, availability, and consistency.\n• Build confidence in tackling complex system design interviews and real-world engineering challenges.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SDD_Ebook.pdf"
-  },
-  {
-    "id": "c4060d0a6921",
-    "title": "SDD_Ebook",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/SDD_Ebook.epub",
-    "cover": "assets/covers/SDD_Ebook.webp",
-    "format": "epub",
-    "description": "Building scalable and robust software requires a deep understanding of system architecture and design principles. Developers often struggle to create systems that can handle growth and complexity without degrading performance.\n\nThis ebook provides a comprehensive guide to system design, exploring fundamental concepts and practical strategies for architecting modern applications. It covers essential patterns, trade-offs, and best practices used by top engineering teams.\n\n• Master the core principles of designing scalable and resilient software architectures.\n• Explore various architectural patterns and understand when to apply them effectively.\n• Learn how to evaluate trade-offs between performance, availability, and consistency.\n• Build confidence in tackling complex system design interviews and real-world engineering challenges.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SDD_Ebook.epub"
-  },
-  {
-    "id": "643795f053bf",
-    "title": "The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.pdf",
-    "cover": "assets/covers/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.webp",
-    "format": "pdf",
-    "description": "Programming mastery is not only about syntax or tools; it is about judgment, habits, communication, debugging, and the ability to keep learning as systems and teams change.\n\nThe Pragmatic Programmer by David Thomas and Andrew Hunt distills timeless engineering advice into practical lessons for everyday software work. The 20th anniversary edition updates the classic guidance for modern development while preserving its focus on responsibility, craft, and adaptability.\n\n• Master pragmatic habits for learning, estimating, debugging, and communicating\n• Build systems with clearer boundaries, stronger feedback loops, and less duplication\n• Learn techniques for automation, testing, prototyping, and evolutionary design\n• Explore how to manage technical debt and protect code quality over time\n• Develop the mindset of a thoughtful engineer who improves both code and process",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.pdf"
-  },
-  {
-    "id": "69b2b37bdb58",
-    "title": "Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview",
-    "category": "Career and Professional Development",
-    "topic": "Interview Prep",
-    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf",
-    "cover": "assets/covers/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.webp",
-    "format": "pdf",
-    "description": "Coding interviews reward more than memorized solutions; they test whether you can recognize problem families, choose a strategy quickly, and explain tradeoffs under pressure.\n\nCoding Interview Patterns: Nail Your Next Coding Interview focuses on the reusable patterns behind common interview problems. It helps candidates move from one-off practice to a structured toolkit for arrays, strings, graphs, dynamic programming, and other recurring algorithmic themes.\n\n• Master high-frequency coding interview patterns and when to apply them\n• Build confidence by mapping unfamiliar problems to familiar structures\n• Learn to reason about complexity, edge cases, and implementation choices\n• Practice a repeatable approach for explaining solutions clearly\n• Strengthen preparation for technical screens and onsite-style interviews",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf"
-  },
-  {
-    "id": "189320f51e0b",
-    "title": "Programming_Interviews_Exposed_Coding_Your_Way_Through",
-    "category": "Career and Professional Development",
-    "topic": "Interview Prep",
-    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf",
-    "cover": "assets/covers/Programming_Interviews_Exposed_Coding_Your_Way_Through.webp",
-    "format": "pdf",
-    "description": "Programming interviews can feel unpredictable because they combine algorithms, communication, debugging, and career judgment in a compressed format. Strong preparation means knowing how to think through problems as much as knowing individual answers.\n\nProgramming Interviews Exposed: Coding Your Way Through the Interview gives practical guidance for navigating technical hiring, from core data structures and algorithms to problem-solving habits and interview strategy. Its approach is grounded in realistic examples that help candidates prepare for both coding questions and the broader interview process.\n\n• Master essential algorithms, data structures, and coding interview techniques\n• Build a practical framework for attacking unfamiliar programming problems\n• Learn how to communicate assumptions, tradeoffs, and complexity clearly\n• Explore common interview formats and preparation strategies\n• Improve confidence for phone screens, whiteboard sessions, and coding tests",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf"
-  },
-  {
-    "id": "17fff949df3a",
-    "title": "The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking",
-    "category": "Personal Development and Skills",
-    "topic": "Communication and Writing",
-    "file_path": "Books/4_Personal_Development_and_Skills/Communication_and_Writing/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf",
-    "cover": "assets/covers/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.webp",
-    "format": "pdf",
-    "description": "Clear and logical communication is essential for professionals who need to present complex ideas, influence decisions, and write persuasive documents. Many struggle with structuring their thoughts effectively, leading to confusing and disorganized writing.\n\nThis book introduces the Pyramid Principle, a highly regarded framework for structuring ideas logically before writing. It provides practical techniques for organizing thoughts into a top-down hierarchy, ensuring clarity and impact in any form of business communication.\n\n• Master the top-down approach to structuring ideas and arguments.\n• Learn how to write clear, compelling, and logically sound documents.\n• Explore techniques for defining the problem and outlining the solution effectively.\n• Build stronger analytical thinking skills to improve both writing and presentations.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf"
-  },
-  {
     "id": "932e4b18bff6",
     "title": "Leetcode_Pattern_Recognition_Guide",
     "category": "Computer Science Fundamentals",
@@ -188,14 +23,14 @@
   },
   {
     "id": "9269763f0cb8",
-    "title": "Machine Learning co ban",
+    "title": "MLCoBanVuHuuTiep",
     "category": "Computer Science Fundamentals",
     "topic": "Machine Learning",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/Machine_Learning_co_ban.pdf",
-    "cover": "assets/covers/Machine_Learning_co_ban.webp",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/MLCoBanVuHuuTiep.pdf",
+    "cover": "assets/covers/MLCoBanVuHuuTiep.webp",
     "format": "pdf",
     "description": "Trí tuệ nhân tạo và học máy đang trở thành công nghệ cốt lõi trong nhiều lĩnh vực, nhưng việc nắm bắt vững nền tảng toán học và thuật toán cốt lõi thường là rào cản lớn đối với nhiều người mới bắt đầu.\n\nCuốn sách \"Machine Learning Cơ Bản\" của tác giả Vũ Hữu Tiệp là tài liệu kinh điển bằng tiếng Việt. Sách giúp người đọc xây dựng nền tảng tư duy vững chắc về học máy thông qua cách diễn đạt trực quan, dễ hiểu đi kèm với cơ sở toán học và mã nguồn Python thực hành.\n\n• Trình bày các khái niệm từ cơ bản đến nâng cao của Machine Learning.\n• Giải thích chi tiết các thuật toán phổ biến: Linear Regression, Logistic Regression, SVM, K-Means Clustering...\n• Cung cấp nền tảng toán học cần thiết gồm Đại số tuyến tính, Giải tích và Xác suất thống kê.\n• Minh họa trực quan qua code thực hành bằng Python.\n• Giúp xây dựng tư duy toán học thay vì chỉ biết cách sử dụng thư viện có sẵn.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Machine_Learning_co_ban.pdf"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/MLCoBanVuHuuTiep.pdf"
   },
   {
     "id": "dafe48506436",
@@ -218,6 +53,17 @@
     "format": "pdf",
     "description": "Computer science is not about computers — it is about ideas. Yet most programming courses focus on syntax and tools rather than the fundamental principles of computation, abstraction, and the nature of programs themselves.\n\nSICP, the legendary MIT textbook by Harold Abelson and Gerald Jay Sussman, transforms how you think about programming. Using Scheme as its vehicle, it explores procedural abstraction, data abstraction, modularity, state management, streams, and the construction of interpreters.\n\n• Master computational thinking through higher-order functions, recursion, and abstraction\n• Build interpreters and understand metalinguistic abstraction — programs that process programs\n• Explore lazy evaluation, streams, and the distinction between declarative and imperative knowledge\n• Understand the environment model of evaluation and how closures really work\n• Develop the mindset that separates great engineers from average programmers",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Structure_and_Interpretation_of_Computer_Programs.pdf"
+  },
+  {
+    "id": "d2269d4c4b45",
+    "title": "Developing_Open_Cloud_Native_Microservices_Your_Java_Code",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.pdf",
+    "cover": "assets/covers/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.webp",
+    "format": "pdf",
+    "description": "Developing cloud-native microservices requires navigating complex architectural decisions and deploying robust code in distributed environments. Transitioning from monolithic applications to scalable, cloud-native architectures is a significant challenge for many Java developers.\n\nThis book provides a comprehensive guide to building open, cloud-native microservices using Java. It explores the principles of microservice architecture and offers practical, hands-on strategies for implementing them effectively in modern cloud environments.\n\n• Master the core concepts of cloud-native microservice architecture.\n• Build scalable and resilient microservices using modern Java frameworks.\n• Implement best practices for deploying and managing distributed systems.\n• Explore techniques for ensuring observability and fault tolerance.\n• Learn to transition traditional Java applications to the cloud seamlessly.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Developing_Open_Cloud_Native_Microservices_Your_Java_Code.pdf"
   },
   {
     "id": "f1732e537867",
@@ -253,6 +99,28 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Introduction_to_Programming_Using_Java.pdf"
   },
   {
+    "id": "c00bf2681db4",
+    "title": "Java_Concurrency_in_Practice",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Concurrency_in_Practice.pdf",
+    "cover": "assets/covers/Java_Concurrency_in_Practice.webp",
+    "format": "pdf",
+    "description": "Concurrent programming is where many Java systems become powerful and fragile at the same time. Threads, locks, memory visibility, and race conditions can turn ordinary business logic into production bugs that are difficult to reproduce.\n\nJava Concurrency in Practice by Brian Goetz and colleagues is the classic guide to writing correct, scalable, and maintainable concurrent Java applications. It explains the Java memory model, synchronization patterns, executor frameworks, and design techniques through practical examples.\n\n• Master thread safety, visibility, and safe publication in Java programs\n• Build reliable concurrent components using locks, atomics, and immutable objects\n• Learn how executors, futures, and thread pools structure asynchronous work\n• Diagnose liveness hazards such as deadlock, starvation, and lock contention\n• Apply proven patterns for testing and designing high-performance concurrent code",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Concurrency_in_Practice.pdf"
+  },
+  {
+    "id": "15d0d8b9d1d2",
+    "title": "Java_Core",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Core.pdf",
+    "cover": "assets/covers/Java_Core.webp",
+    "format": "pdf",
+    "description": "Master the foundational elements of the Java programming language to build robust, scalable applications.\n\nThis comprehensive guide covers everything from basic syntax to object-oriented programming principles and advanced core features. It provides a solid grounding for developers looking to deepen their understanding of Java's core capabilities.\n\n• Learn object-oriented concepts like inheritance, encapsulation, and polymorphism.\n• Master exception handling and input/output operations.\n• Explore collections and generic programming to manage data efficiently.\n• Build concurrent applications using multi-threading techniques.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Core.pdf"
+  },
+  {
     "id": "6cb941d4f7ad",
     "title": "Java_How_to_Program_9th_edition",
     "category": "Computer Science Fundamentals",
@@ -262,6 +130,17 @@
     "format": "pdf",
     "description": "Java's ecosystem is vast, and mastering it requires a resource that covers both the language fundamentals and the rich standard library — from desktop applications to database connectivity and network programming.\n\nJava How to Program by Paul and Harvey Deitel is the industry-standard textbook used in universities worldwide. The 9th edition covers Java SE with a live-code approach: every concept is demonstrated through complete, working programs.\n\n• Master core Java: classes, objects, inheritance, polymorphism, interfaces, and exception handling\n• Work with generics, collections framework, and the Java Streams API\n• Build database applications with JDBC and understand SQL integration\n• Implement multithreaded applications with concurrency utilities\n• Develop networked applications using sockets and understand client-server architecture",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_How_to_Program_9th_edition.pdf"
+  },
+  {
+    "id": "6cf20c7a1c33",
+    "title": "Java_Spring_Boot_Microservices_and_Angular",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Java_Spring_Boot_Microservices_and_Angular.pdf",
+    "cover": "assets/covers/Java_Spring_Boot_Microservices_and_Angular.webp",
+    "format": "pdf",
+    "description": "Navigate the complexities of building modern full-stack web applications using industry-standard tools.\n\nThis book guides you through integrating a Spring Boot backend with an Angular frontend, focusing on microservices architecture. It demonstrates how to combine these powerful frameworks to deliver responsive and scalable enterprise systems.\n\n• Master the creation of RESTful APIs with Java and Spring Boot.\n• Build dynamic single-page applications using Angular.\n• Implement microservices patterns for decoupled backend architecture.\n• Deploy and manage full-stack applications effectively.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Spring_Boot_Microservices_and_Angular.pdf"
   },
   {
     "id": "ced19085adb8",
@@ -374,7 +253,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Operating_Systems_Three_Easy_Pieces.pdf"
   },
   {
-    "id": "57207eefc1ea",
+    "id": "99b554c1b5c0",
     "title": "Distributed_Tracing_in_Practice",
     "category": "Software Engineering",
     "topic": "Cloud Native and Observability",
@@ -385,7 +264,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Distributed_Tracing_in_Practice.pdf"
   },
   {
-    "id": "8c3788944577",
+    "id": "d9a78421c9e6",
     "title": "EB_Confluent_Designing_Event_Driven_Systems",
     "category": "Software Engineering",
     "topic": "Cloud Native and Observability",
@@ -396,7 +275,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/EB_Confluent_Designing_Event_Driven_Systems.pdf"
   },
   {
-    "id": "02bd1c07eae8",
+    "id": "bdfdcdc58392",
     "title": "EB_Confluent_Kafka_Definitive_Guide_Complete",
     "category": "Software Engineering",
     "topic": "Cloud Native and Observability",
@@ -407,7 +286,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/EB_Confluent_Kafka_Definitive_Guide_Complete.pdf"
   },
   {
-    "id": "33a65a6ae78e",
+    "id": "c9d69f25a48d",
     "title": "EB_I_Heart_Logs",
     "category": "Software Engineering",
     "topic": "Cloud Native and Observability",
@@ -418,7 +297,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/EB_I_Heart_Logs.pdf"
   },
   {
-    "id": "83a211706399",
+    "id": "57a8b65bca21",
     "title": "EB_Making_Sense_of_Stream_Processing_Confluent",
     "category": "Software Engineering",
     "topic": "Cloud Native and Observability",
@@ -429,7 +308,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/EB_Making_Sense_of_Stream_Processing_Confluent.pdf"
   },
   {
-    "id": "2802b49f88b5",
+    "id": "e92e07551488",
     "title": "Istio_in_Action",
     "category": "Software Engineering",
     "topic": "Cloud Native and Observability",
@@ -440,7 +319,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Istio_in_Action.pdf"
   },
   {
-    "id": "e7775c5e3ff4",
+    "id": "31f9aed49fa3",
     "title": "Observability_Engineering",
     "category": "Software Engineering",
     "topic": "Cloud Native and Observability",
@@ -451,7 +330,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Observability_Engineering.pdf"
   },
   {
-    "id": "5bbd1479b7f9",
+    "id": "e8eeac74b015",
     "title": "Database_Internals",
     "category": "Software Engineering",
     "topic": "Database",
@@ -462,7 +341,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Internals.pdf"
   },
   {
-    "id": "d114452370ff",
+    "id": "2a49bab2a8b7",
     "title": "SQL_Performance_Explained",
     "category": "Software Engineering",
     "topic": "Database",
@@ -473,7 +352,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SQL_Performance_Explained.pdf"
   },
   {
-    "id": "b46ee236fb5c",
+    "id": "25fa2ee30e98",
     "title": "AWS_Certified_Cloud_Practitioner_Slides_v42",
     "category": "Software Engineering",
     "topic": "DevOps",
@@ -484,7 +363,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AWS_Certified_Cloud_Practitioner_Slides_v42.pdf"
   },
   {
-    "id": "208b49a9ab5b",
+    "id": "1a0c1554524f",
     "title": "Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li",
     "category": "Software Engineering",
     "topic": "DevOps",
@@ -495,7 +374,18 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.pdf"
   },
   {
-    "id": "f33b1dfbdc69",
+    "id": "821c332f866c",
+    "title": "Continuous_Delivery",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/Continuous_Delivery.pdf",
+    "cover": "assets/covers/Continuous_Delivery.webp",
+    "format": "pdf",
+    "description": "Shipping software often fails at the handoff between development, testing, operations, and release management. Manual deployments, fragile environments, and late integration make every release risky and slow.\n\nContinuous Delivery by Jez Humble and David Farley presents a disciplined approach to building, testing, and releasing software through automated pipelines. The book connects version control, deployment automation, infrastructure management, and organizational feedback loops into one delivery system.\n\n• Build deployment pipelines that make release readiness visible at all times\n• Automate build, test, configuration, and deployment steps for repeatability\n• Learn how to manage environments, databases, and infrastructure changes safely\n• Reduce release risk through small batches, fast feedback, and reliable rollback paths\n• Implement engineering practices that support frequent, low-stress delivery",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Continuous_Delivery.pdf"
+  },
+  {
+    "id": "fbb4d1e108fd",
     "title": "DevOps_Roadmap_Ebook_2025",
     "category": "Software Engineering",
     "topic": "DevOps",
@@ -506,7 +396,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/DevOps_Roadmap_Ebook_2025.pdf"
   },
   {
-    "id": "d35f89c983c5",
+    "id": "655354e414c5",
     "title": "GitOps_and_Kubernetes",
     "category": "Software Engineering",
     "topic": "DevOps",
@@ -517,7 +407,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/GitOps_and_Kubernetes.pdf"
   },
   {
-    "id": "b2df0de6eeb7",
+    "id": "fc0aa4007e57",
     "title": "Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li",
     "category": "Software Engineering",
     "topic": "DevOps",
@@ -528,7 +418,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.pdf"
   },
   {
-    "id": "fdcdeda92cab",
+    "id": "5a7fb7522771",
     "title": "Securing_Devops",
     "category": "Software Engineering",
     "topic": "DevOps",
@@ -539,7 +429,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Securing_Devops.pdf"
   },
   {
-    "id": "669cf582d823",
+    "id": "2dcf380afc7e",
     "title": "Docker_Cheatsheet",
     "category": "Software Engineering",
     "topic": "Docker",
@@ -550,7 +440,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_Cheatsheet.pdf"
   },
   {
-    "id": "232a3c05d923",
+    "id": "09e43bad0fbd",
     "title": "Docker_in_Action",
     "category": "Software Engineering",
     "topic": "Docker",
@@ -561,7 +451,18 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Action.pdf"
   },
   {
-    "id": "706ba43cdf32",
+    "id": "f8a7dccd2a2f",
+    "title": "Docker_in_Practice_Second_Edition",
+    "category": "Software Engineering",
+    "topic": "Docker",
+    "file_path": "Books/2_Software_Engineering/Docker/Docker_in_Practice_Second_Edition.pdf",
+    "cover": "assets/covers/Docker_in_Practice_Second_Edition.webp",
+    "format": "pdf",
+    "description": "Containers promise portability, but real projects quickly run into networking, storage, image design, security, and operational details. Teams need practical patterns that go beyond a first hello-world container.\n\nDocker in Practice, Second Edition by Ian Miell and Aidan Hobson Sayers collects hands-on techniques for using Docker across development and production workflows. It focuses on concrete recipes, tradeoffs, and command-line practices that help teams package and run applications consistently.\n\n• Build efficient Docker images and compose repeatable application environments\n• Learn practical container networking, volumes, registries, and runtime operations\n• Apply Docker patterns for testing, debugging, CI, and local development\n• Harden containers with safer defaults, smaller images, and clearer boundaries\n• Explore production-minded workflows for managing services with confidence",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Practice_Second_Edition.pdf"
+  },
+  {
+    "id": "5d8548007a0b",
     "title": "Game_Programming_Patterns",
     "category": "Software Engineering",
     "topic": "Game Development",
@@ -572,7 +473,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Game_Programming_Patterns.pdf"
   },
   {
-    "id": "330a39f3f12c",
+    "id": "c82c048f8658",
     "title": "Benjamin_Muschko_Certified_Kubernetes_Application_Developer_CKAD_Study_Guide_In_Depth_Guidance_and_Practice_O_Reilly_Media_2021",
     "category": "Software Engineering",
     "topic": "Kubernetes",
@@ -583,7 +484,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Benjamin_Muschko_Certified_Kubernetes_Application_Developer_CKAD_Study_Guide_In_Depth_Guidance_and_Practice_O_Reilly_Media_2021.pdf"
   },
   {
-    "id": "eed17ca62b87",
+    "id": "922f25d636f6",
     "title": "Certified_Kubernetes_Administrator_CKA_Study_Guide",
     "category": "Software Engineering",
     "topic": "Kubernetes",
@@ -594,7 +495,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Certified_Kubernetes_Administrator_CKA_Study_Guide.pdf"
   },
   {
-    "id": "ff7bd484c958",
+    "id": "28f60dcf0ea9",
     "title": "Core_Kubernetes",
     "category": "Software Engineering",
     "topic": "Kubernetes",
@@ -605,7 +506,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Core_Kubernetes.pdf"
   },
   {
-    "id": "a107582693f2",
+    "id": "910c2b79a8b9",
     "title": "K8S_CHEAT_SHEET",
     "category": "Software Engineering",
     "topic": "Kubernetes",
@@ -616,7 +517,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/K8S_CHEAT_SHEET.pdf"
   },
   {
-    "id": "fd68cb66bbd2",
+    "id": "c9ff0d84a76e",
     "title": "A_Philosophy_of_Software_Design",
     "category": "Software Engineering",
     "topic": "Software Architecture and Design",
@@ -627,7 +528,40 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/A_Philosophy_of_Software_Design.pdf"
   },
   {
-    "id": "4eb81c30b757",
+    "id": "b5c22699ea08",
+    "title": "Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.pdf",
+    "cover": "assets/covers/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.webp",
+    "format": "pdf",
+    "description": "The rapid advancement of AI has shifted the focus to complex, autonomous AI agents capable of executing multi-step tasks. However, designing these agents reliably presents significant architectural challenges.\n\nThis book introduces practical architecture patterns and implementation frameworks for developing robust, scalable AI agents. It explores foundational concepts, integration strategies, and real-world design decisions to orchestrate autonomous systems.\n\n• Master the core architectural patterns for designing autonomous AI agents.\n• Explore implementation frameworks that streamline agent orchestration.\n• Learn to integrate agents seamlessly with existing enterprise systems.\n• Implement robust error handling and safety rails for agentic workflows.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.pdf"
+  },
+  {
+    "id": "d98334afd722",
+    "title": "Building_microservices_designing_fine_grained_systems",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Building_microservices_designing_fine_grained_systems.pdf",
+    "cover": "assets/covers/Building_microservices_designing_fine_grained_systems.webp",
+    "format": "pdf",
+    "description": "Microservices can make teams faster, but they also introduce distributed complexity: service boundaries, data ownership, communication patterns, deployment independence, and failure isolation all become design decisions.\n\nBuilding Microservices by Sam Newman explains how to design fine-grained systems without losing sight of the social and operational realities around them. It covers decomposition, integration, testing, monitoring, security, and evolutionary architecture in a pragmatic style.\n\n• Design service boundaries around business capabilities and team ownership\n• Build resilient communication patterns for synchronous and asynchronous workflows\n• Learn how to manage data, transactions, testing, and deployment across services\n• Explore monitoring, security, and operational practices for distributed systems\n• Evolve monoliths toward microservices without creating unnecessary complexity",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_microservices_designing_fine_grained_systems.pdf"
+  },
+  {
+    "id": "222405d41264",
+    "title": "Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf",
+    "cover": "assets/covers/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.webp",
+    "format": "pdf",
+    "description": "Code is read and changed far more often than it is first written. Without shared discipline, systems accumulate confusion: unclear names, tangled functions, hidden side effects, and tests that no longer protect change.\n\nClean Code by Robert C. Martin is a practical handbook for writing software that communicates intent and remains adaptable. It uses examples, heuristics, and refactorings to show how small choices in naming, functions, objects, and tests shape long-term maintainability.\n\n• Master naming, function design, formatting, and error handling practices\n• Learn how to identify code smells and replace them with clearer structure\n• Build tests that support confident change and reveal design problems\n• Explore object-oriented design principles through concrete Java examples\n• Develop professional habits for keeping codebases understandable over time",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf"
+  },
+  {
+    "id": "7191ad27dee4",
     "title": "Designing_Data_Intensive_Applications",
     "category": "Software Engineering",
     "topic": "Software Architecture and Design",
@@ -638,7 +572,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Designing_Data_Intensive_Applications.pdf"
   },
   {
-    "id": "6b93b1ca408e",
+    "id": "9bfee32601a2",
     "title": "Go_With_Domain",
     "category": "Software Engineering",
     "topic": "Software Architecture and Design",
@@ -649,18 +583,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Go_With_Domain.pdf"
   },
   {
-    "id": "f1a76750284c",
-    "title": "Kien_truc_ung_dung_web",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Kien_truc_ung_dung_web.epub",
-    "cover": "assets/covers/Kien_truc_ung_dung_web.webp",
-    "format": "epub",
-    "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại, kèm theo các kỹ thuật tối ưu hiệu suất.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices: ưu nhược điểm và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kien_truc_ung_dung_web.epub"
-  },
-  {
-    "id": "0ad7728ae666",
+    "id": "b811b246ee59",
     "title": "Kien_truc_ung_dung_web",
     "category": "Software Engineering",
     "topic": "Software Architecture and Design",
@@ -671,7 +594,51 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kien_truc_ung_dung_web.pdf"
   },
   {
-    "id": "3ef79bb79a2c",
+    "id": "66f5ffce3078",
+    "title": "Kien_truc_ung_dung_web",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Kien_truc_ung_dung_web.epub",
+    "cover": "assets/covers/Kien_truc_ung_dung_web.webp",
+    "format": "epub",
+    "description": "Kiến trúc ứng dụng web là nền tảng quyết định sự thành công hay thất bại của mọi dự án phần mềm. Một kiến trúc tồi chuẩn ngay từ đầu giúp hệ thống dễ mở rộng, bảo trì và phát triển lâu dài.\n\nTài liệu tiếng Việt này trình bày toàn diện về các mô hình kiến trúc ứng dụng web phổ biến, từ monolithic truyền thống đến microservices hiện đại, kèm theo các kỹ thuật tối ưu hiệu suất.\n\n• Hiểu các mô hình kiến trúc: MVC, MVP, MVVM và Clean Architecture\n• So sánh Monolithic vs Microservices: ưu nhược điểm và khi nào nên chuyển đổi\n• Thiết kế API Gateway, load balancing, và service discovery\n• Áp dụng caching strategies: CDN, Redis, browser cache và cache invalidation\n• Xây dựng hệ thống có khả năng mở rộng và chịu lỗi cao",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kien_truc_ung_dung_web.epub"
+  },
+  {
+    "id": "70f73a54e99a",
+    "title": "Refactoring_Improving_the_Design_of_Existing_Code",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Refactoring_Improving_the_Design_of_Existing_Code.pdf",
+    "cover": "assets/covers/Refactoring_Improving_the_Design_of_Existing_Code.webp",
+    "format": "pdf",
+    "description": "Healthy software changes continuously, but changing messy code can feel dangerous. Developers need a way to improve design in small steps while preserving behavior and keeping the system working.\n\nRefactoring by Martin Fowler is the foundational guide to improving the design of existing code. It catalogs common refactorings, explains when to apply them, and shows how tests and disciplined transformations make design improvement a routine engineering activity.\n\n• Identify code smells that signal deeper design and maintainability problems\n• Apply small behavior-preserving refactorings to functions, classes, and data structures\n• Learn how automated tests make design changes safer and faster\n• Improve readability, modularity, and extensibility without large rewrites\n• Build judgment for choosing refactorings that match the problem at hand",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Refactoring_Improving_the_Design_of_Existing_Code.pdf"
+  },
+  {
+    "id": "76489f1846f2",
+    "title": "SDD_Ebook",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/SDD_Ebook.pdf",
+    "cover": "assets/covers/SDD_Ebook.webp",
+    "format": "pdf",
+    "description": "Building scalable and robust software requires a deep understanding of system architecture and design principles. Developers often struggle to create systems that can handle growth and complexity without degrading performance.\n\nThis ebook provides a comprehensive guide to system design, exploring fundamental concepts and practical strategies for architecting modern applications. It covers essential patterns, trade-offs, and best practices used by top engineering teams.\n\n• Master the core principles of designing scalable and resilient software architectures.\n• Explore various architectural patterns and understand when to apply them effectively.\n• Learn how to evaluate trade-offs between performance, availability, and consistency.\n• Build confidence in tackling complex system design interviews and real-world engineering challenges.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SDD_Ebook.pdf"
+  },
+  {
+    "id": "c4060d0a6921",
+    "title": "SDD_Ebook",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/SDD_Ebook.epub",
+    "cover": "assets/covers/SDD_Ebook.webp",
+    "format": "epub",
+    "description": "Building scalable and robust software requires a deep understanding of system architecture and design principles. Developers often struggle to create systems that can handle growth and complexity without degrading performance.\n\nThis ebook provides a comprehensive guide to system design, exploring fundamental concepts and practical strategies for architecting modern applications. It covers essential patterns, trade-offs, and best practices used by top engineering teams.\n\n• Master the core principles of designing scalable and resilient software architectures.\n• Explore various architectural patterns and understand when to apply them effectively.\n• Learn how to evaluate trade-offs between performance, availability, and consistency.\n• Build confidence in tackling complex system design interviews and real-world engineering challenges.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SDD_Ebook.epub"
+  },
+  {
+    "id": "ad8b1c476f3f",
     "title": "System_Design",
     "category": "Software Engineering",
     "topic": "Software Architecture and Design",
@@ -682,7 +649,18 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/System_Design.pdf"
   },
   {
-    "id": "a6bc4d358d32",
+    "id": "643795f053bf",
+    "title": "The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.pdf",
+    "cover": "assets/covers/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.webp",
+    "format": "pdf",
+    "description": "Programming mastery is not only about syntax or tools; it is about judgment, habits, communication, debugging, and the ability to keep learning as systems and teams change.\n\nThe Pragmatic Programmer by David Thomas and Andrew Hunt distills timeless engineering advice into practical lessons for everyday software work. The 20th anniversary edition updates the classic guidance for modern development while preserving its focus on responsibility, craft, and adaptability.\n\n• Master pragmatic habits for learning, estimating, debugging, and communicating\n• Build systems with clearer boundaries, stronger feedback loops, and less duplication\n• Learn techniques for automation, testing, prototyping, and evolutionary design\n• Explore how to manage technical debt and protect code quality over time\n• Develop the mindset of a thoughtful engineer who improves both code and process",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Pragmatic_Programmer_Your_Journey_To_Mastery_20th.pdf"
+  },
+  {
+    "id": "775b75f54761",
     "title": "The_Ultimate_System_Design_Playbook",
     "category": "Software Engineering",
     "topic": "Software Architecture and Design",
@@ -691,6 +669,17 @@
     "format": "pdf",
     "description": "System design interviews at FAANG and top tech companies have become the make-or-break round for senior candidates. Unlike coding interviews with clear right answers, design rounds test your ability to navigate ambiguity and make principled trade-offs.\n\nThe Ultimate System Design Playbook provides a battle-tested framework for answering any design question, combined with 10+ detailed case studies that model the exact approach interviewers expect to see.\n\n• Follow a repeatable 4-step framework: requirements, estimation, high-level design, and deep dive\n• Study 10+ detailed case studies: Instagram, Twitter, WhatsApp, YouTube, Uber, and more\n• Understand common patterns: fan-out, event sourcing, CQRS, consistent hashing, and bloom filters\n• Navigate non-functional requirements: availability, latency, throughput, and cost optimization\n• Practice back-of-the-envelope calculations for storage, bandwidth, and QPS estimation",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Ultimate_System_Design_Playbook.pdf"
+  },
+  {
+    "id": "69b2b37bdb58",
+    "title": "Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf",
+    "cover": "assets/covers/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.webp",
+    "format": "pdf",
+    "description": "Coding interviews reward more than memorized solutions; they test whether you can recognize problem families, choose a strategy quickly, and explain tradeoffs under pressure.\n\nCoding Interview Patterns: Nail Your Next Coding Interview focuses on the reusable patterns behind common interview problems. It helps candidates move from one-off practice to a structured toolkit for arrays, strings, graphs, dynamic programming, and other recurring algorithmic themes.\n\n• Master high-frequency coding interview patterns and when to apply them\n• Build confidence by mapping unfamiliar problems to familiar structures\n• Learn to reason about complexity, edge cases, and implementation choices\n• Practice a repeatable approach for explaining solutions clearly\n• Strengthen preparation for technical screens and onsite-style interviews",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview.pdf"
   },
   {
     "id": "fe1baad2c4d3",
@@ -713,6 +702,17 @@
     "format": "pdf",
     "description": "Landing a job at FAANG (Facebook, Amazon, Apple, Netflix, Google) requires months of structured preparation across multiple domains — data structures, algorithms, system design, and behavioral interviews. Without a clear plan, candidates waste time on low-impact topics.\n\nThis study plan provides a focused, time-boxed roadmap for FAANG interview preparation, outlining exactly what to study each week, which problems to solve, and how to allocate effort across different interview rounds.\n\n• Follow a structured weekly plan covering arrays, trees, graphs, dynamic programming, and system design\n• Prioritize high-frequency interview topics based on real FAANG interview data\n• Balance time between coding practice, system design study, and behavioral prep\n• Track progress with clear milestones and self-assessment checkpoints\n• Optimize the final weeks with mock interviews and targeted weak-area review",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/FAANG_Study_Plan.pdf"
+  },
+  {
+    "id": "189320f51e0b",
+    "title": "Programming_Interviews_Exposed_Coding_Your_Way_Through",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf",
+    "cover": "assets/covers/Programming_Interviews_Exposed_Coding_Your_Way_Through.webp",
+    "format": "pdf",
+    "description": "Programming interviews can feel unpredictable because they combine algorithms, communication, debugging, and career judgment in a compressed format. Strong preparation means knowing how to think through problems as much as knowing individual answers.\n\nProgramming Interviews Exposed: Coding Your Way Through the Interview gives practical guidance for navigating technical hiring, from core data structures and algorithms to problem-solving habits and interview strategy. Its approach is grounded in realistic examples that help candidates prepare for both coding questions and the broader interview process.\n\n• Master essential algorithms, data structures, and coding interview techniques\n• Build a practical framework for attacking unfamiliar programming problems\n• Learn how to communicate assumptions, tradeoffs, and complexity clearly\n• Explore common interview formats and preparation strategies\n• Improve confidence for phone screens, whiteboard sessions, and coding tests",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf"
   },
   {
     "id": "3b4f6c67528a",
@@ -867,6 +867,17 @@
     "format": "pdf",
     "description": "Conventional financial wisdom — save 10% of your paycheck, invest in index funds, retire at 65 — is a slow lane that trades your most productive decades for a modest retirement. For those unwilling to wait 40 years, a fundamentally different wealth-building framework is needed.\n\nThe Millionaire Fastlane by MJ DeMarco rejects the 'get rich slow' paradigm and presents a mathematical framework for building wealth through entrepreneurship, scalable business systems, and value creation rather than frugality and compound interest alone.\n\n• Understand the three financial roadmaps: Sidewalk (poverty), Slowlane (mediocrity), and Fastlane (wealth)\n• Apply the Fastlane wealth equation: Wealth = Net Profit + Asset Value, driven by controllable variables\n• Identify Fastlane businesses using the CENTS framework: Control, Entry, Need, Time, Scale\n• Build systems that decouple your income from your time — productocracy over trading hours for dollars\n• Shift your mindset from consumer to producer and create value at scale",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Millionaire_Fastlane.pdf"
+  },
+  {
+    "id": "17fff949df3a",
+    "title": "The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking",
+    "category": "Personal Development and Skills",
+    "topic": "Communication and Writing",
+    "file_path": "Books/4_Personal_Development_and_Skills/Communication_and_Writing/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf",
+    "cover": "assets/covers/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.webp",
+    "format": "pdf",
+    "description": "Clear and logical communication is essential for professionals who need to present complex ideas, influence decisions, and write persuasive documents. Many struggle with structuring their thoughts effectively, leading to confusing and disorganized writing.\n\nThis book introduces the Pyramid Principle, a highly regarded framework for structuring ideas logically before writing. It provides practical techniques for organizing thoughts into a top-down hierarchy, ensuring clarity and impact in any form of business communication.\n\n• Master the top-down approach to structuring ideas and arguments.\n• Learn how to write clear, compelling, and logically sound documents.\n• Explore techniques for defining the problem and outlining the solution effectively.\n• Build stronger analytical thinking skills to improve both writing and presentations.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf"
   },
   {
     "id": "00b9c9e4e21d",
@@ -1142,148 +1153,5 @@
     "format": "pdf",
     "description": "Phương pháp hướng đối tượng (OO) đã trở thành chuẩn công nghiệp cho phân tích và thiết kế phần mềm hiện đại. Nắm vững UML và OOAD là kỹ năng bắt buộc cho mọi kỹ sư phần mềm.\n\nChương 11 hướng dẫn mô hình hóa hướng đối tượng bằng UML: biểu đồ use case, class, sequence và các kỹ thuật OOAD.\n\n• Vẽ biểu đồ Use Case: actor, use case, include, extend và generalization\n• Thiết kế biểu đồ Class: thuộc tính, phương thức, association, aggregation và inheritance\n• Mô hình hóa hành vi với biểu đồ Sequence và Activity\n• Áp dụng nguyên tắc SOLID và design patterns trong thiết kế hướng đối tượng",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Ch11_Mo_hinh_hoa_huong_doi_tuong.pdf"
-  },
-  {
-    "id": "e02ea8cd7b5f",
-    "title": "OCP_17_Programmer_s_guide",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCP_17_Programmer_s_guide.pdf",
-    "cover": "assets/covers/OCP_17_Programmer_s_guide.webp",
-    "format": "pdf",
-    "description": "The Oracle Certified Professional (OCP) Java SE 17 certification is a rigorous exam that validates a developer's deep understanding of the Java language. Passing this exam requires more than just everyday programming experience; it demands comprehensive knowledge of edge cases, new language features, and core API intricacies.\n\nThis Programmer's Guide is a complete study resource tailored specifically for the Java SE 17 Developer exam. It walks through all the essential exam objectives, providing clear explanations, code examples, and practice questions to ensure thorough preparation for the actual certification test.\n\n• Master new Java 17 features including records, sealed classes, pattern matching, and text blocks\n• Deep dive into object-oriented concepts, generics, and the Java Collections Framework\n• Understand advanced concurrency mechanisms and the java.util.concurrent package\n• Learn the nuances of Java I/O (NIO.2) and serialization\n• Practice with exam-style questions to identify weak areas and solidify core knowledge",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OCP_17_Programmer_s_guide.pdf"
-  },
-  {
-    "id": "09e5bcdea4d0",
-    "title": "Database_Indexing_Nhung_Dieu_Developer_Can_Biet",
-    "category": "Software Engineering",
-    "topic": "Database",
-    "file_path": "Books/2_Software_Engineering/Database/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.epub",
-    "cover": "assets/covers/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.webp",
-    "format": "epub",
-    "description": "Hiệu năng cơ sở dữ liệu là yếu tố then chốt quyết định tốc độ và độ ổn định của ứng dụng web. Một trong những nguyên nhân phổ biến nhất gây ra tình trạng chậm chạp của hệ thống là do thiếu kiến thức về cách lập chỉ mục (indexing) khi truy vấn dữ liệu.\n\nCuốn sách \"Database Indexing & Những Điều Developer Cần Biết\" cung cấp những kiến thức thực tiễn và chuyên sâu về cách thức hoạt động của Index trong cơ sở dữ liệu. Từ đó giúp lập trình viên hiểu rõ bản chất và cách áp dụng index hiệu quả để tối ưu hóa hiệu suất truy vấn.\n\n• Hiểu cơ chế hoạt động của B-Tree index và Hash index trong các hệ quản trị cơ sở dữ liệu\n• Cách phân tích Execution Plan để phát hiện các truy vấn thiếu tối ưu\n• Kỹ thuật tạo composite index và các nguyên tắc Leftmost Prefix Rule\n• Những trường hợp không nên sử dụng index để tránh làm chậm thao tác ghi dữ liệu\n• Các mẹo tối ưu hóa câu lệnh SQL kết hợp với index hiệu quả",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.epub"
-  },
-  {
-    "id": "bfd314b2f884",
-    "title": "Database_Indexing_Nhung_Dieu_Developer_Can_Biet",
-    "category": "Software Engineering",
-    "topic": "Database",
-    "file_path": "Books/2_Software_Engineering/Database/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.pdf",
-    "cover": "assets/covers/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.webp",
-    "format": "pdf",
-    "description": "Hiệu năng cơ sở dữ liệu là yếu tố then chốt quyết định tốc độ và độ ổn định của ứng dụng web. Một trong những nguyên nhân phổ biến nhất gây ra tình trạng chậm chạp của hệ thống là do thiếu kiến thức về cách lập chỉ mục (indexing) khi truy vấn dữ liệu.\n\nCuốn sách \"Database Indexing & Những Điều Developer Cần Biết\" cung cấp những kiến thức thực tiễn và chuyên sâu về cách thức hoạt động của Index trong cơ sở dữ liệu. Từ đó giúp lập trình viên hiểu rõ bản chất và cách áp dụng index hiệu quả để tối ưu hóa hiệu suất truy vấn.\n\n• Hiểu cơ chế hoạt động của B-Tree index và Hash index trong các hệ quản trị cơ sở dữ liệu\n• Cách phân tích Execution Plan để phát hiện các truy vấn thiếu tối ưu\n• Kỹ thuật tạo composite index và các nguyên tắc Leftmost Prefix Rule\n• Những trường hợp không nên sử dụng index để tránh làm chậm thao tác ghi dữ liệu\n• Các mẹo tối ưu hóa câu lệnh SQL kết hợp với index hiệu quả",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Indexing_Nhung_Dieu_Developer_Can_Biet.pdf"
-  },
-  {
-    "id": "9f0297b08f41",
-    "title": "Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Edition_Brendan_Burns_Eddie_Villalba_Dave_Strebel_etc",
-    "category": "Software Engineering",
-    "topic": "Kubernetes",
-    "file_path": "Books/2_Software_Engineering/Kubernetes/Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Edition_Brendan_Burns_Eddie_Villalba_Dave_Strebel_etc.pdf",
-    "cover": "assets/covers/Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Editi.webp",
-    "format": "pdf",
-    "description": "As Kubernetes adoption accelerates, deploying applications at scale introduces complex challenges in architecture, networking, and security.\n\n\"Kubernetes Best Practices\" provides blueprints and patterns designed by industry experts to help you build resilient and maintainable containerized applications.\n\n• Focuses on real-world implementation patterns\n• Covers advanced configuration and networking\n• Helps establish robust CI/CD pipelines\n• Details security best practices in production\n• Enhances cluster monitoring and observability",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kubernetes_Best_Practices_Blueprints_for_Building_Successful_Applications_on_Kubernetes_Second_Edition_Brendan_Burns_Eddie_Villalba_Dave_Strebel_etc.pdf"
-  },
-  {
-    "id": "a09558ee3aeb",
-    "title": "Kubernetes_in_Action_Marko_Luksa",
-    "category": "Software Engineering",
-    "topic": "Kubernetes",
-    "file_path": "Books/2_Software_Engineering/Kubernetes/Kubernetes_in_Action_Marko_Luksa.pdf",
-    "cover": "assets/covers/Kubernetes_in_Action_Marko_Luksa.webp",
-    "format": "pdf",
-    "description": "Navigating the complexities of container orchestration can be daunting for developers new to the cloud-native ecosystem.\n\n\"Kubernetes in Action\" is a comprehensive guide that teaches you how to use Kubernetes to deploy distributed applications, from basic concepts to advanced operations.\n\n• Explains fundamental Kubernetes architecture\n• Guides through deploying and scaling applications\n• Covers persistent storage and networking\n• Details rolling updates and deployment strategies\n• Includes practical hands-on examples",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Kubernetes_in_Action_Marko_Luksa.pdf"
-  },
-  {
-    "id": "ff62c0a886fb",
-    "title": "Vibe_code_process",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Vibe_code_process.pdf",
-    "cover": "assets/covers/Vibe_code_process.webp",
-    "format": "pdf",
-    "description": "Context: Tài liệu về \"Vibe Coding Process\".\n\nOverview: Hướng dẫn tối ưu hóa quy trình lập trình thông qua việc tương tác và làm việc với các công cụ AI hiện đại.\n\nKey Takeaways:\n• Nắm bắt nguyên lý cốt lõi của vibe coding.\n• Cách tích hợp AI agent vào quy trình phát triển.\n• Thực hành tốt nhất về context management.\n• Chiến lược debug và cải thiện code với AI.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Vibe_code_process.pdf"
-  },
-  {
-    "id": "1232c2487caf",
-    "title": "AI_Engineering_Building_Applications_with_Foundation_Models",
-    "category": "Computer Science Fundamentals",
-    "topic": "Machine Learning",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/AI_Engineering_Building_Applications_with_Foundation_Models.pdf",
-    "cover": "assets/covers/AI_Engineering_Building_Applications_with_Foundation_Models.webp",
-    "format": "pdf",
-    "description": "Foundation models have fundamentally changed the AI landscape, but building production applications with them requires a distinct engineering discipline that goes far beyond prompt crafting. The gap between a working demo and a reliable, scalable AI system is where most teams struggle.\n\nAI Engineering by Chip Huyen provides a comprehensive framework for building applications with foundation models. Covering the full lifecycle from model selection and evaluation to deployment and monitoring, this book bridges the gap between AI research and production engineering.\n\n• Understand the foundation model ecosystem: capabilities, limitations, and selection criteria\n• Design effective evaluation frameworks to measure model quality and reliability\n• Build robust RAG pipelines for knowledge-grounded applications\n• Implement guardrails, content filtering, and safety mechanisms for production systems\n• Optimize cost, latency, and throughput for large-scale AI deployments",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AI_Engineering_Building_Applications_with_Foundation_Models.pdf"
-  },
-  {
-    "id": "5cd3e09d3037",
-    "title": "Building_Applications_with_AI_Agents",
-    "category": "Computer Science Fundamentals",
-    "topic": "Machine Learning",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/Building_Applications_with_AI_Agents.pdf",
-    "cover": "assets/covers/Building_Applications_with_AI_Agents.webp",
-    "format": "pdf",
-    "description": "AI agents represent the next evolution beyond simple chatbots — autonomous systems that can reason, plan, and execute multi-step tasks using external tools. Building reliable agent-based applications, however, requires careful architecture and robust error handling that most tutorials skip entirely.\n\nBuilding Applications with AI Agents is a practical guide to designing, implementing, and deploying agentic AI systems. It covers the full stack from agent architectures and tool integration to orchestration patterns and production deployment strategies.\n\n• Design agent architectures: ReAct, plan-and-execute, and multi-agent collaboration patterns\n• Integrate external tools, APIs, and databases into agent workflows\n• Implement robust error handling, retry logic, and fallback strategies for autonomous systems\n• Build evaluation frameworks to measure agent reliability and task completion\n• Deploy and monitor agent-based applications in production environments",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_Applications_with_AI_Agents.pdf"
-  },
-  {
-    "id": "ecfa4b348853",
-    "title": "How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026",
-    "category": "Career and Professional Development",
-    "topic": "Job Search and Career Growth",
-    "file_path": "Books/3_Career_and_Professional_Development/Job_Search_and_Career_Growth/How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.pdf",
-    "cover": "assets/covers/How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.webp",
-    "format": "pdf",
-    "description": "The AI and Machine Learning job market in 2026 is booming, but breaking in from a traditional software engineering or data role is not straightforward. The skill gaps, portfolio expectations, and interview formats are fundamentally different from conventional development positions.\n\nThis career guide provides a concrete roadmap for software engineers and data professionals looking to pivot into AI/ML engineering. It covers the essential skills to acquire, how to build a compelling project portfolio, and strategies for navigating the unique hiring process in the AI industry.\n\n• Identify the core technical skills required for modern AI/ML roles: Python, deep learning frameworks, and MLOps\n• Build a targeted portfolio of projects that demonstrate real ML engineering competence\n• Prepare for AI-specific technical interviews: ML system design, coding, and research discussions\n• Navigate the evolving AI job market: company types, role variations, and compensation benchmarks\n• Create a structured transition plan with realistic timelines and milestones",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_to_Pivot_into_an_Ai_ML_Engineering_Role_in_2026.pdf"
-  },
-  {
-    "id": "f0bd122ec9eb",
-    "title": "OCA_OCP_Java_SE_8_Programmer_Practice_Tests",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCA_OCP_Java_SE_8_Programmer_Practice_Tests.pdf",
-    "cover": "assets/covers/OCA_OCP_Java_SE_8_Programmer_Practice_Tests.webp",
-    "format": "pdf",
-    "description": "Preparing for Oracle's Java SE 8 certification exams requires rigorous practice and a deep understanding of core language features. Many candidates struggle not with the concepts, but with the specific formats, edge cases, and tricky questions presented in the actual tests.\n\nThis practice test book by Jeanne Boyarsky and Scott Selikoff is the ultimate companion for the OCA and OCP exams. It offers hundreds of realistic questions covering every exam objective, complete with detailed explanations to help identify knowledge gaps and reinforce key concepts.\n\n• Assess your readiness for the OCA (1Z0-808) and OCP (1Z0-809) exams\n• Master tricky edge cases in Java syntax, concurrency, and streams\n• Understand the reasoning behind correct and incorrect answers through detailed explanations\n• Build confidence by practicing with questions modeled after the real exams\n• Identify weak areas in your Java knowledge to focus your study efforts",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OCA_OCP_Java_SE_8_Programmer_Practice_Tests.pdf"
-  },
-  {
-    "id": "bc4fbd22ea0b",
-    "title": "OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study.pdf",
-    "cover": "assets/covers/OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study.webp",
-    "format": "pdf",
-    "description": "Achieving the Oracle Certified Associate (OCA) certification is a crucial first step for Java developers looking to validate their foundational skills. However, mastering the strict rules of the Java language, especially around variable scope, exception handling, and object orientation, can be challenging for beginners.\n\nThe OCA Java SE 8 Programmer I Study Guide by Jeanne Boyarsky and Scott Selikoff provides a thorough, step-by-step walkthrough of the exam objectives. It combines clear explanations of core Java concepts with practical examples, review questions, and exam tips to ensure complete preparation.\n\n• Grasp the fundamentals of Java data types, operators, and control flow statements\n• Master object-oriented programming principles including inheritance, encapsulation, and polymorphism\n• Learn to handle exceptions properly and understand the standard Java API\n• Practice with chapter review questions to test your comprehension\n• Navigate the specific pitfalls and trick questions commonly found in the OCA exam",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OCA_Oracle_Certified_Associate_Java_SE_8_Programmer_I_Study.pdf"
-  },
-  {
-    "id": "64552d2eacc3",
-    "title": "OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study",
-    "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/Java",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study.pdf",
-    "cover": "assets/covers/OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study.webp",
-    "format": "pdf",
-    "description": "As Java continues to evolve with rapid release cycles, the SE 17 certification represents the modern standard for professional Java developers. The exam demands a deep understanding of advanced language features, including records, sealed classes, modularity, and modern concurrency models.\n\nThis OCP Java SE 17 Developer Study Guide delivers an in-depth exploration of the latest Java features required for the 1Z0-829 exam. It provides developers with the knowledge needed not just to pass the certification, but to build robust, modern, and scalable Java applications in enterprise environments.\n\n• Master modern Java features like records, pattern matching, and sealed classes\n• Implement robust concurrent applications using the Java Concurrency API\n• Understand and apply the Java Platform Module System (JPMS) for better application structure\n• Explore advanced stream processing and functional programming techniques\n• Secure Java applications and manage localization effectively",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OCP_Oracle_Certified_Professional_Java_SE_17_Developer_Study.pdf"
-  },
-  {
-    "id": "b85b5f0e9e0b",
-    "title": "Learning_Web_Design_5th_Edition",
-    "category": "Software Engineering",
-    "topic": "Web Development",
-    "file_path": "Books/2_Software_Engineering/Web_Development/Learning_Web_Design_5th_Edition.pdf",
-    "cover": "assets/covers/Learning_Web_Design_5th_Edition.webp",
-    "format": "pdf",
-    "description": "The modern web requires not just writing HTML and CSS, but understanding responsive design, accessibility, and modern layouts. As web standards evolve rapidly, developers and designers need a solid foundation in the core technologies that power user interfaces.\n\nLearning Web Design by Jennifer Robbins provides a comprehensive, beginner-friendly guide to building websites. It covers everything from basic HTML syntax and CSS styling to web graphics and introductory JavaScript, making it an essential resource for anyone starting in web development.\n\n• Master the fundamentals of HTML5 semantic elements and document structure\n• Build responsive, mobile-first layouts using CSS Grid and Flexbox\n• Optimize web graphics for performance without sacrificing quality\n• Implement modern web typography and color theory principles\n• Explore the basics of JavaScript to add interactivity to your sites",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Web_Design_5th_Edition.pdf"
   }
 ]
