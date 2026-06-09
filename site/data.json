@@ -286,6 +286,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Managing_AI_Projects.pdf"
   },
   {
+    "id": "d63c71779b0e",
+    "title": "Scaling_agentic_coding_across_your_organization",
+    "category": "Software Engineering",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/2_Software_Engineering/Artificial_Intelligence/Scaling_agentic_coding_across_your_organization.pdf",
+    "cover": "assets/covers/Scaling_agentic_coding_across_your_organization.webp",
+    "format": "pdf",
+    "description": "As organizations increasingly adopt artificial intelligence, engineering teams face significant hurdles in scaling autonomous coding agents effectively across large, complex codebases.\n\nThis guide provides a comprehensive framework for scaling agentic coding, exploring architectural patterns and organizational strategies needed to integrate AI coding assistants into enterprise environments.\n\n• Master strategies for deploying coding agents at scale\n• Overcome architectural challenges in complex systems\n• Align AI tools with organizational engineering practices\n• Implement robust evaluation and testing for autonomous code\n• Build high-performing, AI-augmented engineering teams",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Scaling_agentic_coding_across_your_organization.pdf"
+  },
+  {
     "id": "99b554c1b5c0",
     "title": "Distributed_Tracing_in_Practice",
     "category": "Software Engineering",
