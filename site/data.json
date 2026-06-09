@@ -253,6 +253,39 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Operating_Systems_Three_Easy_Pieces.pdf"
   },
   {
+    "id": "82a87422cb78",
+    "title": "30_Agents_Every_AI_Engineer_Must_Build",
+    "category": "Software Engineering",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/2_Software_Engineering/Artificial_Intelligence/30_Agents_Every_AI_Engineer_Must_Build.pdf",
+    "cover": "assets/covers/30_Agents_Every_AI_Engineer_Must_Build.webp",
+    "format": "pdf",
+    "description": "As the field of AI engineering evolves, developers face the challenge of designing and implementing practical, effective autonomous agents.\n\nThis comprehensive guide presents 30 essential AI agents that every engineer should master, detailing their architecture, use cases, and implementation strategies.\n\n• Explore various AI agent architectures\n• Master the implementation of autonomous workflows\n• Build robust systems using large language models\n• Implement effective prompting strategies\n• Design resilient and scalable AI solutions",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/30_Agents_Every_AI_Engineer_Must_Build.pdf"
+  },
+  {
+    "id": "48e53e6e51c9",
+    "title": "Codex_CLI_Agentic_Engineering_from_First_Principles",
+    "category": "Software Engineering",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/2_Software_Engineering/Artificial_Intelligence/Codex_CLI_Agentic_Engineering_from_First_Principles.pdf",
+    "cover": "assets/covers/Codex_CLI_Agentic_Engineering_from_First_Principles.webp",
+    "format": "pdf",
+    "description": "Software engineers building agentic systems often struggle with foundational principles and the tooling required to manage complex LLM workflows.\n\nThis guide introduces the Codex CLI and the core philosophy of agentic engineering from first principles, providing a structured approach to developing autonomous coding assistants.\n\n• Understand agentic engineering fundamentals\n• Master the Codex CLI toolset\n• Build robust, deterministic agent workflows\n• Implement first-principles thinking in AI design\n• Explore practical applications of autonomous agents",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Codex_CLI_Agentic_Engineering_from_First_Principles.pdf"
+  },
+  {
+    "id": "b6ad37a95816",
+    "title": "Managing_AI_Projects",
+    "category": "Software Engineering",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/2_Software_Engineering/Artificial_Intelligence/Managing_AI_Projects.pdf",
+    "cover": "assets/covers/Managing_AI_Projects.webp",
+    "format": "pdf",
+    "description": "Integrating artificial intelligence into business processes introduces unique project management challenges, from uncertain timelines to shifting data requirements.\n\nThis resource provides a practical framework for managing AI projects, bridging the gap between technical data science teams and business stakeholders.\n\n• Master AI project lifecycle management\n• Mitigate risks specific to machine learning\n• Align technical outputs with business goals\n• Build effective cross-functional AI teams\n• Deliver measurable value through AI initiatives",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Managing_AI_Projects.pdf"
+  },
+  {
     "id": "99b554c1b5c0",
     "title": "Distributed_Tracing_in_Practice",
     "category": "Software Engineering",
