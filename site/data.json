@@ -572,17 +572,6 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/A_Philosophy_of_Software_Design.pdf"
   },
   {
-    "id": "b5c22699ea08",
-    "title": "Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks",
-    "category": "Software Engineering",
-    "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.pdf",
-    "cover": "assets/covers/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.webp",
-    "format": "pdf",
-    "description": "The rapid advancement of AI has shifted the focus to complex, autonomous AI agents capable of executing multi-step tasks. However, designing these agents reliably presents significant architectural challenges.\n\nThis book introduces practical architecture patterns and implementation frameworks for developing robust, scalable AI agents. It explores foundational concepts, integration strategies, and real-world design decisions to orchestrate autonomous systems.\n\n• Master the core architectural patterns for designing autonomous AI agents.\n• Explore implementation frameworks that streamline agent orchestration.\n• Learn to integrate agents seamlessly with existing enterprise systems.\n• Implement robust error handling and safety rails for agentic workflows.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.pdf"
-  },
-  {
     "id": "d98334afd722",
     "title": "Building_microservices_designing_fine_grained_systems",
     "category": "Software Engineering",
