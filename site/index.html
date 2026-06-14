@@ -305,7 +305,9 @@
             border-left: 1px solid var(--border);
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            opacity: 0;
+            contain: layout paint;
+            transition: max-height 70ms ease-out, opacity 50ms ease-out;
         }
 
         .sb-subtopics {
@@ -314,11 +316,14 @@
             border-left: 1px solid var(--border);
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            opacity: 0;
+            contain: layout paint;
+            transition: max-height 70ms ease-out, opacity 50ms ease-out;
         }
 
         .sb-topics.open, .sb-subtopics.open {
-            max-height: 1000px;
+            max-height: var(--sb-open-height, 0px);
+            opacity: 1;
             margin-top: 4px;
             margin-bottom: 4px;
         }
@@ -2232,7 +2237,7 @@
         <span id="toast-msg">Link copied!</span>
     </div>
 
-    <script type="module" src="app.js"></script>
+    <script type="module" src="./app.js?v=20260614-asset-base"></script>
 </body>
 
 </html>

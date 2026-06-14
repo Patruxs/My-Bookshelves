@@ -13,6 +13,7 @@ Commands:
     doctor          Validate repo health and dependencies
     validate        Validate repo health and dependencies
     codex-sync      Regenerate the .codex adapter from .agents
+    smoke           Smoke check static site contracts
     delete          Delete books, topics, or categories
     update          Update book metadata, rename topics/categories
     generate        Generate data.json and cover images
@@ -30,6 +31,7 @@ Examples:
     python scripts/cli.py rename
     python scripts/cli.py upload --dry-run
     python scripts/cli.py doctor --base-dir . --strict
+    python scripts/cli.py smoke --base-dir .
     python scripts/cli.py codex-sync --base-dir .
 """
 
@@ -72,6 +74,11 @@ COMMANDS = {
         "script": "sync_codex.py",
         "inject_args": [],
         "desc": "Regenerate the .codex adapter from .agents",
+    },
+    "smoke": {
+        "script": "smoke_site.py",
+        "inject_args": [],
+        "desc": "Smoke check static site contracts",
     },
     "update": {
         "script": "update_books.py",
@@ -128,6 +135,8 @@ def print_help() -> None:
     print("  python scripts/cli.py rename --base-dir . --execute")
     print("  python scripts/cli.py upload --dry-run")
     print("  python scripts/cli.py doctor --base-dir . --strict")
+    print("  python scripts/cli.py smoke --base-dir .")
+    print("  python scripts/cli.py smoke --base-dir . --allow-missing-download-url")
     print("  python scripts/cli.py validate --base-dir . --json")
     print("  python scripts/cli.py structure --base-dir .")
     print("  python scripts/cli.py codex-sync --base-dir .")

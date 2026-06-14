@@ -3,24 +3,45 @@
  * Zero dependencies · Pure JavaScript · Apple-style UI
  */
 
-import { CONFIG } from "./js/config.js";
+import { mergeBooks, getDownloadUrl } from "./js/data.js";
+import { $ } from "./js/dom.js";
+import { copyFilters, createEmptyFilters } from "./js/filters.js";
+import { calculateBooksPerPage, getPageNumbers } from "./js/pagination.js";
+import { safeDownloadUrl } from "./js/render/assets.js";
+import { renderBookCard } from "./js/render/cards.js";
+import { renderCollectionsView as renderCollectionsHtml } from "./js/render/collections.js";
+import { renderDetailContent } from "./js/render/detail.js";
+import { renderFilterList } from "./js/render/filters.js";
+import { renderPaginationControls } from "./js/render/pagination.js";
+import { renderSidebarTree } from "./js/render/sidebar.js";
+import { countFilteredBooks, getFilteredBooks } from "./js/search.js";
+import {
+    getArchivedBooks,
+    addArchivedBook,
+    removeArchivedBook,
+    addRecentBook,
+    getRecentBooks,
+    getStoredTheme,
+    setStoredTheme,
+    getStoredViewMode,
+    setStoredViewMode
+} from "./js/storage.js";
+import {
+    getBookUrl,
+    getBrowseUrl,
+    getHomeUrl,
+    getSiteAssetUrl,
+    resolveRouteFromPath
+} from "./js/routes.js";
+import { cleanTitle, cssEscape, debounce, esc } from "./js/utils.js";
 
 // ═══ CONFIG ═══
 
 // ═══ STATE ═══
 let allBooks = [], filteredBooks = [], currentBookId = null;
-let activeFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
-let pendingFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
-let viewMode = localStorage.getItem("viewMode") || "grid";
-
-function copyFilters(source) {
-    return {
-        sort: source.sort,
-        format: source.format,
-        category: new Set(source.category),
-        topic: new Set(source.topic)
-    };
-}
+let activeFilters = createEmptyFilters();
+let pendingFilters = createEmptyFilters();
+let viewMode = getStoredViewMode();
 let sidebarSelection = { category: "", topic: "" };
 let sidebarViewMode = 'collections'; // 'discover' | 'collections' | 'archive' | 'recent'
 let isGlobalSearch = false;
@@ -28,71 +49,18 @@ let currentPage = 1;
 let booksPerPage = 16;
 let savedScrollPos = 0;
 let categoriesCollapsed = false;
-
-// ═══ RECENT & ARCHIVE (localStorage) ═══
-function getRecentBooks() {
-    try { return JSON.parse(localStorage.getItem('recentBooks') || '[]'); } catch { return []; }
-}
-function addRecentBook(bookId) {
-    let recent = getRecentBooks().filter(id => id !== bookId);
-    recent.unshift(bookId);
-    if (recent.length > 50) recent = recent.slice(0, 50);
-    localStorage.setItem('recentBooks', JSON.stringify(recent));
-}
-function getArchivedBooks() {
-    try { return JSON.parse(localStorage.getItem('archivedBooks') || '[]'); } catch { return []; }
-}
-function addArchivedBook(bookId) {
-    let archived = getArchivedBooks();
-    if (!archived.includes(bookId)) {
-        archived.unshift(bookId);
-        localStorage.setItem('archivedBooks', JSON.stringify(archived));
-    }
-}
-function removeArchivedBook(bookId) {
-    let archived = getArchivedBooks().filter(id => id !== bookId);
-    localStorage.setItem('archivedBooks', JSON.stringify(archived));
-}
-
-// ═══ DYNAMIC PAGINATION ═══
-const MIN_BOOKS = 30;
-function calculateBooksPerPage() {
-    const vw = window.innerWidth / 100;
-    // Mirror CSS grid: clamp(150px, 12vw, 240px)
-    const minColW = Math.max(150, Math.min(12 * vw, 240));
-    // Mirror CSS gap: clamp(12px, 2vw, 24px)
-    const gap = Math.max(12, Math.min(2 * vw, 24));
-    // Sidebar visible on desktop (≥1200px): clamp(260px, 18vw, 340px)
-    const sidebarW = window.innerWidth >= 1200 ? Math.max(260, Math.min(18 * vw, 340)) : 0;
-    // Main horizontal padding: 16px×2 on ≤1199, clamp(12px,3vw,24px)×2 on desktop
-    const padX = window.innerWidth <= 1199 ? 32 : 2 * Math.max(12, Math.min(3 * vw, 24));
-    // Available grid width (respecting max-width: 2560px)
-    const gridW = Math.min(window.innerWidth, 2560) - sidebarW - padX;
-    // Calculate columns
-    const cols = Math.max(1, Math.floor((gridW + gap) / (minColW + gap)));
-    // Smallest multiple of cols ≥ MIN_BOOKS
-    return Math.ceil(MIN_BOOKS / cols) * cols;
-}
+let sidebarFilterRenderToken = 0;
+const SIDEBAR_DISCLOSURE_MS = 70;
 
 // ═══ DOM ═══
-const $ = s => document.querySelector(s);
 const grid = $("#grid"), skeleton = $("#skeleton"), noResults = $("#no-results");
 const searchInput = $("#search");
 const paginationEl = $("#pagination");
 const homeView = $("#home-view"), detailView = $("#detail-view");
 
-// ═══ DYNAMIC CATEGORY CONFIG ═══
-const CAT_ICONS = ["💻", "⚙️", "🚀", "📚", "🎓", "🧠", "💡", "🛠️", "📊", "🌐"];
-const CAT_ICON_HINTS = { "Computer Science": "💻", "Software Engineering": "⚙️", "Career": "🚀", "Personal Development": "📚", "University": "🎓" };
-function getCatNum(cat) { return (Math.abs(hash(cat)) % 5) + 1; }
-function getCatIcon(cat) {
-    for (const [key, icon] of Object.entries(CAT_ICON_HINTS)) if (cat.includes(key)) return icon;
-    return CAT_ICONS[Math.abs(hash(cat)) % CAT_ICONS.length];
-}
-
 // ═══ THEME ═══
 function initTheme() {
-    const saved = localStorage.getItem("theme");
+    const saved = getStoredTheme();
     const prefer = saved || "light";
     document.documentElement.setAttribute("data-theme", prefer);
 }
@@ -100,14 +68,14 @@ function toggleTheme() {
     const current = document.documentElement.getAttribute("data-theme") || "dark";
     const next = current === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
+    setStoredTheme(next);
 }
 initTheme();
 
 // ═══ VIEW MODE ═══
 function setViewMode(mode) {
     viewMode = mode;
-    localStorage.setItem("viewMode", mode);
+    setStoredViewMode(mode);
     
     const btnGrid = $("#btn-grid");
     const btnList = $("#btn-list");
@@ -135,7 +103,7 @@ async function init() {
     showSkeleton();
     booksPerPage = calculateBooksPerPage();
     try {
-        const r = await fetch("data.json?v=" + new Date().getTime(), { cache: "no-store" });
+        const r = await fetch(getSiteAssetUrl("data.json") + "?v=" + new Date().getTime(), { cache: "no-store" });
         if (!r.ok) throw new Error(r.status);
         allBooks = mergeBooks(await r.json());
     } catch {
@@ -167,7 +135,7 @@ async function init() {
     }, 300));
 
     // Check URL on load
-    checkUrlBookParam();
+    applyUrlRoute(false);
 }
 
 let eventDelegationReady = false;
@@ -316,77 +284,79 @@ function handleImageError(e) {
 
 // ═══ SIDEBAR ═══
 function renderSidebar() {
-    const tree = {};
-    allBooks.forEach(b => {
-        if (!tree[b.category]) tree[b.category] = {};
-        
-        const parts = b.topic.split('/');
-        const mainTopic = parts[0];
-        const subTopic = parts.length > 1 ? parts[1] : null;
-
-        if (!tree[b.category][mainTopic]) {
-            tree[b.category][mainTopic] = { count: 0, subtopics: {} };
-        }
-        
-        if (subTopic) {
-            if (!tree[b.category][mainTopic].subtopics[subTopic]) {
-                tree[b.category][mainTopic].subtopics[subTopic] = 0;
-            }
-            tree[b.category][mainTopic].subtopics[subTopic]++;
-        } else {
-            tree[b.category][mainTopic].count++;
-        }
-    });
     const sbAllCount = $("#sb-all-count");
     if (sbAllCount) sbAllCount.textContent = allBooks.length;
-
-    let html = "";
-    const sortedCats = Object.keys(tree).sort((a, b) => a.localeCompare(b));
-    for (const cat of sortedCats) {
-        const topics = tree[cat];
-        const count = allBooks.filter(b => b.category === cat).length;
-        const n = getCatNum(cat);
-        html += `<div>
-            <button class="sb-cat" data-action="sidebar-toggle-cat" data-cat="${esc(cat)}" aria-expanded="false">
-                <svg class="sb-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
-                <span class="sb-label">${esc(cat)}</span>
-                <svg class="sb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div class="sb-topics" data-cat="${esc(cat)}">`;
-        
-        const sortedMainTopics = Object.keys(topics).sort((a,b) => a.localeCompare(b));
-        for (const mainTopic of sortedMainTopics) {
-            const data = topics[mainTopic];
-            const hasSub = Object.keys(data.subtopics).length > 0;
-            
-            if (hasSub) {
-                html += `<div>
-                    <button class="sb-topic parent" data-action="sidebar-toggle-topic" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}" aria-expanded="false">
-                        <span class="sb-label">${esc(mainTopic)}</span>
-                        <svg class="sb-chevron sb-sub-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="sb-subtopics">`;
-                
-                const sortedSubs = Object.keys(data.subtopics).sort((a,b) => a.localeCompare(b));
-                for (const sub of sortedSubs) {
-                    const fullTopic = `${mainTopic}/${sub}`;
-                    html += `<button class="sb-topic sub" data-action="sidebar-select-topic" data-cat="${esc(cat)}" data-topic="${esc(fullTopic)}">
-                        <span class="sb-label">${esc(sub)}</span>
-                    </button>`;
-                }
-                html += `</div></div>`;
-            } else {
-                html += `<button class="sb-topic" data-action="sidebar-select-topic" data-cat="${esc(cat)}" data-topic="${esc(mainTopic)}">
-                    <span class="sb-label">${esc(mainTopic)}</span>
-                </button>`;
-            }
-        }
-        html += `</div></div>`;
-    }
-    $("#sb-tree").innerHTML = html;
+    $("#sb-tree").innerHTML = renderSidebarTree(allBooks);
 }
 
-function sidebarToggleCat(e, btn) {
+function setSidebarDisclosure(btn, panel, chevron, open) {
+    if (!panel) return;
+    if (open) {
+        panel.style.setProperty("--sb-open-height", `${panel.scrollHeight}px`);
+    } else if (panel.classList.contains("open")) {
+        panel.style.setProperty("--sb-open-height", `${panel.scrollHeight}px`);
+        panel.offsetHeight;
+    } else {
+        panel.style.removeProperty("--sb-open-height");
+    }
+    if (chevron) chevron.classList.toggle("open", open);
+    panel.classList.toggle("open", open);
+    if (btn) btn.setAttribute("aria-expanded", String(open));
+    refreshOpenSidebarHeights(panel);
+    scheduleSidebarDisclosureRefresh(panel, open);
+}
+
+function toggleSidebarDisclosure(btn, panel, chevron) {
+    if (!panel) return;
+    setSidebarDisclosure(btn, panel, chevron, !panel.classList.contains("open"));
+}
+
+function refreshOpenSidebarHeights(el) {
+    if (el.classList.contains("open")) {
+        el.style.setProperty("--sb-open-height", `${el.scrollHeight}px`);
+    }
+    let parent = el.parentElement && el.parentElement.closest(".sb-topics.open, .sb-subtopics.open");
+    while (parent) {
+        parent.style.setProperty("--sb-open-height", `${parent.scrollHeight}px`);
+        parent = parent.parentElement && parent.parentElement.closest(".sb-topics.open, .sb-subtopics.open");
+    }
+}
+
+function unlockSidebarDisclosureHeights(el) {
+    if (el.classList.contains("open")) {
+        el.style.setProperty("--sb-open-height", "none");
+    }
+    let parent = el.parentElement && el.parentElement.closest(".sb-topics.open, .sb-subtopics.open");
+    while (parent) {
+        parent.style.setProperty("--sb-open-height", "none");
+        parent = parent.parentElement && parent.parentElement.closest(".sb-topics.open, .sb-subtopics.open");
+    }
+}
+
+function scheduleSidebarDisclosureRefresh(panel, open) {
+    requestAnimationFrame(() => {
+        refreshOpenSidebarHeights(panel);
+    });
+    window.setTimeout(() => {
+        if (open) {
+            unlockSidebarDisclosureHeights(panel);
+        } else {
+            refreshOpenSidebarHeights(panel);
+        }
+    }, SIDEBAR_DISCLOSURE_MS + 20);
+}
+
+
+function applyFiltersAfterSidebarPaint() {
+    const token = ++sidebarFilterRenderToken;
+    window.setTimeout(() => {
+        requestAnimationFrame(() => {
+            if (token === sidebarFilterRenderToken) applyFilters();
+        });
+    }, SIDEBAR_DISCLOSURE_MS);
+}
+
+function sidebarToggleCat(e, btn, pushHistory = true) {
     const isChevronClick = e && e.target && e.target.closest && e.target.closest('.sb-chevron');
     const cat = btn.dataset.cat;
     const chevron = btn.querySelector(".sb-chevron");
@@ -394,35 +364,31 @@ function sidebarToggleCat(e, btn) {
     
     if (isChevronClick) {
         e.stopPropagation();
-        chevron.classList.toggle("open");
-        topics.classList.toggle("open");
-        btn.setAttribute("aria-expanded", String(topics.classList.contains("open")));
+        toggleSidebarDisclosure(btn, topics, chevron);
         return;
     }
 
     if (sidebarSelection.category === cat && !sidebarSelection.topic) {
-        chevron.classList.toggle("open");
-        topics.classList.toggle("open");
-        btn.setAttribute("aria-expanded", String(topics.classList.contains("open")));
+        toggleSidebarDisclosure(btn, topics, chevron);
         return;
     }
     sidebarViewMode = 'collections';
     sidebarSelection = { category: cat, topic: "" };
-    chevron.classList.add("open");
-    topics.classList.add("open");
-    btn.setAttribute("aria-expanded", "true");
+    setSidebarDisclosure(btn, topics, chevron, true);
     updateSidebarUI();
-    applyFilters();
+    updateBrowseRoute(cat, "", pushHistory);
+    applyFiltersAfterSidebarPaint();
 }
 
-function sidebarSelectTopic(btn) {
+function sidebarSelectTopic(btn, pushHistory = true) {
     sidebarViewMode = 'collections';
     sidebarSelection = { category: btn.dataset.cat, topic: btn.dataset.topic };
     updateSidebarUI();
+    updateBrowseRoute(sidebarSelection.category, sidebarSelection.topic, pushHistory);
     applyFilters();
 }
 
-function sidebarSelectTopicByNames(cat, topic) {
+function sidebarSelectTopicByNames(cat, topic, pushHistory = true) {
     sidebarViewMode = 'collections';
     sidebarSelection = { category: cat, topic: topic };
     
@@ -431,62 +397,59 @@ function sidebarSelectTopicByNames(cat, topic) {
     if (catBtn) {
         const chevron = catBtn.querySelector(".sb-chevron");
         const topicsEl = catBtn.nextElementSibling;
-        if (chevron) chevron.classList.add("open");
-        if (topicsEl) topicsEl.classList.add("open");
-        catBtn.setAttribute("aria-expanded", "true");
+        setSidebarDisclosure(catBtn, topicsEl, chevron, true);
     }
     
-    // Expand the topic if it's a subtopic
     const topicParts = topic.split('/');
-    if (topicParts.length > 1) {
-        const parentTopic = topicParts[0];
-        const topicBtn = document.querySelector(`.sb-topic[data-cat="${cssEscape(cat)}"][data-topic="${cssEscape(parentTopic)}"]`);
+    for (let i = 1; i <= topicParts.length; i++) {
+        const topicPrefix = topicParts.slice(0, i).join('/');
+        const topicBtn = document.querySelector(`.sb-topic[data-cat="${cssEscape(cat)}"][data-topic="${cssEscape(topicPrefix)}"]`);
         if (topicBtn) {
             const chevron = topicBtn.querySelector(".sb-sub-chevron");
             const subtopicsEl = topicBtn.nextElementSibling;
-            if (chevron) chevron.classList.add("open");
-            if (subtopicsEl) subtopicsEl.classList.add("open");
-            topicBtn.setAttribute("aria-expanded", "true");
+            setSidebarDisclosure(topicBtn, subtopicsEl, chevron, true);
         }
     }
     
     updateSidebarUI();
+    updateBrowseRoute(cat, topic, pushHistory);
     applyFilters();
 }
 
-function sidebarToggleTopic(e, btn) {
+function sidebarToggleTopic(e, btn, pushHistory = true) {
     const isChevronClick = e && e.target && e.target.closest && e.target.closest('.sb-chevron');
     const chevron = btn.querySelector(".sb-sub-chevron");
     const subtopics = btn.nextElementSibling;
     
     if (isChevronClick) {
         e.stopPropagation();
-        if (chevron) chevron.classList.toggle("open");
-        if (subtopics) subtopics.classList.toggle("open");
-        btn.setAttribute("aria-expanded", String(subtopics && subtopics.classList.contains("open")));
+        toggleSidebarDisclosure(btn, subtopics, chevron);
         return;
     }
-    
+
+    if (subtopics) {
+        toggleSidebarDisclosure(btn, subtopics, chevron);
+        return;
+    }
+
     if (sidebarSelection.category === btn.dataset.cat && sidebarSelection.topic === btn.dataset.topic) {
-        if (chevron) chevron.classList.toggle("open");
-        if (subtopics) subtopics.classList.toggle("open");
-        btn.setAttribute("aria-expanded", String(subtopics && subtopics.classList.contains("open")));
+        toggleSidebarDisclosure(btn, subtopics, chevron);
         return;
     }
     
     sidebarViewMode = 'collections';
     sidebarSelection = { category: btn.dataset.cat, topic: btn.dataset.topic };
-    if (chevron) chevron.classList.add("open");
-    if (subtopics) subtopics.classList.add("open");
-    btn.setAttribute("aria-expanded", "true");
+    setSidebarDisclosure(btn, subtopics, chevron, true);
     updateSidebarUI();
-    applyFilters();
+    updateBrowseRoute(sidebarSelection.category, sidebarSelection.topic, pushHistory);
+    applyFiltersAfterSidebarPaint();
 }
 
-function sidebarSelectAll() {
+function sidebarSelectAll(pushHistory = true) {
     sidebarSelection = { category: "", topic: "" };
     sidebarViewMode = 'collections';
     updateSidebarUI();
+    updateHomeRoute(pushHistory);
     applyFilters();
 }
 
@@ -513,13 +476,13 @@ function sidebarSelectRecent() {
 
 function clearAllFilters() {
     searchInput.value = "";
-    activeFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
+    activeFilters = createEmptyFilters();
     pendingFilters = copyFilters(activeFilters);
     isGlobalSearch = false;
     sidebarViewMode = 'collections';
     updateSearchModeUI();
     updateFilterBadge();
-    sidebarSelectAll();
+    sidebarSelectAll(false);
 }
 
 function updateSidebarUI() {
@@ -546,13 +509,18 @@ function collapseAllCategories() {
     
     if (categoriesCollapsed) {
         // Close all chevrons and submenus, but don't hide the main tree
+        document.querySelectorAll(".sb-topics, .sb-subtopics").forEach(t => {
+            t.style.removeProperty("--sb-open-height");
+            t.classList.remove("open");
+        });
         document.querySelectorAll(".sb-chevron, .sb-sub-chevron").forEach(c => c.classList.remove("open"));
-        document.querySelectorAll(".sb-topics, .sb-subtopics").forEach(t => t.classList.remove("open"));
+        document.querySelectorAll(".sb-cat, .sb-topic.parent").forEach(b => b.setAttribute("aria-expanded", "false"));
         if (btn) btn.textContent = 'Expand';
     } else {
         // Open all main categories
-        document.querySelectorAll(".sb-chevron").forEach(c => c.classList.add("open"));
-        document.querySelectorAll(".sb-topics").forEach(t => t.classList.add("open"));
+        document.querySelectorAll(".sb-cat").forEach(catBtn => {
+            setSidebarDisclosure(catBtn, catBtn.nextElementSibling, catBtn.querySelector(".sb-chevron"), true);
+        });
         if (btn) btn.textContent = 'Collapse';
     }
 }
@@ -616,29 +584,13 @@ function populateFilterPanel() {
 }
 
 function countPendingResults() {
-    const q = searchInput.value.toLowerCase().trim();
-    const { format: fmtFilter, category: catSet, topic: topicSet } = pendingFilters;
-    const { category: sbCat, topic: sbTopic } = sidebarSelection;
-    const hasDropdownFilter = fmtFilter || catSet.size > 0 || topicSet.size > 0;
-
-    let books = allBooks;
-    if (q && isGlobalSearch) {
-        books = allBooks.filter(b => scoreBook(b, q) > 0);
-    } else if (!hasDropdownFilter) {
-        books = allBooks.filter(b =>
-            (!sbCat || b.category === sbCat) &&
-            (!sbTopic || b.topic === sbTopic || b.topic.startsWith(sbTopic + '/'))
-        );
-    }
-    
-    if (hasDropdownFilter) {
-        books = books.filter(b =>
-            (catSet.size === 0 || catSet.has(b.category)) &&
-            (topicSet.size === 0 || topicSet.has(b.topic)) &&
-            (!fmtFilter || b.formats.includes(fmtFilter))
-        );
-    }
-    return books.length;
+    return countFilteredBooks({
+        books: allBooks,
+        query: searchInput.value,
+        isGlobalSearch,
+        filters: pendingFilters,
+        sidebarSelection
+    });
 }
 
 function updateApplyButton() {
@@ -649,81 +601,12 @@ function updateApplyButton() {
 }
 
 function renderFpList() {
-    let sections = [];
-    const q = fpSearchQuery.toLowerCase();
-
-    if (activeFilterTab === 'topic') {
-        const selectedCats = pendingFilters.category;
-        const validBooks = selectedCats.size > 0 ? allBooks.filter(b => selectedCats.has(b.category)) : allBooks;
-        const validTopicNames = new Set(validBooks.map(b => b.topic));
-
-        // Categories section
-        const catCounts = {};
-        allBooks.forEach(b => catCounts[b.category] = (catCounts[b.category] || 0) + 1);
-        let catItems = Object.entries(catCounts).map(([name, count]) => ({ name, count, value: name, group: 'category' }));
-
-        // Topics section
-        const topCounts = {};
-        allBooks.forEach(b => topCounts[b.topic] = (topCounts[b.topic] || 0) + 1);
-        let topItems = Object.entries(topCounts).map(([name, count]) => {
-            return { name, count, value: name, group: 'topic', disabled: selectedCats.size > 0 && !validTopicNames.has(name) };
-        });
-
-        if (q) {
-            catItems = catItems.filter(i => i.name.toLowerCase().includes(q));
-            topItems = topItems.filter(i => i.name.toLowerCase().includes(q));
-        }
-
-        catItems.sort((a, b) => a.name.localeCompare(b.name));
-        topItems.sort((a, b) => a.name.localeCompare(b.name));
-
-        sections.push({ title: "Categories", items: catItems });
-        sections.push({ title: "Topics", items: topItems });
-    } else if (activeFilterTab === 'format') {
-        const counts = {};
-        allBooks.forEach(b => {
-            b.formats.forEach(f => counts[f] = (counts[f] || 0) + 1);
-        });
-        let items = Object.entries(counts).map(([name, count]) => ({ name: name.toUpperCase(), count, value: name, group: 'format' }));
-        if (q) items = items.filter(i => i.name.toLowerCase().includes(q));
-        items.sort((a, b) => a.name.localeCompare(b.name));
-        sections.push({ title: "", items });
-    } else if (activeFilterTab === 'sort') {
-        let items = [
-            { name: "A → Z", value: "az", group: "sort" },
-            { name: "Z → A", value: "za", group: "sort" }
-        ];
-        if (q) items = items.filter(i => i.name.toLowerCase().includes(q));
-        sections.push({ title: "", items });
-    }
-
-    if (sections.every(s => s.items.length === 0)) {
-        return `<div style="color:var(--text-tertiary); font-size:14px; padding-top: 10px;">No matches found.</div>`;
-    }
-
-    let html = '';
-    sections.forEach(sec => {
-        if (sec.items.length === 0) return;
-        if (sec.title) {
-            html += `<div class="fp-section-title">${sec.title}</div>`;
-        }
-        html += `<div class="fp-list-grid">` + sec.items.map(i => {
-            let isChecked = false;
-            if (i.group === 'topic' || i.group === 'category') {
-                isChecked = pendingFilters[i.group].has(i.value);
-            } else {
-                isChecked = pendingFilters[i.group] === i.value;
-            }
-            return `
-                <label class="fp-checkbox ${i.disabled ? 'disabled' : ''}">
-                    <input type="checkbox" data-action="toggle-fp-item" data-group="${esc(i.group)}" data-value="${esc(i.value)}" ${isChecked ? 'checked' : ''} ${i.disabled ? 'disabled' : ''}>
-                    <span class="fp-name">${esc(i.name)}</span>
-                    ${i.count !== undefined ? `<span class="fp-count">${i.count}</span>` : ''}
-                </label>
-            `;
-        }).join('') + `</div>`;
+    return renderFilterList({
+        books: allBooks,
+        activeFilterTab,
+        fpSearchQuery,
+        pendingFilters
     });
-    return html;
 }
 
 function setFilterTab(tab) {
@@ -801,7 +684,7 @@ function closeFilterPanel() {
 }
 
 function clearFilterPanel() {
-    pendingFilters = { sort: null, format: null, category: new Set(), topic: new Set() };
+    pendingFilters = createEmptyFilters();
     $("#fp-list-container").innerHTML = renderFpList();
     updateApplyButton();
 }
@@ -934,113 +817,18 @@ function clearSearch() {
     searchInput.focus();
 }
 
-// ═══ SMART SEARCH SCORING ═══
-function scoreBook(book, query) {
-    const q = query.toLowerCase();
-    const title = book.title.toLowerCase();
-    const cleanedTitle = cleanTitle(book.title).toLowerCase();
-    const topic = book.topic.toLowerCase();
-    const category = book.category.toLowerCase();
-    const desc = (book.description || "").toLowerCase();
-
-    // Tokenize query for multi-word matching
-    const tokens = q.split(/\s+/).filter(t => t.length > 0);
-    let score = 0;
-
-    // Exact full query match in title → highest score
-    if (title.includes(q) || cleanedTitle.includes(q)) score += 100;
-    // Exact match in topic
-    if (topic.includes(q)) score += 60;
-    // Exact match in category
-    if (category.includes(q)) score += 40;
-    // Exact match in description
-    if (desc.includes(q)) score += 20;
-
-    // Token-based matching (each token contributes)
-    for (const token of tokens) {
-        if (title.includes(token) || cleanedTitle.includes(token)) score += 30;
-        if (topic.includes(token)) score += 15;
-        if (category.includes(token)) score += 10;
-        if (desc.includes(token)) score += 5;
-    }
-
-    // Title starts with query → bonus
-    if (cleanedTitle.startsWith(q)) score += 50;
-
-    return score;
-}
-
 // ═══ FILTER + SORT ═══
 function applyFilters() {
-    const q = searchInput.value.toLowerCase().trim();
-    const { sort: sortDir, format: fmtFilter, category: catSet, topic: topicSet } = activeFilters;
-    const { category: sbCat, topic: sbTopic } = sidebarSelection;
-    const hasDropdownFilter = fmtFilter || catSet.size > 0 || topicSet.size > 0;
-
-    // Handle special sidebar view modes
-    if (sidebarViewMode === 'archive') {
-        const archivedIds = getArchivedBooks();
-        filteredBooks = archivedIds.map(id => allBooks.find(b => b.id === id)).filter(Boolean);
-        currentPage = 1;
-        renderBooks();
-        renderPagination();
-        return;
-    }
-    if (sidebarViewMode === 'recent') {
-        const recentIds = getRecentBooks();
-        filteredBooks = recentIds.map(id => allBooks.find(b => b.id === id)).filter(Boolean);
-        currentPage = 1;
-        renderBooks();
-        renderPagination();
-        return;
-    }
-
-    if (q && isGlobalSearch) {
-        // GLOBAL search: search ALL books, then apply panel filters
-        const scored = allBooks
-            .map(b => ({ book: b, score: scoreBook(b, q) }))
-            .filter(item => item.score > 0);
-
-        let filtered = scored;
-        if (fmtFilter) filtered = filtered.filter(i => i.book.formats.includes(fmtFilter));
-        if (catSet.size > 0) filtered = filtered.filter(i => catSet.has(i.book.category));
-        if (topicSet.size > 0) filtered = filtered.filter(i => topicSet.has(i.book.topic));
-
-        if (sortDir === "az") {
-            filtered.sort((a, b) => cleanTitle(a.book.title).localeCompare(cleanTitle(b.book.title)));
-        } else if (sortDir === "za") {
-            filtered.sort((a, b) => cleanTitle(b.book.title).localeCompare(cleanTitle(a.book.title)));
-        } else {
-            filtered.sort((a, b) => b.score - a.score);
-        }
-        filteredBooks = filtered.map(item => item.book);
-    } else {
-        // Panel filters take priority, fallback to sidebar
-        if (hasDropdownFilter) {
-            filteredBooks = allBooks.filter(b =>
-                (catSet.size === 0 || catSet.has(b.category)) &&
-                (topicSet.size === 0 || topicSet.has(b.topic)) &&
-                (!fmtFilter || b.formats.includes(fmtFilter))
-            );
-        } else {
-            filteredBooks = allBooks.filter(b =>
-                (!sbCat || b.category === sbCat) &&
-                (!sbTopic || b.topic === sbTopic || b.topic.startsWith(sbTopic + '/'))
-            );
-        }
-
-        // Discover mode: shuffle
-        if (sidebarViewMode === 'discover' && !q) {
-            filteredBooks = shuffleArray([...filteredBooks]);
-        }
-
-        if (sortDir === "az") {
-            filteredBooks.sort((a, b) => cleanTitle(a.title).localeCompare(cleanTitle(b.title)));
-        } else if (sortDir === "za") {
-            filteredBooks.sort((a, b) => cleanTitle(b.title).localeCompare(cleanTitle(a.title)));
-        }
-    }
-
+    filteredBooks = getFilteredBooks({
+        books: allBooks,
+        query: searchInput.value,
+        isGlobalSearch,
+        filters: activeFilters,
+        sidebarSelection,
+        sidebarViewMode,
+        archivedIds: getArchivedBooks(),
+        recentIds: getRecentBooks()
+    });
     currentPage = 1;
     renderBooks();
     renderPagination();
@@ -1072,93 +860,11 @@ function renderBooks() {
     const end = start + booksPerPage;
     const pageBooks = filteredBooks.slice(start, end);
 
-    grid.innerHTML = pageBooks.map((book, i) => {
-        const delay = Math.min(i * 30, 300);
-        const title = cleanTitle(book.title);
-        const n = getCatNum(book.category);
-        const fallback = placeholderDataUrl(title);
-        const cover = safeCoverSrc(book.cover, title);
-        return `<div class="card fade-in" style="animation-delay:${delay}ms" data-action="open-book" data-book-id="${esc(book.id)}" tabindex="0" role="button" aria-label="${esc(title)}">
-            <div class="card-cover">
-                <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" data-fallback-src="${esc(fallback)}">
-                <div class="card-overlay">
-                    <span class="card-view"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>View</span>
-                </div>
-            </div>
-            <div class="card-info">
-                <div class="card-title">${esc(title)}</div>
-                <div><span class="card-badge badge-${n}">${esc(book.topic)}</span></div>
-                <div class="card-desc-list">${esc((book.description || "").substring(0, 200))}${book.description && book.description.length > 200 ? "..." : ""}</div>
-            </div>
-        </div>`;
-    }).join("");
+    grid.innerHTML = pageBooks.map(renderBookCard).join("");
 }
 
 function renderCollectionsView() {
-    // Group books: category → topic → books[]
-    const groups = {};
-    filteredBooks.forEach(b => {
-        if (!groups[b.category]) groups[b.category] = {};
-        if (!groups[b.category][b.topic]) groups[b.category][b.topic] = [];
-        groups[b.category][b.topic].push(b);
-    });
-
-    const sortedCats = Object.keys(groups).sort((a, b) => a.localeCompare(b));
-    let html = '';
-
-    for (const cat of sortedCats) {
-        const n = getCatNum(cat);
-        const topics = groups[cat];
-        const sortedTopics = Object.keys(topics).sort((a, b) => a.localeCompare(b));
-
-        html += `<div class="coll-category fade-in">
-            <div class="coll-cat-header">
-                <svg class="coll-cat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
-                <span class="coll-cat-name">${esc(cat)}</span>
-                <span class="coll-cat-count">${allBooks.filter(b => b.category === cat).length}</span>
-            </div>`;
-
-        for (const topic of sortedTopics) {
-            const allBooksInTopic = topics[topic];
-            const maxDisplay = 10;
-            const books = allBooksInTopic.slice(0, maxDisplay);
-            const hasMore = allBooksInTopic.length > maxDisplay;
-            const topicDisplay = topic.includes('/') ? topic.split('/').pop() : topic;
-
-            html += `<div class="coll-topic">
-                <div class="coll-topic-header">
-                    <span class="coll-topic-name">${esc(topicDisplay)}</span>
-                    <span class="coll-topic-count">${allBooksInTopic.length} books</span>
-                </div>
-                <div class="coll-scroll-row">`;
-
-            for (const book of books) {
-                const title = cleanTitle(book.title);
-                const fallback = placeholderDataUrl(title);
-                const cover = safeCoverSrc(book.cover, title);
-                html += `<div class="coll-card" data-action="open-book" data-book-id="${esc(book.id)}" tabindex="0" role="button" aria-label="${esc(title)}">
-                    <div class="coll-card-cover">
-                        <img src="${esc(cover)}" alt="${esc(title)}" loading="lazy" data-fallback-src="${esc(fallback)}">
-                    </div>
-                    <div class="coll-card-title">${esc(title)}</div>
-                </div>`;
-            }
-
-            if (hasMore) {
-                html += `<div class="coll-view-more-card" data-action="view-topic" data-cat="${esc(cat)}" data-topic="${esc(topic)}" tabindex="0" role="button">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:28px;height:28px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    <span>View All<br>(${allBooksInTopic.length - maxDisplay} more)</span>
-                </div>`;
-            }
-
-            html += `</div></div>`;
-        }
-
-        html += `</div>`;
-    }
-
-    grid.innerHTML = html;
-    // Hide pagination for collections view
+    grid.innerHTML = renderCollectionsHtml({ books: filteredBooks, allBooks });
     paginationEl.innerHTML = "";
 }
 
@@ -1170,42 +876,8 @@ function renderPagination() {
     }
     const total = filteredBooks.length;
     const totalPages = Math.ceil(total / booksPerPage);
-    if (totalPages <= 1) { paginationEl.innerHTML = ""; return; }
-
-    let html = '';
-    html += `<button class="page-btn page-arrow" ${currentPage===1?'disabled':''} data-action="go-page" data-page="${currentPage-1}" title="Previous" aria-label="Previous page">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-    </button>`;
-
     const pages = getPageNumbers(currentPage, totalPages);
-    pages.forEach(p => {
-        if (p === '...') {
-            html += `<span class="page-ellipsis">…</span>`;
-        } else {
-            html += `<button class="page-btn ${p===currentPage?'active':''}" data-action="go-page" data-page="${p}" aria-label="Page ${p}">${p}</button>`;
-        }
-    });
-
-    html += `<button class="page-btn page-arrow" ${currentPage===totalPages?'disabled':''} data-action="go-page" data-page="${currentPage+1}" title="Next" aria-label="Next page">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-    </button>`;
-
-    const startItem = (currentPage - 1) * booksPerPage + 1;
-    const endItem = Math.min(currentPage * booksPerPage, total);
-    html += `<span class="page-info">${startItem}–${endItem} of ${total}</span>`;
-
-    paginationEl.innerHTML = html;
-}
-
-function getPageNumbers(current, total) {
-    if (total <= 7) return Array.from({length: total}, (_, i) => i + 1);
-    const pages = [];
-    pages.push(1);
-    if (current > 3) pages.push('...');
-    for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) pages.push(i);
-    if (current < total - 2) pages.push('...');
-    pages.push(total);
-    return pages;
+    paginationEl.innerHTML = renderPaginationControls({ currentPage, totalPages, total, booksPerPage, pages });
 }
 
 function goToPage(page) {
@@ -1222,37 +894,6 @@ function goToPage(page) {
 }
 
 // ═══ SAFE URLS & PLACEHOLDER SVG ═══
-function placeholderDataUrl(title) {
-    return "data:image/svg+xml," + encodeURIComponent(placeholderSVG(title));
-}
-
-function safeCoverSrc(cover, title) {
-    const fallback = placeholderDataUrl(title);
-    if (!cover) return fallback;
-    if (cover.startsWith("data:image/svg+xml,")) return cover;
-    if (/^assets\/covers\/[-\w.%/]+\.webp$/i.test(cover)) return cover;
-    return fallback;
-}
-
-function safeDownloadUrl(url) {
-    if (!url) return "#";
-    try {
-        const parsed = new URL(url, location.href);
-        const allowedProtocols = new Set(["http:", "https:", "file:"]);
-        if (!allowedProtocols.has(parsed.protocol)) return "#";
-        return parsed.href;
-    } catch {
-        return "#";
-    }
-}
-
-function placeholderSVG(title) {
-    const colors = ["2997ff", "30d158", "ff9f0a", "ff375f", "bf5af2", "64d2ff"];
-    const c = colors[Math.abs(hash(title)) % colors.length];
-    const ini = title.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase();
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><rect width="300" height="400" fill="#1c1c1e"/><rect x="16" y="16" width="268" height="368" rx="12" fill="#2c2c2e" stroke="#${c}" stroke-width="1.5" stroke-opacity="0.2"/><text x="150" y="200" text-anchor="middle" fill="#${c}" font-size="56" font-family="system-ui" font-weight="700">${ini}</text><text x="150" y="300" text-anchor="middle" fill="#a1a1a6" font-size="13" font-family="system-ui">${escXml(title.substring(0, 28))}</text></svg>`;
-}
-
 // ═══ DETAIL VIEW (SPA) ═══
 function showDetailView(bookId, pushHistory = true) {
     const b = allBooks.find(x => x.id === bookId);
@@ -1261,69 +902,15 @@ function showDetailView(bookId, pushHistory = true) {
     addRecentBook(bookId);
 
     const title = cleanTitle(b.title);
-    const n = getCatNum(b.category);
-    const fallback = placeholderDataUrl(title);
-    const cover = safeCoverSrc(b.cover, title);
-    const desc = b.description || `A book in "${b.topic}" of "${b.category}".`;
-
-    // Related books
     const related = getRelatedBooks(b);
 
     const dv = $("#dv-content");
-    dv.innerHTML = `
-        <div class="dv-hero">
-            <div class="dv-cover-wrap">
-                <img class="dv-cover" src="${esc(cover)}" alt="${esc(title)}" data-fallback-src="${esc(fallback)}">
-            </div>
-            <div class="dv-info">
-                <h1 class="dv-title">${esc(title)}</h1>
-                <div class="dv-tags">
-                    <span class="dv-tag badge-${n}">${getCatIcon(b.category)} ${esc(b.category)}</span>
-                    <span class="dv-tag dv-tag-topic">${esc(b.topic)}</span>
-                    ${b.formats.map(f => `<span class="dv-tag dv-tag-fmt">${f.toUpperCase()}</span>`).join('')}
-                </div>
-                <p class="dv-desc">${esc(desc)}</p>
-                <div class="dv-actions">
-                    ${b.formats.map(f => {
-                        const fUrl = safeDownloadUrl(getDownloadUrl(b.files[f], b.downloads[f]));
-                        return `<a href="${esc(fUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary" download data-action="archive-download" data-book-id="${esc(bookId)}">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                            Download ${f.toUpperCase()}
-                        </a>`;
-                    }).join('')}
-                    <button class="btn-secondary" data-action="toggle-archive" data-book-id="${esc(bookId)}" id="dv-archive-btn">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
-                        ${getArchivedBooks().includes(bookId) ? 'Archived ✓' : 'Archive'}
-                    </button>
-                    <button class="btn-secondary" data-action="share-book">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
-                        Share
-                    </button>
-                </div>
-            </div>
-        </div>
-        ${related.length ? `
-        <div class="dv-related">
-            <h2 class="dv-related-title">Related Books</h2>
-            <div class="dv-related-grid">
-                ${related.map(rb => {
-                    const rTitle = cleanTitle(rb.title);
-                    const rN = getCatNum(rb.category);
-                    const rFallback = placeholderDataUrl(rTitle);
-                    const rCover = safeCoverSrc(rb.cover, rTitle);
-                    return `<div class="card fade-in" data-action="open-book" data-book-id="${esc(rb.id)}" tabindex="0" role="button" aria-label="${esc(rTitle)}">
-                        <div class="card-cover">
-                            <img src="${esc(rCover)}" alt="${esc(rTitle)}" loading="lazy" data-fallback-src="${esc(rFallback)}">
-                        </div>
-                        <div class="card-info">
-                            <div class="card-title">${esc(rTitle)}</div>
-                            <span class="card-badge badge-${rN}">${esc(rb.topic)}</span>
-                        </div>
-                    </div>`;
-                }).join("")}
-            </div>
-        </div>` : ""}
-    `;
+    dv.innerHTML = renderDetailContent({
+        book: b,
+        relatedBooks: related,
+        isArchived: getArchivedBooks().includes(bookId),
+        getFormatUrl: format => safeDownloadUrl(getDownloadUrl(b.files[format], b.downloads[format]))
+    });
 
     // Switch views
     if (homeView.style.display !== "none") {
@@ -1337,9 +924,7 @@ function showDetailView(bookId, pushHistory = true) {
 
     // Update URL
     if (pushHistory) {
-        const u = new URL(location);
-        u.searchParams.set("book", bookId);
-        history.pushState({ bookId }, "", u);
+        history.pushState({ bookId }, "", getBookUrl(b));
     }
 
     // Update page title
@@ -1356,18 +941,12 @@ function showHomeView(pushHistory = true) {
     document.title = "My Bookshelves";
 
     if (pushHistory) {
-        const u = new URL(location);
-        u.searchParams.delete("book");
-        history.pushState(null, "", u);
+        history.pushState(null, "", getHomeUrl());
     }
 }
 
-function handlePopState(e) {
-    if (e.state && e.state.bookId) {
-        showDetailView(e.state.bookId, false);
-    } else {
-        showHomeView(false);
-    }
+function handlePopState() {
+    applyUrlRoute(false);
 }
 
 // ═══ RELATED BOOKS ═══
@@ -1385,12 +964,12 @@ function getRelatedBooks(book) {
 // ═══ SHARE ═══
 function shareBook() {
     if (!currentBookId) return;
-    const u = new URL(location);
-    u.searchParams.set("book", currentBookId);
-    navigator.clipboard.writeText(u.toString())
+    const book = allBooks.find(b => b.id === currentBookId);
+    const url = book ? getBookUrl(book) : location.href;
+    navigator.clipboard.writeText(url)
         .then(() => showToast("Link copied to clipboard!"))
         .catch(() => {
-            const inp = document.createElement("input"); inp.value = u.toString();
+            const inp = document.createElement("input"); inp.value = url;
             document.body.appendChild(inp); inp.select(); document.execCommand("copy");
             document.body.removeChild(inp); showToast("Link copied to clipboard!");
         });
@@ -1413,64 +992,67 @@ function toggleArchiveBook(bookId) {
     }
 }
 
-function checkUrlBookParam() {
+function resetBrowseFilters() {
+    searchInput.value = "";
+    activeFilters = createEmptyFilters();
+    pendingFilters = copyFilters(activeFilters);
+    isGlobalSearch = false;
+    updateSearchModeUI();
+    updateFilterBadge();
+}
+
+function selectCategoryByName(category, pushHistory = true) {
+    sidebarViewMode = 'collections';
+    sidebarSelection = { category, topic: "" };
+    const catBtn = document.querySelector(`.sb-cat[data-cat="${cssEscape(category)}"]`);
+    if (catBtn) {
+        setSidebarDisclosure(catBtn, catBtn.nextElementSibling, catBtn.querySelector(".sb-chevron"), true);
+    }
+    updateSidebarUI();
+    updateBrowseRoute(category, "", pushHistory);
+    applyFilters();
+}
+
+function updateHomeRoute(pushHistory = true) {
+    if (pushHistory) history.pushState(null, "", getHomeUrl());
+}
+
+function updateBrowseRoute(category, topic = "", pushHistory = true) {
+    if (!pushHistory) return;
+    history.pushState({ category, topic }, "", getBrowseUrl(category, topic));
+}
+
+function applyUrlRoute(pushHistory = false) {
     const id = new URLSearchParams(location.search).get("book");
-    if (id) requestAnimationFrame(() => showDetailView(id, false));
+    if (id) {
+        requestAnimationFrame(() => showDetailView(id, pushHistory));
+        return;
+    }
+
+    const route = resolveRouteFromPath(allBooks);
+    if (!route) return;
+
+    requestAnimationFrame(() => {
+        resetBrowseFilters();
+        if (route.type === "book") {
+            showDetailView(route.book.id, pushHistory);
+            if (route.fromRedirect && !pushHistory) history.replaceState({ bookId: route.book.id }, "", route.canonicalUrl);
+            return;
+        }
+        if (route.type === "category") {
+            selectCategoryByName(route.category, pushHistory);
+            if (route.fromRedirect && !pushHistory) history.replaceState({ category: route.category, topic: "" }, "", route.canonicalUrl);
+            return;
+        }
+        if (route.type === "topic") {
+            sidebarSelectTopicByNames(route.category, route.topic, pushHistory);
+            if (route.fromRedirect && !pushHistory) history.replaceState({ category: route.category, topic: route.topic }, "", route.canonicalUrl);
+        }
+    });
 }
 
 function showToast(msg) {
     $("#toast-msg").textContent = msg;
     const t = $("#toast"); t.classList.add("show");
     setTimeout(() => t.classList.remove("show"), 2500);
-}
-
-// ═══ DOWNLOAD URL ═══
-function getDownloadUrl(fp, downloadUrl) {
-    if (downloadUrl) return downloadUrl;
-    const local = location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:";
-    if (local) return "../" + encodeURI(fp);
-    return `https://raw.githubusercontent.com/${CONFIG.githubRepo}/${CONFIG.branch}/${encodeURI(fp)}`;
-}
-
-// ═══ UTILS ═══
-function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
-function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
-function escXml(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-function cssEscape(s) { return window.CSS && CSS.escape ? CSS.escape(s) : String(s).replace(/"/g, '\\"'); }
-function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; } return h; }
-function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-}
-function cleanTitle(t) {
-    const lowerWords = ["a","an","the","and","or","but","in","on","of","to","for","with","by","at","from","as","is"];
-    return t.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim()
-        .split(" ")
-        .map((w, i) => {
-            const lower = w.toLowerCase();
-            return (i > 0 && lowerWords.includes(lower))
-                ? lower
-                : lower.charAt(0).toUpperCase() + lower.slice(1);
-        })
-        .join(" ");
-}
-function mergeBooks(books) {
-    const groups = {};
-    books.forEach(b => {
-        const key = cleanTitle(b.title);
-        if (!groups[key]) {
-            groups[key] = { ...b, formats: [b.format], downloads: { [b.format]: b.download_url || '' }, files: { [b.format]: b.file_path } };
-        } else {
-            groups[key].formats.push(b.format);
-            groups[key].downloads[b.format] = b.download_url || '';
-            groups[key].files[b.format] = b.file_path;
-            if (!groups[key].description && b.description) groups[key].description = b.description;
-            if (!groups[key].cover && b.cover) groups[key].cover = b.cover;
-            if (!groups[key].download_url && b.download_url) groups[key].download_url = b.download_url;
-        }
-    });
-    return Object.values(groups);
 }

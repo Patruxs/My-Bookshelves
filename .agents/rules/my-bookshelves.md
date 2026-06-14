@@ -56,6 +56,7 @@ Book names: use ONLY `_`; do NOT use spaces/`-`/`+`/`.`. Vietnamese titles must 
 - **SPA**: View switching (`#home-view`/`#detail-view`), `history.pushState` -> `?book=id`.
 - **Pagination**: Dynamic `calculateBooksPerPage()` - a multiple of the column count, recalculated on resize.
 - **Cache busting**: `fetch("data.json?v=" + Date.now(), {cache:"no-store"})`.
+- **Smoke checks**: Run `python scripts/cli.py smoke --base-dir .` after frontend refactors.
 
 ## 5. PYTHON SCRIPTS
 
@@ -117,6 +118,7 @@ Exception: `!library_structure.log` may be committed.
 | `structure` | Update library_structure.log |
 | `doctor` | Validate repo health, dependencies, metadata, covers |
 | `validate` | Alias for `doctor` |
+| `smoke` | Smoke check static site contracts |
 | `upload --dry-run` | Preview upload (REQUIRED) |
 | `upload` | Upload NEW books |
 | `upload --force` | Re-upload everything |
