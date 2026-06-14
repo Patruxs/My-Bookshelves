@@ -819,6 +819,9 @@ function clearSearch() {
 
 // ═══ FILTER + SORT ═══
 function applyFilters() {
+    if (detailView.style.display !== "none") {
+        showHomeView(false);
+    }
     filteredBooks = getFilteredBooks({
         books: allBooks,
         query: searchInput.value,
