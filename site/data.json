@@ -583,6 +583,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_microservices_designing_fine_grained_systems.pdf"
   },
   {
+    "id": "3af64242ad6b",
+    "title": "Bytebytego_Big_Archive_System_Design_2025",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Bytebytego_Big_Archive_System_Design_2025.pdf",
+    "cover": "assets/covers/Bytebytego_Big_Archive_System_Design_2025.webp",
+    "format": "pdf",
+    "description": "The ByteByteGo Big Archive addresses the challenge of understanding complex modern system architectures and large-scale technical designs.\n\nThis comprehensive guide by ByteByteGo compiles modern system design principles, real-world case studies, and architectural patterns used by major tech companies.\n\n• Master the core components of large-scale distributed systems\n• Learn how to design scalable and resilient architectures\n• Explore real-world case studies from top tech companies\n• Build confidence in tackling complex system design problems",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Bytebytego_Big_Archive_System_Design_2025.pdf"
+  },
+  {
     "id": "222405d41264",
     "title": "Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship",
     "category": "Software Engineering",
@@ -746,6 +757,28 @@
     "format": "pdf",
     "description": "Programming interviews can feel unpredictable because they combine algorithms, communication, debugging, and career judgment in a compressed format. Strong preparation means knowing how to think through problems as much as knowing individual answers.\n\nProgramming Interviews Exposed: Coding Your Way Through the Interview gives practical guidance for navigating technical hiring, from core data structures and algorithms to problem-solving habits and interview strategy. Its approach is grounded in realistic examples that help candidates prepare for both coding questions and the broader interview process.\n\n• Master essential algorithms, data structures, and coding interview techniques\n• Build a practical framework for attacking unfamiliar programming problems\n• Learn how to communicate assumptions, tradeoffs, and complexity clearly\n• Explore common interview formats and preparation strategies\n• Improve confidence for phone screens, whiteboard sessions, and coding tests",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf"
+  },
+  {
+    "id": "f8ce6cafc518",
+    "title": "System_Design_Interview_An_Insider_s_Guide_Volume_2",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/System_Design_Interview_An_Insider_s_Guide_Volume_2.pdf",
+    "cover": "assets/covers/System_Design_Interview_An_Insider_s_Guide_Volume_2.webp",
+    "format": "pdf",
+    "description": "As you advance to senior-level engineering roles, system design interviews become increasingly complex and require deeper architectural knowledge.\n\nVolume 2 by Alex Xu and Sahn Lam builds upon the first book, offering advanced scenarios and more sophisticated system designs encountered in top-tier tech company interviews.\n\n• Master complex, large-scale system designs like Google Maps and payment systems\n• Learn advanced techniques for consistency, availability, and fault tolerance\n• Explore deep-dive architectural discussions expected of senior engineers\n• Build upon foundational knowledge with nuanced, real-world constraints",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/System_Design_Interview_An_Insider_s_Guide_Volume_2.pdf"
+  },
+  {
+    "id": "d7ed8f986f43",
+    "title": "System_Design_Interview_an_Insider_s_Guide_Second_Edition",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/System_Design_Interview_an_Insider_s_Guide_Second_Edition.pdf",
+    "cover": "assets/covers/System_Design_Interview_an_Insider_s_Guide_Second_Edition.webp",
+    "format": "pdf",
+    "description": "Preparing for system design interviews can be overwhelming due to the lack of structured material and the broad scope of possible questions.\n\nThis second edition by Alex Xu provides a reliable, step-by-step framework for tackling system design questions, complete with detailed illustrations and real-world examples.\n\n• Master a structured 4-step framework for any system design interview\n• Learn how to scale systems from zero to millions of users\n• Explore detailed solutions to common interview questions\n• Build deep understanding of databases, caches, and communication protocols",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/System_Design_Interview_an_Insider_s_Guide_Second_Edition.pdf"
   },
   {
     "id": "3b4f6c67528a",
