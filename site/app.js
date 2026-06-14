@@ -1030,7 +1030,14 @@ function applyUrlRoute(pushHistory = false) {
     }
 
     const route = resolveRouteFromPath(allBooks);
-    if (!route) return;
+    if (!route) {
+        requestAnimationFrame(() => {
+            resetBrowseFilters();
+            sidebarSelectAll(false);
+            showHomeView(false);
+        });
+        return;
+    }
 
     requestAnimationFrame(() => {
         resetBrowseFilters();
