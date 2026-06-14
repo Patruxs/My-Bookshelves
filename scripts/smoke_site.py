@@ -8,11 +8,14 @@ break during frontend refactors.
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import re
 import sys
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
 
 REQUIRED_BOOK_FIELDS = {
@@ -165,6 +168,38 @@ def validate_js_imports(site_dir: Path, failures: list[str]) -> None:
                 fail(f"{js_file.relative_to(site_dir.parent)}: missing import {import_path}", failures)
 
 
+def validate_download_urls(books: list[dict[str, object]], failures: list[str]) -> None:
+    """Check that published download URLs are reachable."""
+    targets: list[tuple[str, str]] = []
+    for index, book in enumerate(books):
+        label = str(book.get("title") or f"book #{index}")
+        download_url = str(book.get("download_url") or "")
+        if download_url:
+            targets.append((label, download_url))
+
+    def check(label_and_url: tuple[str, str]) -> str | None:
+        label, download_url = label_and_url
+        request = Request(download_url, method="HEAD", headers={"User-Agent": "my-bookshelves-smoke"})
+        try:
+            with urlopen(request, timeout=20) as response:
+                if response.status >= 400:
+                    return f"{label}: download_url returned HTTP {response.status}: {download_url}"
+        except HTTPError as exc:
+            return f"{label}: download_url returned HTTP {exc.code}: {download_url}"
+        except URLError as exc:
+            return f"{label}: download_url could not be reached: {exc.reason}: {download_url}"
+        except TimeoutError:
+            return f"{label}: download_url timed out: {download_url}"
+        return None
+
+    with ThreadPoolExecutor(max_workers=12) as executor:
+        futures = [executor.submit(check, target) for target in targets]
+        for future in as_completed(futures):
+            failure = future.result()
+            if failure:
+                fail(failure, failures)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Smoke check the static site.")
     parser.add_argument("--base-dir", default=".", help="Repository root")
@@ -172,6 +207,11 @@ def main() -> int:
         "--allow-missing-download-url",
         action="store_true",
         help="Allow new generated books before the upload step has filled download_url",
+    )
+    parser.add_argument(
+        "--check-download-urls",
+        action="store_true",
+        help="Perform network checks for each non-empty download_url",
     )
     args = parser.parse_args()
 
@@ -181,6 +221,8 @@ def main() -> int:
 
     books = load_json(site_dir / "data.json", failures)
     validate_books(site_dir, books, failures, args.allow_missing_download_url)
+    if args.check_download_urls:
+        validate_download_urls(books, failures)
     validate_html(site_dir, failures)
     validate_js_imports(site_dir, failures)
 

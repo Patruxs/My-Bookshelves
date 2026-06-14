@@ -136,6 +136,7 @@ def print_help() -> None:
     print("  python scripts/cli.py upload --dry-run")
     print("  python scripts/cli.py doctor --base-dir . --strict")
     print("  python scripts/cli.py smoke --base-dir .")
+    print("  python scripts/cli.py smoke --base-dir . --check-download-urls")
     print("  python scripts/cli.py smoke --base-dir . --allow-missing-download-url")
     print("  python scripts/cli.py validate --base-dir . --json")
     print("  python scripts/cli.py structure --base-dir .")
