@@ -22,17 +22,6 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Prefix_Trees_and_Tries.pdf"
   },
   {
-    "id": "9269763f0cb8",
-    "title": "MLCoBanVuHuuTiep",
-    "category": "Computer Science Fundamentals",
-    "topic": "Machine Learning",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/MLCoBanVuHuuTiep.pdf",
-    "cover": "assets/covers/MLCoBanVuHuuTiep.webp",
-    "format": "pdf",
-    "description": "Trí tuệ nhân tạo và học máy đang trở thành công nghệ cốt lõi trong nhiều lĩnh vực, nhưng việc nắm bắt vững nền tảng toán học và thuật toán cốt lõi thường là rào cản lớn đối với nhiều người mới bắt đầu.\n\nCuốn sách \"Machine Learning Cơ Bản\" của tác giả Vũ Hữu Tiệp là tài liệu kinh điển bằng tiếng Việt. Sách giúp người đọc xây dựng nền tảng tư duy vững chắc về học máy thông qua cách diễn đạt trực quan, dễ hiểu đi kèm với cơ sở toán học và mã nguồn Python thực hành.\n\n• Trình bày các khái niệm từ cơ bản đến nâng cao của Machine Learning.\n• Giải thích chi tiết các thuật toán phổ biến: Linear Regression, Logistic Regression, SVM, K-Means Clustering...\n• Cung cấp nền tảng toán học cần thiết gồm Đại số tuyến tính, Giải tích và Xác suất thống kê.\n• Minh họa trực quan qua code thực hành bằng Python.\n• Giúp xây dựng tư duy toán học thay vì chỉ biết cách sử dụng thư viện có sẵn.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Machine_Learning_co_ban.pdf"
-  },
-  {
     "id": "dafe48506436",
     "title": "Crafting_Interpreters",
     "category": "Computer Science Fundamentals",
@@ -53,6 +42,17 @@
     "format": "pdf",
     "description": "Computer science is not about computers — it is about ideas. Yet most programming courses focus on syntax and tools rather than the fundamental principles of computation, abstraction, and the nature of programs themselves.\n\nSICP, the legendary MIT textbook by Harold Abelson and Gerald Jay Sussman, transforms how you think about programming. Using Scheme as its vehicle, it explores procedural abstraction, data abstraction, modularity, state management, streams, and the construction of interpreters.\n\n• Master computational thinking through higher-order functions, recursion, and abstraction\n• Build interpreters and understand metalinguistic abstraction — programs that process programs\n• Explore lazy evaluation, streams, and the distinction between declarative and imperative knowledge\n• Understand the environment model of evaluation and how closures really work\n• Develop the mindset that separates great engineers from average programmers",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Structure_and_Interpretation_of_Computer_Programs.pdf"
+  },
+  {
+    "id": "020cb74b9e6f",
+    "title": "Eloquent_JavaScript",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/JavaScript",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/JavaScript/Eloquent_JavaScript.pdf",
+    "cover": "assets/covers/Eloquent_JavaScript.webp",
+    "format": "pdf",
+    "description": "JavaScript is everywhere — browsers, servers, mobile apps, IoT devices — yet its quirky design and rapid evolution make it one of the most misunderstood languages. Many developers use it daily without truly understanding closures, prototypes, or the event loop.\n\nEloquent JavaScript by Marijn Haverbeke is a modern, freely available masterpiece that teaches JavaScript as a real programming language. It covers everything from basic values to building complete web applications and server-side programs with Node.js.\n\n• Master JavaScript fundamentals: values, types, operators, functions, closures, and higher-order functions\n• Understand object-oriented and functional programming paradigms in JavaScript\n• Build interactive web applications: DOM manipulation, event handling, and HTTP requests\n• Explore Node.js: modules, file system, streams, and building HTTP servers\n• Work through challenging exercises and projects that solidify deep understanding",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Eloquent_JavaScript.pdf"
   },
   {
     "id": "d2269d4c4b45",
@@ -198,15 +198,26 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/TroubleShooting_Java_2th_edition.pdf"
   },
   {
-    "id": "020cb74b9e6f",
-    "title": "Eloquent_JavaScript",
+    "id": "e61a640e51b3",
+    "title": "Zero_To_Production_In_Rust_An_introduction_to_backend",
     "category": "Computer Science Fundamentals",
-    "topic": "Programming Languages/JavaScript",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/JavaScript/Eloquent_JavaScript.pdf",
-    "cover": "assets/covers/Eloquent_JavaScript.webp",
+    "topic": "Programming Languages/Rust",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Rust/Zero_To_Production_In_Rust_An_introduction_to_backend.pdf",
+    "cover": "assets/covers/Zero_To_Production_In_Rust_An_introduction_to_backend.webp",
     "format": "pdf",
-    "description": "JavaScript is everywhere — browsers, servers, mobile apps, IoT devices — yet its quirky design and rapid evolution make it one of the most misunderstood languages. Many developers use it daily without truly understanding closures, prototypes, or the event loop.\n\nEloquent JavaScript by Marijn Haverbeke is a modern, freely available masterpiece that teaches JavaScript as a real programming language. It covers everything from basic values to building complete web applications and server-side programs with Node.js.\n\n• Master JavaScript fundamentals: values, types, operators, functions, closures, and higher-order functions\n• Understand object-oriented and functional programming paradigms in JavaScript\n• Build interactive web applications: DOM manipulation, event handling, and HTTP requests\n• Explore Node.js: modules, file system, streams, and building HTTP servers\n• Work through challenging exercises and projects that solidify deep understanding",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Eloquent_JavaScript.pdf"
+    "description": "Building robust and scalable backend systems is a challenging endeavor that requires a solid grasp of systems programming, performance optimization, and reliable deployment strategies. Many developers face difficulties in transitioning from writing simple applications to deploying production-ready services that can handle high traffic while maintaining stability and safety.\n\n\"Zero To Production In Rust\" by Luca Palmieri is an in-depth guide that takes readers on a comprehensive journey from learning the fundamentals of the Rust programming language to building and deploying a fully functional, production-ready backend application. The book focuses on practical, real-world examples, emphasizing test-driven development, continuous integration, and best practices for creating maintainable and secure web services.\n\n• Master the fundamentals of the Rust programming language for backend development.\n• Build scalable and robust web applications using the Actix-web framework.\n• Implement robust error handling, database interactions, and secure authentication.\n• Establish effective continuous integration and deployment (CI/CD) pipelines.\n• Explore best practices for observability, telemetry, and monitoring in production environments.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Zero_To_Production_In_Rust_An_introduction_to_backend.pdf"
+  },
+  {
+    "id": "9269763f0cb8",
+    "title": "MLCoBanVuHuuTiep",
+    "category": "Computer Science Fundamentals",
+    "topic": "Machine Learning",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Machine_Learning/MLCoBanVuHuuTiep.pdf",
+    "cover": "assets/covers/MLCoBanVuHuuTiep.webp",
+    "format": "pdf",
+    "description": "Trí tuệ nhân tạo và học máy đang trở thành công nghệ cốt lõi trong nhiều lĩnh vực, nhưng việc nắm bắt vững nền tảng toán học và thuật toán cốt lõi thường là rào cản lớn đối với nhiều người mới bắt đầu.\n\nCuốn sách \"Machine Learning Cơ Bản\" của tác giả Vũ Hữu Tiệp là tài liệu kinh điển bằng tiếng Việt. Sách giúp người đọc xây dựng nền tảng tư duy vững chắc về học máy thông qua cách diễn đạt trực quan, dễ hiểu đi kèm với cơ sở toán học và mã nguồn Python thực hành.\n\n• Trình bày các khái niệm từ cơ bản đến nâng cao của Machine Learning.\n• Giải thích chi tiết các thuật toán phổ biến: Linear Regression, Logistic Regression, SVM, K-Means Clustering...\n• Cung cấp nền tảng toán học cần thiết gồm Đại số tuyến tính, Giải tích và Xác suất thống kê.\n• Minh họa trực quan qua code thực hành bằng Python.\n• Giúp xây dựng tư duy toán học thay vì chỉ biết cách sử dụng thư viện có sẵn.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Machine_Learning_co_ban.pdf"
   },
   {
     "id": "460cd643b663",
@@ -374,149 +385,6 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Observability_Engineering.pdf"
   },
   {
-    "id": "e8eeac74b015",
-    "title": "Database_Internals",
-    "category": "Software Engineering",
-    "topic": "Database",
-    "file_path": "Books/2_Software_Engineering/Database/Database_Internals.pdf",
-    "cover": "assets/covers/Database_Internals.webp",
-    "format": "pdf",
-    "description": "Developers interact with databases daily through ORMs and SQL, but few understand the sophisticated engineering hidden beneath the query interface — storage engines, indexing structures, replication protocols, and consensus algorithms.\n\nDatabase Internals by Alex Petrov is a deep technical exploration of how modern databases actually work, covering both single-node storage engines and distributed database architectures. It is essential reading for anyone building or operating data-intensive systems.\n\n• Understand B-Tree and LSM-Tree storage engines and their performance trade-offs\n• Explore on-disk data structures: page layouts, buffer pools, write-ahead logs, and compaction\n• Master replication strategies: leader-based, multi-leader, and leaderless replication\n• Study distributed consensus: Paxos, Raft, and failure detection mechanisms\n• Analyze real implementations: how PostgreSQL, Cassandra, and CockroachDB work internally",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Internals.pdf"
-  },
-  {
-    "id": "2a49bab2a8b7",
-    "title": "SQL_Performance_Explained",
-    "category": "Software Engineering",
-    "topic": "Database",
-    "file_path": "Books/2_Software_Engineering/Database/SQL_Performance_Explained.pdf",
-    "cover": "assets/covers/SQL_Performance_Explained.webp",
-    "format": "pdf",
-    "description": "Slow SQL queries are the most common performance bottleneck in web applications, yet most developers treat indexing as a black box — adding indexes randomly and hoping something works without understanding why.\n\nSQL Performance Explained by Markus Winand demystifies SQL indexing and query optimization in a vendor-neutral way. It teaches you to think like the database optimizer, making the right indexing decisions from the start.\n\n• Understand how B-Tree indexes work and why they make queries fast (or slow)\n• Read EXPLAIN plans and identify full table scans, index-only scans, and bitmap scans\n• Optimize JOIN strategies: nested loops, hash joins, and merge joins\n• Design efficient pagination, sorting, and filtering with proper index coverage\n• Avoid common anti-patterns: over-indexing, functions on indexed columns, and implicit type casts",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SQL_Performance_Explained.pdf"
-  },
-  {
-    "id": "25fa2ee30e98",
-    "title": "AWS_Certified_Cloud_Practitioner_Slides_v42",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/AWS_Certified_Cloud_Practitioner_Slides_v42.pdf",
-    "cover": "assets/covers/AWS_Certified_Cloud_Practitioner_Slides_v42.webp",
-    "format": "pdf",
-    "description": "Cloud computing has become the default infrastructure for modern applications, and the AWS Cloud Practitioner certification (CLF-C02) is the entry point for professionals looking to validate their cloud knowledge and advance their careers.\n\nThis comprehensive slide deck (v42) covers every exam domain with visual diagrams, concise explanations, and exam tips. It is the most popular free study resource used by tens of thousands of candidates worldwide.\n\n• Understand core AWS services: EC2, S3, RDS, Lambda, VPC, IAM, and CloudFormation\n• Learn cloud concepts: shared responsibility model, Well-Architected Framework, and pricing models\n• Explore security and compliance: encryption, MFA, CloudTrail, GuardDuty, and AWS Shield\n• Master billing and cost management: Free Tier, Reserved Instances, and Cost Explorer\n• Review exam strategies and practice questions for confident certification success",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AWS_Certified_Cloud_Practitioner_Slides_v42.pdf"
-  },
-  {
-    "id": "1a0c1554524f",
-    "title": "Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.pdf",
-    "cover": "assets/covers/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.webp",
-    "format": "pdf",
-    "description": "Amazon Web Services is the dominant cloud platform with hundreds of services. But knowing individual services in isolation is not enough — you need to understand how to combine them to build architectures that are secure, scalable, and cost-effective in the real world.\n\nAmazon Web Services in Action (Andreas Wittig, Michael Wittig, Manning) is the most comprehensive hands-on guide to AWS. The two authors share practical experience to help you avoid common mistakes when designing cloud architectures.\n\n• Core services: EC2, S3, RDS, VPC, IAM — production-ready usage patterns\n• Auto Scaling and load balancing for high availability\n• Lambda and serverless architectures with API Gateway\n• Infrastructure as Code with CloudFormation\n• Security best practices: least privilege, encryption, and audit logging",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.pdf"
-  },
-  {
-    "id": "821c332f866c",
-    "title": "Continuous_Delivery",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/Continuous_Delivery.pdf",
-    "cover": "assets/covers/Continuous_Delivery.webp",
-    "format": "pdf",
-    "description": "Shipping software often fails at the handoff between development, testing, operations, and release management. Manual deployments, fragile environments, and late integration make every release risky and slow.\n\nContinuous Delivery by Jez Humble and David Farley presents a disciplined approach to building, testing, and releasing software through automated pipelines. The book connects version control, deployment automation, infrastructure management, and organizational feedback loops into one delivery system.\n\n• Build deployment pipelines that make release readiness visible at all times\n• Automate build, test, configuration, and deployment steps for repeatability\n• Learn how to manage environments, databases, and infrastructure changes safely\n• Reduce release risk through small batches, fast feedback, and reliable rollback paths\n• Implement engineering practices that support frequent, low-stress delivery",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Continuous_Delivery.pdf"
-  },
-  {
-    "id": "fbb4d1e108fd",
-    "title": "DevOps_Roadmap_Ebook_2025",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/DevOps_Roadmap_Ebook_2025.pdf",
-    "cover": "assets/covers/DevOps_Roadmap_Ebook_2025.webp",
-    "format": "pdf",
-    "description": "The DevOps landscape in 2025 is vast and constantly evolving — containers, orchestration, infrastructure-as-code, observability, and GitOps are just the beginning. Without a clear roadmap, engineers waste months learning tools in the wrong order.\n\nThis DevOps Roadmap Ebook provides a structured learning path that takes you from foundational skills (Linux, networking, Git) through intermediate topics (Docker, CI/CD) to advanced practices (Kubernetes, Terraform, service mesh).\n\n• Build foundations: Linux administration, networking fundamentals, and Git version control\n• Master containerization: Docker images, multi-stage builds, Docker Compose, and registries\n• Implement CI/CD pipelines: GitHub Actions, Jenkins, GitLab CI, and deployment strategies\n• Orchestrate at scale: Kubernetes architecture, Helm charts, and cluster management\n• Automate infrastructure: Terraform, Ansible, and cloud-native monitoring with Prometheus & Grafana",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/DevOps_Roadmap_Ebook_2025.pdf"
-  },
-  {
-    "id": "655354e414c5",
-    "title": "GitOps_and_Kubernetes",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/GitOps_and_Kubernetes.pdf",
-    "cover": "assets/covers/GitOps_and_Kubernetes.webp",
-    "format": "pdf",
-    "description": "GitOps is a new paradigm transforming how teams deploy and manage Kubernetes clusters. Instead of running kubectl commands manually or maintaining complex scripts, GitOps uses a Git repository as the single source of truth — every change goes through a Pull Request.\n\nGitOps and Kubernetes (Billy Yuen et al., Manning) explains the GitOps methodology and how to implement it with popular tools like ArgoCD and Flux. It is ideal for platform engineers and DevOps teams looking to standardize their deployment workflow.\n\n• GitOps principles: declarative, versioned, automated, and continuously reconciled\n• ArgoCD: installation, application sync, RBAC, and notifications\n• Flux v2: GitRepository, Kustomization, and HelmRelease controllers\n• Multi-environment management: dev, staging, and production workflows\n• Secrets management in GitOps with Sealed Secrets and SOPS",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/GitOps_and_Kubernetes.pdf"
-  },
-  {
-    "id": "fc0aa4007e57",
-    "title": "Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.pdf",
-    "cover": "assets/covers/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.webp",
-    "format": "pdf",
-    "description": "Manual infrastructure provisioning does not scale — environments accumulate config drift and produce bugs that are hard to reproduce. Infrastructure as Code (IaC) solves this problem, and Terraform has become the de facto IaC tool for multi-cloud environments.\n\nTerraform in Action (Scott Winkler, Manning) is a hands-on guide to Terraform from fundamentals to advanced patterns. It teaches not just the syntax but also how to structure Terraform code for complex production environments.\n\n• Terraform fundamentals: providers, resources, state, and the plan/apply cycle\n• Modules: organizing reusable code and versioning strategies\n• Remote state: Terraform Cloud and S3 backend with state locking\n• Testing Terraform configurations with Terratest\n• Advanced patterns: workspaces, dynamic blocks, and meta-arguments",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.pdf"
-  },
-  {
-    "id": "5a7fb7522771",
-    "title": "Securing_Devops",
-    "category": "Software Engineering",
-    "topic": "DevOps",
-    "file_path": "Books/2_Software_Engineering/DevOps/Securing_Devops.pdf",
-    "cover": "assets/covers/Securing_Devops.webp",
-    "format": "pdf",
-    "description": "Security is often treated as a separate team's responsibility, bolted on at the end of a sprint. In the cloud-native era, that mindset is extremely dangerous — security must shift left and be integrated into every step of the CI/CD pipeline.\n\nSecuring DevOps (Julien Vehent, Manning) is a practical guide to DevSecOps — covering how to build secure deployment pipelines and protect infrastructure in cloud environments. The author is a veteran security engineer at Mozilla.\n\n• Security testing in CI/CD: SAST, DAST, and dependency scanning\n• Container security: image scanning, runtime protection, and least privilege\n• Secrets management: HashiCorp Vault, AWS Secrets Manager, and rotation\n• Monitoring and incident response: log analysis and anomaly detection\n• Compliance as Code: automating audit trails and compliance checks",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Securing_Devops.pdf"
-  },
-  {
-    "id": "2dcf380afc7e",
-    "title": "Docker_Cheatsheet",
-    "category": "Software Engineering",
-    "topic": "Docker",
-    "file_path": "Books/2_Software_Engineering/Docker/Docker_Cheatsheet.pdf",
-    "cover": "assets/covers/Docker_Cheatsheet.webp",
-    "format": "pdf",
-    "description": "Docker revolutionized the way developers build and ship applications. Container isolation solved the 'works on my machine' problem and laid the foundation for Kubernetes. But using Docker effectively requires mastering its core commands and workflows.\n\nDocker Cheatsheet is a quick-reference guide summarizing the most important Docker commands — covering images, containers, volumes, networking, and Docker Compose. Perfect for fast lookups during day-to-day development work.\n\n• Docker CLI essentials: build, run, ps, exec, logs, inspect\n• Image management: pull, push, tag, prune, and multi-stage builds\n• Volumes and bind mounts for persistent data storage\n• Network drivers: bridge, host, and overlay for container communication\n• Docker Compose: services, depends_on, and health checks",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_Cheatsheet.pdf"
-  },
-  {
-    "id": "09e43bad0fbd",
-    "title": "Docker_in_Action",
-    "category": "Software Engineering",
-    "topic": "Docker",
-    "file_path": "Books/2_Software_Engineering/Docker/Docker_in_Action.pdf",
-    "cover": "assets/covers/Docker_in_Action.webp",
-    "format": "pdf",
-    "description": "Containers have fundamentally changed how we build, ship, and run software. Docker is the core technology behind the container revolution — but using it correctly requires a deep understanding of how containers actually work, not just copying Dockerfiles.\n\nDocker in Action (Jeff Nickoloff, Stephen Kuenzli, Manning) is a comprehensive guide to Docker from fundamentals to production patterns. It explains the internal mechanics of Docker so you can debug and optimize more effectively.\n\n• Container internals: namespaces, cgroups, and union filesystems\n• Dockerfile best practices: layer caching, multi-stage builds, and security hardening\n• Volumes: named volumes, bind mounts, and tmpfs — knowing when to use each\n• Docker networking: published ports, user-defined networks, and DNS resolution\n• Docker Compose for local development and integration testing",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Action.pdf"
-  },
-  {
-    "id": "f8a7dccd2a2f",
-    "title": "Docker_in_Practice_Second_Edition",
-    "category": "Software Engineering",
-    "topic": "Docker",
-    "file_path": "Books/2_Software_Engineering/Docker/Docker_in_Practice_Second_Edition.pdf",
-    "cover": "assets/covers/Docker_in_Practice_Second_Edition.webp",
-    "format": "pdf",
-    "description": "Containers promise portability, but real projects quickly run into networking, storage, image design, security, and operational details. Teams need practical patterns that go beyond a first hello-world container.\n\nDocker in Practice, Second Edition by Ian Miell and Aidan Hobson Sayers collects hands-on techniques for using Docker across development and production workflows. It focuses on concrete recipes, tradeoffs, and command-line practices that help teams package and run applications consistently.\n\n• Build efficient Docker images and compose repeatable application environments\n• Learn practical container networking, volumes, registries, and runtime operations\n• Apply Docker patterns for testing, debugging, CI, and local development\n• Harden containers with safer defaults, smaller images, and clearer boundaries\n• Explore production-minded workflows for managing services with confidence",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Practice_Second_Edition.pdf"
-  },
-  {
-    "id": "5d8548007a0b",
-    "title": "Game_Programming_Patterns",
-    "category": "Software Engineering",
-    "topic": "Game Development",
-    "file_path": "Books/2_Software_Engineering/Game_Development/Game_Programming_Patterns.pdf",
-    "cover": "assets/covers/Game_Programming_Patterns.webp",
-    "format": "pdf",
-    "description": "Game developers face unique software engineering challenges: real-time performance constraints, complex state management, and rendering loops that must execute thousands of updates per second without stuttering.\n\nGame Programming Patterns by Robert Nystrom presents classic design patterns reimagined for game development. Written with humor and crystal-clear examples, it bridges the gap between academic software engineering and the practical realities of shipping games.\n\n• Implement the game loop pattern for consistent frame-rate-independent updates\n• Use the command pattern for input handling, undo systems, and replay functionality\n• Apply the component pattern to build flexible entity systems without deep inheritance\n• Optimize with object pools, flyweight patterns, and spatial partitioning for collision detection\n• Understand observer, state machine, and bytecode patterns in game-specific contexts",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Game_Programming_Patterns.pdf"
-  },
-  {
     "id": "c82c048f8658",
     "title": "Benjamin_Muschko_Certified_Kubernetes_Application_Developer_CKAD_Study_Guide_In_Depth_Guidance_and_Practice_O_Reilly_Media_2021",
     "category": "Software Engineering",
@@ -559,6 +427,39 @@
     "format": "pdf",
     "description": "Kubernetes has hundreds of resources and thousands of kubectl flags — memorizing them all is practically impossible. During CKA/CKAD exams or when handling production incidents, lookup speed directly determines your effectiveness.\n\nK8S Cheat Sheet is a quick-reference guide summarizing the most important Kubernetes commands and resource definitions, organized by functional group for fast lookup during day-to-day work.\n\n• kubectl commands: get, describe, apply, delete, exec, logs, port-forward\n• Resource management: Deployment, Service, ConfigMap, Secret, and Ingress\n• Namespaces and RBAC: ServiceAccount, Role, RoleBinding, and ClusterRole\n• Debugging: kubectl top, events, node conditions, and pod status\n• Imperative commands for exam speed: create deployment, expose, and run",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/K8S_CHEAT_SHEET.pdf"
+  },
+  {
+    "id": "e8eeac74b015",
+    "title": "Database_Internals",
+    "category": "Software Engineering",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering/Database/Database_Internals.pdf",
+    "cover": "assets/covers/Database_Internals.webp",
+    "format": "pdf",
+    "description": "Developers interact with databases daily through ORMs and SQL, but few understand the sophisticated engineering hidden beneath the query interface — storage engines, indexing structures, replication protocols, and consensus algorithms.\n\nDatabase Internals by Alex Petrov is a deep technical exploration of how modern databases actually work, covering both single-node storage engines and distributed database architectures. It is essential reading for anyone building or operating data-intensive systems.\n\n• Understand B-Tree and LSM-Tree storage engines and their performance trade-offs\n• Explore on-disk data structures: page layouts, buffer pools, write-ahead logs, and compaction\n• Master replication strategies: leader-based, multi-leader, and leaderless replication\n• Study distributed consensus: Paxos, Raft, and failure detection mechanisms\n• Analyze real implementations: how PostgreSQL, Cassandra, and CockroachDB work internally",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Internals.pdf"
+  },
+  {
+    "id": "2a49bab2a8b7",
+    "title": "SQL_Performance_Explained",
+    "category": "Software Engineering",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering/Database/SQL_Performance_Explained.pdf",
+    "cover": "assets/covers/SQL_Performance_Explained.webp",
+    "format": "pdf",
+    "description": "Slow SQL queries are the most common performance bottleneck in web applications, yet most developers treat indexing as a black box — adding indexes randomly and hoping something works without understanding why.\n\nSQL Performance Explained by Markus Winand demystifies SQL indexing and query optimization in a vendor-neutral way. It teaches you to think like the database optimizer, making the right indexing decisions from the start.\n\n• Understand how B-Tree indexes work and why they make queries fast (or slow)\n• Read EXPLAIN plans and identify full table scans, index-only scans, and bitmap scans\n• Optimize JOIN strategies: nested loops, hash joins, and merge joins\n• Design efficient pagination, sorting, and filtering with proper index coverage\n• Avoid common anti-patterns: over-indexing, functions on indexed columns, and implicit type casts",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/SQL_Performance_Explained.pdf"
+  },
+  {
+    "id": "5d8548007a0b",
+    "title": "Game_Programming_Patterns",
+    "category": "Software Engineering",
+    "topic": "Game Development",
+    "file_path": "Books/2_Software_Engineering/Game_Development/Game_Programming_Patterns.pdf",
+    "cover": "assets/covers/Game_Programming_Patterns.webp",
+    "format": "pdf",
+    "description": "Game developers face unique software engineering challenges: real-time performance constraints, complex state management, and rendering loops that must execute thousands of updates per second without stuttering.\n\nGame Programming Patterns by Robert Nystrom presents classic design patterns reimagined for game development. Written with humor and crystal-clear examples, it bridges the gap between academic software engineering and the practical realities of shipping games.\n\n• Implement the game loop pattern for consistent frame-rate-independent updates\n• Use the command pattern for input handling, undo systems, and replay functionality\n• Apply the component pattern to build flexible entity systems without deep inheritance\n• Optimize with object pools, flyweight patterns, and spatial partitioning for collision detection\n• Understand observer, state machine, and bytecode patterns in game-specific contexts",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Game_Programming_Patterns.pdf"
   },
   {
     "id": "c9ff0d84a76e",
@@ -715,6 +616,116 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Ultimate_System_Design_Playbook.pdf"
   },
   {
+    "id": "25fa2ee30e98",
+    "title": "AWS_Certified_Cloud_Practitioner_Slides_v42",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/AWS_Certified_Cloud_Practitioner_Slides_v42.pdf",
+    "cover": "assets/covers/AWS_Certified_Cloud_Practitioner_Slides_v42.webp",
+    "format": "pdf",
+    "description": "Cloud computing has become the default infrastructure for modern applications, and the AWS Cloud Practitioner certification (CLF-C02) is the entry point for professionals looking to validate their cloud knowledge and advance their careers.\n\nThis comprehensive slide deck (v42) covers every exam domain with visual diagrams, concise explanations, and exam tips. It is the most popular free study resource used by tens of thousands of candidates worldwide.\n\n• Understand core AWS services: EC2, S3, RDS, Lambda, VPC, IAM, and CloudFormation\n• Learn cloud concepts: shared responsibility model, Well-Architected Framework, and pricing models\n• Explore security and compliance: encryption, MFA, CloudTrail, GuardDuty, and AWS Shield\n• Master billing and cost management: Free Tier, Reserved Instances, and Cost Explorer\n• Review exam strategies and practice questions for confident certification success",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AWS_Certified_Cloud_Practitioner_Slides_v42.pdf"
+  },
+  {
+    "id": "1a0c1554524f",
+    "title": "Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.pdf",
+    "cover": "assets/covers/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.webp",
+    "format": "pdf",
+    "description": "Amazon Web Services is the dominant cloud platform with hundreds of services. But knowing individual services in isolation is not enough — you need to understand how to combine them to build architectures that are secure, scalable, and cost-effective in the real world.\n\nAmazon Web Services in Action (Andreas Wittig, Michael Wittig, Manning) is the most comprehensive hands-on guide to AWS. The two authors share practical experience to help you avoid common mistakes when designing cloud architectures.\n\n• Core services: EC2, S3, RDS, VPC, IAM — production-ready usage patterns\n• Auto Scaling and load balancing for high availability\n• Lambda and serverless architectures with API Gateway\n• Infrastructure as Code with CloudFormation\n• Security best practices: least privilege, encryption, and audit logging",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Andreas_Wittig_Michael_Wittig_Amazon_Web_Services_in_Action_2015_Manning_Publications_libgen_li.pdf"
+  },
+  {
+    "id": "821c332f866c",
+    "title": "Continuous_Delivery",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/Continuous_Delivery.pdf",
+    "cover": "assets/covers/Continuous_Delivery.webp",
+    "format": "pdf",
+    "description": "Shipping software often fails at the handoff between development, testing, operations, and release management. Manual deployments, fragile environments, and late integration make every release risky and slow.\n\nContinuous Delivery by Jez Humble and David Farley presents a disciplined approach to building, testing, and releasing software through automated pipelines. The book connects version control, deployment automation, infrastructure management, and organizational feedback loops into one delivery system.\n\n• Build deployment pipelines that make release readiness visible at all times\n• Automate build, test, configuration, and deployment steps for repeatability\n• Learn how to manage environments, databases, and infrastructure changes safely\n• Reduce release risk through small batches, fast feedback, and reliable rollback paths\n• Implement engineering practices that support frequent, low-stress delivery",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Continuous_Delivery.pdf"
+  },
+  {
+    "id": "fbb4d1e108fd",
+    "title": "DevOps_Roadmap_Ebook_2025",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/DevOps_Roadmap_Ebook_2025.pdf",
+    "cover": "assets/covers/DevOps_Roadmap_Ebook_2025.webp",
+    "format": "pdf",
+    "description": "The DevOps landscape in 2025 is vast and constantly evolving — containers, orchestration, infrastructure-as-code, observability, and GitOps are just the beginning. Without a clear roadmap, engineers waste months learning tools in the wrong order.\n\nThis DevOps Roadmap Ebook provides a structured learning path that takes you from foundational skills (Linux, networking, Git) through intermediate topics (Docker, CI/CD) to advanced practices (Kubernetes, Terraform, service mesh).\n\n• Build foundations: Linux administration, networking fundamentals, and Git version control\n• Master containerization: Docker images, multi-stage builds, Docker Compose, and registries\n• Implement CI/CD pipelines: GitHub Actions, Jenkins, GitLab CI, and deployment strategies\n• Orchestrate at scale: Kubernetes architecture, Helm charts, and cluster management\n• Automate infrastructure: Terraform, Ansible, and cloud-native monitoring with Prometheus & Grafana",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/DevOps_Roadmap_Ebook_2025.pdf"
+  },
+  {
+    "id": "655354e414c5",
+    "title": "GitOps_and_Kubernetes",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/GitOps_and_Kubernetes.pdf",
+    "cover": "assets/covers/GitOps_and_Kubernetes.webp",
+    "format": "pdf",
+    "description": "GitOps is a new paradigm transforming how teams deploy and manage Kubernetes clusters. Instead of running kubectl commands manually or maintaining complex scripts, GitOps uses a Git repository as the single source of truth — every change goes through a Pull Request.\n\nGitOps and Kubernetes (Billy Yuen et al., Manning) explains the GitOps methodology and how to implement it with popular tools like ArgoCD and Flux. It is ideal for platform engineers and DevOps teams looking to standardize their deployment workflow.\n\n• GitOps principles: declarative, versioned, automated, and continuously reconciled\n• ArgoCD: installation, application sync, RBAC, and notifications\n• Flux v2: GitRepository, Kustomization, and HelmRelease controllers\n• Multi-environment management: dev, staging, and production workflows\n• Secrets management in GitOps with Sealed Secrets and SOPS",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/GitOps_and_Kubernetes.pdf"
+  },
+  {
+    "id": "fc0aa4007e57",
+    "title": "Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.pdf",
+    "cover": "assets/covers/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.webp",
+    "format": "pdf",
+    "description": "Manual infrastructure provisioning does not scale — environments accumulate config drift and produce bugs that are hard to reproduce. Infrastructure as Code (IaC) solves this problem, and Terraform has become the de facto IaC tool for multi-cloud environments.\n\nTerraform in Action (Scott Winkler, Manning) is a hands-on guide to Terraform from fundamentals to advanced patterns. It teaches not just the syntax but also how to structure Terraform code for complex production environments.\n\n• Terraform fundamentals: providers, resources, state, and the plan/apply cycle\n• Modules: organizing reusable code and versioning strategies\n• Remote state: Terraform Cloud and S3 backend with state locking\n• Testing Terraform configurations with Terratest\n• Advanced patterns: workspaces, dynamic blocks, and meta-arguments",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Scott_Winkler_Terraform_in_Action_2021_Manning_libgen_li.pdf"
+  },
+  {
+    "id": "5a7fb7522771",
+    "title": "Securing_Devops",
+    "category": "Software Engineering",
+    "topic": "DevOps",
+    "file_path": "Books/2_Software_Engineering/DevOps/Securing_Devops.pdf",
+    "cover": "assets/covers/Securing_Devops.webp",
+    "format": "pdf",
+    "description": "Security is often treated as a separate team's responsibility, bolted on at the end of a sprint. In the cloud-native era, that mindset is extremely dangerous — security must shift left and be integrated into every step of the CI/CD pipeline.\n\nSecuring DevOps (Julien Vehent, Manning) is a practical guide to DevSecOps — covering how to build secure deployment pipelines and protect infrastructure in cloud environments. The author is a veteran security engineer at Mozilla.\n\n• Security testing in CI/CD: SAST, DAST, and dependency scanning\n• Container security: image scanning, runtime protection, and least privilege\n• Secrets management: HashiCorp Vault, AWS Secrets Manager, and rotation\n• Monitoring and incident response: log analysis and anomaly detection\n• Compliance as Code: automating audit trails and compliance checks",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Securing_Devops.pdf"
+  },
+  {
+    "id": "2dcf380afc7e",
+    "title": "Docker_Cheatsheet",
+    "category": "Software Engineering",
+    "topic": "Docker",
+    "file_path": "Books/2_Software_Engineering/Docker/Docker_Cheatsheet.pdf",
+    "cover": "assets/covers/Docker_Cheatsheet.webp",
+    "format": "pdf",
+    "description": "Docker revolutionized the way developers build and ship applications. Container isolation solved the 'works on my machine' problem and laid the foundation for Kubernetes. But using Docker effectively requires mastering its core commands and workflows.\n\nDocker Cheatsheet is a quick-reference guide summarizing the most important Docker commands — covering images, containers, volumes, networking, and Docker Compose. Perfect for fast lookups during day-to-day development work.\n\n• Docker CLI essentials: build, run, ps, exec, logs, inspect\n• Image management: pull, push, tag, prune, and multi-stage builds\n• Volumes and bind mounts for persistent data storage\n• Network drivers: bridge, host, and overlay for container communication\n• Docker Compose: services, depends_on, and health checks",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_Cheatsheet.pdf"
+  },
+  {
+    "id": "09e43bad0fbd",
+    "title": "Docker_in_Action",
+    "category": "Software Engineering",
+    "topic": "Docker",
+    "file_path": "Books/2_Software_Engineering/Docker/Docker_in_Action.pdf",
+    "cover": "assets/covers/Docker_in_Action.webp",
+    "format": "pdf",
+    "description": "Containers have fundamentally changed how we build, ship, and run software. Docker is the core technology behind the container revolution — but using it correctly requires a deep understanding of how containers actually work, not just copying Dockerfiles.\n\nDocker in Action (Jeff Nickoloff, Stephen Kuenzli, Manning) is a comprehensive guide to Docker from fundamentals to production patterns. It explains the internal mechanics of Docker so you can debug and optimize more effectively.\n\n• Container internals: namespaces, cgroups, and union filesystems\n• Dockerfile best practices: layer caching, multi-stage builds, and security hardening\n• Volumes: named volumes, bind mounts, and tmpfs — knowing when to use each\n• Docker networking: published ports, user-defined networks, and DNS resolution\n• Docker Compose for local development and integration testing",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Action.pdf"
+  },
+  {
+    "id": "f8a7dccd2a2f",
+    "title": "Docker_in_Practice_Second_Edition",
+    "category": "Software Engineering",
+    "topic": "Docker",
+    "file_path": "Books/2_Software_Engineering/Docker/Docker_in_Practice_Second_Edition.pdf",
+    "cover": "assets/covers/Docker_in_Practice_Second_Edition.webp",
+    "format": "pdf",
+    "description": "Containers promise portability, but real projects quickly run into networking, storage, image design, security, and operational details. Teams need practical patterns that go beyond a first hello-world container.\n\nDocker in Practice, Second Edition by Ian Miell and Aidan Hobson Sayers collects hands-on techniques for using Docker across development and production workflows. It focuses on concrete recipes, tradeoffs, and command-line practices that help teams package and run applications consistently.\n\n• Build efficient Docker images and compose repeatable application environments\n• Learn practical container networking, volumes, registries, and runtime operations\n• Apply Docker patterns for testing, debugging, CI, and local development\n• Harden containers with safer defaults, smaller images, and clearer boundaries\n• Explore production-minded workflows for managing services with confidence",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Practice_Second_Edition.pdf"
+  },
+  {
     "id": "69b2b37bdb58",
     "title": "Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview",
     "category": "Career and Professional Development",
@@ -812,138 +823,6 @@
     "format": "pdf",
     "description": "Most software engineers excel technically but receive little or no training in leadership and business strategy. When stepping into a CTO or Engineering Manager role, a lack of leadership thinking is the most common reason for failure.\n\nThink Like a CTO (Alan Williamson) shares the thinking framework of a modern CTO — from making sound technology decisions to building great teams, managing stakeholders, and driving business value through technology.\n\n• Technology strategy: aligning the tech roadmap with business goals\n• Engineering team building: hiring, culture, retention, and performance management\n• Technical debt management: knowing when to refactor versus when to ship fast\n• Communicating with the C-suite: translating technical work into business impact\n• The CTO mindset: evolving from individual contributor to organizational leader",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Think_Like_a_CTO.pdf"
-  },
-  {
-    "id": "172fbe02d2fe",
-    "title": "Claude_AI_cho_CEO_Thuc_hanh_SP",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Claude_AI_cho_CEO_Thuc_hanh_SP.pdf",
-    "cover": "assets/covers/Claude_AI_cho_CEO_Thuc_hanh_SP.webp",
-    "format": "pdf",
-    "description": "Trong kỷ nguyên AI, các CEO và lãnh đạo doanh nghiệp đối mặt với thách thức lớn: làm sao tận dụng AI để tăng tốc phát triển sản phẩm mà không cần nền tảng kỹ thuật sâu. Claude AI của Anthropic nổi lên như công cụ mạnh mẽ cho việc ra quyết định chiến lược và quản lý sản phẩm.\n\nCuốn sách \"Claude AI cho CEO — Thực hành SP\" hướng dẫn thực hành cụ thể cách các nhà lãnh đạo sử dụng Claude AI trong quy trình phát triển sản phẩm (Product Development). Nội dung tập trung vào các kịch bản thực tế mà CEO/CPO/PM gặp hàng ngày, từ phân tích thị trường đến lên kế hoạch sản phẩm.\n\n• Ứng dụng Claude AI vào phân tích thị trường và nghiên cứu đối thủ cạnh tranh\n• Xây dựng product roadmap và ưu tiên tính năng với sự hỗ trợ của AI\n• Viết PRD (Product Requirements Document) và user stories hiệu quả bằng Claude\n• Tối ưu quy trình ra quyết định chiến lược dựa trên dữ liệu và AI insights\n• Tích hợp Claude vào workflow hàng ngày của đội ngũ lãnh đạo và quản lý sản phẩm",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Claude_AI_cho_CEO_Thuc_hanh_SP.pdf"
-  },
-  {
-    "id": "5644a13012dd",
-    "title": "How_Anthropic_teams_use_Claude_Code_v2",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/How_Anthropic_teams_use_Claude_Code_v2.pdf",
-    "cover": "assets/covers/How_Anthropic_teams_use_Claude_Code_v2.webp",
-    "format": "pdf",
-    "description": "AI-powered coding assistants are transforming software development, but most teams struggle to move beyond basic autocomplete. The real productivity gains come from deeply integrating AI into engineering workflows — code review, debugging, architecture exploration, and documentation.\n\nThis official guide from Anthropic reveals how their own engineering, research, and product teams use Claude Code (v2) in daily work. It covers real workflows, prompt strategies, and best practices distilled from thousands of hours of internal usage across diverse technical projects.\n\n• Learn Anthropic's internal workflows for using Claude Code in real engineering tasks\n• Discover prompt strategies that maximize code quality and reduce iteration cycles\n• Understand how to integrate AI coding assistants into code review and debugging workflows\n• Explore advanced use cases: architecture exploration, test generation, and documentation\n• Apply lessons learned from one of the world's leading AI research organizations",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_Anthropic_teams_use_Claude_Code_v2.pdf"
-  },
-  {
-    "id": "7e1d86b78d0b",
-    "title": "How_Modern_PMs_Work_With_AI_Agents_Van_Tran",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.pdf",
-    "cover": "assets/covers/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.webp",
-    "format": "pdf",
-    "description": "The role of Product Management is rapidly evolving as AI agents become integral to modern software products. PMs now face the challenge of understanding, directing, and collaborating with AI systems — not just building features around them. This shift demands new frameworks for thinking about product strategy, user experience, and team workflows in an AI-native world.\n\nHow Modern PMs Work With AI Agents by Van Tran provides a hands-on guide for Product Managers navigating this transformation. The book bridges the gap between traditional PM skills and the emerging discipline of AI-augmented product development, offering actionable strategies for working alongside AI agents effectively.\n\n• Frameworks for integrating AI agents into the product development lifecycle\n• Strategies for defining requirements and success metrics for AI-powered features\n• Best practices for PM-AI collaboration and prompt engineering in product contexts\n• Real-world case studies of PMs successfully leveraging AI agents\n• Guidelines for building AI-native product roadmaps and prioritization",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.pdf"
-  },
-  {
-    "id": "3226037dd6bd",
-    "title": "Huong_dan_su_dung_claude_hieu_qua",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Huong_dan_su_dung_claude_hieu_qua.pdf",
-    "cover": "assets/covers/Huong_dan_su_dung_claude_hieu_qua.webp",
-    "format": "pdf",
-    "description": "Trí tuệ nhân tạo (AI) đang thay đổi cách chúng ta làm việc, học tập và sáng tạo. Claude, một trong những mô hình ngôn ngữ lớn hàng đầu do Anthropic phát triển, mang đến khả năng hỗ trợ mạnh mẽ — nhưng để khai thác tối đa tiềm năng của nó, người dùng cần hiểu cách giao tiếp và ra lệnh hiệu quả.\n\nCuốn sách \"Hướng dẫn sử dụng Claude hiệu quả\" cung cấp kiến thức toàn diện từ cơ bản đến nâng cao về cách tương tác với Claude AI. Nội dung bao gồm các kỹ thuật prompt, chiến lược đặt câu hỏi, và phương pháp tối ưu hóa kết quả đầu ra cho nhiều mục đích khác nhau.\n\n• Nắm vững các nguyên tắc cơ bản khi giao tiếp với Claude AI\n• Học kỹ thuật viết prompt rõ ràng, chính xác để nhận kết quả tốt hơn\n• Ứng dụng Claude vào công việc hàng ngày: viết lách, phân tích, lập trình\n• Tránh các sai lầm phổ biến khiến AI trả lời không đúng ý\n• Khai thác tính năng nâng cao để xử lý các tác vụ phức tạp",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Huong_dan_su_dung_claude_hieu_qua.pdf"
-  },
-  {
-    "id": "01502b0e4896",
-    "title": "Mastering_Claude_AI_2026",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Mastering_Claude_AI_2026.pdf",
-    "cover": "assets/covers/Mastering_Claude_AI_2026.webp",
-    "format": "pdf",
-    "description": "Most users only scratch the surface of what Claude AI is capable of — lacking knowledge of prompt engineering, context management, and agentic workflows needed to unlock its full potential. As AI becomes central to knowledge work, mastering these tools is a genuine competitive advantage.\n\nMastering Claude AI (2026) is a comprehensive guide to getting the most out of Claude — from foundational prompting techniques to advanced strategies for power users. It covers the latest features of the Claude 3.5 and Claude 4 ecosystem.\n\n• Advanced prompt engineering: chain-of-thought, few-shot, and role prompting\n• Context window management: organizing long conversations for maximum effectiveness\n• Agentic workflows: using Claude as an autonomous agent for multi-step task automation\n• Claude API and integrations: MCP, artifacts, and computer use\n• Real-world use cases: coding, writing, analysis, and research automation",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Claude_AI_2026.pdf"
-  },
-  {
-    "id": "9d71d562c612",
-    "title": "Maverick_s_Viral_Prompt_Library",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Maverick_s_Viral_Prompt_Library.pdf",
-    "cover": "assets/covers/Maverick_s_Viral_Prompt_Library.webp",
-    "format": "pdf",
-    "description": "Prompt engineering has become a critical skill in the AI era, yet most users rely on generic, surface-level prompts that produce mediocre results. The difference between an average and an exceptional AI output often comes down to how the prompt is structured.\n\nMaverick's Viral Prompt Library is a curated collection of high-impact prompts that went viral across AI communities. Each prompt is battle-tested, refined through thousands of iterations, and designed to unlock capabilities that most users never discover.\n\n• Access a curated library of viral prompts covering writing, analysis, coding, and creative tasks\n• Learn prompt engineering patterns: chain-of-thought, role-playing, few-shot, and constraint-based prompting\n• Discover advanced techniques for getting consistent, high-quality outputs from AI models\n• Adapt and customize prompts for your specific use cases and workflows\n• Understand why certain prompts go viral and how to engineer your own high-impact prompts",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Maverick_s_Viral_Prompt_Library.pdf"
-  },
-  {
-    "id": "04f0d91f2567",
-    "title": "NotebookLM_Creative_Agency_Prompt_Pack",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/NotebookLM_Creative_Agency_Prompt_Pack.pdf",
-    "cover": "assets/covers/NotebookLM_Creative_Agency_Prompt_Pack.webp",
-    "format": "pdf",
-    "description": "AI-powered tools like NotebookLM are transforming how agencies research, brainstorm, and produce content — but most users barely scratch the surface of what these tools can do with the right prompts.\n\nThis prompt pack provides ready-to-use templates specifically designed for creative agency workflows: market research, content strategy, copywriting, brainstorming, and client presentations. Each prompt is engineered for maximum output quality.\n\n• Generate comprehensive market research reports and competitive analysis in minutes\n• Create content strategies, editorial calendars, and audience personas with AI assistance\n• Use frameworks for brainstorming: SCAMPER, mind mapping, and creative constraint prompts\n• Produce client-ready presentations, proposals, and pitch decks with structured prompts\n• Build reusable prompt templates that scale across multiple projects and clients",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/NotebookLM_Creative_Agency_Prompt_Pack.pdf"
-  },
-  {
-    "id": "80dfe508fc4b",
-    "title": "Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.pdf",
-    "cover": "assets/covers/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.webp",
-    "format": "pdf",
-    "description": "AI Agents đang mở ra kỷ nguyên mới trong phát triển phần mềm — nơi AI không chỉ trả lời câu hỏi mà còn tự động thực thi các tác vụ phức tạp. Tuy nhiên, việc thiết kế và xây dựng Agent hiệu quả đòi hỏi kiến thức hệ thống và phương pháp tiếp cận có cấu trúc.\n\nSyllabus này trình bày quy hoạch và xây dựng AI Agents với Claude Cowork — từ kiến trúc agent, thiết kế workflow, đến triển khai hệ thống multi-agent. Đây là tài liệu hướng dẫn có cấu trúc dành cho người muốn nắm vững cách tạo AI Agent chuyên nghiệp.\n\n• Hiểu kiến trúc AI Agent: perception, reasoning, action và memory\n• Thiết kế workflow cho agent: task decomposition, tool use và error handling\n• Xây dựng hệ thống multi-agent với Claude Cowork\n• Áp dụng best practices trong prompt engineering cho agent instructions\n• Triển khai và đánh giá hiệu quả agent trong các use case thực tế",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.pdf"
-  },
-  {
-    "id": "7d5b6d5c0548",
-    "title": "The_Complete_Guide_to_Building_Skill_for_Claude",
-    "category": "Personal Development and Skills",
-    "topic": "AI and Prompts",
-    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/The_Complete_Guide_to_Building_Skill_for_Claude.pdf",
-    "cover": "assets/covers/The_Complete_Guide_to_Building_Skill_for_Claude.webp",
-    "format": "pdf",
-    "description": "As AI assistants become integral to modern workflows, the ability to customize and extend their capabilities through purpose-built skills has become a critical differentiator. Claude, developed by Anthropic, supports a powerful skill-building framework that enables developers and power users to create specialized, reusable instructions for complex tasks.\n\n\"The Complete Guide to Building Skill for Claude\" provides a comprehensive walkthrough of designing, implementing, and deploying custom skills for Claude AI. From understanding the skill architecture to crafting effective prompts and workflows, this guide equips readers with the knowledge to transform Claude from a general-purpose assistant into a domain-specific expert.\n\n• Understand Claude's skill architecture and how skills extend AI capabilities\n• Learn to design effective skill prompts with clear instructions and constraints\n• Master workflow automation by chaining multiple skills together\n• Implement best practices for testing, iterating, and refining custom skills\n• Deploy production-ready skills for real-world use cases across teams",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Complete_Guide_to_Building_Skill_for_Claude.pdf"
-  },
-  {
-    "id": "a04532742b59",
-    "title": "Million_Dollar_Weekend",
-    "category": "Personal Development and Skills",
-    "topic": "Business and Entrepreneurship",
-    "file_path": "Books/4_Personal_Development_and_Skills/Business_and_Entrepreneurship/Million_Dollar_Weekend.pdf",
-    "cover": "assets/covers/Million_Dollar_Weekend.webp",
-    "format": "pdf",
-    "description": "Most aspiring entrepreneurs spend months or years planning, perfecting, and procrastinating — waiting for the perfect idea, the perfect time, or the perfect product before ever launching. This cycle of overthinking kills more businesses than competition ever will.\n\nMillion Dollar Weekend by Noah Kagan, founder of AppSumo, challenges the traditional startup playbook by showing you how to validate a business idea and make your first dollar in just 48 hours. It is a no-nonsense, action-first guide built on the principle that speed beats perfection.\n\n• Apply the 'NOW, Not How' mindset to overcome analysis paralysis and start immediately\n• Validate business ideas in 48 hours using the Coffee Challenge and Dollar Challenge\n• Find your first customers before building a product using pre-selling techniques\n• Leverage existing platforms and tools to launch with zero or minimal investment\n• Scale from first dollar to sustainable revenue with repeatable growth frameworks",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Million_Dollar_Weekend.pdf"
-  },
-  {
-    "id": "8ef24f24c781",
-    "title": "The_Millionaire_Fastlane",
-    "category": "Personal Development and Skills",
-    "topic": "Business and Entrepreneurship",
-    "file_path": "Books/4_Personal_Development_and_Skills/Business_and_Entrepreneurship/The_Millionaire_Fastlane.pdf",
-    "cover": "assets/covers/The_Millionaire_Fastlane.webp",
-    "format": "pdf",
-    "description": "Conventional financial wisdom — save 10% of your paycheck, invest in index funds, retire at 65 — is a slow lane that trades your most productive decades for a modest retirement. For those unwilling to wait 40 years, a fundamentally different wealth-building framework is needed.\n\nThe Millionaire Fastlane by MJ DeMarco rejects the 'get rich slow' paradigm and presents a mathematical framework for building wealth through entrepreneurship, scalable business systems, and value creation rather than frugality and compound interest alone.\n\n• Understand the three financial roadmaps: Sidewalk (poverty), Slowlane (mediocrity), and Fastlane (wealth)\n• Apply the Fastlane wealth equation: Wealth = Net Profit + Asset Value, driven by controllable variables\n• Identify Fastlane businesses using the CENTS framework: Control, Entry, Need, Time, Scale\n• Build systems that decouple your income from your time — productocracy over trading hours for dollars\n• Shift your mindset from consumer to producer and create value at scale",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Millionaire_Fastlane.pdf"
-  },
-  {
-    "id": "17fff949df3a",
-    "title": "The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking",
-    "category": "Personal Development and Skills",
-    "topic": "Communication and Writing",
-    "file_path": "Books/4_Personal_Development_and_Skills/Communication_and_Writing/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf",
-    "cover": "assets/covers/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.webp",
-    "format": "pdf",
-    "description": "Clear and logical communication is essential for professionals who need to present complex ideas, influence decisions, and write persuasive documents. Many struggle with structuring their thoughts effectively, leading to confusing and disorganized writing.\n\nThis book introduces the Pyramid Principle, a highly regarded framework for structuring ideas logically before writing. It provides practical techniques for organizing thoughts into a top-down hierarchy, ensuring clarity and impact in any form of business communication.\n\n• Master the top-down approach to structuring ideas and arguments.\n• Learn how to write clear, compelling, and logically sound documents.\n• Explore techniques for defining the problem and outlining the solution effectively.\n• Build stronger analytical thinking skills to improve both writing and presentations.",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf"
   },
   {
     "id": "00b9c9e4e21d",
@@ -1056,6 +935,138 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Tu_luyen_Speaking_khi_khong_co_moi_truong.pdf"
   },
   {
+    "id": "a04532742b59",
+    "title": "Million_Dollar_Weekend",
+    "category": "Personal Development and Skills",
+    "topic": "Business and Entrepreneurship",
+    "file_path": "Books/4_Personal_Development_and_Skills/Business_and_Entrepreneurship/Million_Dollar_Weekend.pdf",
+    "cover": "assets/covers/Million_Dollar_Weekend.webp",
+    "format": "pdf",
+    "description": "Most aspiring entrepreneurs spend months or years planning, perfecting, and procrastinating — waiting for the perfect idea, the perfect time, or the perfect product before ever launching. This cycle of overthinking kills more businesses than competition ever will.\n\nMillion Dollar Weekend by Noah Kagan, founder of AppSumo, challenges the traditional startup playbook by showing you how to validate a business idea and make your first dollar in just 48 hours. It is a no-nonsense, action-first guide built on the principle that speed beats perfection.\n\n• Apply the 'NOW, Not How' mindset to overcome analysis paralysis and start immediately\n• Validate business ideas in 48 hours using the Coffee Challenge and Dollar Challenge\n• Find your first customers before building a product using pre-selling techniques\n• Leverage existing platforms and tools to launch with zero or minimal investment\n• Scale from first dollar to sustainable revenue with repeatable growth frameworks",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Million_Dollar_Weekend.pdf"
+  },
+  {
+    "id": "8ef24f24c781",
+    "title": "The_Millionaire_Fastlane",
+    "category": "Personal Development and Skills",
+    "topic": "Business and Entrepreneurship",
+    "file_path": "Books/4_Personal_Development_and_Skills/Business_and_Entrepreneurship/The_Millionaire_Fastlane.pdf",
+    "cover": "assets/covers/The_Millionaire_Fastlane.webp",
+    "format": "pdf",
+    "description": "Conventional financial wisdom — save 10% of your paycheck, invest in index funds, retire at 65 — is a slow lane that trades your most productive decades for a modest retirement. For those unwilling to wait 40 years, a fundamentally different wealth-building framework is needed.\n\nThe Millionaire Fastlane by MJ DeMarco rejects the 'get rich slow' paradigm and presents a mathematical framework for building wealth through entrepreneurship, scalable business systems, and value creation rather than frugality and compound interest alone.\n\n• Understand the three financial roadmaps: Sidewalk (poverty), Slowlane (mediocrity), and Fastlane (wealth)\n• Apply the Fastlane wealth equation: Wealth = Net Profit + Asset Value, driven by controllable variables\n• Identify Fastlane businesses using the CENTS framework: Control, Entry, Need, Time, Scale\n• Build systems that decouple your income from your time — productocracy over trading hours for dollars\n• Shift your mindset from consumer to producer and create value at scale",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Millionaire_Fastlane.pdf"
+  },
+  {
+    "id": "17fff949df3a",
+    "title": "The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking",
+    "category": "Personal Development and Skills",
+    "topic": "Communication and Writing",
+    "file_path": "Books/4_Personal_Development_and_Skills/Communication_and_Writing/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf",
+    "cover": "assets/covers/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.webp",
+    "format": "pdf",
+    "description": "Clear and logical communication is essential for professionals who need to present complex ideas, influence decisions, and write persuasive documents. Many struggle with structuring their thoughts effectively, leading to confusing and disorganized writing.\n\nThis book introduces the Pyramid Principle, a highly regarded framework for structuring ideas logically before writing. It provides practical techniques for organizing thoughts into a top-down hierarchy, ensuring clarity and impact in any form of business communication.\n\n• Master the top-down approach to structuring ideas and arguments.\n• Learn how to write clear, compelling, and logically sound documents.\n• Explore techniques for defining the problem and outlining the solution effectively.\n• Build stronger analytical thinking skills to improve both writing and presentations.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Minto_Pyramid_Principle_Logic_In_Writing_Thinking.pdf"
+  },
+  {
+    "id": "172fbe02d2fe",
+    "title": "Claude_AI_cho_CEO_Thuc_hanh_SP",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Claude_AI_cho_CEO_Thuc_hanh_SP.pdf",
+    "cover": "assets/covers/Claude_AI_cho_CEO_Thuc_hanh_SP.webp",
+    "format": "pdf",
+    "description": "Trong kỷ nguyên AI, các CEO và lãnh đạo doanh nghiệp đối mặt với thách thức lớn: làm sao tận dụng AI để tăng tốc phát triển sản phẩm mà không cần nền tảng kỹ thuật sâu. Claude AI của Anthropic nổi lên như công cụ mạnh mẽ cho việc ra quyết định chiến lược và quản lý sản phẩm.\n\nCuốn sách \"Claude AI cho CEO — Thực hành SP\" hướng dẫn thực hành cụ thể cách các nhà lãnh đạo sử dụng Claude AI trong quy trình phát triển sản phẩm (Product Development). Nội dung tập trung vào các kịch bản thực tế mà CEO/CPO/PM gặp hàng ngày, từ phân tích thị trường đến lên kế hoạch sản phẩm.\n\n• Ứng dụng Claude AI vào phân tích thị trường và nghiên cứu đối thủ cạnh tranh\n• Xây dựng product roadmap và ưu tiên tính năng với sự hỗ trợ của AI\n• Viết PRD (Product Requirements Document) và user stories hiệu quả bằng Claude\n• Tối ưu quy trình ra quyết định chiến lược dựa trên dữ liệu và AI insights\n• Tích hợp Claude vào workflow hàng ngày của đội ngũ lãnh đạo và quản lý sản phẩm",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Claude_AI_cho_CEO_Thuc_hanh_SP.pdf"
+  },
+  {
+    "id": "5644a13012dd",
+    "title": "How_Anthropic_teams_use_Claude_Code_v2",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/How_Anthropic_teams_use_Claude_Code_v2.pdf",
+    "cover": "assets/covers/How_Anthropic_teams_use_Claude_Code_v2.webp",
+    "format": "pdf",
+    "description": "AI-powered coding assistants are transforming software development, but most teams struggle to move beyond basic autocomplete. The real productivity gains come from deeply integrating AI into engineering workflows — code review, debugging, architecture exploration, and documentation.\n\nThis official guide from Anthropic reveals how their own engineering, research, and product teams use Claude Code (v2) in daily work. It covers real workflows, prompt strategies, and best practices distilled from thousands of hours of internal usage across diverse technical projects.\n\n• Learn Anthropic's internal workflows for using Claude Code in real engineering tasks\n• Discover prompt strategies that maximize code quality and reduce iteration cycles\n• Understand how to integrate AI coding assistants into code review and debugging workflows\n• Explore advanced use cases: architecture exploration, test generation, and documentation\n• Apply lessons learned from one of the world's leading AI research organizations",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_Anthropic_teams_use_Claude_Code_v2.pdf"
+  },
+  {
+    "id": "7e1d86b78d0b",
+    "title": "How_Modern_PMs_Work_With_AI_Agents_Van_Tran",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.pdf",
+    "cover": "assets/covers/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.webp",
+    "format": "pdf",
+    "description": "The role of Product Management is rapidly evolving as AI agents become integral to modern software products. PMs now face the challenge of understanding, directing, and collaborating with AI systems — not just building features around them. This shift demands new frameworks for thinking about product strategy, user experience, and team workflows in an AI-native world.\n\nHow Modern PMs Work With AI Agents by Van Tran provides a hands-on guide for Product Managers navigating this transformation. The book bridges the gap between traditional PM skills and the emerging discipline of AI-augmented product development, offering actionable strategies for working alongside AI agents effectively.\n\n• Frameworks for integrating AI agents into the product development lifecycle\n• Strategies for defining requirements and success metrics for AI-powered features\n• Best practices for PM-AI collaboration and prompt engineering in product contexts\n• Real-world case studies of PMs successfully leveraging AI agents\n• Guidelines for building AI-native product roadmaps and prioritization",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/How_Modern_PMs_Work_With_AI_Agents_Van_Tran.pdf"
+  },
+  {
+    "id": "3226037dd6bd",
+    "title": "Huong_dan_su_dung_claude_hieu_qua",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Huong_dan_su_dung_claude_hieu_qua.pdf",
+    "cover": "assets/covers/Huong_dan_su_dung_claude_hieu_qua.webp",
+    "format": "pdf",
+    "description": "Trí tuệ nhân tạo (AI) đang thay đổi cách chúng ta làm việc, học tập và sáng tạo. Claude, một trong những mô hình ngôn ngữ lớn hàng đầu do Anthropic phát triển, mang đến khả năng hỗ trợ mạnh mẽ — nhưng để khai thác tối đa tiềm năng của nó, người dùng cần hiểu cách giao tiếp và ra lệnh hiệu quả.\n\nCuốn sách \"Hướng dẫn sử dụng Claude hiệu quả\" cung cấp kiến thức toàn diện từ cơ bản đến nâng cao về cách tương tác với Claude AI. Nội dung bao gồm các kỹ thuật prompt, chiến lược đặt câu hỏi, và phương pháp tối ưu hóa kết quả đầu ra cho nhiều mục đích khác nhau.\n\n• Nắm vững các nguyên tắc cơ bản khi giao tiếp với Claude AI\n• Học kỹ thuật viết prompt rõ ràng, chính xác để nhận kết quả tốt hơn\n• Ứng dụng Claude vào công việc hàng ngày: viết lách, phân tích, lập trình\n• Tránh các sai lầm phổ biến khiến AI trả lời không đúng ý\n• Khai thác tính năng nâng cao để xử lý các tác vụ phức tạp",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Huong_dan_su_dung_claude_hieu_qua.pdf"
+  },
+  {
+    "id": "01502b0e4896",
+    "title": "Mastering_Claude_AI_2026",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Mastering_Claude_AI_2026.pdf",
+    "cover": "assets/covers/Mastering_Claude_AI_2026.webp",
+    "format": "pdf",
+    "description": "Most users only scratch the surface of what Claude AI is capable of — lacking knowledge of prompt engineering, context management, and agentic workflows needed to unlock its full potential. As AI becomes central to knowledge work, mastering these tools is a genuine competitive advantage.\n\nMastering Claude AI (2026) is a comprehensive guide to getting the most out of Claude — from foundational prompting techniques to advanced strategies for power users. It covers the latest features of the Claude 3.5 and Claude 4 ecosystem.\n\n• Advanced prompt engineering: chain-of-thought, few-shot, and role prompting\n• Context window management: organizing long conversations for maximum effectiveness\n• Agentic workflows: using Claude as an autonomous agent for multi-step task automation\n• Claude API and integrations: MCP, artifacts, and computer use\n• Real-world use cases: coding, writing, analysis, and research automation",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Claude_AI_2026.pdf"
+  },
+  {
+    "id": "9d71d562c612",
+    "title": "Maverick_s_Viral_Prompt_Library",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Maverick_s_Viral_Prompt_Library.pdf",
+    "cover": "assets/covers/Maverick_s_Viral_Prompt_Library.webp",
+    "format": "pdf",
+    "description": "Prompt engineering has become a critical skill in the AI era, yet most users rely on generic, surface-level prompts that produce mediocre results. The difference between an average and an exceptional AI output often comes down to how the prompt is structured.\n\nMaverick's Viral Prompt Library is a curated collection of high-impact prompts that went viral across AI communities. Each prompt is battle-tested, refined through thousands of iterations, and designed to unlock capabilities that most users never discover.\n\n• Access a curated library of viral prompts covering writing, analysis, coding, and creative tasks\n• Learn prompt engineering patterns: chain-of-thought, role-playing, few-shot, and constraint-based prompting\n• Discover advanced techniques for getting consistent, high-quality outputs from AI models\n• Adapt and customize prompts for your specific use cases and workflows\n• Understand why certain prompts go viral and how to engineer your own high-impact prompts",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Maverick_s_Viral_Prompt_Library.pdf"
+  },
+  {
+    "id": "04f0d91f2567",
+    "title": "NotebookLM_Creative_Agency_Prompt_Pack",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/NotebookLM_Creative_Agency_Prompt_Pack.pdf",
+    "cover": "assets/covers/NotebookLM_Creative_Agency_Prompt_Pack.webp",
+    "format": "pdf",
+    "description": "AI-powered tools like NotebookLM are transforming how agencies research, brainstorm, and produce content — but most users barely scratch the surface of what these tools can do with the right prompts.\n\nThis prompt pack provides ready-to-use templates specifically designed for creative agency workflows: market research, content strategy, copywriting, brainstorming, and client presentations. Each prompt is engineered for maximum output quality.\n\n• Generate comprehensive market research reports and competitive analysis in minutes\n• Create content strategies, editorial calendars, and audience personas with AI assistance\n• Use frameworks for brainstorming: SCAMPER, mind mapping, and creative constraint prompts\n• Produce client-ready presentations, proposals, and pitch decks with structured prompts\n• Build reusable prompt templates that scale across multiple projects and clients",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/NotebookLM_Creative_Agency_Prompt_Pack.pdf"
+  },
+  {
+    "id": "80dfe508fc4b",
+    "title": "Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.pdf",
+    "cover": "assets/covers/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.webp",
+    "format": "pdf",
+    "description": "AI Agents đang mở ra kỷ nguyên mới trong phát triển phần mềm — nơi AI không chỉ trả lời câu hỏi mà còn tự động thực thi các tác vụ phức tạp. Tuy nhiên, việc thiết kế và xây dựng Agent hiệu quả đòi hỏi kiến thức hệ thống và phương pháp tiếp cận có cấu trúc.\n\nSyllabus này trình bày quy hoạch và xây dựng AI Agents với Claude Cowork — từ kiến trúc agent, thiết kế workflow, đến triển khai hệ thống multi-agent. Đây là tài liệu hướng dẫn có cấu trúc dành cho người muốn nắm vững cách tạo AI Agent chuyên nghiệp.\n\n• Hiểu kiến trúc AI Agent: perception, reasoning, action và memory\n• Thiết kế workflow cho agent: task decomposition, tool use và error handling\n• Xây dựng hệ thống multi-agent với Claude Cowork\n• Áp dụng best practices trong prompt engineering cho agent instructions\n• Triển khai và đánh giá hiệu quả agent trong các use case thực tế",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Syllabus_Quy_Hoach_Xay_Dung_Agents_Claude_Cowork.pdf"
+  },
+  {
+    "id": "7d5b6d5c0548",
+    "title": "The_Complete_Guide_to_Building_Skill_for_Claude",
+    "category": "Personal Development and Skills",
+    "topic": "AI and Prompts",
+    "file_path": "Books/4_Personal_Development_and_Skills/AI_and_Prompts/The_Complete_Guide_to_Building_Skill_for_Claude.pdf",
+    "cover": "assets/covers/The_Complete_Guide_to_Building_Skill_for_Claude.webp",
+    "format": "pdf",
+    "description": "As AI assistants become integral to modern workflows, the ability to customize and extend their capabilities through purpose-built skills has become a critical differentiator. Claude, developed by Anthropic, supports a powerful skill-building framework that enables developers and power users to create specialized, reusable instructions for complex tasks.\n\n\"The Complete Guide to Building Skill for Claude\" provides a comprehensive walkthrough of designing, implementing, and deploying custom skills for Claude AI. From understanding the skill architecture to crafting effective prompts and workflows, this guide equips readers with the knowledge to transform Claude from a general-purpose assistant into a domain-specific expert.\n\n• Understand Claude's skill architecture and how skills extend AI capabilities\n• Learn to design effective skill prompts with clear instructions and constraints\n• Master workflow automation by chaining multiple skills together\n• Implement best practices for testing, iterating, and refining custom skills\n• Deploy production-ready skills for real-world use cases across teams",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Complete_Guide_to_Building_Skill_for_Claude.pdf"
+  },
+  {
     "id": "54b7a8a1fe10",
     "title": "AI_co_ban_va_ung_dung",
     "category": "University Courses",
@@ -1076,17 +1087,6 @@
     "format": "pdf",
     "description": "Quản trị cơ sở dữ liệu là kỹ năng then chốt mà mọi kỹ sư phần mềm và quản trị viên hệ thống cần nắm vững. Từ việc cài đặt, cấu hình đến sao lưu và bảo mật — một sai sót nhỏ có thể gây mất dữ liệu toàn bộ hệ thống.\n\nGiáo trình này cung cấp kiến thức nền tảng về quản trị CSDL, bao gồm cài đặt, cấu hình hệ quản trị CSDL, quản lý user và phân quyền, sao lưu phục hồi và tối ưu hiệu suất.\n\n• Cài đặt và cấu hình hệ quản trị CSDL: các tham số quan trọng và môi trường vận hành\n• Quản lý user, role và phân quyền truy cập dữ liệu\n• Thực hiện backup/restore: full backup, incremental backup và point-in-time recovery\n• Tối ưu hiệu suất: indexing, query tuning và giám sát tài nguyên\n• Bảo mật CSDL: mã hóa, audit log và phòng chống SQL injection",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Quan_tri_co_so_du_lieu.pdf"
-  },
-  {
-    "id": "779812955563",
-    "title": "Thuong_mai_dien_tu",
-    "category": "University Courses",
-    "topic": "E Commerce",
-    "file_path": "Books/5_University_Courses/E_Commerce/Thuong_mai_dien_tu.pdf",
-    "cover": "assets/covers/Thuong_mai_dien_tu.webp",
-    "format": "pdf",
-    "description": "Thương mại điện tử đã trở thành xương sống của nền kinh tế số, thay đổi hoàn toàn cách doanh nghiệp vận hành và khách hàng mua sắm. Hiểu biết về TMDT không chỉ dành cho dân kinh doanh mà cả kỹ sư xây dựng nền tảng.\n\nGiáo trình này bao quát toàn bộ hệ sinh thái TMDT: từ mô hình kinh doanh, hệ thống thanh toán trực tuyến đến marketing số và bảo mật giao dịch.\n\n• Hiểu các mô hình kinh doanh: B2B, B2C, C2C, O2O và marketplace\n• Thiết kế hệ thống thanh toán trực tuyến: cổng thanh toán, ví điện tử và bảo mật\n• Áp dụng marketing số: SEO, SEM, email marketing và social media\n• Xây dựng chiến lược logistics và quản lý chuỗi cung ứng\n• Đảm bảo pháp lý: luật TMDT, bảo vệ người tiêu dùng và thuế điện tử",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Thuong_mai_dien_tu.pdf"
   },
   {
     "id": "2d63b38b114b",
@@ -1219,5 +1219,16 @@
     "format": "pdf",
     "description": "Phương pháp hướng đối tượng (OO) đã trở thành chuẩn công nghiệp cho phân tích và thiết kế phần mềm hiện đại. Nắm vững UML và OOAD là kỹ năng bắt buộc cho mọi kỹ sư phần mềm.\n\nChương 11 hướng dẫn mô hình hóa hướng đối tượng bằng UML: biểu đồ use case, class, sequence và các kỹ thuật OOAD.\n\n• Vẽ biểu đồ Use Case: actor, use case, include, extend và generalization\n• Thiết kế biểu đồ Class: thuộc tính, phương thức, association, aggregation và inheritance\n• Mô hình hóa hành vi với biểu đồ Sequence và Activity\n• Áp dụng nguyên tắc SOLID và design patterns trong thiết kế hướng đối tượng",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Ch11_Mo_hinh_hoa_huong_doi_tuong.pdf"
+  },
+  {
+    "id": "779812955563",
+    "title": "Thuong_mai_dien_tu",
+    "category": "University Courses",
+    "topic": "E Commerce",
+    "file_path": "Books/5_University_Courses/E_Commerce/Thuong_mai_dien_tu.pdf",
+    "cover": "assets/covers/Thuong_mai_dien_tu.webp",
+    "format": "pdf",
+    "description": "Thương mại điện tử đã trở thành xương sống của nền kinh tế số, thay đổi hoàn toàn cách doanh nghiệp vận hành và khách hàng mua sắm. Hiểu biết về TMDT không chỉ dành cho dân kinh doanh mà cả kỹ sư xây dựng nền tảng.\n\nGiáo trình này bao quát toàn bộ hệ sinh thái TMDT: từ mô hình kinh doanh, hệ thống thanh toán trực tuyến đến marketing số và bảo mật giao dịch.\n\n• Hiểu các mô hình kinh doanh: B2B, B2C, C2C, O2O và marketplace\n• Thiết kế hệ thống thanh toán trực tuyến: cổng thanh toán, ví điện tử và bảo mật\n• Áp dụng marketing số: SEO, SEM, email marketing và social media\n• Xây dựng chiến lược logistics và quản lý chuỗi cung ứng\n• Đảm bảo pháp lý: luật TMDT, bảo vệ người tiêu dùng và thuế điện tử",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Thuong_mai_dien_tu.pdf"
   }
 ]
