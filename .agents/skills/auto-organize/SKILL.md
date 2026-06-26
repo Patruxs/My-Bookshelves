@@ -59,7 +59,7 @@ For each file in Inbox, the agent determines in memory:
 
   Separate the 3 sections with `\n\n`. **DO NOT** use labels such as `Context:`, `Overview:`, or `Key Takeaways:`.
 
-> **Source Links:** If the user provides a source link for the books, the link MUST be placed at the very bottom of the generated description (after the bullets), formatted as a clickable HTML link (e.g., `<a href="URL" target="_blank">URL</a>`) and separated by `\n\n`.
+> **Source Links:** If the user provides a source link for the books, the link MUST be placed at the very bottom of the generated description (after the bullets), prefixed with "Link source : " and formatted as a clickable HTML link (e.g., `Link source : <a href="URL" target="_blank">URL</a>`) and separated by `\n\n`.
 
 **Description language:**
 - English filename -> write English
