@@ -12,7 +12,13 @@ export function renderDetailContent({ book, relatedBooks, isArchived, getFormatU
 
     // Escape description for safety, but restore simple <a> tags for clickable links
     let safeDesc = esc(description);
-    safeDesc = safeDesc.replace(/&lt;a\s+href=&quot;(https?:\/\/[^&]+)&quot;.*?&gt;(.*?)&lt;\/a&gt;/gi, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none;">$2</a>');
+    safeDesc = safeDesc.replace(/&lt;a\s+([\s\S]*?)&gt;([\s\S]*?)&lt;\/a&gt;/gi, (match, attrs, content) => {
+        const hrefMatch = attrs.match(/href=&quot;(https?:\/\/.*?)&quot;/i);
+        if (hrefMatch) {
+            return `<a href="${hrefMatch[1]}" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none;">${content}</a>`;
+        }
+        return match;
+    });
 
     return `
         <div class="dv-hero">
