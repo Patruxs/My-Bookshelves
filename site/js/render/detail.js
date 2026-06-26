@@ -10,6 +10,10 @@ export function renderDetailContent({ book, relatedBooks, isArchived, getFormatU
     const cover = safeCoverSrc(book.cover, title);
     const description = book.description || `A book in "${book.topic}" of "${book.category}".`;
 
+    // Escape description for safety, but restore simple <a> tags for clickable links
+    let safeDesc = esc(description);
+    safeDesc = safeDesc.replace(/&lt;a\s+href=&quot;(https?:\/\/[^&]+)&quot;.*?&gt;(.*?)&lt;\/a&gt;/gi, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none;">$2</a>');
+
     return `
         <div class="dv-hero">
             <div class="dv-cover-wrap">
@@ -22,7 +26,7 @@ export function renderDetailContent({ book, relatedBooks, isArchived, getFormatU
                     <span class="dv-tag dv-tag-topic">${esc(book.topic)}</span>
                     ${book.formats.map(format => `<span class="dv-tag dv-tag-fmt">${format.toUpperCase()}</span>`).join("")}
                 </div>
-                <p class="dv-desc">${esc(description)}</p>
+                <p class="dv-desc">${safeDesc}</p>
                 <div class="dv-actions">
                     ${book.formats.map(format => renderDownloadButton(book.id, format, getFormatUrl(format))).join("")}
                     <button class="btn-secondary" data-action="toggle-archive" data-book-id="${esc(book.id)}" id="dv-archive-btn">
