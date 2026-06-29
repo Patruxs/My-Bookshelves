@@ -341,6 +341,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Scaling_agentic_coding_across_your_organization.pdf"
   },
   {
+    "id": "7d7bef8c0a9b",
+    "title": "The_Hitchhiker_s_Guide_to_Agentic_AI",
+    "category": "Software Engineering",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/2_Software_Engineering/Artificial_Intelligence/The_Hitchhiker_s_Guide_to_Agentic_AI.pdf",
+    "cover": "assets/covers/The_Hitchhiker_s_Guide_to_Agentic_AI.webp",
+    "format": "pdf",
+    "description": "As artificial intelligence continues to evolve, agentic AI systems that can autonomously reason, plan, and execute complex workflows have emerged as the next major frontier in software engineering.\n\nThe Hitchhiker's Guide to Agentic AI offers a comprehensive journey into the design, implementation, and management of autonomous AI agents, equipping developers and technical leaders with the theoretical foundations and practical patterns needed to build robust agentic systems.\n\n• Understand the core principles of agentic reasoning and decision-making architectures\n• Build scalable AI agents capable of autonomous problem solving\n• Implement effective tool-calling and environment interaction strategies\n• Evaluate and test agentic workflows for reliability and safety\n\nLink source : <a href=\"https://arxiv.org/\" target=\"_blank\">https://arxiv.org/</a>",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Hitchhiker_s_Guide_to_Agentic_AI.pdf"
+  },
+  {
     "id": "99b554c1b5c0",
     "title": "Distributed_Tracing_in_Practice",
     "category": "Software Engineering",
