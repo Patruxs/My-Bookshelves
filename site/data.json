@@ -308,6 +308,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AI_Engineering_Guidebook.pdf"
   },
   {
+    "id": "086fadc87baf",
+    "title": "Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks",
+    "category": "Software Engineering",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/2_Software_Engineering/Artificial_Intelligence/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.pdf",
+    "cover": "assets/covers/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.webp",
+    "format": "pdf",
+    "description": "As artificial intelligence transitions from generative chat interfaces to autonomous systems capable of executing complex workflows, software engineers face new architectural challenges. The paradigm shift toward agentic AI requires robust design patterns to manage state, orchestrate multi-step reasoning, and integrate seamlessly with existing software infrastructure.\n\nBuilding Effective AI Agents: Architecture Patterns and Implementation Frameworks provides a comprehensive blueprint for developing production-ready AI agents. This guide delves into the foundational concepts of agentic systems, offering developers practical strategies to construct scalable, reliable, and secure autonomous agents using modern implementation frameworks.\n\n• Master the core architectural patterns required to build resilient and scalable AI agents.\n• Explore cutting-edge implementation frameworks that simplify the orchestration of complex agentic workflows.\n• Implement robust state management and error handling mechanisms for autonomous systems.\n• Design intelligent agents capable of interacting with external APIs, databases, and enterprise tools.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_Effective_AI_Agents_Architecture_Patterns_and_Implementation_Frameworks.pdf"
+  },
+  {
     "id": "48e53e6e51c9",
     "title": "Codex_CLI_Agentic_Engineering_from_First_Principles",
     "category": "Software Engineering",
