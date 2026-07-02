@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import os
+import shutil
+import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -22,6 +24,33 @@ LETTER_HEIGHT = 792.0
 PAGE_MARGIN = 72.0
 CONTENT_WIDTH = LETTER_WIDTH - (PAGE_MARGIN * 2)
 CONTENT_HEIGHT = LETTER_HEIGHT - (PAGE_MARGIN * 2)
+CALIBRE_FLATPAK_ID = "com.calibre_ebook.calibre"
+CALIBRE_PDF_OPTIONS = [
+    "--paper-size",
+    "letter",
+    "--pdf-page-margin-left",
+    "72.0",
+    "--pdf-page-margin-right",
+    "72.0",
+    "--pdf-page-margin-top",
+    "72.0",
+    "--pdf-page-margin-bottom",
+    "72.0",
+    "--pdf-serif-family",
+    "TeX Gyre Termes",
+    "--pdf-sans-family",
+    "TeX Gyre Heros",
+    "--pdf-mono-family",
+    "TeX Gyre Cursor",
+    "--pdf-standard-font",
+    "serif",
+    "--pdf-default-font-size",
+    "20",
+    "--pdf-mono-font-size",
+    "16",
+    "--unit",
+    "inch",
+]
 
 
 @dataclass
@@ -54,6 +83,34 @@ def import_fitz():
             "python -m pip install -r requirements.txt"
         ) from exc
     return fitz
+
+
+def calibre_command_candidates() -> list[list[str]]:
+    """Return possible Calibre ebook-convert command prefixes."""
+    candidates: list[list[str]] = []
+    if shutil.which("ebook-convert"):
+        candidates.append(["ebook-convert"])
+    if shutil.which("flatpak"):
+        candidates.append(["flatpak", "run", "--command=ebook-convert", CALIBRE_FLATPAK_ID])
+    return candidates
+
+
+def find_calibre_command() -> list[str] | None:
+    """Find a working Calibre ebook-convert command."""
+    for command in calibre_command_candidates():
+        try:
+            result = subprocess.run(
+                [*command, "--version"],
+                capture_output=True,
+                encoding="utf-8",
+                check=False,
+                timeout=30,
+            )
+        except (OSError, subprocess.TimeoutExpired):
+            continue
+        if result.returncode == 0:
+            return command
+    return None
 
 
 def relative_path(path: Path, base_dir: Path) -> str:
@@ -125,12 +182,47 @@ def letter_rects(fitz) -> tuple[object, object]:
     return page_rect, content_rect
 
 
-def convert_epub_to_pdf(source: Path, target: Path, *, overwrite: bool) -> tuple[str, str]:
-    """Convert a single EPUB to a PDF file."""
-    fitz = import_fitz()
-    if target.exists() and not overwrite:
-        return "skipped", "PDF already exists; use --overwrite to replace it"
+def command_error_tail(result: subprocess.CompletedProcess[str]) -> str:
+    """Return the useful tail of a failed command."""
+    output = "\n".join(part for part in (result.stderr, result.stdout) if part)
+    lines = output.strip().splitlines()
+    if not lines:
+        return f"exit code {result.returncode}"
+    return "\n".join(lines[-8:])
 
+
+def convert_epub_to_pdf_with_calibre(
+    source: Path,
+    target: Path,
+    *,
+    command: list[str],
+) -> tuple[str, str]:
+    """Convert one EPUB to PDF using Calibre ebook-convert."""
+    temp_path = target.with_name(f".{target.stem}.converting{target.suffix}")
+    if temp_path.exists():
+        temp_path.unlink()
+
+    result = subprocess.run(
+        [*command, str(source), str(temp_path), *CALIBRE_PDF_OPTIONS],
+        cwd=str(target.parent),
+        capture_output=True,
+        encoding="utf-8",
+        check=False,
+    )
+    if result.returncode != 0:
+        if temp_path.exists():
+            temp_path.unlink()
+        return "failed", f"Calibre conversion failed: {command_error_tail(result)}"
+    if not temp_path.exists():
+        return "failed", "Calibre conversion did not create a PDF"
+
+    os.replace(temp_path, target)
+    return "converted", "EPUB converted to PDF with Calibre"
+
+
+def convert_epub_to_pdf_with_pymupdf(source: Path, target: Path) -> tuple[str, str]:
+    """Convert a single EPUB to a Letter-sized PDF using PyMuPDF."""
+    fitz = import_fitz()
     temp_path = target.with_name(f".{target.stem}.converting{target.suffix}")
     if temp_path.exists():
         temp_path.unlink()
@@ -163,12 +255,42 @@ def convert_epub_to_pdf(source: Path, target: Path, *, overwrite: bool) -> tuple
     except Exception as exc:
         if temp_path.exists():
             temp_path.unlink()
-        return "failed", f"Conversion failed: {exc}"
+        return "failed", f"PyMuPDF conversion failed: {exc}"
 
-    return "converted", "EPUB converted to PDF"
+    return "converted", "EPUB converted to PDF with PyMuPDF"
 
 
-def execute_plan(plans: list[ConversionPlan], base_dir: Path, *, overwrite: bool) -> list[ConversionResult]:
+def convert_epub_to_pdf(
+    source: Path,
+    target: Path,
+    *,
+    overwrite: bool,
+    engine: str = "auto",
+) -> tuple[str, str]:
+    """Convert a single EPUB to a PDF file."""
+    if target.exists() and not overwrite:
+        return "skipped", "PDF already exists; use --overwrite to replace it"
+
+    if engine not in {"auto", "calibre", "pymupdf"}:
+        return "failed", f"Unknown conversion engine: {engine}"
+
+    if engine in {"auto", "calibre"}:
+        command = find_calibre_command()
+        if command:
+            return convert_epub_to_pdf_with_calibre(source, target, command=command)
+        if engine == "calibre":
+            return "failed", "Calibre ebook-convert was not found"
+
+    return convert_epub_to_pdf_with_pymupdf(source, target)
+
+
+def execute_plan(
+    plans: list[ConversionPlan],
+    base_dir: Path,
+    *,
+    overwrite: bool,
+    engine: str,
+) -> list[ConversionResult]:
     """Execute planned conversions and return results."""
     results: list[ConversionResult] = []
     for plan in plans:
@@ -183,7 +305,12 @@ def execute_plan(plans: list[ConversionPlan], base_dir: Path, *, overwrite: bool
             )
             continue
 
-        status, message = convert_epub_to_pdf(plan.source, plan.target, overwrite=overwrite)
+        status, message = convert_epub_to_pdf(
+            plan.source,
+            plan.target,
+            overwrite=overwrite,
+            engine=engine,
+        )
         results.append(
             ConversionResult(
                 source=relative_path(plan.source, base_dir),
@@ -246,6 +373,12 @@ def main() -> None:
     parser.add_argument("--execute", action="store_true", help="Create PDF files")
     parser.add_argument("--overwrite", action="store_true", help="Replace existing PDF outputs")
     parser.add_argument("--fail-fast", action="store_true", help="Stop after the first failure")
+    parser.add_argument(
+        "--engine",
+        choices=("auto", "calibre", "pymupdf"),
+        default="auto",
+        help="Conversion engine. auto prefers Calibre and falls back to PyMuPDF",
+    )
     parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
     args = parser.parse_args()
 
@@ -258,12 +391,22 @@ def main() -> None:
             if args.fail_fast:
                 results: list[ConversionResult] = []
                 for plan in plans:
-                    result = execute_plan([plan], base_dir, overwrite=args.overwrite)[0]
+                    result = execute_plan(
+                        [plan],
+                        base_dir,
+                        overwrite=args.overwrite,
+                        engine=args.engine,
+                    )[0]
                     results.append(result)
                     if result.status == "failed":
                         break
             else:
-                results = execute_plan(plans, base_dir, overwrite=args.overwrite)
+                results = execute_plan(
+                    plans,
+                    base_dir,
+                    overwrite=args.overwrite,
+                    engine=args.engine,
+                )
         else:
             results = plan_to_results(plans, base_dir)
     except Exception as exc:

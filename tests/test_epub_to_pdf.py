@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from epub_to_pdf import (  # noqa: E402
+    CALIBRE_PDF_OPTIONS,
     CONTENT_HEIGHT,
     CONTENT_WIDTH,
     LETTER_HEIGHT,
@@ -166,7 +167,29 @@ class EpubToPdfTests(unittest.TestCase):
         self.assertEqual(payload["results"][0]["status"], "planned")
         self.assertEqual(payload["results"][0]["target"], "Inbox/Book.pdf")
 
-    def test_convert_epub_to_pdf_writes_pdf_with_existing_dependency_api(self) -> None:
+    def test_convert_epub_to_pdf_uses_calibre_settings_by_default(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "Book.epub"
+            target = Path(tmp) / "Book.pdf"
+            source.write_bytes(b"fake epub")
+
+            def fake_run(cmd: list[str], **_: object):
+                self.assertEqual(cmd[:3], ["ebook-convert", str(source), str(target.with_name(".Book.converting.pdf"))])
+                self.assertEqual(cmd[3:], CALIBRE_PDF_OPTIONS)
+                target.with_name(".Book.converting.pdf").write_bytes(b"%PDF-calibre")
+                return subprocess.CompletedProcess(cmd, 0, "", "")
+
+            with (
+                patch("epub_to_pdf.find_calibre_command", return_value=["ebook-convert"]),
+                patch("epub_to_pdf.subprocess.run", side_effect=fake_run),
+            ):
+                status, message = convert_epub_to_pdf(source, target, overwrite=False)
+
+            self.assertEqual(status, "converted")
+            self.assertEqual(message, "EPUB converted to PDF with Calibre")
+            self.assertEqual(target.read_bytes(), b"%PDF-calibre")
+
+    def test_convert_epub_to_pdf_fallback_writes_letter_pdf_with_pymupdf(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             source = Path(tmp) / "Book.epub"
             target = Path(tmp) / "Book.pdf"
@@ -174,10 +197,15 @@ class EpubToPdfTests(unittest.TestCase):
 
             fake_fitz = FakeFitz()
             with patch("epub_to_pdf.import_fitz", return_value=fake_fitz):
-                status, message = convert_epub_to_pdf(source, target, overwrite=False)
+                status, message = convert_epub_to_pdf(
+                    source,
+                    target,
+                    overwrite=False,
+                    engine="pymupdf",
+                )
 
             self.assertEqual(status, "converted")
-            self.assertEqual(message, "EPUB converted to PDF")
+            self.assertEqual(message, "EPUB converted to PDF with PyMuPDF")
             self.assertEqual(target.read_bytes(), b"%PDF-fake")
             self.assertEqual(
                 fake_fitz.epub_doc.layout_rect_used.as_tuple(),
@@ -194,10 +222,15 @@ class EpubToPdfTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             target = Path(tmp) / "Acing the System Design Interview.pdf"
 
-            status, message = convert_epub_to_pdf(source, target, overwrite=False)
+            status, message = convert_epub_to_pdf(
+                source,
+                target,
+                overwrite=False,
+                engine="pymupdf",
+            )
 
             self.assertEqual(status, "converted")
-            self.assertEqual(message, "EPUB converted to PDF")
+            self.assertEqual(message, "EPUB converted to PDF with PyMuPDF")
             doc = fitz.open(target)
             try:
                 self.assertGreater(doc.page_count, 0)
