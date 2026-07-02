@@ -143,6 +143,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Java_Spring_Boot_Microservices_and_Angular.pdf"
   },
   {
+    "id": "c678f13f5d4f",
+    "title": "Mastering_RESTful_Web_Services_with_Java",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Java",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Java/Mastering_RESTful_Web_Services_with_Java.pdf",
+    "cover": "assets/covers/Mastering_RESTful_Web_Services_with_Java.webp",
+    "format": "pdf",
+    "description": "Building scalable and robust web services is a core requirement for modern distributed applications. However, designing APIs that are secure, performant, and truly RESTful can be challenging when navigating the Java ecosystem.\n\nMastering RESTful Web Services with Java provides a comprehensive guide to building enterprise-grade APIs. It covers advanced concepts, best practices, and practical implementation details using popular Java frameworks.\n\n• Design RESTful APIs following industry best practices\n• Implement security protocols including OAuth2 and JWT\n• Optimize performance and caching strategies for Java web services\n• Handle versioning and backward compatibility effectively\n• Test and document APIs using modern tools and frameworks",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_RESTful_Web_Services_with_Java.pdf"
+  },
+  {
     "id": "ced19085adb8",
     "title": "OCP_Oracle_Certified_Professional_Java_SE_21_Developer_Study_Guide",
     "category": "Computer Science Fundamentals",
@@ -209,6 +220,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Zero_To_Production_In_Rust_An_introduction_to_backend.pdf"
   },
   {
+    "id": "95a7d643e389",
+    "title": "Web_Scraping_With_Python",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Python",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Python/Web_Scraping_With_Python.pdf",
+    "cover": "assets/covers/Web_Scraping_With_Python.webp",
+    "format": "pdf",
+    "description": "Data is the lifeblood of the modern economy, but much of it is locked away on websites without public APIs. Extracting this data efficiently and reliably requires specialized tools and techniques.\n\nWeb Scraping with Python offers a practical deep dive into data extraction techniques. It guides you from basic HTML parsing to handling complex, JavaScript-heavy single-page applications.\n\n• Build robust web scrapers using BeautifulSoup and Scrapy\n• Navigate dynamic content rendering with Selenium and Playwright\n• Overcome anti-scraping protections and rate limits gracefully\n• Store extracted data efficiently in databases and flat files\n• Automate data pipelines and scheduled scraping tasks",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Web_Scraping_With_Python.pdf"
+  },
+  {
     "id": "9269763f0cb8",
     "title": "MLCoBanVuHuuTiep",
     "category": "Computer Science Fundamentals",
@@ -240,6 +262,17 @@
     "format": "pdf",
     "description": "Performance-critical decisions in system design require an intuitive understanding of latency at every level of the stack — from CPU cache hits measured in nanoseconds to cross-continent network calls measured in hundreds of milliseconds.\n\nThis handbook by Quang Hoang provides a practical reference for the latency numbers that every software engineer should internalize, along with the reasoning and context behind each measurement.\n\n• Memorize critical latency numbers: L1 cache (1ns), RAM (100ns), SSD (100μs), network round-trip (150ms)\n• Understand the memory hierarchy and why cache locality determines real-world performance\n• Apply latency knowledge to system design: when to cache, replicate, or denormalize\n• Calculate back-of-the-envelope estimates for throughput, storage, and bandwidth\n• Make informed trade-offs between consistency, availability, and latency in distributed systems",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/A_Latency_Handbook_for_SWE_Quang_Hoang.pdf"
+  },
+  {
+    "id": "0f036b71b238",
+    "title": "Build_Your_First_Home_Server",
+    "category": "Computer Science Fundamentals",
+    "topic": "Systems and OS",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Systems_and_OS/Build_Your_First_Home_Server.pdf",
+    "cover": "assets/covers/Build_Your_First_Home_Server.webp",
+    "format": "pdf",
+    "description": "Relying entirely on cloud services for data storage and self-hosted applications can lead to privacy concerns and recurring costs. Building a home server gives you control over your digital life but requires understanding networking, storage, and server administration.\n\nBuild Your First Home Server is a hands-on guide for enthusiasts looking to set up their own personal cloud. It covers hardware selection, OS installation, and deploying essential self-hosted services.\n\n• Choose the right hardware for your home server needs\n• Install and configure Linux or a specialized NAS OS\n• Deploy Docker containers for popular self-hosted applications\n• Secure your network with reverse proxies and VPNs\n• Implement automated backup strategies for data safety",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Build_Your_First_Home_Server.pdf"
   },
   {
     "id": "e1ea6d962919",
@@ -341,6 +374,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Managing_AI_Projects.pdf"
   },
   {
+    "id": "d48b6feb18f5",
+    "title": "OpenClaw_AI_in_Production",
+    "category": "Software Engineering",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/2_Software_Engineering/Artificial_Intelligence/OpenClaw_AI_in_Production.pdf",
+    "cover": "assets/covers/OpenClaw_AI_in_Production.webp",
+    "format": "pdf",
+    "description": "Transitioning AI models from experimental notebooks to robust production systems introduces complex engineering challenges. Ensuring reliability, scalability, and monitoring for AI agents requires a specialized infrastructure approach.\n\nOpenClaw: AI in Production provides architectural blueprints for deploying intelligent systems. It focuses on the operationalization of AI models and the engineering practices needed to maintain them at scale.\n\n• Architect scalable pipelines for AI inference and processing\n• Implement observability and monitoring for model performance\n• Design reliable error handling for non-deterministic AI outputs\n• Manage costs and resource allocation for production deployments\n• Orchestrate multi-agent interactions and workflows securely",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/OpenClaw_AI_in_Production.pdf"
+  },
+  {
     "id": "d63c71779b0e",
     "title": "Scaling_agentic_coding_across_your_organization",
     "category": "Software Engineering",
@@ -361,6 +405,17 @@
     "format": "pdf",
     "description": "As artificial intelligence continues to evolve, agentic AI systems that can autonomously reason, plan, and execute complex workflows have emerged as the next major frontier in software engineering.\n\nThe Hitchhiker's Guide to Agentic AI offers a comprehensive journey into the design, implementation, and management of autonomous AI agents, equipping developers and technical leaders with the theoretical foundations and practical patterns needed to build robust agentic systems.\n\n• Understand the core principles of agentic reasoning and decision-making architectures\n• Build scalable AI agents capable of autonomous problem solving\n• Implement effective tool-calling and environment interaction strategies\n• Evaluate and test agentic workflows for reliability and safety\n\nLink source : <a href=\"https://arxiv.org/\" target=\"_blank\">https://arxiv.org/</a>",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Hitchhiker_s_Guide_to_Agentic_AI.pdf"
+  },
+  {
+    "id": "0af5d0b4f364",
+    "title": "The_Modern_Guide_to_AI_Powered_Web_Scraping_and_Automation",
+    "category": "Software Engineering",
+    "topic": "Artificial Intelligence",
+    "file_path": "Books/2_Software_Engineering/Artificial_Intelligence/The_Modern_Guide_to_AI_Powered_Web_Scraping_and_Automation.pdf",
+    "cover": "assets/covers/The_Modern_Guide_to_AI_Powered_Web_Scraping_and_Automation.webp",
+    "format": "pdf",
+    "description": "Traditional web scraping often breaks when website structures change, requiring constant maintenance. Integrating AI into scraping and automation workflows enables resilient systems that adapt to dynamic web environments.\n\nThe Modern Guide to AI-Powered Web Scraping and Automation explores the intersection of language models and data extraction. It demonstrates how to leverage LLMs to build autonomous agents capable of navigating and extracting unstructured data.\n\n• Replace brittle CSS selectors with semantic AI-driven parsing\n• Build autonomous agents capable of navigating complex websites\n• Extract structured JSON data directly from raw HTML using LLMs\n• Automate form submissions and interactions intelligently\n• Scale AI scraping operations while managing API costs",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Modern_Guide_to_AI_Powered_Web_Scraping_and_Automation.pdf"
   },
   {
     "id": "99b554c1b5c0",
@@ -561,15 +616,26 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf"
   },
   {
-    "id": "7191ad27dee4",
-    "title": "Designing_Data_Intensive_Applications",
+    "id": "8340419c08aa",
+    "title": "Designing_Data_Intensive_Applications_2nd_Edition",
     "category": "Software Engineering",
     "topic": "Software Architecture and Design",
-    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Designing_Data_Intensive_Applications.pdf",
-    "cover": "assets/covers/Designing_Data_Intensive_Applications.webp",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Designing_Data_Intensive_Applications_2nd_Edition.pdf",
+    "cover": "assets/covers/Designing_Data_Intensive_Applications_2nd_Edition.webp",
     "format": "pdf",
-    "description": "Data is at the center of many challenges in system design today. Difficult issues need to be figured out, such as scalability, consistency, reliability, efficiency, and maintainability. In addition, we have an overwhelming variety of tools, including relational databases, NoSQL datastores, stream or batch processors, and message brokers.\n\nIn this practical and comprehensive guide, author Martin Kleppmann helps you navigate this diverse landscape by examining the pros and cons of various technologies for processing and storing data. Software keeps changing, but the fundamental principles remain the same.\n\n• Peer under the hood of the systems you already use, and learn how to use and operate them more effectively\n• Make informed decisions by identifying the strengths and weaknesses of different tools\n• Navigate the trade-offs around consistency, scalability, fault tolerance, and complexity\n• Understand the distributed systems research upon which modern databases are built\n• Peek behind the scenes of major online services, and learn from their architectures",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Designing_Data_Intensive_Applications.pdf"
+    "description": "Data is at the center of many modern applications, demanding robust approaches to scale, consistency, and reliability. However, with an overwhelming number of tools and databases available, engineers often struggle to navigate the trade-offs and build systems that can withstand production workloads.\n\nDesigning Data-Intensive Applications 2nd Edition explores the principles and practicalities of building reliable, scalable, and maintainable data systems. This updated edition dives deeper into modern architectures, distributed systems, and the underlying algorithms.\n\n• Navigate the trade-offs between different database models and storage engines\n• Master the complexities of distributed systems, consensus, and replication\n• Build resilient data pipelines that can handle massive scale and high throughput\n• Evaluate the pros and cons of batch and stream processing architectures\n• Implement strategies for ensuring data consistency in unpredictable environments",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Designing_Data_Intensive_Applications_2nd_Edition.pdf"
+  },
+  {
+    "id": "8122137a499d",
+    "title": "Designing_Data_Intensive_Applications_2nd_Edition",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Designing_Data_Intensive_Applications_2nd_Edition.epub",
+    "cover": "assets/covers/Designing_Data_Intensive_Applications_2nd_Edition.webp",
+    "format": "epub",
+    "description": "Data is at the center of many modern applications, demanding robust approaches to scale, consistency, and reliability. However, with an overwhelming number of tools and databases available, engineers often struggle to navigate the trade-offs and build systems that can withstand production workloads.\n\nDesigning Data-Intensive Applications 2nd Edition explores the principles and practicalities of building reliable, scalable, and maintainable data systems. This updated edition dives deeper into modern architectures, distributed systems, and the underlying algorithms.\n\n• Navigate the trade-offs between different database models and storage engines\n• Master the complexities of distributed systems, consensus, and replication\n• Build resilient data pipelines that can handle massive scale and high throughput\n• Evaluate the pros and cons of batch and stream processing architectures\n• Implement strategies for ensuring data consistency in unpredictable environments",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Designing_Data_Intensive_Applications_2nd_Edition.epub"
   },
   {
     "id": "9bfee32601a2",
@@ -781,6 +847,50 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Practice_Second_Edition.pdf"
   },
   {
+    "id": "983eb22837c1",
+    "title": "AI_Engineering_Interview",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/AI_Engineering_Interview.pdf",
+    "cover": "assets/covers/AI_Engineering_Interview.webp",
+    "format": "pdf",
+    "description": "The rise of AI engineering has created a new class of technical interviews focusing on LLMs, vector databases, and prompt engineering. Candidates often struggle to transition from traditional software engineering interviews to these specialized AI domains.\n\nAI Engineering Interview is a definitive resource for preparing for modern AI roles. It provides comprehensive coverage of the concepts, architectures, and practical problems encountered in AI engineering assessments.\n\n• Master the fundamentals of LLM architectures and capabilities\n• Design scalable RAG pipelines and vector search systems\n• Optimize prompts and model parameters for specific use cases\n• Evaluate and test non-deterministic AI outputs effectively\n• Architect robust AI agents and autonomous workflows",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AI_Engineering_Interview.pdf"
+  },
+  {
+    "id": "c3deecd5a5cd",
+    "title": "AI_Engineering_Interview",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/AI_Engineering_Interview.epub",
+    "cover": "assets/covers/AI_Engineering_Interview.webp",
+    "format": "epub",
+    "description": "The rise of AI engineering has created a new class of technical interviews focusing on LLMs, vector databases, and prompt engineering. Candidates often struggle to transition from traditional software engineering interviews to these specialized AI domains.\n\nAI Engineering Interview is a definitive resource for preparing for modern AI roles. It provides comprehensive coverage of the concepts, architectures, and practical problems encountered in AI engineering assessments.\n\n• Master the fundamentals of LLM architectures and capabilities\n• Design scalable RAG pipelines and vector search systems\n• Optimize prompts and model parameters for specific use cases\n• Evaluate and test non-deterministic AI outputs effectively\n• Architect robust AI agents and autonomous workflows",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/AI_Engineering_Interview.epub"
+  },
+  {
+    "id": "22e7c744f403",
+    "title": "Acing_the_System_Design_Interview",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Acing_the_System_Design_Interview.pdf",
+    "cover": "assets/covers/Acing_the_System_Design_Interview.webp",
+    "format": "pdf",
+    "description": "System design interviews are notoriously difficult, requiring candidates to architect complex distributed systems under time pressure. Many engineers struggle to structure their thoughts and address scalability bottlenecks effectively.\n\nAcing the System Design Interview provides a systematic framework for tackling large-scale architectural challenges. It breaks down complex systems into manageable components and offers blueprints for common interview questions.\n\n• Apply a structured methodology to any system design question\n• Master core building blocks like load balancers, caches, and message queues\n• Design highly available and partition-tolerant distributed systems\n• Estimate capacity, throughput, and storage requirements accurately\n• Navigate trade-offs between consistency, availability, and performance",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Acing_the_System_Design_Interview.pdf"
+  },
+  {
+    "id": "c3f09b886988",
+    "title": "Acing_the_System_Design_Interview",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Acing_the_System_Design_Interview.epub",
+    "cover": "assets/covers/Acing_the_System_Design_Interview.webp",
+    "format": "epub",
+    "description": "System design interviews are notoriously difficult, requiring candidates to architect complex distributed systems under time pressure. Many engineers struggle to structure their thoughts and address scalability bottlenecks effectively.\n\nAcing the System Design Interview provides a systematic framework for tackling large-scale architectural challenges. It breaks down complex systems into manageable components and offers blueprints for common interview questions.\n\n• Apply a structured methodology to any system design question\n• Master core building blocks like load balancers, caches, and message queues\n• Design highly available and partition-tolerant distributed systems\n• Estimate capacity, throughput, and storage requirements accurately\n• Navigate trade-offs between consistency, availability, and performance",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Acing_the_System_Design_Interview.epub"
+  },
+  {
     "id": "69b2b37bdb58",
     "title": "Coding_Interview_Patterns_Nail_Your_Next_Coding_Interview",
     "category": "Career and Professional Development",
@@ -812,6 +922,17 @@
     "format": "pdf",
     "description": "Landing a job at FAANG (Facebook, Amazon, Apple, Netflix, Google) requires months of structured preparation across multiple domains — data structures, algorithms, system design, and behavioral interviews. Without a clear plan, candidates waste time on low-impact topics.\n\nThis study plan provides a focused, time-boxed roadmap for FAANG interview preparation, outlining exactly what to study each week, which problems to solve, and how to allocate effort across different interview rounds.\n\n• Follow a structured weekly plan covering arrays, trees, graphs, dynamic programming, and system design\n• Prioritize high-frequency interview topics based on real FAANG interview data\n• Balance time between coding practice, system design study, and behavioral prep\n• Track progress with clear milestones and self-assessment checkpoints\n• Optimize the final weeks with mock interviews and targeted weak-area review",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/FAANG_Study_Plan.pdf"
+  },
+  {
+    "id": "4d2f84e12dd3",
+    "title": "Mastering_React_js_Interviews_For_MiddleSenior_Developers",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/Mastering_React_js_Interviews_For_MiddleSenior_Developers.pdf",
+    "cover": "assets/covers/Mastering_React_js_Interviews_For_MiddleSenior_Developers.webp",
+    "format": "pdf",
+    "description": "Senior frontend interviews go beyond basic component creation, focusing on performance, state management, and architectural decisions in React. Developers must demonstrate deep understanding of the reconciliation process and advanced hooks.\n\nMastering React.js Interviews provides an in-depth exploration of advanced React concepts. It prepares candidates to tackle complex scenarios, performance optimization challenges, and architectural discussions.\n\n• Explain the intricacies of the React reconciliation algorithm and Virtual DOM\n• Optimize performance using memoization, lazy loading, and concurrent features\n• Architect scalable state management solutions for large applications\n• Design reusable and testable custom hooks for complex logic\n• Discuss architectural trade-offs in client-side vs. server-side rendering",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_React_js_Interviews_For_MiddleSenior_Developers.pdf"
   },
   {
     "id": "189320f51e0b",
