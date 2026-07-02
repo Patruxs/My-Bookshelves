@@ -154,6 +154,8 @@ def build_manifest(workflows: list[WorkflowInfo]) -> dict[str, object]:
             "structure": "python scripts/cli.py structure --base-dir .",
             "doctor": "python scripts/cli.py doctor --base-dir . --strict",
             "validate_json": "python scripts/cli.py validate --base-dir . --json",
+            "unlock_pdfs": "python scripts/cli.py unlock-pdfs --base-dir .",
+            "epub_to_pdf": "python scripts/cli.py epub-to-pdf --base-dir .",
             "upload_dry_run": "python scripts/cli.py upload --dry-run",
             "upload": "python scripts/cli.py upload",
         },

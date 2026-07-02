@@ -16,6 +16,7 @@ Commands:
     codex-sync      Regenerate the .codex adapter from .agents
     smoke           Smoke check static site contracts
     unlock-pdfs     Remove password encryption from PDFs in Inbox
+    epub-to-pdf     Convert EPUB files in Inbox to PDF
     delete          Delete books, topics, or categories
     update          Update book metadata, rename topics/categories
     generate        Generate data.json and cover images
@@ -27,6 +28,7 @@ Examples:
     book doctor
     book docter
     book unlock-pdfs --execute
+    book epub-to-pdf --execute
     book tui
     python scripts/cli.py list
     python scripts/cli.py delete --book "Title"
@@ -91,6 +93,11 @@ COMMANDS = {
         "inject_args": [],
         "desc": "Remove password encryption from PDFs in Inbox",
     },
+    "epub-to-pdf": {
+        "script": "epub_to_pdf.py",
+        "inject_args": [],
+        "desc": "Convert EPUB files in Inbox to PDF",
+    },
     "update": {
         "script": "update_books.py",
         "inject_args": [],
@@ -130,6 +137,11 @@ ALIASES = {
     "unlock": "unlock-pdfs",
     "unlock-pdf": "unlock-pdfs",
     "pdf-unlock": "unlock-pdfs",
+    "epub2pdf": "epub-to-pdf",
+    "epubtopdf": "epub-to-pdf",
+    "epub-pdf": "epub-to-pdf",
+    "convert-epub": "epub-to-pdf",
+    "convert-epubs": "epub-to-pdf",
 }
 
 
@@ -150,6 +162,7 @@ def print_help() -> None:
     print("  book doctor")
     print("  book docter")
     print("  book unlock-pdfs --execute")
+    print("  book epub-to-pdf --execute")
     print("  book tui")
     print("  python scripts/cli.py list")
     print("  python scripts/cli.py delete --book \"Title\"")
@@ -170,6 +183,8 @@ def print_help() -> None:
     print("  python scripts/cli.py smoke --base-dir . --allow-missing-download-url")
     print("  python scripts/cli.py unlock-pdfs --base-dir .")
     print("  python scripts/cli.py unlock-pdfs --base-dir . --execute")
+    print("  python scripts/cli.py epub-to-pdf --base-dir .")
+    print("  python scripts/cli.py epub-to-pdf --base-dir . --execute")
     print("  python scripts/cli.py validate --base-dir . --json")
     print("  python scripts/cli.py structure --base-dir .")
     print("  python scripts/cli.py codex-sync --base-dir .")

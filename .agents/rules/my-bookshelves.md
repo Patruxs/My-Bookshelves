@@ -119,6 +119,8 @@ Exception: `!library_structure.log` may be committed.
 | `doctor` | Validate repo health, dependencies, metadata, covers |
 | `validate` | Alias for `doctor` |
 | `smoke` | Smoke check static site contracts |
+| `unlock-pdfs` | Remove password encryption from PDFs in `Inbox/` |
+| `epub-to-pdf` | Convert EPUB files in `Inbox/` to PDFs |
 | `upload --dry-run` | Preview upload (REQUIRED) |
 | `upload` | Upload NEW books |
 | `upload --force` | Re-upload everything |

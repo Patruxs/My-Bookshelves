@@ -193,7 +193,7 @@ def print_help() -> None:
     print("  python scripts/tui.py")
     print("  book tui")
     print()
-    print("Use the menu option [9] to unlock password-protected PDFs in Inbox/.")
+    print("Use menu option [9] to unlock PDFs or [10] to convert EPUBs to PDF.")
 
 
 # ══════════════════════════════════════════════════════════
@@ -224,6 +224,7 @@ def screen_main_menu() -> str:
     menu_item("7", "☁️  Upload Releases", "Push books to GitHub Releases")
     menu_item("8", "📊 Update Structure Log", "Regenerate library_structure.log")
     menu_item("9", "🔓 Unlock Inbox PDFs", "Remove password encryption from Inbox PDFs")
+    menu_item("10", "📄 Convert EPUB to PDF", "Create PDF copies from Inbox EPUBs")
 
     subheader("System")
     menu_item("0", "🚪 Exit", "", C.BRIGHT_RED)
@@ -575,6 +576,26 @@ def screen_unlock_pdfs() -> None:
     pause()
 
 
+def screen_epub_to_pdf() -> None:
+    """Convert EPUB files in Inbox to PDFs."""
+    clear()
+    header("📄 Convert EPUB to PDF")
+
+    info("Preview EPUB files in Inbox/ that can be converted to PDF.")
+    warning("Original EPUB files are kept. Existing PDFs are skipped unless overwritten.")
+    print()
+
+    run_script("epub_to_pdf.py", ["--base-dir", str(BASE_DIR)])
+
+    if confirm("Create PDF files from Inbox EPUBs?"):
+        args = ["--base-dir", str(BASE_DIR), "--execute"]
+        if confirm("Overwrite existing PDFs with the same name?"):
+            args.append("--overwrite")
+        run_script("epub_to_pdf.py", args)
+
+    pause()
+
+
 # ══════════════════════════════════════════════════════════
 # MAIN LOOP
 # ══════════════════════════════════════════════════════════
@@ -607,6 +628,8 @@ def main() -> None:
                 screen_structure()
             elif choice == "9":
                 screen_unlock_pdfs()
+            elif choice == "10":
+                screen_epub_to_pdf()
             elif choice in ("0", "q", "quit", "exit"):
                 clear()
                 print(f"\n  {C.BRIGHT_CYAN}👋 Goodbye!{C.RESET}\n")

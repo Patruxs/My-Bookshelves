@@ -12,6 +12,9 @@ class CliTests(unittest.TestCase):
     def test_unlock_pdfs_command_is_registered(self) -> None:
         self.assertEqual(cli.COMMANDS["unlock-pdfs"]["script"], "unlock_pdfs.py")
 
+    def test_epub_to_pdf_command_is_registered(self) -> None:
+        self.assertEqual(cli.COMMANDS["epub-to-pdf"]["script"], "epub_to_pdf.py")
+
     def test_doctor_aliases_route_to_doctor(self) -> None:
         self.assertEqual(cli.COMMANDS["doctor"]["script"], "doctor.py")
         self.assertEqual(cli.COMMANDS["validate"]["script"], "doctor.py")
@@ -21,6 +24,12 @@ class CliTests(unittest.TestCase):
     def test_unlock_aliases_route_to_unlock_pdfs(self) -> None:
         self.assertEqual(cli.normalize_command("unlock"), "unlock-pdfs")
         self.assertEqual(cli.normalize_command("pdf-unlock"), "unlock-pdfs")
+
+    def test_epub_aliases_route_to_epub_to_pdf(self) -> None:
+        self.assertEqual(cli.normalize_command("epub2pdf"), "epub-to-pdf")
+        self.assertEqual(cli.normalize_command("epubtopdf"), "epub-to-pdf")
+        self.assertEqual(cli.normalize_command("convert-epub"), "epub-to-pdf")
+        self.assertEqual(cli.normalize_command("convert-epubs"), "epub-to-pdf")
 
 
 if __name__ == "__main__":

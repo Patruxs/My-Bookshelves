@@ -43,6 +43,7 @@ Short CLI examples:
 ```bash
 ./book doctor
 ./book unlock-pdfs
+./book epub-to-pdf
 ./book generate --base-dir .
 ```
 
