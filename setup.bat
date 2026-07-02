@@ -111,7 +111,12 @@ echo     Open http://localhost:8080/site/
 echo.
 echo   Add books:
 echo     1. Drop files into Inbox/
-echo     2. venv\Scripts\python.exe scripts\cli.py generate --base-dir .
+echo     2. book generate --base-dir .
+echo.
+echo   Shortcuts:
+echo     book tui        ^(cmd.exe^)
+echo     .\book.bat tui  ^(PowerShell from repo root^)
+echo     book doctor
 echo.
 echo ================================================================
 echo.

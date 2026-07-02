@@ -7,6 +7,7 @@ Designed for both humans and AI agents.
 
 Usage:
     python scripts/cli.py <command> [options]
+    book <command> [options]
 
 Commands:
     list            List all books, topics, and categories
@@ -14,6 +15,7 @@ Commands:
     validate        Validate repo health and dependencies
     codex-sync      Regenerate the .codex adapter from .agents
     smoke           Smoke check static site contracts
+    unlock-pdfs     Remove password encryption from PDFs in Inbox
     delete          Delete books, topics, or categories
     update          Update book metadata, rename topics/categories
     generate        Generate data.json and cover images
@@ -22,6 +24,10 @@ Commands:
     structure       Regenerate library_structure.log
 
 Examples:
+    book doctor
+    book docter
+    book unlock-pdfs --execute
+    book tui
     python scripts/cli.py list
     python scripts/cli.py delete --book "Title"
     python scripts/cli.py delete --book "Title" --execute
@@ -80,6 +86,11 @@ COMMANDS = {
         "inject_args": [],
         "desc": "Smoke check static site contracts",
     },
+    "unlock-pdfs": {
+        "script": "unlock_pdfs.py",
+        "inject_args": [],
+        "desc": "Remove password encryption from PDFs in Inbox",
+    },
     "update": {
         "script": "update_books.py",
         "inject_args": [],
@@ -105,6 +116,20 @@ COMMANDS = {
         "inject_args": [],
         "desc": "Regenerate library_structure.log",
     },
+    "tui": {
+        "script": "tui.py",
+        "inject_args": [],
+        "desc": "Open the interactive terminal UI",
+    },
+}
+
+ALIASES = {
+    "docter": "doctor",
+    "doc": "doctor",
+    "check": "doctor",
+    "unlock": "unlock-pdfs",
+    "unlock-pdf": "unlock-pdfs",
+    "pdf-unlock": "unlock-pdfs",
 }
 
 
@@ -115,12 +140,17 @@ def print_help() -> None:
     print("=" * 60)
     print()
     print("Usage: python scripts/cli.py <command> [options]")
+    print("       book <command> [options]")
     print()
     print("Commands:")
     for name, info in COMMANDS.items():
         print(f"  {name:<14} {info['desc']}")
     print()
     print("Examples:")
+    print("  book doctor")
+    print("  book docter")
+    print("  book unlock-pdfs --execute")
+    print("  book tui")
     print("  python scripts/cli.py list")
     print("  python scripts/cli.py delete --book \"Title\"")
     print("  python scripts/cli.py delete --book \"Title\" --execute")
@@ -138,10 +168,17 @@ def print_help() -> None:
     print("  python scripts/cli.py smoke --base-dir .")
     print("  python scripts/cli.py smoke --base-dir . --check-download-urls")
     print("  python scripts/cli.py smoke --base-dir . --allow-missing-download-url")
+    print("  python scripts/cli.py unlock-pdfs --base-dir .")
+    print("  python scripts/cli.py unlock-pdfs --base-dir . --execute")
     print("  python scripts/cli.py validate --base-dir . --json")
     print("  python scripts/cli.py structure --base-dir .")
     print("  python scripts/cli.py codex-sync --base-dir .")
     print()
+
+
+def normalize_command(command: str) -> str:
+    """Resolve friendly aliases and common typos to canonical commands."""
+    return ALIASES.get(command, command)
 
 
 def main() -> None:
@@ -150,12 +187,13 @@ def main() -> None:
         print_help()
         sys.exit(0)
 
-    command = sys.argv[1]
+    command = normalize_command(sys.argv[1])
 
     if command not in COMMANDS:
         print(f"❌ Unknown command: \"{command}\"")
         print(f"   Available: {', '.join(COMMANDS.keys())}")
-        print(f"   Run: python scripts/cli.py --help")
+        print(f"   Aliases: {', '.join(sorted(ALIASES.keys()))}")
+        print(f"   Run: book --help")
         sys.exit(1)
 
     info = COMMANDS[command]

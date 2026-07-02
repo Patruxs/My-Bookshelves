@@ -29,7 +29,21 @@ python -m http.server 8080
 
 Manage your library using the interactive terminal UI:
 ```bash
-python scripts/tui.py
+# Windows cmd.exe, or after adding the repo to PATH
+book tui
+
+# Windows PowerShell from the repo root
+.\book.bat tui
+
+# macOS / Linux
+./book tui
 ```
 
-> **Note:** Book files (`*.pdf`, `*.epub`) are stored in GitHub Releases, not Git. Run `python scripts/cli.py doctor --base-dir .` to validate repository health.
+Short CLI examples:
+```bash
+./book doctor
+./book unlock-pdfs
+./book generate --base-dir .
+```
+
+> **Note:** Book files (`*.pdf`, `*.epub`) are stored in GitHub Releases, not Git. Run `./book doctor` to validate repository health.

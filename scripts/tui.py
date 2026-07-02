@@ -7,6 +7,7 @@ the My Bookshelves library. Zero external dependencies.
 
 Usage:
     python scripts/tui.py
+    book tui
 """
 
 import json
@@ -184,6 +185,17 @@ def run_script(script_name: str, args: list[str]) -> int:
     return result.returncode
 
 
+def print_help() -> None:
+    """Print non-interactive help for the TUI launcher."""
+    print("My Bookshelves TUI")
+    print()
+    print("Usage:")
+    print("  python scripts/tui.py")
+    print("  book tui")
+    print()
+    print("Use the menu option [9] to unlock password-protected PDFs in Inbox/.")
+
+
 # ══════════════════════════════════════════════════════════
 # SCREENS
 # ══════════════════════════════════════════════════════════
@@ -211,6 +223,7 @@ def screen_main_menu() -> str:
     menu_item("6", "🔤 Rename Files", "Normalize filenames to ASCII Snake_Case")
     menu_item("7", "☁️  Upload Releases", "Push books to GitHub Releases")
     menu_item("8", "📊 Update Structure Log", "Regenerate library_structure.log")
+    menu_item("9", "🔓 Unlock Inbox PDFs", "Remove password encryption from Inbox PDFs")
 
     subheader("System")
     menu_item("0", "🚪 Exit", "", C.BRIGHT_RED)
@@ -545,12 +558,33 @@ def screen_structure() -> None:
     pause()
 
 
+def screen_unlock_pdfs() -> None:
+    """Remove password encryption from PDFs in Inbox."""
+    clear()
+    header("🔓 Unlock Inbox PDFs")
+
+    info("Preview password-protected PDFs in Inbox/.")
+    warning("The password is read from env/local prompt/file, never from tracked code.")
+    print()
+
+    run_script("unlock_pdfs.py", ["--base-dir", str(BASE_DIR)])
+
+    if confirm("Execute PDF unlock for Inbox/?"):
+        run_script("unlock_pdfs.py", ["--base-dir", str(BASE_DIR), "--execute"])
+
+    pause()
+
+
 # ══════════════════════════════════════════════════════════
 # MAIN LOOP
 # ══════════════════════════════════════════════════════════
 
 def main() -> None:
     """Main TUI event loop."""
+    if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help", "help"):
+        print_help()
+        return
+
     while True:
         try:
             choice = screen_main_menu()
@@ -571,6 +605,8 @@ def main() -> None:
                 screen_upload()
             elif choice == "8":
                 screen_structure()
+            elif choice == "9":
+                screen_unlock_pdfs()
             elif choice in ("0", "q", "quit", "exit"):
                 clear()
                 print(f"\n  {C.BRIGHT_CYAN}👋 Goodbye!{C.RESET}\n")
