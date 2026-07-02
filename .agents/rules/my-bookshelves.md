@@ -121,6 +121,7 @@ Exception: `!library_structure.log` may be committed.
 | `smoke` | Smoke check static site contracts |
 | `unlock-pdfs` | Remove password encryption from PDFs in `Inbox/` |
 | `epub-to-pdf` | Convert EPUB files in `Inbox/` to PDFs |
+| `pdf-to-epub` | Convert PDF files in `Inbox/` to image-based EPUBs |
 | `upload --dry-run` | Preview upload (REQUIRED) |
 | `upload` | Upload NEW books |
 | `upload --force` | Re-upload everything |

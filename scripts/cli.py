@@ -17,6 +17,7 @@ Commands:
     smoke           Smoke check static site contracts
     unlock-pdfs     Remove password encryption from PDFs in Inbox
     epub-to-pdf     Convert EPUB files in Inbox to PDF
+    pdf-to-epub     Convert PDF files in Inbox to image-based EPUB
     delete          Delete books, topics, or categories
     update          Update book metadata, rename topics/categories
     generate        Generate data.json and cover images
@@ -29,6 +30,7 @@ Examples:
     book docter
     book unlock-pdfs --execute
     book epub-to-pdf --execute
+    book pdf-to-epub --execute
     book tui
     python scripts/cli.py list
     python scripts/cli.py delete --book "Title"
@@ -98,6 +100,11 @@ COMMANDS = {
         "inject_args": [],
         "desc": "Convert EPUB files in Inbox to PDF",
     },
+    "pdf-to-epub": {
+        "script": "pdf_to_epub.py",
+        "inject_args": [],
+        "desc": "Convert PDF files in Inbox to image-based EPUB",
+    },
     "update": {
         "script": "update_books.py",
         "inject_args": [],
@@ -142,6 +149,11 @@ ALIASES = {
     "epub-pdf": "epub-to-pdf",
     "convert-epub": "epub-to-pdf",
     "convert-epubs": "epub-to-pdf",
+    "pdf2epub": "pdf-to-epub",
+    "pdftoepub": "pdf-to-epub",
+    "pdf-epub": "pdf-to-epub",
+    "convert-pdf": "pdf-to-epub",
+    "convert-pdfs": "pdf-to-epub",
 }
 
 
@@ -163,6 +175,7 @@ def print_help() -> None:
     print("  book docter")
     print("  book unlock-pdfs --execute")
     print("  book epub-to-pdf --execute")
+    print("  book pdf-to-epub --execute")
     print("  book tui")
     print("  python scripts/cli.py list")
     print("  python scripts/cli.py delete --book \"Title\"")
@@ -185,6 +198,8 @@ def print_help() -> None:
     print("  python scripts/cli.py unlock-pdfs --base-dir . --execute")
     print("  python scripts/cli.py epub-to-pdf --base-dir .")
     print("  python scripts/cli.py epub-to-pdf --base-dir . --execute")
+    print("  python scripts/cli.py pdf-to-epub --base-dir .")
+    print("  python scripts/cli.py pdf-to-epub --base-dir . --execute")
     print("  python scripts/cli.py validate --base-dir . --json")
     print("  python scripts/cli.py structure --base-dir .")
     print("  python scripts/cli.py codex-sync --base-dir .")

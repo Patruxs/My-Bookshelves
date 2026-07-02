@@ -193,7 +193,7 @@ def print_help() -> None:
     print("  python scripts/tui.py")
     print("  book tui")
     print()
-    print("Use menu option [9] to unlock PDFs or [10] to convert EPUBs to PDF.")
+    print("Use menu options [10]/[11] to convert EPUB/PDF formats.")
 
 
 # ══════════════════════════════════════════════════════════
@@ -225,6 +225,7 @@ def screen_main_menu() -> str:
     menu_item("8", "📊 Update Structure Log", "Regenerate library_structure.log")
     menu_item("9", "🔓 Unlock Inbox PDFs", "Remove password encryption from Inbox PDFs")
     menu_item("10", "📄 Convert EPUB to PDF", "Create PDF copies from Inbox EPUBs")
+    menu_item("11", "📖 Convert PDF to EPUB", "Create image-based EPUB copies from Inbox PDFs")
 
     subheader("System")
     menu_item("0", "🚪 Exit", "", C.BRIGHT_RED)
@@ -596,6 +597,26 @@ def screen_epub_to_pdf() -> None:
     pause()
 
 
+def screen_pdf_to_epub() -> None:
+    """Convert PDF files in Inbox to image-based EPUBs."""
+    clear()
+    header("📖 Convert PDF to EPUB")
+
+    info("Preview PDF files in Inbox/ that can be converted to EPUB.")
+    warning("Original PDF files are kept. Output EPUBs contain rendered page images.")
+    print()
+
+    run_script("pdf_to_epub.py", ["--base-dir", str(BASE_DIR)])
+
+    if confirm("Create EPUB files from Inbox PDFs?"):
+        args = ["--base-dir", str(BASE_DIR), "--execute"]
+        if confirm("Overwrite existing EPUBs with the same name?"):
+            args.append("--overwrite")
+        run_script("pdf_to_epub.py", args)
+
+    pause()
+
+
 # ══════════════════════════════════════════════════════════
 # MAIN LOOP
 # ══════════════════════════════════════════════════════════
@@ -630,6 +651,8 @@ def main() -> None:
                 screen_unlock_pdfs()
             elif choice == "10":
                 screen_epub_to_pdf()
+            elif choice == "11":
+                screen_pdf_to_epub()
             elif choice in ("0", "q", "quit", "exit"):
                 clear()
                 print(f"\n  {C.BRIGHT_CYAN}👋 Goodbye!{C.RESET}\n")

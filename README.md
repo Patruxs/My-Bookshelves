@@ -44,6 +44,7 @@ Short CLI examples:
 ./book doctor
 ./book unlock-pdfs
 ./book epub-to-pdf
+./book pdf-to-epub
 ./book generate --base-dir .
 ```
 
