@@ -9,21 +9,86 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from epub_to_pdf import build_plan, convert_epub_to_pdf, resolve_inbox_dir  # noqa: E402
+from epub_to_pdf import (  # noqa: E402
+    CONTENT_HEIGHT,
+    CONTENT_WIDTH,
+    LETTER_HEIGHT,
+    LETTER_WIDTH,
+    PAGE_MARGIN,
+    build_plan,
+    convert_epub_to_pdf,
+    resolve_inbox_dir,
+)
+
+
+class FakeRect:
+    def __init__(self, x0: float, y0: float, x1: float, y1: float) -> None:
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+
+    def as_tuple(self) -> tuple[float, float, float, float]:
+        return (self.x0, self.y0, self.x1, self.y1)
 
 
 class FakeEpubDocument:
     page_count = 2
+    layout_rect: FakeRect | None = None
+
+    def layout(self, *, rect: FakeRect) -> None:
+        self.layout_rect = rect
 
     def convert_to_pdf(self) -> bytes:
+        if self.layout_rect is None:
+            raise AssertionError("EPUB document was not laid out before conversion")
+        self.layout_rect_used = self.layout_rect
         return b"fake-pdf-bytes"
 
     def close(self) -> None:
         pass
 
 
-class FakePdfDocument:
+class FakeConvertedPdfDocument:
+    page_count = 2
+
+    def close(self) -> None:
+        pass
+
+
+class FakeOutputPage:
+    def __init__(self) -> None:
+        self.show_calls: list[tuple[FakeRect, object, int]] = []
+
+    def show_pdf_page(self, rect: FakeRect, pdf_doc: object, page_number: int) -> None:
+        self.show_calls.append((rect, pdf_doc, page_number))
+
+
+class FakeOutputPdfDocument:
+    def __init__(self) -> None:
+        self.pages: list[FakeOutputPage] = []
+
+    def new_page(self, *, width: float, height: float) -> FakeOutputPage:
+        if (width, height) != (LETTER_WIDTH, LETTER_HEIGHT):
+            raise AssertionError(f"Unexpected output page size: {(width, height)!r}")
+        page = FakeOutputPage()
+        self.pages.append(page)
+        return page
+
     def save(self, path: Path, **_: object) -> None:
+        if len(self.pages) != FakeConvertedPdfDocument.page_count:
+            raise AssertionError(f"Unexpected page count: {len(self.pages)!r}")
+        for page in self.pages:
+            if not page.show_calls:
+                raise AssertionError("Output page has no placed content")
+            rect = page.show_calls[0][0]
+            if rect.as_tuple() != (
+                PAGE_MARGIN,
+                PAGE_MARGIN,
+                LETTER_WIDTH - PAGE_MARGIN,
+                LETTER_HEIGHT - PAGE_MARGIN,
+            ):
+                raise AssertionError(f"Unexpected content placement: {rect.as_tuple()!r}")
         path.write_bytes(b"%PDF-fake")
 
     def close(self) -> None:
@@ -31,11 +96,17 @@ class FakePdfDocument:
 
 
 class FakeFitz:
+    Rect = FakeRect
+
     def open(self, *args: object):
+        if len(args) == 0:
+            return FakeOutputPdfDocument()
         if len(args) == 1:
-            return FakeEpubDocument()
+            doc = FakeEpubDocument()
+            self.epub_doc = doc
+            return doc
         if len(args) == 2 and args[0] == "pdf":
-            return FakePdfDocument()
+            return FakeConvertedPdfDocument()
         raise AssertionError(f"Unexpected fitz.open arguments: {args!r}")
 
 
@@ -101,12 +172,42 @@ class EpubToPdfTests(unittest.TestCase):
             target = Path(tmp) / "Book.pdf"
             source.write_bytes(b"fake epub")
 
-            with patch("epub_to_pdf.import_fitz", return_value=FakeFitz()):
+            fake_fitz = FakeFitz()
+            with patch("epub_to_pdf.import_fitz", return_value=fake_fitz):
                 status, message = convert_epub_to_pdf(source, target, overwrite=False)
 
             self.assertEqual(status, "converted")
             self.assertEqual(message, "EPUB converted to PDF")
             self.assertEqual(target.read_bytes(), b"%PDF-fake")
+            self.assertEqual(
+                fake_fitz.epub_doc.layout_rect_used.as_tuple(),
+                (0, 0, CONTENT_WIDTH, CONTENT_HEIGHT),
+            )
+
+    def test_real_epub_conversion_outputs_letter_pages(self) -> None:
+        import fitz  # type: ignore[import-not-found]
+
+        source = ROOT / "Inbox" / "Acing the System Design Interview.epub"
+        if not source.exists():
+            self.skipTest("sample Inbox EPUB is not available")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "Acing the System Design Interview.pdf"
+
+            status, message = convert_epub_to_pdf(source, target, overwrite=False)
+
+            self.assertEqual(status, "converted")
+            self.assertEqual(message, "EPUB converted to PDF")
+            doc = fitz.open(target)
+            try:
+                self.assertGreater(doc.page_count, 0)
+                page_sizes = {
+                    tuple(round(value, 2) for value in page.rect)
+                    for page in doc
+                }
+                self.assertEqual(page_sizes, {(0.0, 0.0, LETTER_WIDTH, LETTER_HEIGHT)})
+            finally:
+                doc.close()
 
 
 if __name__ == "__main__":

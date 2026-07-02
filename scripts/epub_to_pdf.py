@@ -17,6 +17,13 @@ if sys.stderr.encoding != "utf-8":
     sys.stderr.reconfigure(encoding="utf-8")
 
 
+LETTER_WIDTH = 612.0
+LETTER_HEIGHT = 792.0
+PAGE_MARGIN = 72.0
+CONTENT_WIDTH = LETTER_WIDTH - (PAGE_MARGIN * 2)
+CONTENT_HEIGHT = LETTER_HEIGHT - (PAGE_MARGIN * 2)
+
+
 @dataclass
 class ConversionPlan:
     """Planned EPUB to PDF conversion."""
@@ -106,6 +113,18 @@ def build_plan(inbox_dir: Path, *, overwrite: bool) -> list[ConversionPlan]:
     return plans
 
 
+def letter_rects(fitz) -> tuple[object, object]:
+    """Return full Letter page and inner content rectangles."""
+    page_rect = fitz.Rect(0, 0, LETTER_WIDTH, LETTER_HEIGHT)
+    content_rect = fitz.Rect(
+        PAGE_MARGIN,
+        PAGE_MARGIN,
+        LETTER_WIDTH - PAGE_MARGIN,
+        LETTER_HEIGHT - PAGE_MARGIN,
+    )
+    return page_rect, content_rect
+
+
 def convert_epub_to_pdf(source: Path, target: Path, *, overwrite: bool) -> tuple[str, str]:
     """Convert a single EPUB to a PDF file."""
     fitz = import_fitz()
@@ -119,6 +138,7 @@ def convert_epub_to_pdf(source: Path, target: Path, *, overwrite: bool) -> tuple
     try:
         doc = fitz.open(source)
         try:
+            doc.layout(rect=fitz.Rect(0, 0, CONTENT_WIDTH, CONTENT_HEIGHT))
             if doc.page_count == 0:
                 return "failed", "EPUB has no renderable pages"
 
@@ -127,10 +147,17 @@ def convert_epub_to_pdf(source: Path, target: Path, *, overwrite: bool) -> tuple
             doc.close()
 
         pdf_doc = fitz.open("pdf", pdf_bytes)
+        output_doc = fitz.open()
         try:
-            pdf_doc.save(temp_path, garbage=4, deflate=True)
+            _, content_rect = letter_rects(fitz)
+            for page_number in range(pdf_doc.page_count):
+                page = output_doc.new_page(width=LETTER_WIDTH, height=LETTER_HEIGHT)
+                page.show_pdf_page(content_rect, pdf_doc, page_number)
+
+            output_doc.save(temp_path, garbage=4, deflate=True)
         finally:
             pdf_doc.close()
+            output_doc.close()
 
         os.replace(temp_path, target)
     except Exception as exc:
