@@ -209,7 +209,29 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/TroubleShooting_Java_2th_edition.pdf"
   },
   {
-    "id": "0d700dc90da0",
+    "id": "bafdb65421eb",
+    "title": "Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Go",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language.pdf",
+    "cover": "assets/covers/Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language.webp",
+    "format": "pdf",
+    "description": "Java developers often face a steep learning curve when transitioning to Go, as the paradigms for concurrency, object-oriented design, and error handling differ significantly between the two languages. Bridging this gap requires a targeted approach that builds upon existing Java knowledge rather than starting from scratch.\n\n*Go for Java Programmers* provides a comprehensive and practical guide for experienced Java developers looking to master Google's Go programming language. By drawing direct comparisons between Java and Go, the book accelerates the learning process and helps developers adapt to Go's unique idioms and ecosystem.\n\n• Master the fundamentals of Go syntax and its built-in concurrency model using Goroutines and Channels.\n• Transition from traditional object-oriented programming to Go's composition-based approach with Structs and Interfaces.\n• Implement robust error handling strategies that align with Go's explicit error checking philosophy.\n• Build scalable and performant backend systems by leveraging Go's standard library and ecosystem.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language.pdf"
+  },
+  {
+    "id": "7f46e04ab66f",
+    "title": "Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Go",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language.epub",
+    "cover": "assets/covers/Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language.webp",
+    "format": "epub",
+    "description": "Java developers often face a steep learning curve when transitioning to Go, as the paradigms for concurrency, object-oriented design, and error handling differ significantly between the two languages. Bridging this gap requires a targeted approach that builds upon existing Java knowledge rather than starting from scratch.\n\n*Go for Java Programmers* provides a comprehensive and practical guide for experienced Java developers looking to master Google's Go programming language. By drawing direct comparisons between Java and Go, the book accelerates the learning process and helps developers adapt to Go's unique idioms and ecosystem.\n\n• Master the fundamentals of Go syntax and its built-in concurrency model using Goroutines and Channels.\n• Transition from traditional object-oriented programming to Go's composition-based approach with Structs and Interfaces.\n• Implement robust error handling strategies that align with Go's explicit error checking philosophy.\n• Build scalable and performant backend systems by leveraging Go's standard library and ecosystem.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language.epub"
+  },
+  {
+    "id": "41230cf5a3a7",
     "title": "Learning_Go_3rd_Edition",
     "category": "Computer Science Fundamentals",
     "topic": "Programming Languages/Go",
@@ -220,7 +242,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Go_3rd_Edition.pdf"
   },
   {
-    "id": "2e6040037395",
+    "id": "b5ed435a7c5e",
     "title": "Learning_Go_3rd_Edition",
     "category": "Computer Science Fundamentals",
     "topic": "Programming Languages/Go",
@@ -231,7 +253,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Go_3rd_Edition.epub"
   },
   {
-    "id": "c6f9fa285177",
+    "id": "178a7b61d73c",
     "title": "Mastering_Go_Fourth_Edition",
     "category": "Computer Science Fundamentals",
     "topic": "Programming Languages/Go",
@@ -242,7 +264,7 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Go_Fourth_Edition.pdf"
   },
   {
-    "id": "6b8c177c5148",
+    "id": "996ee046a0cf",
     "title": "Mastering_Go_Fourth_Edition",
     "category": "Computer Science Fundamentals",
     "topic": "Programming Languages/Go",
