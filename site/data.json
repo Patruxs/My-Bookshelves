@@ -913,6 +913,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Docker_in_Practice_Second_Edition.pdf"
   },
   {
+    "id": "dbe9ebd5a9f4",
+    "title": "240_CORE_JAVA_INTERVIEW_QUESTIONS_AND_ANSWERS",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/240_CORE_JAVA_INTERVIEW_QUESTIONS_AND_ANSWERS.pdf",
+    "cover": "assets/covers/240_CORE_JAVA_INTERVIEW_QUESTIONS_AND_ANSWERS.webp",
+    "format": "pdf",
+    "description": "Java remains a cornerstone of enterprise software development, making Java developer roles highly competitive. Candidates often struggle to anticipate the wide range of technical questions asked during technical interviews, from core language fundamentals to advanced concurrency patterns.\n\n*240 Core Java Interview Questions and Answers* provides a comprehensive resource for job seekers preparing for Java development positions. The book compiles frequently asked questions across various topics, offering clear explanations and code examples to demonstrate technical proficiency.\n\n• Master core Java concepts including OOP principles, collections, and exception handling.\n• Prepare for advanced topics such as multithreading, concurrency, and memory management.\n• Learn to articulate technical concepts clearly and confidently during interviews.\n• Build a solid foundation for tackling coding challenges and whiteboard sessions.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/240_CORE_JAVA_INTERVIEW_QUESTIONS_AND_ANSWERS.pdf"
+  },
+  {
     "id": "983eb22837c1",
     "title": "AI_Engineering_Interview",
     "category": "Career and Professional Development",
@@ -988,6 +999,17 @@
     "format": "pdf",
     "description": "Landing a job at FAANG (Facebook, Amazon, Apple, Netflix, Google) requires months of structured preparation across multiple domains — data structures, algorithms, system design, and behavioral interviews. Without a clear plan, candidates waste time on low-impact topics.\n\nThis study plan provides a focused, time-boxed roadmap for FAANG interview preparation, outlining exactly what to study each week, which problems to solve, and how to allocate effort across different interview rounds.\n\n• Follow a structured weekly plan covering arrays, trees, graphs, dynamic programming, and system design\n• Prioritize high-frequency interview topics based on real FAANG interview data\n• Balance time between coding practice, system design study, and behavioral prep\n• Track progress with clear milestones and self-assessment checkpoints\n• Optimize the final weeks with mock interviews and targeted weak-area review",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/FAANG_Study_Plan.pdf"
+  },
+  {
+    "id": "36ec4091a405",
+    "title": "FPT_Fresher_Question_Interview_Java_Core",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/FPT_Fresher_Question_Interview_Java_Core.pdf",
+    "cover": "assets/covers/FPT_Fresher_Question_Interview_Java_Core.webp",
+    "format": "pdf",
+    "description": "Securing an entry-level position as a Java developer often requires passing rigorous technical interviews that test both fundamental knowledge and problem-solving skills. Fresher candidates frequently lack insight into the specific types of questions favored by major tech companies like FPT Software.\n\n*FPT Fresher Question Interview - Java Core* is a targeted guide designed specifically for candidates aiming for fresher roles at FPT and similar tech organizations. It focuses on the core Java concepts most frequently evaluated in entry-level interviews, providing a realistic preview of the assessment process.\n\n• Review essential Java fundamentals, including data types, operators, and control flow.\n• Master the principles of Object-Oriented Programming (OOP) as applied in Java.\n• Explore common interview questions related to string manipulation and collections.\n• Build confidence for technical assessments through targeted practice and preparation.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/FPT_Fresher_Question_Interview_Java_Core.pdf"
   },
   {
     "id": "4d2f84e12dd3",
