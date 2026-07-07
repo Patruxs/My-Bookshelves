@@ -43,7 +43,7 @@ let activeFilters = createEmptyFilters();
 let pendingFilters = createEmptyFilters();
 let viewMode = getStoredViewMode();
 let sidebarSelection = { category: "", topic: "" };
-let sidebarViewMode = 'collections'; // 'discover' | 'collections' | 'archive' | 'recent'
+let sidebarViewMode = 'discover'; // 'discover' | 'collections' | 'archive' | 'recent'
 let isGlobalSearch = false;
 let currentPage = 1;
 let booksPerPage = 16;
@@ -479,10 +479,11 @@ function clearAllFilters() {
     activeFilters = createEmptyFilters();
     pendingFilters = copyFilters(activeFilters);
     isGlobalSearch = false;
-    sidebarViewMode = 'collections';
+    sidebarViewMode = 'discover';
     updateSearchModeUI();
     updateFilterBadge();
-    sidebarSelectAll(false);
+    sidebarSelectDiscover();
+    updateHomeRoute(false);
 }
 
 function updateSidebarUI() {
@@ -1036,7 +1037,7 @@ function applyUrlRoute(pushHistory = false) {
     if (!route) {
         requestAnimationFrame(() => {
             resetBrowseFilters();
-            sidebarSelectAll(false);
+            sidebarSelectDiscover();
             showHomeView(false);
         });
         return;
