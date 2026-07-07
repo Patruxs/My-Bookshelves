@@ -210,47 +210,47 @@
   },
   {
     "id": "0d700dc90da0",
-    "title": "Learning_Go_3rd_Edition_0642572348533",
+    "title": "Learning_Go_3rd_Edition",
     "category": "Computer Science Fundamentals",
     "topic": "Programming Languages/Go",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Learning_Go_3rd_Edition_0642572348533.pdf",
-    "cover": "assets/covers/Learning_Go_3rd_Edition_0642572348533.webp",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Learning_Go_3rd_Edition.pdf",
+    "cover": "assets/covers/Learning_Go_3rd_Edition.webp",
     "format": "pdf",
     "description": "Go is a powerful, concurrent, and pragmatic programming language used to build high-performance systems and robust cloud-native applications. However, transitioning to Go from other languages can be challenging as it requires adopting new idioms, understanding its unique approach to concurrency, and mastering its type system.\n\n\"Learning Go, 3rd Edition\" provides a comprehensive, hands-on introduction to the language, guiding developers from basic syntax to advanced concepts like generics and concurrency. The author focuses on Go's distinct philosophy, demonstrating how to write idiomatic, maintainable code rather than simply translating patterns from other languages.\n\n• Master the fundamentals of Go syntax, data types, and standard library\n• Implement robust concurrency patterns using goroutines and channels\n• Build modular and reusable code utilizing Go's interface and type system\n• Apply best practices for testing, debugging, and profiling Go applications\n• Explore advanced features like generics and reflection to write more flexible software",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Go_3rd_Edition_0642572348533.pdf"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Go_3rd_Edition.pdf"
   },
   {
     "id": "2e6040037395",
-    "title": "Learning_Go_3rd_Edition_0642572348533",
+    "title": "Learning_Go_3rd_Edition",
     "category": "Computer Science Fundamentals",
     "topic": "Programming Languages/Go",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Learning_Go_3rd_Edition_0642572348533.epub",
-    "cover": "assets/covers/Learning_Go_3rd_Edition_0642572348533.webp",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Learning_Go_3rd_Edition.epub",
+    "cover": "assets/covers/Learning_Go_3rd_Edition.webp",
     "format": "epub",
     "description": "Go is a powerful, concurrent, and pragmatic programming language used to build high-performance systems and robust cloud-native applications. However, transitioning to Go from other languages can be challenging as it requires adopting new idioms, understanding its unique approach to concurrency, and mastering its type system.\n\n\"Learning Go, 3rd Edition\" provides a comprehensive, hands-on introduction to the language, guiding developers from basic syntax to advanced concepts like generics and concurrency. The author focuses on Go's distinct philosophy, demonstrating how to write idiomatic, maintainable code rather than simply translating patterns from other languages.\n\n• Master the fundamentals of Go syntax, data types, and standard library\n• Implement robust concurrency patterns using goroutines and channels\n• Build modular and reusable code utilizing Go's interface and type system\n• Apply best practices for testing, debugging, and profiling Go applications\n• Explore advanced features like generics and reflection to write more flexible software",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Go_3rd_Edition_0642572348533.epub"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_Go_3rd_Edition.epub"
   },
   {
     "id": "c6f9fa285177",
-    "title": "Mastering_Go_Fourth_Edition_9781805127147",
+    "title": "Mastering_Go_Fourth_Edition",
     "category": "Computer Science Fundamentals",
     "topic": "Programming Languages/Go",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Mastering_Go_Fourth_Edition_9781805127147.pdf",
-    "cover": "assets/covers/Mastering_Go_Fourth_Edition_9781805127147.webp",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Mastering_Go_Fourth_Edition.pdf",
+    "cover": "assets/covers/Mastering_Go_Fourth_Edition.webp",
     "format": "pdf",
     "description": "As Go applications scale in complexity and handle increasing production workloads, developers need advanced techniques to optimize performance, manage concurrency, and build resilient architectures. Moving beyond the basics requires a deep dive into Go's internals, system-level programming, and specialized design patterns.\n\n\"Mastering Go, Fourth Edition\" serves as an expert-level guide to building sophisticated Go software, with a strong emphasis on practical systems programming and cloud-native development. It covers advanced topics such as memory management, building RESTful APIs, developing microservices, and interacting with the underlying operating system.\n\n• Implement advanced concurrency models and manage race conditions effectively\n• Develop high-performance network applications and RESTful APIs\n• Optimize memory usage by understanding Go's garbage collector and memory model\n• Build scalable microservices and robust cloud-native applications\n• Explore systems programming techniques for interacting with the OS and handling files",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Go_Fourth_Edition_9781805127147.pdf"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Go_Fourth_Edition.pdf"
   },
   {
     "id": "6b8c177c5148",
-    "title": "Mastering_Go_Fourth_Edition_9781805127147",
+    "title": "Mastering_Go_Fourth_Edition",
     "category": "Computer Science Fundamentals",
     "topic": "Programming Languages/Go",
-    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Mastering_Go_Fourth_Edition_9781805127147.epub",
-    "cover": "assets/covers/Mastering_Go_Fourth_Edition_9781805127147.webp",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Mastering_Go_Fourth_Edition.epub",
+    "cover": "assets/covers/Mastering_Go_Fourth_Edition.webp",
     "format": "epub",
     "description": "As Go applications scale in complexity and handle increasing production workloads, developers need advanced techniques to optimize performance, manage concurrency, and build resilient architectures. Moving beyond the basics requires a deep dive into Go's internals, system-level programming, and specialized design patterns.\n\n\"Mastering Go, Fourth Edition\" serves as an expert-level guide to building sophisticated Go software, with a strong emphasis on practical systems programming and cloud-native development. It covers advanced topics such as memory management, building RESTful APIs, developing microservices, and interacting with the underlying operating system.\n\n• Implement advanced concurrency models and manage race conditions effectively\n• Develop high-performance network applications and RESTful APIs\n• Optimize memory usage by understanding Go's garbage collector and memory model\n• Build scalable microservices and robust cloud-native applications\n• Explore systems programming techniques for interacting with the OS and handling files",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Go_Fourth_Edition_9781805127147.epub"
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Go_Fourth_Edition.epub"
   },
   {
     "id": "e61a640e51b3",
