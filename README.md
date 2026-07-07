@@ -2,7 +2,7 @@
 
 A personal digital library — static web, zero dependencies, AI-powered organization.
 
-**[🌐 Live Demo](https://patruxs.github.io/My-Bookshelves/)**
+**[🌐 Download Book Here](https://patruxs.github.io/My-Bookshelves/)**
 
 ## 🚀 Quick Start
 
