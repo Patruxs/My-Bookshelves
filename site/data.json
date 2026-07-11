@@ -1056,6 +1056,17 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/System_Design_Interview_an_Insider_s_Guide_Second_Edition.pdf"
   },
   {
+    "id": "4c181fe720c2",
+    "title": "system_design_questions_ebook",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/system_design_questions_ebook.pdf",
+    "cover": "assets/covers/system_design_questions_ebook.webp",
+    "format": "pdf",
+    "description": "Preparing for system design interviews requires a deep understanding of architectural principles and the ability to articulate complex solutions under pressure. This often presents a significant challenge for software engineers seeking advanced roles.\n\nThe System Design Questions eBook provides a comprehensive collection of real-world system design interview questions and solutions. It covers essential topics such as scalability, database design, and microservices architecture to help candidates excel in technical interviews.\n\n• Master essential system design concepts and architectural patterns\n• Explore common interview questions from top tech companies\n• Build confidence in designing scalable and reliable systems\n• Learn strategies for communicating complex technical decisions effectively",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/system_design_questions_ebook.pdf"
+  },
+  {
     "id": "3b4f6c67528a",
     "title": "10_Essential_Coding_Projects_to_Master_Your_Fundamentals_and_Land_a_100_000_Job_ASAP",
     "category": "Career and Professional Development",
