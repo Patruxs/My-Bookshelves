@@ -1,14 +1,20 @@
 import json
+import os
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from unlock_pdfs import read_password_file, resolve_inbox_dir  # noqa: E402
+from unlock_pdfs import (  # noqa: E402
+    read_password_file,
+    resolve_inbox_dir,
+    resolve_password,
+)
 
 
 class UnlockPdfsTests(unittest.TestCase):
@@ -41,6 +47,56 @@ class UnlockPdfsTests(unittest.TestCase):
             )
 
             self.assertEqual(read_password_file(password_file), "local-secret")
+
+    def test_read_password_file_allows_spaces_around_equals(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            password_file = Path(tmp) / ".env"
+            password_file.write_text(
+                "PDF_UNLOCK_PASSWORD = spaced-secret\n",
+                encoding="utf-8",
+            )
+
+            self.assertEqual(read_password_file(password_file), "spaced-secret")
+
+    def test_resolve_password_reads_project_dotenv(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp).resolve()
+            (base / ".env").write_text(
+                "PDF_UNLOCK_PASSWORD=from-dotenv\n",
+                encoding="utf-8",
+            )
+            env = {
+                key: value
+                for key, value in os.environ.items()
+                if key not in ("PDF_UNLOCK_PASSWORD", "PDF_PASSWORD")
+            }
+            with mock.patch.dict(os.environ, env, clear=True):
+                password, source = resolve_password(base, None, prompt=False)
+
+            self.assertEqual(password, "from-dotenv")
+            self.assertTrue(source.endswith(".env"))
+
+    def test_resolve_password_prefers_dedicated_unlock_file_over_dotenv(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp).resolve()
+            (base / ".env.pdf-unlock").write_text(
+                "PDF_UNLOCK_PASSWORD=from-unlock-file\n",
+                encoding="utf-8",
+            )
+            (base / ".env").write_text(
+                "PDF_UNLOCK_PASSWORD=from-dotenv\n",
+                encoding="utf-8",
+            )
+            env = {
+                key: value
+                for key, value in os.environ.items()
+                if key not in ("PDF_UNLOCK_PASSWORD", "PDF_PASSWORD")
+            }
+            with mock.patch.dict(os.environ, env, clear=True):
+                password, source = resolve_password(base, None, prompt=False)
+
+            self.assertEqual(password, "from-unlock-file")
+            self.assertTrue(source.endswith(".env.pdf-unlock"))
 
     def test_out_of_tree_inbox_dir_returns_json_error(self) -> None:
         with tempfile.TemporaryDirectory() as base_tmp, tempfile.TemporaryDirectory() as inbox_tmp:

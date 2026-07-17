@@ -19,7 +19,9 @@ if sys.stdout.encoding != "utf-8":
 if sys.stderr.encoding != "utf-8":
     sys.stderr.reconfigure(encoding="utf-8")
 
-DEFAULT_PASSWORD_FILE = ".env.pdf-unlock"
+# Local password files are tried in order when no env var / --password-file is set.
+# Prefer the dedicated unlock file; also accept project .env (common user expectation).
+DEFAULT_PASSWORD_FILES = (".env.pdf-unlock", ".env")
 PASSWORD_ENV_VARS = ("PDF_UNLOCK_PASSWORD", "PDF_PASSWORD")
 
 
@@ -85,7 +87,14 @@ def resolve_password(
     *,
     prompt: bool,
 ) -> tuple[str | None, str]:
-    """Resolve the PDF password without hardcoding it in this script."""
+    """Resolve the PDF password without hardcoding it in this script.
+
+    Resolution order:
+    1. Process environment: PDF_UNLOCK_PASSWORD or PDF_PASSWORD
+    2. Explicit --password-file
+    3. Local files under base-dir: .env.pdf-unlock, then .env
+    4. Interactive prompt (execute mode only, when stdin is a TTY)
+    """
     for env_var in PASSWORD_ENV_VARS:
         password = os.environ.get(env_var)
         if password:
@@ -99,15 +108,21 @@ def resolve_password(
             raise FileNotFoundError(f"Password file not found: {path}")
         return read_password_file(path), str(path)
 
-    default_path = base_dir / DEFAULT_PASSWORD_FILE
-    if default_path.exists():
-        return read_password_file(default_path), str(default_path)
+    for name in DEFAULT_PASSWORD_FILES:
+        default_path = base_dir / name
+        if default_path.exists():
+            try:
+                return read_password_file(default_path), str(default_path)
+            except ValueError:
+                # File exists but has no unlock password key; try next source.
+                continue
 
     if prompt:
         if not sys.stdin.isatty():
             raise RuntimeError(
-                "No password source found. Set PDF_UNLOCK_PASSWORD or create "
-                f"{DEFAULT_PASSWORD_FILE} locally."
+                "No password source found. Set PDF_UNLOCK_PASSWORD, or create "
+                f"{DEFAULT_PASSWORD_FILES[0]} / .env with "
+                f"{PASSWORD_ENV_VARS[0]}=... locally."
             )
         password = getpass.getpass("PDF password: ")
         if not password:
@@ -285,7 +300,7 @@ def main() -> None:
         "--password-file",
         help=(
             "Local password file. Supports raw password text or "
-            "PDF_UNLOCK_PASSWORD=... format. Default: .env.pdf-unlock if present."
+            "PDF_UNLOCK_PASSWORD=... format. Default: .env.pdf-unlock, then .env."
         ),
     )
     parser.add_argument("--execute", action="store_true", help="Replace encrypted PDFs")

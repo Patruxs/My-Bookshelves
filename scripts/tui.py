@@ -566,13 +566,20 @@ def screen_unlock_pdfs() -> None:
     header("🔓 Unlock Inbox PDFs")
 
     info("Preview password-protected PDFs in Inbox/.")
-    warning("The password is read from env/local prompt/file, never from tracked code.")
+    info("Password sources (in order): PDF_UNLOCK_PASSWORD env, .env.pdf-unlock, .env")
+    warning("Dry-run never changes files. Only confirm execute after password source works.")
     print()
 
-    run_script("unlock_pdfs.py", ["--base-dir", str(BASE_DIR)])
+    code = run_script("unlock_pdfs.py", ["--base-dir", str(BASE_DIR)])
+    if code != 0:
+        warning("Dry-run reported failures (wrong password or unreadable PDF).")
+        pause()
+        return
 
     if confirm("Execute PDF unlock for Inbox/?"):
-        run_script("unlock_pdfs.py", ["--base-dir", str(BASE_DIR), "--execute"])
+        code = run_script("unlock_pdfs.py", ["--base-dir", str(BASE_DIR), "--execute"])
+        if code != 0:
+            warning("Unlock failed. Check password in .env / PDF_UNLOCK_PASSWORD.")
 
     pause()
 

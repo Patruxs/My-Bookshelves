@@ -275,6 +275,28 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Go_Fourth_Edition.epub"
   },
   {
+    "id": "ef9822fb1a79",
+    "title": "React_Application_Architecture_for_Production",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/React_Application_Architecture_for_Production.pdf",
+    "cover": "assets/covers/React_Application_Architecture_for_Production.webp",
+    "format": "pdf",
+    "description": "Building React applications for production involves handling complex state, optimizing performance, and structuring code for scalability and maintainability.\n\nThis book provides comprehensive guidance on designing and architecting React applications ready for production environments. It covers advanced patterns, testing, and deployment strategies.\n\n• Master advanced React patterns and architectural decisions\n• Build scalable and maintainable front-end applications\n• Learn best practices for state management and performance optimization\n• Implement robust testing and deployment workflows",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Application_Architecture_for_Production.pdf"
+  },
+  {
+    "id": "bccb2f12bc5c",
+    "title": "React_Application_Architecture_for_Production",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/React_Application_Architecture_for_Production.epub",
+    "cover": "assets/covers/React_Application_Architecture_for_Production.webp",
+    "format": "epub",
+    "description": "Building React applications for production involves handling complex state, optimizing performance, and structuring code for scalability and maintainability.\n\nThis book provides comprehensive guidance on designing and architecting React applications ready for production environments. It covers advanced patterns, testing, and deployment strategies.\n\n• Master advanced React patterns and architectural decisions\n• Build scalable and maintainable front-end applications\n• Learn best practices for state management and performance optimization\n• Implement robust testing and deployment workflows",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Application_Architecture_for_Production.epub"
+  },
+  {
     "id": "e61a640e51b3",
     "title": "Zero_To_Production_In_Rust_An_introduction_to_backend",
     "category": "Computer Science Fundamentals",
@@ -284,6 +306,28 @@
     "format": "pdf",
     "description": "Building robust and scalable backend systems is a challenging endeavor that requires a solid grasp of systems programming, performance optimization, and reliable deployment strategies. Many developers face difficulties in transitioning from writing simple applications to deploying production-ready services that can handle high traffic while maintaining stability and safety.\n\n\"Zero To Production In Rust\" by Luca Palmieri is an in-depth guide that takes readers on a comprehensive journey from learning the fundamentals of the Rust programming language to building and deploying a fully functional, production-ready backend application. The book focuses on practical, real-world examples, emphasizing test-driven development, continuous integration, and best practices for creating maintainable and secure web services.\n\n• Master the fundamentals of the Rust programming language for backend development.\n• Build scalable and robust web applications using the Actix-web framework.\n• Implement robust error handling, database interactions, and secure authentication.\n• Establish effective continuous integration and deployment (CI/CD) pipelines.\n• Explore best practices for observability, telemetry, and monitoring in production environments.",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Zero_To_Production_In_Rust_An_introduction_to_backend.pdf"
+  },
+  {
+    "id": "3eacdbf53bff",
+    "title": "Python_for_Algorithmic_Trading_Cookbook_2nd_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Python",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Python/Python_for_Algorithmic_Trading_Cookbook_2nd_Edition.pdf",
+    "cover": "assets/covers/Python_for_Algorithmic_Trading_Cookbook_2nd_Edition.webp",
+    "format": "pdf",
+    "description": "Algorithmic trading requires specialized knowledge of financial markets and robust programming skills to implement trading strategies effectively.\n\nThis cookbook provides a hands-on approach to building algorithmic trading systems using Python. It covers data acquisition, quantitative analysis, strategy development, and deployment.\n\n• Master the use of Python libraries for financial data analysis\n• Build and backtest trading strategies\n• Learn techniques for optimizing trading performance\n• Implement automated trading systems",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Python_for_Algorithmic_Trading_Cookbook_2nd_Edition.pdf"
+  },
+  {
+    "id": "bd339c9b8c1c",
+    "title": "Python_for_Algorithmic_Trading_Cookbook_2nd_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Python",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Python/Python_for_Algorithmic_Trading_Cookbook_2nd_Edition.epub",
+    "cover": "assets/covers/Python_for_Algorithmic_Trading_Cookbook_2nd_Edition.webp",
+    "format": "epub",
+    "description": "Algorithmic trading requires specialized knowledge of financial markets and robust programming skills to implement trading strategies effectively.\n\nThis cookbook provides a hands-on approach to building algorithmic trading systems using Python. It covers data acquisition, quantitative analysis, strategy development, and deployment.\n\n• Master the use of Python libraries for financial data analysis\n• Build and backtest trading strategies\n• Learn techniques for optimizing trading performance\n• Implement automated trading systems",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Python_for_Algorithmic_Trading_Cookbook_2nd_Edition.epub"
   },
   {
     "id": "95a7d643e389",
