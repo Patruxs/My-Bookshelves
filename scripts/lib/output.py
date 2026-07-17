@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 import json
+import sys
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
+
+ProgressCallback = Callable[[str], None]
 
 
 def to_jsonable(value: Any) -> Any:
@@ -21,4 +25,18 @@ def to_jsonable(value: Any) -> Any:
 def emit_json(data: Any) -> None:
     """Print a stable JSON payload."""
     print(json.dumps(to_jsonable(data), ensure_ascii=False, indent=2))
+
+
+def emit_progress(message: str, *, enabled: bool = True) -> None:
+    """Print one progress line to stderr when enabled."""
+    if not enabled:
+        return
+    print(message, file=sys.stderr, flush=True)
+
+
+def make_progress_printer(*, enabled: bool) -> ProgressCallback | None:
+    """Return a progress callback for execute loops, or None when disabled."""
+    if not enabled:
+        return None
+    return lambda message: emit_progress(message, enabled=True)
 

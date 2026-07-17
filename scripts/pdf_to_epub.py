@@ -9,11 +9,12 @@ import os
 import sys
 import uuid
 import zipfile
+from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from lib.output import emit_json
+from lib.output import ProgressCallback, emit_json, make_progress_printer
 
 if sys.stdout.encoding != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8")
@@ -121,7 +122,22 @@ def build_plan(inbox_dir: Path, *, overwrite: bool) -> list[ConversionPlan]:
     return plans
 
 
-def render_pdf_pages(source: Path, *, zoom: float) -> list[RenderedPage]:
+def should_report_page(current: int, total: int) -> bool:
+    """Return True when page progress should be emitted (about 10 updates per book)."""
+    if total <= 0:
+        return False
+    if current == 1 or current == total:
+        return True
+    step = max(1, total // 10)
+    return current % step == 0
+
+
+def render_pdf_pages(
+    source: Path,
+    *,
+    zoom: float,
+    on_page: Callable[[int, int], None] | None = None,
+) -> list[RenderedPage]:
     """Render PDF pages to PNG images for EPUB packaging."""
     fitz = import_fitz()
     doc = fitz.open(source)
@@ -133,6 +149,7 @@ def render_pdf_pages(source: Path, *, zoom: float) -> list[RenderedPage]:
         if doc.page_count == 0:
             raise RuntimeError("PDF has no renderable pages")
 
+        total_pages = doc.page_count
         matrix = fitz.Matrix(zoom, zoom)
         for index, page in enumerate(doc, 1):
             pix = page.get_pixmap(matrix=matrix, alpha=False)
@@ -145,6 +162,8 @@ def render_pdf_pages(source: Path, *, zoom: float) -> list[RenderedPage]:
                     image_bytes=pix.tobytes("png"),
                 )
             )
+            if on_page is not None:
+                on_page(index, total_pages)
     finally:
         doc.close()
 
@@ -289,6 +308,7 @@ def convert_pdf_to_epub(
     *,
     overwrite: bool,
     zoom: float,
+    on_page: Callable[[int, int], None] | None = None,
 ) -> tuple[str, str]:
     """Convert a single PDF to an image-based EPUB file."""
     if target.exists() and not overwrite:
@@ -301,7 +321,7 @@ def convert_pdf_to_epub(
         temp_path.unlink()
 
     try:
-        pages = render_pdf_pages(source, zoom=zoom)
+        pages = render_pdf_pages(source, zoom=zoom, on_page=on_page)
         write_epub(temp_path, source.stem, pages)
         os.replace(temp_path, target)
     except Exception as exc:
@@ -318,11 +338,23 @@ def execute_plan(
     *,
     overwrite: bool,
     zoom: float,
+    fail_fast: bool = False,
+    progress: ProgressCallback | None = None,
 ) -> list[ConversionResult]:
     """Execute planned conversions and return results."""
+    report = progress or (lambda _message: None)
+    total = len(plans)
+    if total:
+        report(f"Converting {total} book(s)...")
+
     results: list[ConversionResult] = []
-    for plan in plans:
+    for index, plan in enumerate(plans, 1):
+        prefix = f"[{index}/{total}]"
+        source_name = plan.source.name
+        target_name = plan.target.name
+
         if plan.status == "skipped":
+            report(f"{prefix} skip {source_name} - {plan.message}")
             results.append(
                 ConversionResult(
                     source=relative_path(plan.source, base_dir),
@@ -333,12 +365,20 @@ def execute_plan(
             )
             continue
 
+        report(f"{prefix} converting {source_name} -> {target_name}")
+
+        def on_page(current: int, total_pages: int) -> None:
+            if should_report_page(current, total_pages):
+                report(f"  page {current}/{total_pages}")
+
         status, message = convert_pdf_to_epub(
             plan.source,
             plan.target,
             overwrite=overwrite,
             zoom=zoom,
+            on_page=on_page if progress is not None else None,
         )
+        report(f"{prefix} done: {status} - {message}")
         results.append(
             ConversionResult(
                 source=relative_path(plan.source, base_dir),
@@ -347,6 +387,11 @@ def execute_plan(
                 message=message,
             )
         )
+        if fail_fast and status == "failed":
+            break
+
+    if total:
+        report("Done.")
     return results
 
 
@@ -411,25 +456,15 @@ def main() -> None:
         inbox_dir = resolve_inbox_dir(base_dir, args.inbox_dir)
         plans = build_plan(inbox_dir, overwrite=args.overwrite)
         if args.execute:
-            if args.fail_fast:
-                results: list[ConversionResult] = []
-                for plan in plans:
-                    result = execute_plan(
-                        [plan],
-                        base_dir,
-                        overwrite=args.overwrite,
-                        zoom=args.zoom,
-                    )[0]
-                    results.append(result)
-                    if result.status == "failed":
-                        break
-            else:
-                results = execute_plan(
-                    plans,
-                    base_dir,
-                    overwrite=args.overwrite,
-                    zoom=args.zoom,
-                )
+            progress = make_progress_printer(enabled=not args.json)
+            results = execute_plan(
+                plans,
+                base_dir,
+                overwrite=args.overwrite,
+                zoom=args.zoom,
+                fail_fast=args.fail_fast,
+                progress=progress,
+            )
         else:
             results = plan_to_results(plans, base_dir)
     except Exception as exc:

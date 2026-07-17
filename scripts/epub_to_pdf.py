@@ -11,7 +11,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from lib.output import emit_json
+from lib.output import ProgressCallback, emit_json, make_progress_printer
 
 if sys.stdout.encoding != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8")
@@ -290,11 +290,23 @@ def execute_plan(
     *,
     overwrite: bool,
     engine: str,
+    fail_fast: bool = False,
+    progress: ProgressCallback | None = None,
 ) -> list[ConversionResult]:
     """Execute planned conversions and return results."""
+    report = progress or (lambda _message: None)
+    total = len(plans)
+    if total:
+        report(f"Converting {total} book(s)...")
+
     results: list[ConversionResult] = []
-    for plan in plans:
+    for index, plan in enumerate(plans, 1):
+        prefix = f"[{index}/{total}]"
+        source_name = plan.source.name
+        target_name = plan.target.name
+
         if plan.status == "skipped":
+            report(f"{prefix} skip {source_name} - {plan.message}")
             results.append(
                 ConversionResult(
                     source=relative_path(plan.source, base_dir),
@@ -305,12 +317,14 @@ def execute_plan(
             )
             continue
 
+        report(f"{prefix} converting {source_name} -> {target_name}")
         status, message = convert_epub_to_pdf(
             plan.source,
             plan.target,
             overwrite=overwrite,
             engine=engine,
         )
+        report(f"{prefix} done: {status} - {message}")
         results.append(
             ConversionResult(
                 source=relative_path(plan.source, base_dir),
@@ -319,6 +333,11 @@ def execute_plan(
                 message=message,
             )
         )
+        if fail_fast and status == "failed":
+            break
+
+    if total:
+        report("Done.")
     return results
 
 
@@ -388,25 +407,15 @@ def main() -> None:
         inbox_dir = resolve_inbox_dir(base_dir, args.inbox_dir)
         plans = build_plan(inbox_dir, overwrite=args.overwrite)
         if args.execute:
-            if args.fail_fast:
-                results: list[ConversionResult] = []
-                for plan in plans:
-                    result = execute_plan(
-                        [plan],
-                        base_dir,
-                        overwrite=args.overwrite,
-                        engine=args.engine,
-                    )[0]
-                    results.append(result)
-                    if result.status == "failed":
-                        break
-            else:
-                results = execute_plan(
-                    plans,
-                    base_dir,
-                    overwrite=args.overwrite,
-                    engine=args.engine,
-                )
+            progress = make_progress_printer(enabled=not args.json)
+            results = execute_plan(
+                plans,
+                base_dir,
+                overwrite=args.overwrite,
+                engine=args.engine,
+                fail_fast=args.fail_fast,
+                progress=progress,
+            )
         else:
             results = plan_to_results(plans, base_dir)
     except Exception as exc:

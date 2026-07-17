@@ -16,8 +16,10 @@ from epub_to_pdf import (  # noqa: E402
     LETTER_HEIGHT,
     LETTER_WIDTH,
     PAGE_MARGIN,
+    ConversionPlan,
     build_plan,
     convert_epub_to_pdf,
+    execute_plan,
     resolve_inbox_dir,
 )
 
@@ -241,6 +243,96 @@ class EpubToPdfTests(unittest.TestCase):
                 self.assertEqual(page_sizes, {(0.0, 0.0, LETTER_WIDTH, LETTER_HEIGHT)})
             finally:
                 doc.close()
+
+    def test_execute_plan_emits_book_progress(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            inbox = base / "Inbox"
+            inbox.mkdir()
+            source_one = inbox / "Book_One.epub"
+            source_two = inbox / "Book_Two.epub"
+            target_one = inbox / "Book_One.pdf"
+            target_two = inbox / "Book_Two.pdf"
+            source_one.write_bytes(b"fake")
+            source_two.write_bytes(b"fake")
+            target_two.write_bytes(b"%PDF")
+
+            plans = [
+                ConversionPlan(
+                    source=source_one,
+                    target=target_one,
+                    status="planned",
+                    message="Convert EPUB to PDF",
+                ),
+                ConversionPlan(
+                    source=source_two,
+                    target=target_two,
+                    status="skipped",
+                    message="PDF already exists; use --overwrite to replace it",
+                ),
+            ]
+            messages: list[str] = []
+
+            with patch(
+                "epub_to_pdf.convert_epub_to_pdf",
+                return_value=("converted", "ok"),
+            ) as convert_mock:
+                results = execute_plan(
+                    plans,
+                    base,
+                    overwrite=False,
+                    engine="auto",
+                    progress=messages.append,
+                )
+
+            convert_mock.assert_called_once()
+            self.assertEqual([result.status for result in results], ["converted", "skipped"])
+            self.assertEqual(messages[0], "Converting 2 book(s)...")
+            self.assertEqual(messages[1], "[1/2] converting Book_One.epub -> Book_One.pdf")
+            self.assertEqual(messages[2], "[1/2] done: converted - ok")
+            self.assertIn("[2/2] skip Book_Two.epub", messages[3])
+            self.assertEqual(messages[-1], "Done.")
+
+    def test_execute_plan_fail_fast_stops_with_correct_index(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            inbox = base / "Inbox"
+            inbox.mkdir()
+            plans = []
+            for name in ("One", "Two", "Three"):
+                source = inbox / f"{name}.epub"
+                target = inbox / f"{name}.pdf"
+                source.write_bytes(b"fake")
+                plans.append(
+                    ConversionPlan(
+                        source=source,
+                        target=target,
+                        status="planned",
+                        message="Convert EPUB to PDF",
+                    )
+                )
+
+            messages: list[str] = []
+            with patch(
+                "epub_to_pdf.convert_epub_to_pdf",
+                return_value=("failed", "boom"),
+            ) as convert_mock:
+                results = execute_plan(
+                    plans,
+                    base,
+                    overwrite=False,
+                    engine="auto",
+                    fail_fast=True,
+                    progress=messages.append,
+                )
+
+            convert_mock.assert_called_once()
+            self.assertEqual(len(results), 1)
+            self.assertEqual(results[0].status, "failed")
+            self.assertIn("[1/3] converting One.epub -> One.pdf", messages)
+            self.assertIn("[1/3] done: failed - boom", messages)
+            self.assertTrue(all("[2/3]" not in line for line in messages))
+            self.assertEqual(messages[-1], "Done.")
 
 
 if __name__ == "__main__":
