@@ -44,6 +44,72 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Structure_and_Interpretation_of_Computer_Programs.pdf"
   },
   {
+    "id": "3b4df7a575ec",
+    "title": "Effective_TypeScript_2nd_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/TypeScript",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/TypeScript/Effective_TypeScript_2nd_Edition.pdf",
+    "cover": "assets/covers/Effective_TypeScript_2nd_Edition.webp",
+    "format": "pdf",
+    "description": "TypeScript introduces static typing to JavaScript, but navigating its complexities and avoiding common pitfalls can be challenging for both beginners and experienced developers.\n\nThis second edition provides 62 specific ways to improve your TypeScript projects. It dives deep into the type system, offering practical advice and expert techniques to help you write better, more robust code.\n\n• Master the intricacies of TypeScript's type system and structural typing\n• Avoid common errors and understand how TypeScript infers types\n• Design robust interfaces and effective type definitions\n• Migrate existing JavaScript projects to TypeScript smoothly\n• Optimize the performance of your TypeScript codebase",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Effective_TypeScript_2nd_Edition.pdf"
+  },
+  {
+    "id": "a669ce56ef94",
+    "title": "Effective_TypeScript_2nd_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/TypeScript",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/TypeScript/Effective_TypeScript_2nd_Edition.epub",
+    "cover": "assets/covers/Effective_TypeScript_2nd_Edition.webp",
+    "format": "epub",
+    "description": "TypeScript introduces static typing to JavaScript, but navigating its complexities and avoiding common pitfalls can be challenging for both beginners and experienced developers.\n\nThis second edition provides 62 specific ways to improve your TypeScript projects. It dives deep into the type system, offering practical advice and expert techniques to help you write better, more robust code.\n\n• Master the intricacies of TypeScript's type system and structural typing\n• Avoid common errors and understand how TypeScript infers types\n• Design robust interfaces and effective type definitions\n• Migrate existing JavaScript projects to TypeScript smoothly\n• Optimize the performance of your TypeScript codebase",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Effective_TypeScript_2nd_Edition.epub"
+  },
+  {
+    "id": "8110726dad93",
+    "title": "Total_Typescript",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/TypeScript",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/TypeScript/Total_Typescript.pdf",
+    "cover": "assets/covers/Total_Typescript.webp",
+    "format": "pdf",
+    "description": "Mastering TypeScript requires moving beyond basic types and understanding how to leverage the type system to express complex domain logic and guarantee application correctness.\n\nThis comprehensive resource offers an in-depth exploration of advanced TypeScript features. It provides practical techniques and mental models for solving real-world typing challenges and building highly reliable software architectures.\n\n• Master advanced TypeScript features like conditional types and mapped types\n• Construct robust type definitions for complex JavaScript patterns\n• Leverage generic programming to write highly reusable utilities\n• Implement domain-driven design concepts using TypeScript's type system\n• Optimize type-checking performance in large-scale codebases",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Total_Typescript.pdf"
+  },
+  {
+    "id": "95e9df1999ba",
+    "title": "Total_Typescript",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/TypeScript",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/TypeScript/Total_Typescript.epub",
+    "cover": "assets/covers/Total_Typescript.webp",
+    "format": "epub",
+    "description": "Mastering TypeScript requires moving beyond basic types and understanding how to leverage the type system to express complex domain logic and guarantee application correctness.\n\nThis comprehensive resource offers an in-depth exploration of advanced TypeScript features. It provides practical techniques and mental models for solving real-world typing challenges and building highly reliable software architectures.\n\n• Master advanced TypeScript features like conditional types and mapped types\n• Construct robust type definitions for complex JavaScript patterns\n• Leverage generic programming to write highly reusable utilities\n• Implement domain-driven design concepts using TypeScript's type system\n• Optimize type-checking performance in large-scale codebases",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Total_Typescript.epub"
+  },
+  {
+    "id": "cf785fc01ae1",
+    "title": "Typescript_Cookbook",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/TypeScript",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/TypeScript/Typescript_Cookbook.pdf",
+    "cover": "assets/covers/Typescript_Cookbook.webp",
+    "format": "pdf",
+    "description": "Everyday development with TypeScript often involves solving specific, recurring problems, requiring quick access to proven solutions and best practices rather than theoretical explanations.\n\nThis cookbook provides a collection of practical recipes for tackling common challenges in TypeScript development. It covers a wide range of topics, from basic configuration to advanced type manipulations, offering ready-to-use solutions for your daily coding tasks.\n\n• Solve common configuration and tooling issues in TypeScript projects\n• Implement effective type narrowing and type guard strategies\n• Write robust types for asynchronous operations and external APIs\n• Overcome challenging type errors and inference problems\n• Apply advanced type programming techniques to real-world scenarios",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Typescript_Cookbook.pdf"
+  },
+  {
+    "id": "2b9eb6347e6c",
+    "title": "Typescript_Cookbook",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/TypeScript",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/TypeScript/Typescript_Cookbook.epub",
+    "cover": "assets/covers/Typescript_Cookbook.webp",
+    "format": "epub",
+    "description": "Everyday development with TypeScript often involves solving specific, recurring problems, requiring quick access to proven solutions and best practices rather than theoretical explanations.\n\nThis cookbook provides a collection of practical recipes for tackling common challenges in TypeScript development. It covers a wide range of topics, from basic configuration to advanced type manipulations, offering ready-to-use solutions for your daily coding tasks.\n\n• Solve common configuration and tooling issues in TypeScript projects\n• Implement effective type narrowing and type guard strategies\n• Write robust types for asynchronous operations and external APIs\n• Overcome challenging type errors and inference problems\n• Apply advanced type programming techniques to real-world scenarios",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Typescript_Cookbook.epub"
+  },
+  {
     "id": "020cb74b9e6f",
     "title": "Eloquent_JavaScript",
     "category": "Computer Science Fundamentals",
@@ -275,6 +341,50 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Go_Fourth_Edition.epub"
   },
   {
+    "id": "92095fea9328",
+    "title": "Learn_React_with_TypeScript_Third_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/Learn_React_with_TypeScript_Third_Edition.pdf",
+    "cover": "assets/covers/Learn_React_with_TypeScript_Third_Edition.webp",
+    "format": "pdf",
+    "description": "Building complex web applications requires a robust framework and a strong type system to ensure maintainability and catch errors early in the development process.\n\nThis third edition is a comprehensive guide to building modern React applications using TypeScript. It combines the power of React's component-based architecture with TypeScript's static typing, covering the latest features and best practices for creating scalable frontend applications.\n\n• Build reusable and strongly typed React components\n• Manage application state effectively using Hooks and Context\n• Implement client-side routing with React Router\n• Connect your React application to REST and GraphQL APIs\n• Test React components thoroughly using Jest and React Testing Library",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learn_React_with_TypeScript_Third_Edition.pdf"
+  },
+  {
+    "id": "8729ad5e53ec",
+    "title": "Learn_React_with_TypeScript_Third_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/Learn_React_with_TypeScript_Third_Edition.epub",
+    "cover": "assets/covers/Learn_React_with_TypeScript_Third_Edition.webp",
+    "format": "epub",
+    "description": "Building complex web applications requires a robust framework and a strong type system to ensure maintainability and catch errors early in the development process.\n\nThis third edition is a comprehensive guide to building modern React applications using TypeScript. It combines the power of React's component-based architecture with TypeScript's static typing, covering the latest features and best practices for creating scalable frontend applications.\n\n• Build reusable and strongly typed React components\n• Manage application state effectively using Hooks and Context\n• Implement client-side routing with React Router\n• Connect your React application to REST and GraphQL APIs\n• Test React components thoroughly using Jest and React Testing Library",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learn_React_with_TypeScript_Third_Edition.epub"
+  },
+  {
+    "id": "a2c16bf24f4c",
+    "title": "Learning_React_2nd_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/Learning_React_2nd_Edition.pdf",
+    "cover": "assets/covers/Learning_React_2nd_Edition.webp",
+    "format": "pdf",
+    "description": "Modern web development demands dynamic and responsive user interfaces, and React has become the go-to library for building these complex frontends efficiently.\n\nThis second edition offers a hands-on introduction to React, guiding you through the process of building robust, maintainable, and data-driven web applications. It covers everything from functional components and Hooks to state management and testing.\n\n• Understand the core principles of React and its component model\n• Master React Hooks for state management and side effects\n• Build single-page applications with seamless navigation\n• Optimize React performance and component rendering\n• Deploy and maintain scalable React applications in production",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_React_2nd_Edition.pdf"
+  },
+  {
+    "id": "799a14a7c88b",
+    "title": "Learning_React_2nd_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/Learning_React_2nd_Edition.epub",
+    "cover": "assets/covers/Learning_React_2nd_Edition.webp",
+    "format": "epub",
+    "description": "Modern web development demands dynamic and responsive user interfaces, and React has become the go-to library for building these complex frontends efficiently.\n\nThis second edition offers a hands-on introduction to React, guiding you through the process of building robust, maintainable, and data-driven web applications. It covers everything from functional components and Hooks to state management and testing.\n\n• Understand the core principles of React and its component model\n• Master React Hooks for state management and side effects\n• Build single-page applications with seamless navigation\n• Optimize React performance and component rendering\n• Deploy and maintain scalable React applications in production",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_React_2nd_Edition.epub"
+  },
+  {
     "id": "ef9822fb1a79",
     "title": "React_Application_Architecture_for_Production",
     "category": "Computer Science Fundamentals",
@@ -295,6 +405,50 @@
     "format": "epub",
     "description": "Building React applications for production involves handling complex state, optimizing performance, and structuring code for scalability and maintainability.\n\nThis book provides comprehensive guidance on designing and architecting React applications ready for production environments. It covers advanced patterns, testing, and deployment strategies.\n\n• Master advanced React patterns and architectural decisions\n• Build scalable and maintainable front-end applications\n• Learn best practices for state management and performance optimization\n• Implement robust testing and deployment workflows",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Application_Architecture_for_Production.epub"
+  },
+  {
+    "id": "37533a61ca42",
+    "title": "React_Key_Concepts_Second_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/React_Key_Concepts_Second_Edition.pdf",
+    "cover": "assets/covers/React_Key_Concepts_Second_Edition.webp",
+    "format": "pdf",
+    "description": "While many resources teach you how to use React, truly mastering the library requires a deep understanding of the fundamental concepts and architectural decisions behind it.\n\nThis book focuses on the core principles that make React powerful. It breaks down complex topics into digestible explanations, helping you build a solid foundation and make informed design decisions when developing React applications.\n\n• Grasp the theory and mechanics of React's Virtual DOM\n• Understand the complete component lifecycle and rendering behavior\n• Design effective state models and data flow architectures\n• Master the nuances of Context, Refs, and custom Hooks\n• Architect robust frontends using proven React design patterns",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Key_Concepts_Second_Edition.pdf"
+  },
+  {
+    "id": "0d2168d26a7d",
+    "title": "React_Key_Concepts_Second_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/React_Key_Concepts_Second_Edition.epub",
+    "cover": "assets/covers/React_Key_Concepts_Second_Edition.webp",
+    "format": "epub",
+    "description": "While many resources teach you how to use React, truly mastering the library requires a deep understanding of the fundamental concepts and architectural decisions behind it.\n\nThis book focuses on the core principles that make React powerful. It breaks down complex topics into digestible explanations, helping you build a solid foundation and make informed design decisions when developing React applications.\n\n• Grasp the theory and mechanics of React's Virtual DOM\n• Understand the complete component lifecycle and rendering behavior\n• Design effective state models and data flow architectures\n• Master the nuances of Context, Refs, and custom Hooks\n• Architect robust frontends using proven React design patterns",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Key_Concepts_Second_Edition.epub"
+  },
+  {
+    "id": "bea1c3ee820b",
+    "title": "React_Quickly_Second_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/React_Quickly_Second_Edition.pdf",
+    "cover": "assets/covers/React_Quickly_Second_Edition.webp",
+    "format": "pdf",
+    "description": "Developers often need to get up to speed with React fast, without getting bogged down in overly academic explanations or unnecessary tooling complexity.\n\nThis second edition provides a rapid, practical introduction to React. It focuses on hands-on examples and real-world scenarios, allowing you to start building functional applications quickly while learning the essential concepts along the way.\n\n• Build interactive web interfaces with React and JSX\n• Manage state efficiently using functional components and Hooks\n• Handle forms, events, and user interactions seamlessly\n• Connect to external APIs and manage asynchronous data\n• Deploy your React applications quickly and effectively",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Quickly_Second_Edition.pdf"
+  },
+  {
+    "id": "0e980725c9ad",
+    "title": "React_Quickly_Second_Edition",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/React",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/React/React_Quickly_Second_Edition.epub",
+    "cover": "assets/covers/React_Quickly_Second_Edition.webp",
+    "format": "epub",
+    "description": "Developers often need to get up to speed with React fast, without getting bogged down in overly academic explanations or unnecessary tooling complexity.\n\nThis second edition provides a rapid, practical introduction to React. It focuses on hands-on examples and real-world scenarios, allowing you to start building functional applications quickly while learning the essential concepts along the way.\n\n• Build interactive web interfaces with React and JSX\n• Manage state efficiently using functional components and Hooks\n• Handle forms, events, and user interactions seamlessly\n• Connect to external APIs and manage asynchronous data\n• Deploy your React applications quickly and effectively",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Quickly_Second_Edition.epub"
   },
   {
     "id": "e61a640e51b3",
@@ -1076,6 +1230,28 @@
     "format": "pdf",
     "description": "Programming interviews can feel unpredictable because they combine algorithms, communication, debugging, and career judgment in a compressed format. Strong preparation means knowing how to think through problems as much as knowing individual answers.\n\nProgramming Interviews Exposed: Coding Your Way Through the Interview gives practical guidance for navigating technical hiring, from core data structures and algorithms to problem-solving habits and interview strategy. Its approach is grounded in realistic examples that help candidates prepare for both coding questions and the broader interview process.\n\n• Master essential algorithms, data structures, and coding interview techniques\n• Build a practical framework for attacking unfamiliar programming problems\n• Learn how to communicate assumptions, tradeoffs, and complexity clearly\n• Explore common interview formats and preparation strategies\n• Improve confidence for phone screens, whiteboard sessions, and coding tests",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Programming_Interviews_Exposed_Coding_Your_Way_Through.pdf"
+  },
+  {
+    "id": "2bb12f22b335",
+    "title": "React_Interview_Guide",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/React_Interview_Guide.pdf",
+    "cover": "assets/covers/React_Interview_Guide.webp",
+    "format": "pdf",
+    "description": "Preparing for a frontend developer interview can be daunting, especially when it comes to demonstrating a deep understanding of React's ecosystem, architecture, and advanced concepts.\n\nThis guide provides a structured approach to tackling React interviews. It covers a wide range of common questions, practical coding challenges, and architectural discussions to help you showcase your expertise and land your dream job.\n\n• Master common React interview questions and technical concepts\n• Solve practical coding challenges focused on React patterns\n• Discuss advanced state management and performance optimization strategies\n• Demonstrate your understanding of React's lifecycle and Hooks\n• Prepare for system design questions tailored to frontend applications",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Interview_Guide.pdf"
+  },
+  {
+    "id": "eacba8ce6c93",
+    "title": "React_Interview_Guide",
+    "category": "Career and Professional Development",
+    "topic": "Interview Prep",
+    "file_path": "Books/3_Career_and_Professional_Development/Interview_Prep/React_Interview_Guide.epub",
+    "cover": "assets/covers/React_Interview_Guide.webp",
+    "format": "epub",
+    "description": "Preparing for a frontend developer interview can be daunting, especially when it comes to demonstrating a deep understanding of React's ecosystem, architecture, and advanced concepts.\n\nThis guide provides a structured approach to tackling React interviews. It covers a wide range of common questions, practical coding challenges, and architectural discussions to help you showcase your expertise and land your dream job.\n\n• Master common React interview questions and technical concepts\n• Solve practical coding challenges focused on React patterns\n• Discuss advanced state management and performance optimization strategies\n• Demonstrate your understanding of React's lifecycle and Hooks\n• Prepare for system design questions tailored to frontend applications",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/React_Interview_Guide.epub"
   },
   {
     "id": "f8ce6cafc518",
