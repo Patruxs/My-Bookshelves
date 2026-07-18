@@ -5,9 +5,11 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import shutil
 import subprocess
 import sys
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -21,21 +23,22 @@ if sys.stderr.encoding != "utf-8":
 
 LETTER_WIDTH = 612.0
 LETTER_HEIGHT = 792.0
-PAGE_MARGIN = 72.0
+PAGE_MARGIN = 54.0  # 0.75 inch - more content per page, fewer pages, faster convert
 CONTENT_WIDTH = LETTER_WIDTH - (PAGE_MARGIN * 2)
 CONTENT_HEIGHT = LETTER_HEIGHT - (PAGE_MARGIN * 2)
 CALIBRE_FLATPAK_ID = "com.calibre_ebook.calibre"
+# Lean Calibre settings: smaller type + margins -> fewer pages and faster reflow.
 CALIBRE_PDF_OPTIONS = [
     "--paper-size",
     "letter",
     "--pdf-page-margin-left",
-    "72.0",
+    "54.0",
     "--pdf-page-margin-right",
-    "72.0",
+    "54.0",
     "--pdf-page-margin-top",
-    "72.0",
+    "54.0",
     "--pdf-page-margin-bottom",
-    "72.0",
+    "54.0",
     "--pdf-serif-family",
     "TeX Gyre Termes",
     "--pdf-sans-family",
@@ -45,12 +48,15 @@ CALIBRE_PDF_OPTIONS = [
     "--pdf-standard-font",
     "serif",
     "--pdf-default-font-size",
-    "20",
+    "12",
     "--pdf-mono-font-size",
-    "16",
+    "10",
     "--unit",
     "inch",
 ]
+
+_UNSET = object()
+_calibre_command_cache: list[str] | None | object = _UNSET
 
 
 @dataclass
@@ -96,7 +102,11 @@ def calibre_command_candidates() -> list[list[str]]:
 
 
 def find_calibre_command() -> list[str] | None:
-    """Find a working Calibre ebook-convert command."""
+    """Find a working Calibre ebook-convert command (cached)."""
+    global _calibre_command_cache
+    if _calibre_command_cache is not _UNSET:
+        return _calibre_command_cache  # type: ignore[return-value]
+
     for command in calibre_command_candidates():
         try:
             result = subprocess.run(
@@ -109,8 +119,17 @@ def find_calibre_command() -> list[str] | None:
         except (OSError, subprocess.TimeoutExpired):
             continue
         if result.returncode == 0:
+            _calibre_command_cache = command
             return command
+
+    _calibre_command_cache = None
     return None
+
+
+def clear_calibre_command_cache() -> None:
+    """Reset cached Calibre command (tests / diagnostics)."""
+    global _calibre_command_cache
+    _calibre_command_cache = _UNSET
 
 
 def relative_path(path: Path, base_dir: Path) -> str:
@@ -145,10 +164,42 @@ def iter_epubs(inbox_dir: Path) -> list[Path]:
     return sorted(path for path in inbox_dir.iterdir() if path.suffix.lower() == ".epub")
 
 
-def build_plan(inbox_dir: Path, *, overwrite: bool) -> list[ConversionPlan]:
+def select_epubs(inbox_dir: Path, files: list[str] | None = None) -> list[Path]:
+    """Return Inbox EPUBs, optionally filtered by --file patterns."""
+    epubs = iter_epubs(inbox_dir)
+    if not files:
+        return epubs
+
+    selected: list[Path] = []
+    for pattern in files:
+        needle = pattern.strip().lower()
+        if not needle:
+            continue
+        needle_name = Path(needle).name
+        matches = [
+            path
+            for path in epubs
+            if needle_name == path.name.lower()
+            or needle_name == path.stem.lower()
+            or needle in path.name.lower()
+        ]
+        if not matches:
+            raise FileNotFoundError(f"No EPUB in Inbox matches --file {pattern!r}")
+        for path in matches:
+            if path not in selected:
+                selected.append(path)
+    return selected
+
+
+def build_plan(
+    inbox_dir: Path,
+    *,
+    overwrite: bool,
+    files: list[str] | None = None,
+) -> list[ConversionPlan]:
     """Build a conversion plan for EPUB files in Inbox."""
     plans: list[ConversionPlan] = []
-    for source in iter_epubs(inbox_dir):
+    for source in select_epubs(inbox_dir, files):
         target = source.with_suffix(".pdf")
         if target.exists() and not overwrite:
             plans.append(
@@ -191,6 +242,107 @@ def command_error_tail(result: subprocess.CompletedProcess[str]) -> str:
     return "\n".join(lines[-8:])
 
 
+def _resolve_epub_member(names: list[str], opf_path: str, href: str) -> str | None:
+    """Resolve an OPF href against package members."""
+    href = href.split("#", 1)[0].strip()
+    if not href:
+        return None
+    opf_dir = Path(opf_path).parent.as_posix()
+    candidates = []
+    if opf_dir in {"", "."}:
+        candidates.append(href)
+    else:
+        candidates.append(f"{opf_dir}/{href}")
+    candidates.append(href)
+    normalized = {name: name for name in names}
+    for candidate in candidates:
+        cleaned = candidate.replace("\\", "/")
+        while "/./" in cleaned:
+            cleaned = cleaned.replace("/./", "/")
+        if cleaned in normalized:
+            return cleaned
+        for name in names:
+            if name.endswith("/" + cleaned) or name.endswith(cleaned):
+                return name
+    return None
+
+
+def extract_epub_cover_bytes(source: Path) -> bytes | None:
+    """Extract the EPUB cover image bytes when present."""
+    try:
+        with zipfile.ZipFile(source) as zf:
+            names = zf.namelist()
+            opf_names = [name for name in names if name.lower().endswith(".opf")]
+            for opf_path in opf_names:
+                opf = zf.read(opf_path).decode("utf-8", errors="replace")
+                cover_id_match = re.search(
+                    r'name=["\']cover["\'][^>]*content=["\']([^"\']+)["\']',
+                    opf,
+                    flags=re.IGNORECASE,
+                )
+                if cover_id_match is None:
+                    cover_id_match = re.search(
+                        r'content=["\']([^"\']+)["\'][^>]*name=["\']cover["\']',
+                        opf,
+                        flags=re.IGNORECASE,
+                    )
+                if cover_id_match is None:
+                    continue
+                cover_id = re.escape(cover_id_match.group(1))
+                item_match = re.search(
+                    rf'id=["\']{cover_id}["\'][^>]*href=["\']([^"\']+)["\']',
+                    opf,
+                    flags=re.IGNORECASE,
+                )
+                if item_match is None:
+                    item_match = re.search(
+                        rf'href=["\']([^"\']+)["\'][^>]*id=["\']{cover_id}["\']',
+                        opf,
+                        flags=re.IGNORECASE,
+                    )
+                if item_match is None:
+                    continue
+                member = _resolve_epub_member(names, opf_path, item_match.group(1))
+                if member is not None:
+                    return zf.read(member)
+
+            for name in names:
+                base = Path(name).name.lower()
+                if base in {"cover.jpg", "cover.jpeg", "cover.png", "cover.webp"}:
+                    return zf.read(name)
+    except (OSError, zipfile.BadZipFile, KeyError):
+        return None
+    return None
+
+
+def is_cover_like_page(page) -> bool:
+    """Return True when a reflowed page is essentially a cover image."""
+    text = (page.get_text() or "").strip()
+    if len(text) > 80:
+        return False
+    try:
+        images = page.get_images()
+    except Exception:
+        images = []
+    if len(images) != 1:
+        return False
+    try:
+        blocks = page.get_text("dict").get("blocks", [])
+    except Exception:
+        return True
+    image_blocks = [block for block in blocks if block.get("type") == 1]
+    if not image_blocks:
+        return True
+    bbox = image_blocks[0].get("bbox")
+    if not bbox or len(bbox) != 4:
+        return True
+    image_area = max(0.0, bbox[2] - bbox[0]) * max(0.0, bbox[3] - bbox[1])
+    page_area = float(page.rect.width) * float(page.rect.height)
+    if page_area <= 0:
+        return True
+    return (image_area / page_area) >= 0.35
+
+
 def convert_epub_to_pdf_with_calibre(
     source: Path,
     target: Path,
@@ -228,9 +380,13 @@ def convert_epub_to_pdf_with_pymupdf(source: Path, target: Path) -> tuple[str, s
         temp_path.unlink()
 
     try:
+        cover_bytes = extract_epub_cover_bytes(source)
+
         doc = fitz.open(source)
         try:
-            doc.layout(rect=fitz.Rect(0, 0, CONTENT_WIDTH, CONTENT_HEIGHT))
+            # Full Letter layout once - no second "content box + remount margins"
+            # pass, which crushed covers into a small centered rectangle.
+            doc.layout(rect=fitz.Rect(0, 0, LETTER_WIDTH, LETTER_HEIGHT))
             if doc.page_count == 0:
                 return "failed", "EPUB has no renderable pages"
 
@@ -238,17 +394,33 @@ def convert_epub_to_pdf_with_pymupdf(source: Path, target: Path) -> tuple[str, s
         finally:
             doc.close()
 
-        pdf_doc = fitz.open("pdf", pdf_bytes)
+        body_doc = fitz.open("pdf", pdf_bytes)
         output_doc = fitz.open()
         try:
-            _, content_rect = letter_rects(fitz)
-            for page_number in range(pdf_doc.page_count):
-                page = output_doc.new_page(width=LETTER_WIDTH, height=LETTER_HEIGHT)
-                page.show_pdf_page(content_rect, pdf_doc, page_number)
+            if cover_bytes:
+                cover_page = output_doc.new_page(width=LETTER_WIDTH, height=LETTER_HEIGHT)
+                cover_page.insert_image(
+                    cover_page.rect,
+                    stream=cover_bytes,
+                    keep_proportion=True,
+                )
 
-            output_doc.save(temp_path, garbage=4, deflate=True)
+            start = 0
+            if cover_bytes:
+                # Drop leading reflow pages that duplicate the cover art.
+                while start < body_doc.page_count and is_cover_like_page(body_doc[start]):
+                    start += 1
+                    if start >= 3:
+                        break
+
+            for page_number in range(start, body_doc.page_count):
+                page = output_doc.new_page(width=LETTER_WIDTH, height=LETTER_HEIGHT)
+                page.show_pdf_page(page.rect, body_doc, page_number)
+
+            # garbage=2 is much faster than 4 on large image-heavy books.
+            output_doc.save(temp_path, garbage=2, deflate=True)
         finally:
-            pdf_doc.close()
+            body_doc.close()
             output_doc.close()
 
         os.replace(temp_path, target)
@@ -265,7 +437,7 @@ def convert_epub_to_pdf(
     target: Path,
     *,
     overwrite: bool,
-    engine: str = "auto",
+    engine: str = "pymupdf",
 ) -> tuple[str, str]:
     """Convert a single EPUB to a PDF file."""
     if target.exists() and not overwrite:
@@ -274,12 +446,23 @@ def convert_epub_to_pdf(
     if engine not in {"auto", "calibre", "pymupdf"}:
         return "failed", f"Unknown conversion engine: {engine}"
 
-    if engine in {"auto", "calibre"}:
+    # Default / auto: prefer PyMuPDF (much faster). Calibre is optional quality path.
+    if engine == "calibre":
         command = find_calibre_command()
-        if command:
-            return convert_epub_to_pdf_with_calibre(source, target, command=command)
-        if engine == "calibre":
+        if not command:
             return "failed", "Calibre ebook-convert was not found"
+        return convert_epub_to_pdf_with_calibre(source, target, command=command)
+
+    if engine == "auto":
+        # Prefer fast local PyMuPDF; only use Calibre when PyMuPDF is missing.
+        try:
+            import_fitz()
+        except RuntimeError:
+            command = find_calibre_command()
+            if command:
+                return convert_epub_to_pdf_with_calibre(source, target, command=command)
+            return "failed", "Neither PyMuPDF nor Calibre ebook-convert is available"
+        return convert_epub_to_pdf_with_pymupdf(source, target)
 
     return convert_epub_to_pdf_with_pymupdf(source, target)
 
@@ -297,7 +480,7 @@ def execute_plan(
     report = progress or (lambda _message: None)
     total = len(plans)
     if total:
-        report(f"Converting {total} book(s)...")
+        report(f"Converting {total} book(s) with engine={engine}...")
 
     results: list[ConversionResult] = []
     for index, plan in enumerate(plans, 1):
@@ -382,6 +565,8 @@ def print_results(results: list[ConversionResult], *, dry_run: bool) -> None:
     if dry_run:
         print()
         print("No files changed. Add --execute to create PDFs.")
+        print("Tip: convert one book faster with:")
+        print('  python scripts/cli.py epub-to-pdf --base-dir . --execute --file "Book Name"')
 
 
 def main() -> None:
@@ -393,10 +578,18 @@ def main() -> None:
     parser.add_argument("--overwrite", action="store_true", help="Replace existing PDF outputs")
     parser.add_argument("--fail-fast", action="store_true", help="Stop after the first failure")
     parser.add_argument(
+        "--file",
+        action="append",
+        default=[],
+        dest="files",
+        metavar="NAME",
+        help="Convert only EPUBs matching this name/substring. Repeatable.",
+    )
+    parser.add_argument(
         "--engine",
         choices=("auto", "calibre", "pymupdf"),
-        default="auto",
-        help="Conversion engine. auto prefers Calibre and falls back to PyMuPDF",
+        default="pymupdf",
+        help="Conversion engine. pymupdf is default (fast). calibre is slower, higher reflow quality",
     )
     parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
     args = parser.parse_args()
@@ -405,7 +598,7 @@ def main() -> None:
 
     try:
         inbox_dir = resolve_inbox_dir(base_dir, args.inbox_dir)
-        plans = build_plan(inbox_dir, overwrite=args.overwrite)
+        plans = build_plan(inbox_dir, overwrite=args.overwrite, files=args.files or None)
         if args.execute:
             progress = make_progress_printer(enabled=not args.json)
             results = execute_plan(

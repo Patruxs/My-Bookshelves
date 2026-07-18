@@ -198,6 +198,7 @@ def print_help() -> None:
     print("  python scripts/cli.py unlock-pdfs --base-dir . --execute")
     print("  python scripts/cli.py epub-to-pdf --base-dir .")
     print("  python scripts/cli.py epub-to-pdf --base-dir . --execute")
+    print('  python scripts/cli.py epub-to-pdf --base-dir . --execute --file "Book Name"')
     print("  python scripts/cli.py pdf-to-epub --base-dir .")
     print("  python scripts/cli.py pdf-to-epub --base-dir . --execute")
     print("  python scripts/cli.py validate --base-dir . --json")
