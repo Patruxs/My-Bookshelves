@@ -814,6 +814,72 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Database_Internals.pdf"
   },
   {
+    "id": "02c0f8adf8a1",
+    "title": "Designing_Data_Intensive_Applications_2nd_Edition",
+    "category": "Software Engineering",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering/Database/Designing_Data_Intensive_Applications_2nd_Edition.pdf",
+    "cover": "assets/covers/Designing_Data_Intensive_Applications_2nd_Edition.webp",
+    "format": "pdf",
+    "description": "Data is at the center of many modern applications, demanding robust approaches to scale, consistency, and reliability. However, with an overwhelming number of tools and databases available, engineers often struggle to navigate the trade-offs and build systems that can withstand production workloads.\n\nDesigning Data-Intensive Applications 2nd Edition explores the principles and practicalities of building reliable, scalable, and maintainable data systems. This updated edition dives deeper into modern architectures, distributed systems, and the underlying algorithms.\n\n• Navigate the trade-offs between different database models and storage engines\n• Master the complexities of distributed systems, consensus, and replication\n• Build resilient data pipelines that can handle massive scale and high throughput\n• Evaluate the pros and cons of batch and stream processing architectures\n• Implement strategies for ensuring data consistency in unpredictable environments",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Designing_Data_Intensive_Applications_2nd_Edition.pdf"
+  },
+  {
+    "id": "adb9f7fccf15",
+    "title": "Designing_Data_Intensive_Applications_2nd_Edition",
+    "category": "Software Engineering",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering/Database/Designing_Data_Intensive_Applications_2nd_Edition.epub",
+    "cover": "assets/covers/Designing_Data_Intensive_Applications_2nd_Edition.webp",
+    "format": "epub",
+    "description": "Data is at the center of many modern applications, demanding robust approaches to scale, consistency, and reliability. However, with an overwhelming number of tools and databases available, engineers often struggle to navigate the trade-offs and build systems that can withstand production workloads.\n\nDesigning Data-Intensive Applications 2nd Edition explores the principles and practicalities of building reliable, scalable, and maintainable data systems. This updated edition dives deeper into modern architectures, distributed systems, and the underlying algorithms.\n\n• Navigate the trade-offs between different database models and storage engines\n• Master the complexities of distributed systems, consensus, and replication\n• Build resilient data pipelines that can handle massive scale and high throughput\n• Evaluate the pros and cons of batch and stream processing architectures\n• Implement strategies for ensuring data consistency in unpredictable environments",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Designing_Data_Intensive_Applications_2nd_Edition.epub"
+  },
+  {
+    "id": "2dbf566003f5",
+    "title": "Learning_SQL_3rd_Edition",
+    "category": "Software Engineering",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering/Database/Learning_SQL_3rd_Edition.pdf",
+    "cover": "assets/covers/Learning_SQL_3rd_Edition.webp",
+    "format": "pdf",
+    "description": "Data is the lifeblood of modern organizations, and the ability to query, analyze, and manipulate this data is a critical skill for developers, data analysts, and database administrators alike. However, mastering the nuances of SQL and understanding how to write efficient, effective queries can be a daunting task for beginners.\n\nThis foundational resource offers a thorough introduction to SQL, providing readers with the knowledge needed to work with relational databases seamlessly. The third edition includes updated examples and covers the latest SQL standards, guiding learners through practical exercises to build confidence in writing complex queries.\n\n• Master the basics of SQL syntax and relational database concepts.\n• Build complex queries using joins, subqueries, and set operations.\n• Implement data manipulation statements to insert, update, and delete records.\n• Explore advanced topics like window functions and common table expressions.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_SQL_3rd_Edition.pdf"
+  },
+  {
+    "id": "6601144d7e7e",
+    "title": "Learning_SQL_3rd_Edition",
+    "category": "Software Engineering",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering/Database/Learning_SQL_3rd_Edition.epub",
+    "cover": "assets/covers/Learning_SQL_3rd_Edition.webp",
+    "format": "epub",
+    "description": "Data is the lifeblood of modern organizations, and the ability to query, analyze, and manipulate this data is a critical skill for developers, data analysts, and database administrators alike. However, mastering the nuances of SQL and understanding how to write efficient, effective queries can be a daunting task for beginners.\n\nThis foundational resource offers a thorough introduction to SQL, providing readers with the knowledge needed to work with relational databases seamlessly. The third edition includes updated examples and covers the latest SQL standards, guiding learners through practical exercises to build confidence in writing complex queries.\n\n• Master the basics of SQL syntax and relational database concepts.\n• Build complex queries using joins, subqueries, and set operations.\n• Implement data manipulation statements to insert, update, and delete records.\n• Explore advanced topics like window functions and common table expressions.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Learning_SQL_3rd_Edition.epub"
+  },
+  {
+    "id": "6ec92a185c0b",
+    "title": "Practical_SQL_2nd_Edition",
+    "category": "Software Engineering",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering/Database/Practical_SQL_2nd_Edition.pdf",
+    "cover": "assets/covers/Practical_SQL_2nd_Edition.webp",
+    "format": "pdf",
+    "description": "While theoretical knowledge of SQL is important, applying that knowledge to real-world datasets is where the true value lies for data analysts and developers. Bridging the gap between basic syntax and practical data analysis often requires hands-on experience with diverse, messy data sets.\n\nThis pragmatic guide focuses on using SQL to tell stories with data, employing PostgreSQL to analyze real-world datasets from various industries. The second edition provides updated exercises and new chapters on advanced analytical techniques, empowering readers to extract meaningful insights from raw data.\n\n• Master the process of importing and cleaning messy datasets.\n• Explore advanced analytical functions and statistical techniques in SQL.\n• Build spatial queries using PostGIS to analyze geographic data.\n• Automate database tasks and optimize query performance for large datasets.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Practical_SQL_2nd_Edition.pdf"
+  },
+  {
+    "id": "651b662a9d42",
+    "title": "Practical_SQL_2nd_Edition",
+    "category": "Software Engineering",
+    "topic": "Database",
+    "file_path": "Books/2_Software_Engineering/Database/Practical_SQL_2nd_Edition.epub",
+    "cover": "assets/covers/Practical_SQL_2nd_Edition.webp",
+    "format": "epub",
+    "description": "While theoretical knowledge of SQL is important, applying that knowledge to real-world datasets is where the true value lies for data analysts and developers. Bridging the gap between basic syntax and practical data analysis often requires hands-on experience with diverse, messy data sets.\n\nThis pragmatic guide focuses on using SQL to tell stories with data, employing PostgreSQL to analyze real-world datasets from various industries. The second edition provides updated exercises and new chapters on advanced analytical techniques, empowering readers to extract meaningful insights from raw data.\n\n• Master the process of importing and cleaning messy datasets.\n• Explore advanced analytical functions and statistical techniques in SQL.\n• Build spatial queries using PostGIS to analyze geographic data.\n• Automate database tasks and optimize query performance for large datasets.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Practical_SQL_2nd_Edition.epub"
+  },
+  {
     "id": "2a49bab2a8b7",
     "title": "SQL_Performance_Explained",
     "category": "Software Engineering",
@@ -880,26 +946,26 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Clean_Code_A_Handbook_of_Agile_Software_Craftsmanship.pdf"
   },
   {
-    "id": "8340419c08aa",
-    "title": "Designing_Data_Intensive_Applications_2nd_Edition",
+    "id": "4ed2e90241d9",
+    "title": "Fundamentals_of_Software_Architecture_2nd_Edition",
     "category": "Software Engineering",
-    "topic": "Database",
-    "file_path": "Books/2_Software_Engineering/Database/Designing_Data_Intensive_Applications_2nd_Edition.pdf",
-    "cover": "assets/covers/Designing_Data_Intensive_Applications_2nd_Edition.webp",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Fundamentals_of_Software_Architecture_2nd_Edition.pdf",
+    "cover": "assets/covers/Fundamentals_of_Software_Architecture_2nd_Edition.webp",
     "format": "pdf",
-    "description": "Data is at the center of many modern applications, demanding robust approaches to scale, consistency, and reliability. However, with an overwhelming number of tools and databases available, engineers often struggle to navigate the trade-offs and build systems that can withstand production workloads.\n\nDesigning Data-Intensive Applications 2nd Edition explores the principles and practicalities of building reliable, scalable, and maintainable data systems. This updated edition dives deeper into modern architectures, distributed systems, and the underlying algorithms.\n\n• Navigate the trade-offs between different database models and storage engines\n• Master the complexities of distributed systems, consensus, and replication\n• Build resilient data pipelines that can handle massive scale and high throughput\n• Evaluate the pros and cons of batch and stream processing architectures\n• Implement strategies for ensuring data consistency in unpredictable environments",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Designing_Data_Intensive_Applications_2nd_Edition.pdf"
+    "description": "Software architecture is a fast-moving discipline, making it difficult to keep up with the latest practices, technologies, and patterns. As systems grow more complex, architects need a comprehensive guide to navigate trade-offs and make informed decisions that ensure long-term scalability and maintainability.\n\nThis comprehensive guide provides a practical approach to modern software architecture, covering everything from foundational principles to advanced patterns. The second edition has been updated to reflect current industry trends, offering developers and architects the tools they need to design robust systems and transition effectively into architectural roles.\n\n• Master the fundamental principles and patterns of software architecture.\n• Explore various architectural styles, including microservices, event-driven, and serverless.\n• Develop the soft skills necessary to lead teams and communicate technical decisions effectively.\n• Implement strategies for assessing and mitigating architectural risks.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Fundamentals_of_Software_Architecture_2nd_Edition.pdf"
   },
   {
-    "id": "8122137a499d",
-    "title": "Designing_Data_Intensive_Applications_2nd_Edition",
+    "id": "70d927064642",
+    "title": "Fundamentals_of_Software_Architecture_2nd_Edition",
     "category": "Software Engineering",
-    "topic": "Database",
-    "file_path": "Books/2_Software_Engineering/Database/Designing_Data_Intensive_Applications_2nd_Edition.epub",
-    "cover": "assets/covers/Designing_Data_Intensive_Applications_2nd_Edition.webp",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Fundamentals_of_Software_Architecture_2nd_Edition.epub",
+    "cover": "assets/covers/Fundamentals_of_Software_Architecture_2nd_Edition.webp",
     "format": "epub",
-    "description": "Data is at the center of many modern applications, demanding robust approaches to scale, consistency, and reliability. However, with an overwhelming number of tools and databases available, engineers often struggle to navigate the trade-offs and build systems that can withstand production workloads.\n\nDesigning Data-Intensive Applications 2nd Edition explores the principles and practicalities of building reliable, scalable, and maintainable data systems. This updated edition dives deeper into modern architectures, distributed systems, and the underlying algorithms.\n\n• Navigate the trade-offs between different database models and storage engines\n• Master the complexities of distributed systems, consensus, and replication\n• Build resilient data pipelines that can handle massive scale and high throughput\n• Evaluate the pros and cons of batch and stream processing architectures\n• Implement strategies for ensuring data consistency in unpredictable environments",
-    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Designing_Data_Intensive_Applications_2nd_Edition.epub"
+    "description": "Software architecture is a fast-moving discipline, making it difficult to keep up with the latest practices, technologies, and patterns. As systems grow more complex, architects need a comprehensive guide to navigate trade-offs and make informed decisions that ensure long-term scalability and maintainability.\n\nThis comprehensive guide provides a practical approach to modern software architecture, covering everything from foundational principles to advanced patterns. The second edition has been updated to reflect current industry trends, offering developers and architects the tools they need to design robust systems and transition effectively into architectural roles.\n\n• Master the fundamental principles and patterns of software architecture.\n• Explore various architectural styles, including microservices, event-driven, and serverless.\n• Develop the soft skills necessary to lead teams and communicate technical decisions effectively.\n• Implement strategies for assessing and mitigating architectural risks.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Fundamentals_of_Software_Architecture_2nd_Edition.epub"
   },
   {
     "id": "9bfee32601a2",

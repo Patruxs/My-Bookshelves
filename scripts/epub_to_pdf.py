@@ -104,6 +104,28 @@ def import_fitz():
     return fitz
 
 
+@contextmanager
+def suppress_pymupdf_messages(fitz) -> Iterator[None]:
+    """Temporarily discard recoverable PyMuPDF parser diagnostics."""
+    set_messages = getattr(fitz, "set_messages", None)
+    if not callable(set_messages):
+        yield
+        return
+
+    previous_stream = getattr(fitz, "_g_out_message", _UNSET)
+    if previous_stream is _UNSET:
+        message_globals = getattr(set_messages, "__globals__", {})
+        previous_stream = message_globals.get("_g_out_message", _UNSET)
+
+    with open(os.devnull, "w", encoding="utf-8") as message_sink:
+        set_messages(stream=message_sink)
+        try:
+            yield
+        finally:
+            restore_stream = sys.stdout if previous_stream is _UNSET else previous_stream
+            set_messages(stream=restore_stream)
+
+
 def calibre_command_candidates() -> list[list[str]]:
     """Return possible Calibre ebook-convert command prefixes."""
     candidates: list[list[str]] = []
@@ -493,19 +515,19 @@ def convert_epub_to_pdf_with_pymupdf(source: Path, target: Path) -> tuple[str, s
     fitz.TOOLS.mupdf_display_errors(False)
     try:
         cover_bytes = extract_epub_cover_bytes(source)
+        with suppress_pymupdf_messages(fitz):
+            with pymupdf_compatible_epub(source, target.parent) as render_source:
+                doc = fitz.open(render_source)
+                try:
+                    # Full Letter layout once - no second "content box + remount margins"
+                    # pass, which crushed covers into a small centered rectangle.
+                    doc.layout(rect=fitz.Rect(0, 0, LETTER_WIDTH, LETTER_HEIGHT))
+                    if doc.page_count == 0:
+                        return "failed", "EPUB has no renderable pages"
 
-        with pymupdf_compatible_epub(source, target.parent) as render_source:
-            doc = fitz.open(render_source)
-            try:
-                # Full Letter layout once - no second "content box + remount margins"
-                # pass, which crushed covers into a small centered rectangle.
-                doc.layout(rect=fitz.Rect(0, 0, LETTER_WIDTH, LETTER_HEIGHT))
-                if doc.page_count == 0:
-                    return "failed", "EPUB has no renderable pages"
-
-                pdf_bytes = doc.convert_to_pdf()
-            finally:
-                doc.close()
+                    pdf_bytes = doc.convert_to_pdf()
+                finally:
+                    doc.close()
 
         body_doc = fitz.open("pdf", pdf_bytes)
         output_doc = fitz.open()

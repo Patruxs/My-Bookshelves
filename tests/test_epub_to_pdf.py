@@ -1,3 +1,4 @@
+import io
 import json
 import subprocess
 import sys
@@ -151,6 +152,22 @@ class FakeFitz:
         if len(args) == 2 and args[0] == "pdf":
             return FakeConvertedPdfDocument()
         raise AssertionError(f"Unexpected fitz.open arguments: {args!r}")
+
+
+class FakeFitzWithMessages(FakeFitz):
+    def __init__(self, message_stream: io.StringIO) -> None:
+        super().__init__()
+        self._g_out_message = message_stream
+
+    def set_messages(self, *, stream: io.StringIO) -> None:
+        self._g_out_message = stream
+
+    def open(self, *args: object):
+        if len(args) == 1:
+            self._g_out_message.write(
+                "syntax error: css syntax error: unexpected token\n"
+            )
+        return super().open(*args)
 
 
 def write_test_epub(source: Path, *, css: str, body: str) -> None:
@@ -470,6 +487,27 @@ class EpubToPdfTests(unittest.TestCase):
             self.assertEqual(status, "failed")
             self.assertEqual(message, "PyMuPDF conversion failed: broken EPUB")
             self.assertTrue(fake_fitz.TOOLS.display_errors)
+
+    def test_pymupdf_message_stream_is_silenced_and_restored(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "Book.epub"
+            target = Path(tmp) / "Book.pdf"
+            source.write_bytes(b"fake epub")
+            original_messages = io.StringIO()
+            fake_fitz = FakeFitzWithMessages(original_messages)
+
+            with patch("epub_to_pdf.import_fitz", return_value=fake_fitz):
+                status, message = convert_epub_to_pdf(
+                    source,
+                    target,
+                    overwrite=False,
+                    engine="pymupdf",
+                )
+
+            self.assertEqual(status, "converted")
+            self.assertEqual(message, "EPUB converted to PDF with PyMuPDF")
+            self.assertEqual(original_messages.getvalue(), "")
+            self.assertIs(fake_fitz._g_out_message, original_messages)
 
     def test_extract_epub_cover_bytes_reads_opf_cover(self) -> None:
         import io
