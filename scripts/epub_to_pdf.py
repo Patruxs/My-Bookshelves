@@ -9,7 +9,10 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import zipfile
+from collections.abc import Iterator
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -57,6 +60,16 @@ CALIBRE_PDF_OPTIONS = [
 
 _UNSET = object()
 _calibre_command_cache: list[str] | None | object = _UNSET
+_BACKGROUND_NONE_PATTERN = re.compile(
+    rb"(?<![-\w])background(\s*:\s*)none"
+    rb"(\s*(?:!\s*important\s*)?)(?=[;}])",
+    flags=re.IGNORECASE,
+)
+_SCROLLING_BLOCK_PATTERN = re.compile(
+    rb"display\s*:\s*block\s*(?:!\s*important\s*)?;\s*"
+    rb"overflow-x(\s*:\s*)auto(\s*(?:!\s*important\s*)?)(?=[;}])",
+    flags=re.IGNORECASE,
+)
 
 
 @dataclass
@@ -315,6 +328,103 @@ def extract_epub_cover_bytes(source: Path) -> bytes | None:
     return None
 
 
+def sanitize_css_for_pymupdf(css: bytes) -> tuple[bytes, int]:
+    """Replace CSS that MuPDF incorrectly renders while preserving literals."""
+    output = bytearray()
+    replacements = 0
+    plain_start = 0
+    index = 0
+
+    def append_plain(end: int) -> None:
+        nonlocal replacements
+        sanitized, count = _BACKGROUND_NONE_PATTERN.subn(
+            rb"background\1transparent\2",
+            css[plain_start:end],
+        )
+        sanitized, scrolling_count = _SCROLLING_BLOCK_PATTERN.subn(
+            b"",
+            sanitized,
+        )
+        output.extend(sanitized)
+        replacements += count + scrolling_count
+
+    while index < len(css):
+        if css[index : index + 2] == b"/*":
+            append_plain(index)
+            end = css.find(b"*/", index + 2)
+            end = len(css) if end < 0 else end + 2
+            output.extend(css[index:end])
+            index = end
+            plain_start = index
+            continue
+
+        if css[index] in (ord('"'), ord("'")):
+            append_plain(index)
+            quote = css[index]
+            end = index + 1
+            while end < len(css):
+                if css[end] == ord("\\"):
+                    end += 2
+                    continue
+                if css[end] == quote:
+                    end += 1
+                    break
+                end += 1
+            output.extend(css[index:end])
+            index = end
+            plain_start = index
+            continue
+
+        index += 1
+
+    append_plain(len(css))
+    return bytes(output), replacements
+
+
+@contextmanager
+def pymupdf_compatible_epub(source: Path, temp_dir: Path) -> Iterator[Path]:
+    """Yield an EPUB copy with known MuPDF CSS rendering defects corrected."""
+    modified_css: dict[str, bytes] = {}
+    try:
+        with zipfile.ZipFile(source) as input_epub:
+            for member in input_epub.infolist():
+                if not member.filename.lower().endswith(".css"):
+                    continue
+                css = input_epub.read(member)
+                sanitized, replacements = sanitize_css_for_pymupdf(css)
+                if replacements:
+                    modified_css[member.filename] = sanitized
+    except (OSError, zipfile.BadZipFile):
+        yield source
+        return
+
+    if not modified_css:
+        yield source
+        return
+
+    file_descriptor, temp_name = tempfile.mkstemp(
+        prefix=f".{source.stem}.",
+        suffix=".pymupdf.epub",
+        dir=temp_dir,
+    )
+    os.close(file_descriptor)
+    compatible_source = Path(temp_name)
+    try:
+        with (
+            zipfile.ZipFile(source) as input_epub,
+            zipfile.ZipFile(compatible_source, "w") as output_epub,
+        ):
+            output_epub.comment = input_epub.comment
+            for member in input_epub.infolist():
+                content = modified_css.get(member.filename)
+                if content is None:
+                    content = input_epub.read(member)
+                output_epub.writestr(member, content)
+        yield compatible_source
+    finally:
+        compatible_source.unlink(missing_ok=True)
+
+
 def is_cover_like_page(page) -> bool:
     """Return True when a reflowed page is essentially a cover image."""
     text = (page.get_text() or "").strip()
@@ -379,20 +489,23 @@ def convert_epub_to_pdf_with_pymupdf(source: Path, target: Path) -> tuple[str, s
     if temp_path.exists():
         temp_path.unlink()
 
+    display_errors = fitz.TOOLS.mupdf_display_errors()
+    fitz.TOOLS.mupdf_display_errors(False)
     try:
         cover_bytes = extract_epub_cover_bytes(source)
 
-        doc = fitz.open(source)
-        try:
-            # Full Letter layout once - no second "content box + remount margins"
-            # pass, which crushed covers into a small centered rectangle.
-            doc.layout(rect=fitz.Rect(0, 0, LETTER_WIDTH, LETTER_HEIGHT))
-            if doc.page_count == 0:
-                return "failed", "EPUB has no renderable pages"
+        with pymupdf_compatible_epub(source, target.parent) as render_source:
+            doc = fitz.open(render_source)
+            try:
+                # Full Letter layout once - no second "content box + remount margins"
+                # pass, which crushed covers into a small centered rectangle.
+                doc.layout(rect=fitz.Rect(0, 0, LETTER_WIDTH, LETTER_HEIGHT))
+                if doc.page_count == 0:
+                    return "failed", "EPUB has no renderable pages"
 
-            pdf_bytes = doc.convert_to_pdf()
-        finally:
-            doc.close()
+                pdf_bytes = doc.convert_to_pdf()
+            finally:
+                doc.close()
 
         body_doc = fitz.open("pdf", pdf_bytes)
         output_doc = fitz.open()
@@ -428,6 +541,8 @@ def convert_epub_to_pdf_with_pymupdf(source: Path, target: Path) -> tuple[str, s
         if temp_path.exists():
             temp_path.unlink()
         return "failed", f"PyMuPDF conversion failed: {exc}"
+    finally:
+        fitz.TOOLS.mupdf_display_errors(display_errors)
 
     return "converted", "EPUB converted to PDF with PyMuPDF"
 

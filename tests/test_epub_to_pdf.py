@@ -3,8 +3,9 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -19,6 +20,7 @@ from epub_to_pdf import (  # noqa: E402
     execute_plan,
     extract_epub_cover_bytes,
     resolve_inbox_dir,
+    sanitize_css_for_pymupdf,
     select_epubs,
 )
 
@@ -123,8 +125,21 @@ class FakeOutputPdfDocument:
         pass
 
 
+class FakeTools:
+    def __init__(self) -> None:
+        self.display_errors = True
+
+    def mupdf_display_errors(self, value: bool | None = None) -> bool:
+        if value is not None:
+            self.display_errors = bool(value)
+        return self.display_errors
+
+
 class FakeFitz:
     Rect = FakeRect
+
+    def __init__(self) -> None:
+        self.TOOLS = FakeTools()
 
     def open(self, *args: object):
         if len(args) == 0:
@@ -138,7 +153,160 @@ class FakeFitz:
         raise AssertionError(f"Unexpected fitz.open arguments: {args!r}")
 
 
+def write_test_epub(source: Path, *, css: str, body: str) -> None:
+    """Write a minimal EPUB fixture with one styled XHTML document."""
+    with zipfile.ZipFile(source, "w") as zf:
+        zf.writestr(
+            "mimetype",
+            "application/epub+zip",
+            compress_type=zipfile.ZIP_STORED,
+        )
+        zf.writestr(
+            "META-INF/container.xml",
+            """<?xml version="1.0"?>
+<container version="1.0"
+ xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
+  <rootfiles>
+    <rootfile full-path="OEBPS/content.opf"
+     media-type="application/oebps-package+xml"/>
+  </rootfiles>
+</container>
+""",
+        )
+        zf.writestr(
+            "OEBPS/content.opf",
+            """<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0"
+ unique-identifier="id">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:identifier id="id">css-test</dc:identifier>
+    <dc:title>CSS Compatibility</dc:title>
+    <dc:language>en</dc:language>
+  </metadata>
+  <manifest>
+    <item id="css" href="epub.css" media-type="text/css"/>
+    <item id="chapter" href="chapter.xhtml"
+     media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine><itemref idref="chapter"/></spine>
+</package>
+""",
+        )
+        zf.writestr("OEBPS/epub.css", css)
+        zf.writestr(
+            "OEBPS/chapter.xhtml",
+            f"""<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>CSS test</title>
+    <link rel="stylesheet" type="text/css" href="epub.css"/>
+  </head>
+  <body>{body}</body>
+</html>
+""",
+        )
+
+
 class EpubToPdfTests(unittest.TestCase):
+    def test_css_sanitizer_preserves_comments_and_strings(self) -> None:
+        css = (
+            b"/* table { background: none; } */"
+            b'.note::before { content: "background: none;"; }'
+            b"table { BACKGROUND: none !important;"
+            b" display: block; overflow-x: auto; }"
+        )
+
+        sanitized, replacements = sanitize_css_for_pymupdf(css)
+
+        self.assertEqual(replacements, 2)
+        self.assertIn(b"/* table { background: none; } */", sanitized)
+        self.assertIn(b'content: "background: none;"', sanitized)
+        self.assertIn(b"background: transparent !important", sanitized)
+        self.assertNotIn(b"display: block", sanitized)
+        self.assertNotIn(b"overflow-x: auto", sanitized)
+
+    def test_cli_hides_recoverable_mupdf_css_diagnostics(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            inbox = base / "Inbox"
+            inbox.mkdir()
+            source = inbox / "CSS Compatibility.epub"
+            write_test_epub(
+                source,
+                css=(
+                    'a[href$="-marker"] { font-family: sans-serif; }'
+                    ".math { font-size: calc(.35em + 1vw); }"
+                ),
+                body='<h1>Chapter</h1><p class="math">Body text</p>',
+            )
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts" / "epub_to_pdf.py"),
+                    "--base-dir",
+                    str(base),
+                    "--execute",
+                ],
+                capture_output=True,
+                encoding="utf-8",
+                check=False,
+            )
+
+            self.assertEqual(result.returncode, 0)
+            self.assertTrue(source.with_suffix(".pdf").is_file())
+            self.assertNotIn("MuPDF error:", result.stdout)
+            self.assertNotIn("MuPDF error:", result.stderr)
+
+    def test_pymupdf_renders_scrollable_table_without_black_fill(self) -> None:
+        import fitz  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "Table.epub"
+            target = Path(tmp) / "Table.pdf"
+            rows = "".join(
+                f"<tr><td>Term {index}</td><td>Definition {index}</td></tr>"
+                for index in range(8)
+            )
+            write_test_epub(
+                source,
+                css=(
+                    "table { background: none; display: block; overflow-x: auto; }"
+                    "tr:nth-of-type(even) { background-color: #f1f6fc; }"
+                    "td, th { display: table-cell; padding: 8px; }"
+                ),
+                body=(
+                    "<h1>Terms</h1><table><thead><tr>"
+                    "<th>Term</th><th>Definition</th></tr></thead>"
+                    f"<tbody>{rows}</tbody></table>"
+                ),
+            )
+
+            status, _message = convert_epub_to_pdf(
+                source,
+                target,
+                overwrite=False,
+                engine="pymupdf",
+            )
+
+            self.assertEqual(status, "converted")
+            with fitz.open(target) as doc:
+                page = doc[0]
+                pixmap = page.get_pixmap(alpha=False)
+                words = page.get_text("words")
+            samples = pixmap.samples
+            dark_pixels = sum(
+                1
+                for offset in range(0, len(samples), pixmap.n)
+                if max(samples[offset : offset + 3]) < 20
+            )
+            dark_ratio = dark_pixels / (pixmap.width * pixmap.height)
+            self.assertLess(dark_ratio, 0.02)
+            term = next(word for word in words if word[4] == "Term")
+            definition = next(word for word in words if word[4].startswith("De"))
+            self.assertGreater(definition[0] - term[0], 20)
+            self.assertLess(abs(definition[1] - term[1]), 5)
+
     def test_build_plan_detects_epubs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             inbox = Path(tmp) / "Inbox"
@@ -230,6 +398,7 @@ class EpubToPdfTests(unittest.TestCase):
             self.assertEqual(status, "converted")
             self.assertEqual(message, "EPUB converted to PDF with PyMuPDF")
             self.assertEqual(target.read_bytes(), b"%PDF-fake")
+            self.assertTrue(fake_fitz.TOOLS.display_errors)
 
     def test_convert_epub_to_pdf_uses_calibre_when_requested(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -280,6 +449,27 @@ class EpubToPdfTests(unittest.TestCase):
                 fake_fitz.epub_doc.layout_rect_used.as_tuple(),
                 (0, 0, LETTER_WIDTH, LETTER_HEIGHT),
             )
+            self.assertTrue(fake_fitz.TOOLS.display_errors)
+
+    def test_pymupdf_diagnostics_are_restored_after_conversion_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "Book.epub"
+            target = Path(tmp) / "Book.pdf"
+            source.write_bytes(b"fake epub")
+
+            fake_fitz = FakeFitz()
+            fake_fitz.open = Mock(side_effect=RuntimeError("broken EPUB"))
+            with patch("epub_to_pdf.import_fitz", return_value=fake_fitz):
+                status, message = convert_epub_to_pdf(
+                    source,
+                    target,
+                    overwrite=False,
+                    engine="pymupdf",
+                )
+
+            self.assertEqual(status, "failed")
+            self.assertEqual(message, "PyMuPDF conversion failed: broken EPUB")
+            self.assertTrue(fake_fitz.TOOLS.display_errors)
 
     def test_extract_epub_cover_bytes_reads_opf_cover(self) -> None:
         import io
