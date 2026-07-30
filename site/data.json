@@ -1001,6 +1001,28 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Go_With_Domain.pdf"
   },
   {
+    "id": "255589483768",
+    "title": "Head_First_Software_Architecture",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Head_First_Software_Architecture.pdf",
+    "cover": "assets/covers/Head_First_Software_Architecture.webp",
+    "format": "pdf",
+    "description": "Software architecture can often feel abstract and overwhelming, filled with complex patterns and rigid methodologies. Developers transitioning into architectural roles face the challenge of making high-level design decisions without getting bogged down by overly academic theories.\n\nHead First Software Architecture provides a visually engaging, brain-friendly approach to mastering system design. By leveraging cognitive science and interactive learning, this guide demystifies architectural styles, component coupling, and system trade-offs, making it accessible for developers aiming to level up their careers.\n\n• Master foundational architectural patterns and understand when to apply them in real-world scenarios.\n• Evaluate system trade-offs to balance performance, scalability, and maintainability.\n• Design resilient distributed systems using modern modular components.\n• Analyze and refactor existing monolithic codebases into scalable services.\n• Communicate architectural decisions effectively to both technical and business stakeholders.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Head_First_Software_Architecture.pdf"
+  },
+  {
+    "id": "8600c6648266",
+    "title": "Head_First_Software_Architecture",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Head_First_Software_Architecture.epub",
+    "cover": "assets/covers/Head_First_Software_Architecture.webp",
+    "format": "epub",
+    "description": "Software architecture can often feel abstract and overwhelming, filled with complex patterns and rigid methodologies. Developers transitioning into architectural roles face the challenge of making high-level design decisions without getting bogged down by overly academic theories.\n\nHead First Software Architecture provides a visually engaging, brain-friendly approach to mastering system design. By leveraging cognitive science and interactive learning, this guide demystifies architectural styles, component coupling, and system trade-offs, making it accessible for developers aiming to level up their careers.\n\n• Master foundational architectural patterns and understand when to apply them in real-world scenarios.\n• Evaluate system trade-offs to balance performance, scalability, and maintainability.\n• Design resilient distributed systems using modern modular components.\n• Analyze and refactor existing monolithic codebases into scalable services.\n• Communicate architectural decisions effectively to both technical and business stakeholders.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Head_First_Software_Architecture.epub"
+  },
+  {
     "id": "b811b246ee59",
     "title": "Kien_truc_ung_dung_web",
     "category": "Software Engineering",
