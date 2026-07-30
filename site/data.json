@@ -913,6 +913,28 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/A_Philosophy_of_Software_Design.pdf"
   },
   {
+    "id": "5da689a48eec",
+    "title": "Building_Event_Driven_Microservices",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Building_Event_Driven_Microservices.pdf",
+    "cover": "assets/covers/Building_Event_Driven_Microservices.webp",
+    "format": "pdf",
+    "description": "Building event-driven microservices is essential for creating scalable, resilient, and responsive systems in modern software architecture. Traditional request-response architectures often struggle with high latency, tight coupling, and data consistency issues at scale, driving the need for asynchronous, event-based communication.\n\nThis book provides a comprehensive guide to designing, implementing, and operating event-driven microservices. It explores the principles of event-driven architecture, covering topics such as event sourcing, CQRS (Command Query Responsibility Segregation), stream processing, and practical implementation patterns using popular technologies like Apache Kafka.\n\n• Master the foundational concepts and patterns of event-driven architecture.\n• Explore techniques for decoupling microservices using asynchronous communication.\n• Implement event sourcing and CQRS to manage complex data states.\n• Build reliable, fault-tolerant systems using stream processing platforms.\n• Design and operate event-driven systems at scale in production environments.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_Event_Driven_Microservices.pdf"
+  },
+  {
+    "id": "ea5fccda4fc5",
+    "title": "Building_Event_Driven_Microservices",
+    "category": "Software Engineering",
+    "topic": "Software Architecture and Design",
+    "file_path": "Books/2_Software_Engineering/Software_Architecture_and_Design/Building_Event_Driven_Microservices.epub",
+    "cover": "assets/covers/Building_Event_Driven_Microservices.webp",
+    "format": "epub",
+    "description": "Building event-driven microservices is essential for creating scalable, resilient, and responsive systems in modern software architecture. Traditional request-response architectures often struggle with high latency, tight coupling, and data consistency issues at scale, driving the need for asynchronous, event-based communication.\n\nThis book provides a comprehensive guide to designing, implementing, and operating event-driven microservices. It explores the principles of event-driven architecture, covering topics such as event sourcing, CQRS (Command Query Responsibility Segregation), stream processing, and practical implementation patterns using popular technologies like Apache Kafka.\n\n• Master the foundational concepts and patterns of event-driven architecture.\n• Explore techniques for decoupling microservices using asynchronous communication.\n• Implement event sourcing and CQRS to manage complex data states.\n• Build reliable, fault-tolerant systems using stream processing platforms.\n• Design and operate event-driven systems at scale in production environments.",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Building_Event_Driven_Microservices.epub"
+  },
+  {
     "id": "d98334afd722",
     "title": "Building_microservices_designing_fine_grained_systems",
     "category": "Software Engineering",
