@@ -275,6 +275,28 @@
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/TroubleShooting_Java_2th_edition.pdf"
   },
   {
+    "id": "111780ab3f5c",
+    "title": "Get_Programming_Go_Nathan_Youngman",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Go",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Get_Programming_Go_Nathan_Youngman.pdf",
+    "cover": "assets/covers/Get_Programming_Go_Nathan_Youngman.webp",
+    "format": "pdf",
+    "description": "Learning a new programming language can be daunting, especially when trying to grasp concepts like concurrency and interfaces that are unique to modern systems languages.\n\n\"Get Programming with Go\" by Nathan Youngman provides a hands-on, engaging introduction to Go, starting from the very basics and guiding readers through practical exercises to build real-world applications.\n\n• Master the fundamentals of Go syntax and project structure\n• Build solid mental models for Go's unique concurrency primitives\n• Implement interfaces to write clean, decoupled code\n• Explore best practices for testing and organizing Go applications",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Get_Programming_Go_Nathan_Youngman.pdf"
+  },
+  {
+    "id": "83360ae0d351",
+    "title": "Go_Web_Programming",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Go",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/Go_Web_Programming.pdf",
+    "cover": "assets/covers/Go_Web_Programming.webp",
+    "format": "pdf",
+    "description": "Developing robust and scalable web applications requires a backend language capable of high performance, efficient concurrency, and clean abstractions without overwhelming complexity.\n\n\"Go Web Programming\" teaches readers how to leverage Go's powerful standard library to build fast, scalable web applications from the ground up, avoiding the bloat of heavy frameworks.\n\n• Create efficient web servers using Go's net/http package\n• Master request routing, template rendering, and middleware creation\n• Implement secure data storage and database interactions\n• Deploy and scale Go web applications effectively",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Go_Web_Programming.pdf"
+  },
+  {
     "id": "bafdb65421eb",
     "title": "Go_for_Java_Programmers_Learn_Google_s_Go_Programming_Language",
     "category": "Computer Science Fundamentals",
@@ -339,6 +361,50 @@
     "format": "epub",
     "description": "As Go applications scale in complexity and handle increasing production workloads, developers need advanced techniques to optimize performance, manage concurrency, and build resilient architectures. Moving beyond the basics requires a deep dive into Go's internals, system-level programming, and specialized design patterns.\n\n\"Mastering Go, Fourth Edition\" serves as an expert-level guide to building sophisticated Go software, with a strong emphasis on practical systems programming and cloud-native development. It covers advanced topics such as memory management, building RESTful APIs, developing microservices, and interacting with the underlying operating system.\n\n• Implement advanced concurrency models and manage race conditions effectively\n• Develop high-performance network applications and RESTful APIs\n• Optimize memory usage by understanding Go's garbage collector and memory model\n• Build scalable microservices and robust cloud-native applications\n• Explore systems programming techniques for interacting with the OS and handling files",
     "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/Mastering_Go_Fourth_Edition.epub"
+  },
+  {
+    "id": "fba0308b24c8",
+    "title": "The_Go_Programming_Language",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Go",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/The_Go_Programming_Language.pdf",
+    "cover": "assets/covers/The_Go_Programming_Language.webp",
+    "format": "pdf",
+    "description": "Mastering a systems programming language requires a definitive resource that not only explains the syntax but also the core philosophy and design decisions behind the language.\n\n\"The Go Programming Language\" by Alan A. A. Donovan and Brian W. Kernighan is the authoritative guide to Go, providing clear, practical explanations and examples for developers at any level.\n\n• Master the foundational concepts and syntax of Go\n• Build robust concurrent programs using channels and goroutines\n• Explore the standard library and idiomatic design patterns\n• Implement efficient testing, debugging, and optimization techniques",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Go_Programming_Language.pdf"
+  },
+  {
+    "id": "c4733da65dd6",
+    "title": "The_Way_To_Go_A_Thorough",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Go",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/The_Way_To_Go_A_Thorough.pdf",
+    "cover": "assets/covers/The_Way_To_Go_A_Thorough.webp",
+    "format": "pdf",
+    "description": "Developers transitioning from other languages often struggle to adopt idiomatic Go patterns, leading to code that doesn't fully utilize the language's strengths and design philosophy.\n\n\"The Way To Go\" offers a comprehensive deep dive into Go, covering language internals, idiomatic practices, and advanced features designed to turn competent programmers into Go experts.\n\n• Master idiomatic Go programming patterns and best practices\n• Explore the intricacies of the Go type system and memory management\n• Build high-performance concurrent systems using goroutines and channels\n• Implement robust error handling and testing strategies",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/The_Way_To_Go_A_Thorough.pdf"
+  },
+  {
+    "id": "7b1430528155",
+    "title": "go_building_web_applications",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Go",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/go_building_web_applications.pdf",
+    "cover": "assets/covers/go_building_web_applications.webp",
+    "format": "pdf",
+    "description": "Modern web development demands scalable, high-performance backends capable of handling numerous concurrent connections without compromising on maintainability or deployment ease.\n\n\"Building Web Applications with Go\" guides developers through the process of architecting and constructing robust, production-ready web services using Go's modern ecosystem.\n\n• Master the creation of RESTful APIs and web services in Go\n• Implement effective routing, middleware, and request handling\n• Build secure, scalable database interactions\n• Deploy Go applications efficiently in modern environments",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/go_building_web_applications.pdf"
+  },
+  {
+    "id": "0af0f5f60a1a",
+    "title": "go_design_patterns",
+    "category": "Computer Science Fundamentals",
+    "topic": "Programming Languages/Go",
+    "file_path": "Books/1_Computer_Science_Fundamentals/Programming_Languages/Go/go_design_patterns.pdf",
+    "cover": "assets/covers/go_design_patterns.webp",
+    "format": "pdf",
+    "description": "Applying traditional object-oriented design patterns to Go often results in unidiomatic code, as Go's structural typing and concurrency primitives require a unique approach to software design.\n\n\"Go Design Patterns\" explores how to adapt classic software design patterns for Go, providing idiomatic solutions to common architectural challenges and improving code maintainability.\n\n• Master the implementation of creational, structural, and behavioral patterns in Go\n• Build scalable systems using Go-specific concurrency patterns\n• Implement robust architectures utilizing structural typing and interfaces\n• Explore best practices for writing clean, reusable, and idiomatic Go code",
+    "download_url": "https://github.com/Patruxs/My-Bookshelves/releases/download/storage-v1/go_design_patterns.pdf"
   },
   {
     "id": "92095fea9328",
